@@ -59,7 +59,7 @@ export const ReadingView: React.FC<ReadingViewProps> = ({ id }) => {
                   {correctCount} / {passage.questions.length} Correct
                 </div>
               </div>
-              <div className="w-12 h-12 rounded-xl bg-[var(--accent-gradient)] text-white font-bold text-lg flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-[image:var(--accent-gradient)] text-white font-bold text-lg flex items-center justify-center">
                 {calculatedBand}
               </div>
             </div>

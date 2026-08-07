@@ -54,7 +54,7 @@ export const ListeningView: React.FC<ListeningViewProps> = ({ id }) => {
           <div className="flex items-center gap-3 bg-[var(--bg-elevated)] p-2 rounded-2xl border border-[var(--border)]">
             <button
               onClick={() => setIsPlaying(!isPlaying)}
-              className="w-10 h-10 rounded-xl bg-[var(--accent-gradient)] text-white flex items-center justify-center shadow-md cursor-pointer hover:scale-105 transition-transform"
+              className="w-10 h-10 rounded-xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center shadow-md cursor-pointer hover:scale-105 transition-transform"
             >
               {isPlaying ? <Pause size={18} /> : <Play size={18} className="ml-0.5" />}
             </button>

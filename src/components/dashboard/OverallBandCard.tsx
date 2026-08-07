@@ -28,7 +28,7 @@ export const OverallBandCard: React.FC<OverallBandCardProps> = ({ id, onNavigate
 
         {/* Big Score Dial Display */}
         <div className="flex items-center gap-4 bg-[var(--bg-elevated)] p-4 rounded-2xl border border-[var(--border)]">
-          <div className="w-16 h-16 rounded-xl bg-[var(--accent-gradient)] flex flex-col items-center justify-center text-white shadow-lg shadow-[var(--glow-a)]">
+          <div className="w-16 h-16 rounded-xl bg-[image:var(--accent-gradient)] flex flex-col items-center justify-center text-white shadow-lg shadow-[var(--glow-a)]">
             <span className="font-display font-extrabold text-2xl leading-none">
               {bandSummary.overall}
             </span>

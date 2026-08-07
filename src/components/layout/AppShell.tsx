@@ -43,7 +43,7 @@ export const AppShell: React.FC<AppShellProps> = ({
               onClick={() => onNavigate(item.id)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer ${
                 currentRoute === item.id
-                  ? 'bg-[var(--accent-gradient)] text-white font-semibold'
+                  ? 'bg-[image:var(--accent-gradient)] text-white font-semibold'
                   : 'text-[var(--text-dim)]'
               }`}
             >

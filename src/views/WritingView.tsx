@@ -118,7 +118,7 @@ export const WritingView: React.FC<WritingViewProps> = ({ id }) => {
               onClick={() => handleTaskSwitch('task1')}
               className={`px-4 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all ${
                 taskType === 'task1'
-                  ? 'bg-[var(--accent-gradient)] text-white shadow-sm'
+                  ? 'bg-[image:var(--accent-gradient)] text-white shadow-sm'
                   : 'text-[var(--text-dim)] hover:text-[var(--text)]'
               }`}
             >
@@ -128,7 +128,7 @@ export const WritingView: React.FC<WritingViewProps> = ({ id }) => {
               onClick={() => handleTaskSwitch('task2')}
               className={`px-4 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all ${
                 taskType === 'task2'
-                  ? 'bg-[var(--accent-gradient)] text-white shadow-sm'
+                  ? 'bg-[image:var(--accent-gradient)] text-white shadow-sm'
                   : 'text-[var(--text-dim)] hover:text-[var(--text)]'
               }`}
             >
@@ -238,7 +238,7 @@ export const WritingView: React.FC<WritingViewProps> = ({ id }) => {
                     Band {evaluation.overallBand}
                   </div>
                 </div>
-                <div className="w-16 h-16 rounded-2xl bg-[var(--accent-gradient)] text-white flex items-center justify-center shadow-lg shadow-[var(--glow-a)]">
+                <div className="w-16 h-16 rounded-2xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center shadow-lg shadow-[var(--glow-a)]">
                   <Trophy size={28} />
                 </div>
               </div>

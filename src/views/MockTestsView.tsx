@@ -45,7 +45,7 @@ export const MockTestsView: React.FC<MockTestsViewProps> = ({ onNavigateAction, 
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all cursor-pointer whitespace-nowrap ${
                   selectedCategory === cat
-                    ? 'bg-[var(--accent-gradient)] text-white font-semibold'
+                    ? 'bg-[image:var(--accent-gradient)] text-white font-semibold'
                     : 'text-[var(--text-dim)] hover:text-[var(--text)]'
                 }`}
               >
@@ -102,7 +102,7 @@ export const MockTestsView: React.FC<MockTestsViewProps> = ({ onNavigateAction, 
       {activeExamModal && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md flex items-center justify-center p-4">
           <GlassPanel className="max-w-md w-full p-6 text-center space-y-4 animate-scale-in">
-            <div className="w-14 h-14 mx-auto rounded-2xl bg-[var(--accent-gradient)] text-white flex items-center justify-center shadow-lg">
+            <div className="w-14 h-14 mx-auto rounded-2xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center shadow-lg">
               <Sparkles size={28} />
             </div>
             <h3 className="font-display font-bold text-xl text-[var(--text)]">

@@ -85,7 +85,7 @@ export const SubmissionsView: React.FC<SubmissionsViewProps> = ({ id }) => {
                 </div>
               </div>
 
-              <div className="px-3 py-1 rounded-xl bg-[var(--accent-gradient)] text-white font-display font-bold text-base">
+              <div className="px-3 py-1 rounded-xl bg-[image:var(--accent-gradient)] text-white font-display font-bold text-base">
                 Band {selectedSubmission.bandScore}
               </div>
             </div>

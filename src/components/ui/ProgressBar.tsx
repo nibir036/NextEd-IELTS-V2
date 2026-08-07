@@ -43,7 +43,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
       )}
       <div className={`w-full bg-[var(--bg-elevated)] border border-[var(--border)] rounded-full overflow-hidden ${heightClasses[size]}`}>
         <div
-          className="h-full bg-[var(--accent-gradient)] rounded-full transition-all duration-500 ease-out"
+          className="h-full bg-[image:var(--accent-gradient)] rounded-full transition-all duration-500 ease-out"
           style={{ width: `${percentage}%` }}
         />
       </div>

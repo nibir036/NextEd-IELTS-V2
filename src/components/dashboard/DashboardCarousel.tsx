@@ -72,7 +72,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ onNavigate
                 onClick={() => setActiveSlide(slide.id)}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-[var(--accent-gradient)] text-white shadow-md'
+                    ? 'bg-[image:var(--accent-gradient)] text-white shadow-md'
                     : 'text-[var(--text-dim)] hover:text-[var(--text)] hover:bg-[var(--bg)]'
                 }`}
               >
@@ -145,7 +145,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ onNavigate
                   </div>
                   <div className="w-full h-3 rounded-full bg-[var(--bg)] border border-[var(--border)] overflow-hidden">
                     <div
-                      className="h-full bg-[var(--accent-gradient)] rounded-full transition-all duration-500"
+                      className="h-full bg-[image:var(--accent-gradient)] rounded-full transition-all duration-500"
                       style={{ width: `${(skill.band / 9.0) * 100}%` }}
                     />
                   </div>
@@ -265,7 +265,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ onNavigate
               </div>
               <div className="w-full h-4 rounded-full bg-[var(--bg)] border border-[var(--border)] overflow-hidden flex">
                 <div className="w-[50%] bg-[var(--text-faint)]/40 h-full" />
-                <div className="w-[25%] bg-[var(--accent-gradient)] h-full" />
+                <div className="w-[25%] bg-[image:var(--accent-gradient)] h-full" />
                 <div className="w-[25%] bg-transparent h-full border-l border-dashed border-[var(--accent-a)]" />
               </div>
             </div>

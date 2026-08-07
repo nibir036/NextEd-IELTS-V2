@@ -107,7 +107,7 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
               onClick={() => setActiveTab('grammar')}
               className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                 activeTab === 'grammar'
-                  ? 'bg-[var(--accent-gradient)] text-white shadow-md font-semibold'
+                  ? 'bg-[image:var(--accent-gradient)] text-white shadow-md font-semibold'
                   : 'text-[var(--text-dim)] hover:text-[var(--text)]'
               }`}
             >
@@ -117,7 +117,7 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
               onClick={() => setActiveTab('vocab')}
               className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                 activeTab === 'vocab'
-                  ? 'bg-[var(--accent-gradient)] text-white shadow-md font-semibold'
+                  ? 'bg-[image:var(--accent-gradient)] text-white shadow-md font-semibold'
                   : 'text-[var(--text-dim)] hover:text-[var(--text)]'
               }`}
             >
@@ -127,7 +127,7 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
               onClick={() => setActiveTab('tips')}
               className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                 activeTab === 'tips'
-                  ? 'bg-[var(--accent-gradient)] text-white shadow-md font-semibold'
+                  ? 'bg-[image:var(--accent-gradient)] text-white shadow-md font-semibold'
                   : 'text-[var(--text-dim)] hover:text-[var(--text)]'
               }`}
             >

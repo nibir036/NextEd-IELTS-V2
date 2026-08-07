@@ -108,7 +108,7 @@ export const SearchView: React.FC<SearchViewProps> = ({ id }) => {
                 onClick={() => setSelectedCat(cat)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all cursor-pointer whitespace-nowrap ${
                   selectedCat === cat
-                    ? 'bg-[var(--accent-gradient)] text-white font-semibold'
+                    ? 'bg-[image:var(--accent-gradient)] text-white font-semibold'
                     : 'bg-[var(--bg-elevated)] text-[var(--text-dim)] hover:text-[var(--text)] border border-[var(--border)]'
                 }`}
               >

@@ -123,7 +123,7 @@ export const LoginView: React.FC<LoginViewProps> = ({
           onClick={onNavigateToLanding}
           className="flex items-center gap-2.5 cursor-pointer hover:opacity-80 transition-opacity"
         >
-          <div className="w-8 h-8 rounded-xl bg-[var(--accent-gradient)] flex items-center justify-center text-white font-bold shadow-md">
+          <div className="w-8 h-8 rounded-xl bg-[image:var(--accent-gradient)] flex items-center justify-center text-white font-bold shadow-md">
             <Sparkles size={18} />
           </div>
           <span className="font-display font-bold text-lg tracking-tight">AI IELTS Pro</span>

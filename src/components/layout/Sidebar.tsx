@@ -147,7 +147,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, id }
             onClick={() => onNavigate('landing')}
             className="flex items-center gap-3 cursor-pointer overflow-hidden min-w-0"
           >
-            <div className="w-10 h-10 rounded-xl bg-[var(--accent-gradient)] flex items-center justify-center text-white font-bold shadow-md shadow-[var(--glow-a)] shrink-0 hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-[image:var(--accent-gradient)] flex items-center justify-center text-white font-bold shadow-md shadow-[var(--glow-a)] shrink-0 hover:scale-105 transition-transform">
               <Sparkles size={20} />
             </div>
             {isExpanded && (
@@ -231,7 +231,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, id }
                           onClick={() => onNavigate(item.id)}
                           className={`w-full flex items-center gap-3 px-3 py-2 text-xs rounded-xl font-medium transition-all duration-150 cursor-pointer ${
                             isActive
-                              ? 'bg-[var(--accent-gradient)] text-white shadow-md shadow-[var(--glow-a)] font-semibold'
+                              ? 'bg-[image:var(--accent-gradient)] text-white shadow-md shadow-[var(--glow-a)] font-semibold'
                               : 'text-[var(--text-dim)] hover:text-[var(--text)] hover:bg-[var(--panel-2)]'
                           }`}
                         >
@@ -260,7 +260,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, id }
             isExpanded ? 'gap-3 px-3 py-2.5 text-xs' : 'justify-center p-2.5'
           } rounded-xl font-medium transition-all duration-150 cursor-pointer ${
             currentRoute === 'settings'
-              ? 'bg-[var(--accent-gradient)] text-white font-semibold'
+              ? 'bg-[image:var(--accent-gradient)] text-white font-semibold'
               : 'text-[var(--text-dim)] hover:text-[var(--text)] hover:bg-[var(--panel-2)]'
           }`}
         >

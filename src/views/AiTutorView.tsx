@@ -93,7 +93,7 @@ export const AiTutorView: React.FC<AiTutorViewProps> = ({ initialTab = 'tutor', 
               onClick={() => setActiveTab('tutor')}
               className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                 activeTab === 'tutor'
-                  ? 'bg-[var(--accent-gradient)] text-white shadow-md font-semibold'
+                  ? 'bg-[image:var(--accent-gradient)] text-white shadow-md font-semibold'
                   : 'text-[var(--text-dim)] hover:text-[var(--text)]'
               }`}
             >
@@ -103,7 +103,7 @@ export const AiTutorView: React.FC<AiTutorViewProps> = ({ initialTab = 'tutor', 
               onClick={() => setActiveTab('examiner')}
               className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                 activeTab === 'examiner'
-                  ? 'bg-[var(--accent-gradient)] text-white shadow-md font-semibold'
+                  ? 'bg-[image:var(--accent-gradient)] text-white shadow-md font-semibold'
                   : 'text-[var(--text-dim)] hover:text-[var(--text)]'
               }`}
             >
@@ -118,7 +118,7 @@ export const AiTutorView: React.FC<AiTutorViewProps> = ({ initialTab = 'tutor', 
         <GlassPanel className="p-6 border border-[var(--border)] flex flex-col h-[520px]">
           <div className="flex items-center justify-between pb-4 border-b border-[var(--border)] mb-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-[var(--accent-gradient)] flex items-center justify-center text-white shadow-sm">
+              <div className="w-9 h-9 rounded-xl bg-[image:var(--accent-gradient)] flex items-center justify-center text-white shadow-sm">
                 <BrainCircuit size={18} />
               </div>
               <div>
@@ -149,7 +149,7 @@ export const AiTutorView: React.FC<AiTutorViewProps> = ({ initialTab = 'tutor', 
                 <div
                   className={`p-4 rounded-2xl max-w-xl text-xs md:text-sm leading-relaxed ${
                     msg.sender === 'user'
-                      ? 'bg-[var(--accent-gradient)] text-white shadow-md'
+                      ? 'bg-[image:var(--accent-gradient)] text-white shadow-md'
                       : 'bg-[var(--panel-2)] text-[var(--text)] border border-[var(--border)]'
                   }`}
                 >

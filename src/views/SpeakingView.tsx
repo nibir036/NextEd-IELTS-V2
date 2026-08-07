@@ -195,7 +195,7 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id }) => {
                 {[40, 70, 30, 90, 60, 100, 45, 80, 50, 95, 35, 75].map((height, i) => (
                   <div
                     key={i}
-                    className="w-1.5 bg-[var(--accent-gradient)] rounded-full animate-pulse"
+                    className="w-1.5 bg-[image:var(--accent-gradient)] rounded-full animate-pulse"
                     style={{
                       height: `${height}%`,
                       animationDelay: `${i * 0.1}s`,
@@ -232,7 +232,7 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id }) => {
                     Band {evaluation.overallBand}
                   </div>
                 </div>
-                <div className="w-16 h-16 rounded-2xl bg-[var(--accent-gradient)] text-white flex items-center justify-center shadow-lg">
+                <div className="w-16 h-16 rounded-2xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center shadow-lg">
                   <Trophy size={28} />
                 </div>
               </div>

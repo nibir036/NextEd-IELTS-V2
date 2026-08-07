@@ -77,7 +77,7 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, id }) 
         <div
           onClick={() => onNavigate('settings')}
           title={`${activeUser.name} (${activeUser.phone})`}
-          className="w-9 h-9 rounded-xl bg-[var(--accent-gradient)] text-white font-bold text-xs flex items-center justify-center cursor-pointer shadow-sm hover:scale-105 transition-transform"
+          className="w-9 h-9 rounded-xl bg-[image:var(--accent-gradient)] text-white font-bold text-xs flex items-center justify-center cursor-pointer shadow-sm hover:scale-105 transition-transform"
         >
           {activeUser.avatar}
         </div>

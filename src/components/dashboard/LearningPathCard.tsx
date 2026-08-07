@@ -55,7 +55,7 @@ export const LearningPathCard: React.FC<LearningPathCardProps> = ({ id, onNaviga
                 <Clock size={12} />
                 {item.duration}
               </span>
-              <button className="px-3 py-1 rounded-lg bg-[var(--accent-gradient)] text-white font-mono text-xs font-semibold shadow-sm group-hover:scale-105 transition-transform">
+              <button className="px-3 py-1 rounded-lg bg-[image:var(--accent-gradient)] text-white font-mono text-xs font-semibold shadow-sm group-hover:scale-105 transition-transform">
                 Start
               </button>
             </div>

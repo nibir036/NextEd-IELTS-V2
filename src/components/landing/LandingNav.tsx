@@ -28,7 +28,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onNavigate, isLoggedIn =
         className="flex items-center gap-3 cursor-pointer"
         onClick={(e) => handleScrollToSection(e, 'home')}
       >
-        <div className="w-9 h-9 rounded-xl bg-[var(--accent-gradient)] flex items-center justify-center text-white font-bold shadow-md shadow-[var(--glow-a)]">
+        <div className="w-9 h-9 rounded-xl bg-[image:var(--accent-gradient)] flex items-center justify-center text-white font-bold shadow-md shadow-[var(--glow-a)]">
           <Sparkles size={18} />
         </div>
         <span className="font-display font-bold text-xl tracking-tight text-[var(--text)]">

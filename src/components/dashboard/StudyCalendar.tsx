@@ -244,7 +244,7 @@ export const StudyCalendar: React.FC = () => {
     <div className="space-y-6">
       {/* Toast Banner */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 animate-fadeIn bg-[var(--accent-gradient)] text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-white/20 flex items-center gap-3 max-w-md">
+        <div className="fixed bottom-6 right-6 z-50 animate-fadeIn bg-[image:var(--accent-gradient)] text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-white/20 flex items-center gap-3 max-w-md">
           <Bell size={20} className="animate-bounce shrink-0" />
           <div className="text-xs font-semibold leading-relaxed">{toastMessage}</div>
         </div>
@@ -344,7 +344,7 @@ export const StudyCalendar: React.FC = () => {
                     <span
                       className={`w-6 h-6 rounded-full flex items-center justify-center ${
                         isToday
-                          ? 'bg-[var(--accent-gradient)] text-white font-extrabold shadow'
+                          ? 'bg-[image:var(--accent-gradient)] text-white font-extrabold shadow'
                           : 'text-[var(--text)]'
                       }`}
                     >
@@ -588,7 +588,7 @@ export const StudyCalendar: React.FC = () => {
           <GlassPanel className="w-full max-w-lg p-6 md:p-8 border border-[var(--border)] shadow-2xl space-y-6 relative">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[var(--accent-gradient)] text-white flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center font-bold">
                   <Sparkles size={20} />
                 </div>
                 <div>

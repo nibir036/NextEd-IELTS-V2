@@ -1,0 +1,47 @@
+{
+  "users": [
+    {
+      "id": "usr-101",
+      "phone": "+1 555-019-2834",
+      "name": "Alex Rivers",
+      "avatar": "AR",
+      "targetBand": 8.0,
+      "currentBand": 7.5,
+      "examDate": "2026-11-14",
+      "streakDays": 14,
+      "practiceHours": 38.5,
+      "testsCompleted": 12,
+      "moduleType": "Academic",
+      "createdAt": "2026-07-01T10:00:00Z"
+    },
+    {
+      "id": "usr-102",
+      "phone": "+44 7700 900077",
+      "name": "Sarah Chen",
+      "avatar": "SC",
+      "targetBand": 7.5,
+      "currentBand": 7.0,
+      "examDate": "2026-12-01",
+      "streakDays": 21,
+      "practiceHours": 45.0,
+      "testsCompleted": 18,
+      "moduleType": "Academic",
+      "createdAt": "2026-06-15T12:30:00Z"
+    },
+    {
+      "id": "usr-103",
+      "phone": "+91 98765 43210",
+      "name": "Rahim Ahmed",
+      "avatar": "RA",
+      "targetBand": 8.5,
+      "currentBand": 8.0,
+      "examDate": "2026-10-20",
+      "streakDays": 30,
+      "practiceHours": 62.0,
+      "testsCompleted": 25,
+      "moduleType": "General Training",
+      "createdAt": "2026-05-10T08:15:00Z"
+    }
+  ],
+  "currentSessionPhone": null
+}

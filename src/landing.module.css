@@ -1,0 +1,62 @@
+/* Landing Page Hero Swirl Animation */
+
+.heroSwirl {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .heroSwirl {
+    width: 440px;
+    height: 440px;
+  }
+}
+
+.ribbon {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  mask-image: radial-gradient(circle, transparent 58%, black 60%, black 98%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle, transparent 58%, black 60%, black 98%, transparent 100%);
+}
+
+.r1 {
+  background: conic-gradient(from 0deg, var(--accent-a), var(--accent-c), transparent, var(--accent-a));
+  animation: spin 16s linear infinite;
+  opacity: 0.85;
+}
+
+.r2 {
+  inset: 18px;
+  background: conic-gradient(from 120deg, var(--accent-b), var(--accent-d), transparent, var(--accent-b));
+  animation: spinReverse 22s linear infinite;
+  opacity: 0.65;
+}
+
+.r3 {
+  inset: 36px;
+  background: conic-gradient(from 240deg, var(--accent-a), var(--accent-b), transparent, var(--accent-c));
+  animation: spin 30s linear infinite;
+  opacity: 0.45;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spinReverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .r1, .r2, .r3 {
+    animation: none;
+  }
+}

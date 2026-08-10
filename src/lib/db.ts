@@ -154,6 +154,7 @@ export const db = {
     phone: string;
     password: string;
     name: string;
+    email: string;
     targetBand?: number;
     examDate?: string;
   }): Promise<DbUser> {

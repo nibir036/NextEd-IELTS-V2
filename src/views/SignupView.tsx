@@ -4,6 +4,7 @@ import { Button } from '../components/ui/Button';
 import {
   Sparkles,
   PhoneCall,
+  Mail,
   User,
   UserPlus,
   ArrowRight,
@@ -30,6 +31,8 @@ const COUNTRY_CODES = [
   { code: '+234', name: 'Nigeria' },
 ];
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export const SignupView: React.FC<SignupViewProps> = ({
   onSignupSuccess,
   onNavigateToLogin,
@@ -38,6 +41,7 @@ export const SignupView: React.FC<SignupViewProps> = ({
   const [countryCode, setCountryCode] = useState<string>('+1');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [fullName, setFullName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [targetBand, setTargetBand] = useState<number>(8.0);
@@ -52,7 +56,7 @@ export const SignupView: React.FC<SignupViewProps> = ({
   const fullPhone = `${countryCode} ${phoneNumber.trim()}`;
 
   // NOTE: OTP verification is planned as a second step after this succeeds.
-  // For now this is a single-step phone + password registration.
+  // For now this is a single-step phone + password + email registration.
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
@@ -63,6 +67,10 @@ export const SignupView: React.FC<SignupViewProps> = ({
     }
     if (!phoneNumber.trim() || phoneNumber.trim().length < 6) {
       setErrorMessage('Please enter a valid mobile phone number.');
+      return;
+    }
+    if (!email.trim() || !EMAIL_REGEX.test(email.trim())) {
+      setErrorMessage('Please enter a valid email address.');
       return;
     }
     if (password.length < 6) {
@@ -80,6 +88,7 @@ export const SignupView: React.FC<SignupViewProps> = ({
         phone: fullPhone,
         password,
         name: fullName.trim(),
+        email: email.trim().toLowerCase(),
         targetBand,
         examDate,
       });
@@ -157,6 +166,26 @@ export const SignupView: React.FC<SignupViewProps> = ({
                     placeholder="e.g. David Sterling"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors"
+                  />
+                </div>
+              </div>
+
+              {/* Email */}
+              <div>
+                <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
+                  Email Address
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[var(--text-faint)]">
+                    <Mail size={16} />
+                  </div>
+                  <input
+                    type="email"
+                    required
+                    placeholder="e.g. david@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors"
                   />
                 </div>

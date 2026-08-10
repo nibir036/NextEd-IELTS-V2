@@ -4,13 +4,15 @@ import crypto from 'crypto';
 import { prisma } from '../../../../lib/prisma';
 import { createSession } from '../../../../lib/session';
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export async function POST(req: NextRequest) {
   try {
-    const { phone, password, name, targetBand, examDate } = await req.json();
+    const { phone, password, name, email, targetBand, examDate } = await req.json();
 
-    if (!phone || !password || !name) {
+    if (!phone || !password || !name || !email) {
       return NextResponse.json(
-        { error: 'phone, password, and name are required.' },
+        { error: 'phone, password, name, and email are required.' },
         { status: 400 },
       );
     }
@@ -21,12 +23,28 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const cleanEmail = String(email).trim().toLowerCase();
+    if (!EMAIL_REGEX.test(cleanEmail)) {
+      return NextResponse.json(
+        { error: 'Please enter a valid email address.' },
+        { status: 400 },
+      );
+    }
+
     const cleanPhone = String(phone).replace(/\s+/g, '');
 
-    const existing = await prisma.users.findFirst({ where: { phone: cleanPhone } });
-    if (existing) {
+    const existingPhone = await prisma.users.findFirst({ where: { phone: cleanPhone } });
+    if (existingPhone) {
       return NextResponse.json(
         { error: 'An account with this phone number already exists.' },
+        { status: 409 },
+      );
+    }
+
+    const existingEmail = await prisma.users.findFirst({ where: { email: cleanEmail } });
+    if (existingEmail) {
+      return NextResponse.json(
+        { error: 'An account with this email address already exists.' },
         { status: 409 },
       );
     }
@@ -45,6 +63,7 @@ export async function POST(req: NextRequest) {
       data: {
         id,
         phone: cleanPhone,
+        email: cleanEmail,
         password_hash: passwordHash,
         display_name: trimmedName,
         avatar,
@@ -55,6 +74,7 @@ export async function POST(req: NextRequest) {
       select: {
         id: true,
         phone: true,
+        email: true,
         display_name: true,
         avatar: true,
         target_band: true,
@@ -67,8 +87,18 @@ export async function POST(req: NextRequest) {
     await createSession(user.id);
 
     return NextResponse.json({ user }, { status: 201 });
-  } catch (err) {
+  } catch (err: any) {
     console.error('Register error:', err);
+    // Prisma unique-constraint violation (belt-and-suspenders — the explicit
+    // checks above should catch this first, but the DB constraint is the
+    // real guarantee under concurrent signups).
+    if (err?.code === 'P2002') {
+      const field = Array.isArray(err?.meta?.target) ? err.meta.target[0] : 'phone or email';
+      return NextResponse.json(
+        { error: `An account with this ${field} already exists.` },
+        { status: 409 },
+      );
+    }
     return NextResponse.json({ error: 'Registration failed.' }, { status: 500 });
   }
 }

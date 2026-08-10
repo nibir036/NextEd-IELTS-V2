@@ -12,13 +12,30 @@ import {
   Check,
   Sparkles,
 } from '../ui/icons';
-import { currentUser, skillScores } from '../../lib/data';
+import type { DbUser, DashboardData } from '../../lib/db';
 
 interface DashboardCarouselProps {
   onNavigateAction: (route: string) => void;
+  user: DbUser;
+  data: DashboardData | null;
+  loading?: boolean;
 }
 
-export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ onNavigateAction }) => {
+const SKILL_LABELS: { key: 'listening' | 'reading' | 'writing' | 'speaking'; label: string }[] = [
+  { key: 'listening', label: 'Listening' },
+  { key: 'reading', label: 'Reading' },
+  { key: 'writing', label: 'Writing' },
+  { key: 'speaking', label: 'Speaking' },
+];
+
+const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
+  onNavigateAction,
+  user,
+  data,
+  loading,
+}) => {
   const [activeSlide, setActiveSlide] = useState<number>(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -33,26 +50,40 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ onNavigate
     { id: 4, label: 'Tests Completed', icon: FileCheck },
   ];
 
-  // Auto-slide logic
   useEffect(() => {
     if (!isAutoPlaying) return;
-
     timerRef.current = setInterval(() => {
       setActiveSlide((prev) => (prev + 1) % totalSlides);
     }, 5000);
-
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
   }, [isAutoPlaying, totalSlides]);
 
-  const handleNext = () => {
-    setActiveSlide((prev) => (prev + 1) % totalSlides);
-  };
+  const handleNext = () => setActiveSlide((prev) => (prev + 1) % totalSlides);
+  const handlePrev = () => setActiveSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
 
-  const handlePrev = () => {
-    setActiveSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
-  };
+  // --- Derived, real values (with safe fallbacks) ---
+  const currentBand = user.currentBand > 0 ? user.currentBand : null;
+  const targetBand = user.targetBand || 0;
+  const streakDays = data?.streakDays ?? 0;
+  const practiceHours = data?.practiceHours ?? 0;
+  const testsCompleted = data?.testsCompleted ?? 0;
+  const mockCount = data?.mockCount ?? 0;
+  const modularCount = data?.modularCount ?? 0;
+  const trend = data?.trend ?? null;
+
+  // Map weekly activity onto Mon–Sun columns for the streak checklist.
+  const weekActivity = DAY_LABELS.map((label, idx) => {
+    const match = data?.weeklyActivity?.find((d) => new Date(d.date).getUTCDay() === idx);
+    return { label, active: match?.active ?? false };
+  });
+  // Reorder to start Monday for display.
+  const weekMonFirst = [...weekActivity.slice(1), weekActivity[0]];
+
+  const anySkillBand = data
+    ? SKILL_LABELS.some(({ key }) => data.skillBands[key] !== null)
+    : false;
 
   return (
     <div
@@ -60,7 +91,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ onNavigate
       onMouseLeave={() => setIsAutoPlaying(true)}
       className="space-y-4"
     >
-      {/* Carousel Top Navigation Bar & Direct Tab Selectors */}
+      {/* Carousel Top Navigation */}
       <div className="flex flex-wrap items-center justify-between gap-3 bg-[var(--panel-2)]/80 p-2 rounded-2xl border border-[var(--border)]">
         <div className="flex items-center gap-1 overflow-x-auto py-0.5">
           {slides.map((slide) => {
@@ -83,7 +114,6 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ onNavigate
           })}
         </div>
 
-        {/* Carousel Manual Arrow Buttons & Status */}
         <div className="flex items-center gap-2 shrink-0">
           <span className="text-[11px] font-mono text-[var(--text-faint)]">
             Card {activeSlide + 1} of {totalSlides}
@@ -105,9 +135,8 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ onNavigate
         </div>
       </div>
 
-      {/* Slide Container Frame */}
       <GlassPanel className="p-6 md:p-8 relative min-h-[380px] flex flex-col justify-between border border-[var(--border)] shadow-xl overflow-hidden">
-        {/* CARD 1: OVERALL BAND SCORE & DETAILED MODULE BREAKDOWN */}
+        {/* CARD 1: OVERALL BAND & SKILL BREAKDOWN */}
         {activeSlide === 0 && (
           <div className="space-y-6 animate-fadeIn">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
@@ -122,51 +151,52 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ onNavigate
               </div>
               <div className="text-right">
                 <div className="font-display text-3xl font-extrabold text-[var(--accent-a)]">
-                  Band {currentUser.currentBand}
+                  {currentBand !== null ? `Band ${currentBand.toFixed(1)}` : '—'}
                 </div>
                 <div className="text-[11px] font-mono text-[var(--text-faint)]">
-                  Target: Band {currentUser.targetBand}
+                  Target: Band {targetBand.toFixed(1)}
                 </div>
               </div>
             </div>
 
-            {/* Detailed Module Breakdown Bars */}
-            <div className="space-y-4">
-              {skillScores.map((skill) => (
-                <div key={skill.skill} className="space-y-1.5">
-                  <div className="flex justify-between text-xs md:text-sm font-medium">
-                    <span className="text-[var(--text)] font-semibold">{skill.skill}</span>
-                    <span className="font-mono font-bold text-[var(--accent-a)]">
-                      Band {skill.band}{' '}
-                      <span className="text-[var(--text-faint)] font-normal text-xs">
-                        ({skill.change})
-                      </span>
-                    </span>
-                  </div>
-                  <div className="w-full h-3 rounded-full bg-[var(--bg)] border border-[var(--border)] overflow-hidden">
-                    <div
-                      className="h-full bg-[image:var(--accent-gradient)] rounded-full transition-all duration-500"
-                      style={{ width: `${(skill.band / 9.0) * 100}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
+            {anySkillBand ? (
+              <div className="space-y-4">
+                {SKILL_LABELS.map(({ key, label }) => {
+                  const band = data?.skillBands[key] ?? null;
+                  return (
+                    <div key={key} className="space-y-1.5">
+                      <div className="flex justify-between text-xs md:text-sm font-medium">
+                        <span className="text-[var(--text)] font-semibold">{label}</span>
+                        <span className="font-mono font-bold text-[var(--accent-a)]">
+                          {band !== null ? `Band ${band.toFixed(1)}` : 'Not assessed'}
+                        </span>
+                      </div>
+                      <div className="w-full h-3 rounded-full bg-[var(--bg)] border border-[var(--border)] overflow-hidden">
+                        <div
+                          className="h-full bg-[image:var(--accent-gradient)] rounded-full transition-all duration-500"
+                          style={{ width: band !== null ? `${(band / 9.0) * 100}%` : '0%' }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="py-8 text-center text-sm text-[var(--text-dim)]">
+                No skill assessments yet. Complete a practice test to see your band breakdown.
+              </div>
+            )}
 
             <div className="pt-2 flex justify-end">
-              <Button
-                size="sm"
-                onClick={() => onNavigateAction('writing')}
-                className="flex items-center gap-1.5"
-              >
-                <span>Improve Lowest Module (Writing)</span>
+              <Button size="sm" onClick={() => onNavigateAction('writing')} className="flex items-center gap-1.5">
+                <span>Start a Practice Test</span>
                 <ChevronRight size={16} />
               </Button>
             </div>
           </div>
         )}
 
-        {/* CARD 2: DAILY STREAK & STUDY CONSISTENCY */}
+        {/* CARD 2: DAILY STREAK */}
         {activeSlide === 1 && (
           <div className="space-y-6 animate-fadeIn">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
@@ -180,9 +210,9 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ onNavigate
                 </h3>
               </div>
               <div className="flex items-center gap-2 bg-[var(--warning)]/15 border border-[var(--warning)]/30 px-3 py-1.5 rounded-xl">
-                <Flame size={22} className="text-[var(--warning)] animate-bounce" />
+                <Flame size={22} className="text-[var(--warning)]" />
                 <div className="font-display font-extrabold text-2xl text-[var(--text)]">
-                  12 <span className="text-xs font-normal text-[var(--text-dim)]">Days Active</span>
+                  {streakDays} <span className="text-xs font-normal text-[var(--text-dim)]">Days Active</span>
                 </div>
               </div>
             </div>
@@ -191,39 +221,35 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ onNavigate
               Candidates who maintain a 10+ day consecutive study streak show a 0.5+ band score improvement within 3 weeks.
             </p>
 
-            {/* Weekly Active Days Checklist */}
             <div className="space-y-2">
               <div className="text-xs font-mono text-[var(--text-faint)] uppercase">
-                This Week's Activity Log:
+                This Week&apos;s Activity Log:
               </div>
               <div className="grid grid-cols-7 gap-2 text-center">
-                {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, idx) => {
-                  const isCompleted = idx < 5;
-                  return (
-                    <div
-                      key={day}
-                      className={`p-3 rounded-xl border flex flex-col items-center gap-1 ${
-                        isCompleted
-                          ? 'bg-[var(--accent-a)]/15 border-[var(--accent-a)]/40 text-[var(--accent-a)]'
-                          : 'bg-[var(--bg)] border-[var(--border)] text-[var(--text-faint)]'
-                      }`}
-                    >
-                      <span className="text-[10px] font-mono uppercase font-bold">{day}</span>
-                      {isCompleted ? <Check size={16} /> : <span className="text-xs">•</span>}
-                    </div>
-                  );
-                })}
+                {weekMonFirst.map((day, idx) => (
+                  <div
+                    key={idx}
+                    className={`p-3 rounded-xl border flex flex-col items-center gap-1 ${
+                      day.active
+                        ? 'bg-[var(--accent-a)]/15 border-[var(--accent-a)]/40 text-[var(--accent-a)]'
+                        : 'bg-[var(--bg)] border-[var(--border)] text-[var(--text-faint)]'
+                    }`}
+                  >
+                    <span className="text-[10px] font-mono uppercase font-bold">{day.label}</span>
+                    {day.active ? <Check size={16} /> : <span className="text-xs">•</span>}
+                  </div>
+                ))}
               </div>
             </div>
 
             <div className="p-3 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] flex items-center justify-between text-xs">
-              <span className="text-[var(--text-dim)]">Today's Target: 60 mins practice</span>
-              <span className="font-mono font-bold text-[var(--success)]">45 / 60 Mins (75%)</span>
+              <span className="text-[var(--text-dim)]">Total practice logged</span>
+              <span className="font-mono font-bold text-[var(--success)]">{practiceHours} hrs</span>
             </div>
           </div>
         )}
 
-        {/* CARD 3: 30 DAYS PROGRESS AND BAND TREND */}
+        {/* CARD 3: 30-DAY PROGRESS */}
         {activeSlide === 2 && (
           <div className="space-y-6 animate-fadeIn">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
@@ -236,43 +262,53 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ onNavigate
                   30-Day Band Score Trajectory
                 </h3>
               </div>
-              <div className="px-3 py-1.5 rounded-xl bg-[var(--success)]/15 text-[var(--success)] font-mono font-bold text-sm">
-                +0.5 Band Gain
-              </div>
+              {trend && (
+                <div className="px-3 py-1.5 rounded-xl bg-[var(--success)]/15 text-[var(--success)] font-mono font-bold text-sm">
+                  {trend.gain >= 0 ? '+' : ''}{trend.gain.toFixed(1)} Band
+                </div>
+              )}
             </div>
 
-            <div className="space-y-3">
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--text-dim)]">30 Days Ago:</span>
-                <span className="font-mono font-bold text-[var(--text)]">Band 6.5</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--text-dim)]">Current Evaluated Level:</span>
-                <span className="font-mono font-bold text-[var(--accent-a)]">Band 7.0</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--text-dim)]">Target Exam Score:</span>
-                <span className="font-mono font-bold text-[var(--text)]">Band 7.5</span>
-              </div>
-            </div>
+            {trend ? (
+              <>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-[var(--text-dim)]">Earliest (last 30 days):</span>
+                    <span className="font-mono font-bold text-[var(--text)]">Band {trend.startBand.toFixed(1)}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-[var(--text-dim)]">Most Recent Score:</span>
+                    <span className="font-mono font-bold text-[var(--accent-a)]">Band {trend.latestBand.toFixed(1)}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-[var(--text-dim)]">Target Exam Score:</span>
+                    <span className="font-mono font-bold text-[var(--text)]">Band {targetBand.toFixed(1)}</span>
+                  </div>
+                </div>
 
-            {/* Visual Trend Bar */}
-            <div className="p-4 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] space-y-2">
-              <div className="text-xs font-mono text-[var(--text-faint)] flex justify-between">
-                <span>Month Start: Band 6.5</span>
-                <span>Current: Band 7.0</span>
-                <span>Target: Band 7.5</span>
+                <div className="p-4 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] space-y-2">
+                  <div className="text-xs font-mono text-[var(--text-faint)] flex justify-between">
+                    <span>Start: {trend.startBand.toFixed(1)}</span>
+                    <span>Now: {trend.latestBand.toFixed(1)}</span>
+                    <span>Target: {targetBand.toFixed(1)}</span>
+                  </div>
+                  <div className="w-full h-4 rounded-full bg-[var(--bg)] border border-[var(--border)] overflow-hidden flex">
+                    <div
+                      className="bg-[image:var(--accent-gradient)] h-full"
+                      style={{ width: `${Math.min(100, (trend.latestBand / 9) * 100)}%` }}
+                    />
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="py-8 text-center text-sm text-[var(--text-dim)]">
+                Not enough scored submissions in the last 30 days to plot a trend yet.
               </div>
-              <div className="w-full h-4 rounded-full bg-[var(--bg)] border border-[var(--border)] overflow-hidden flex">
-                <div className="w-[50%] bg-[var(--text-faint)]/40 h-full" />
-                <div className="w-[25%] bg-[image:var(--accent-gradient)] h-full" />
-                <div className="w-[25%] bg-transparent h-full border-l border-dashed border-[var(--accent-a)]" />
-              </div>
-            </div>
+            )}
           </div>
         )}
 
-        {/* CARD 4: PRACTICE HOURS & STUDY TIME */}
+        {/* CARD 4: PRACTICE HOURS */}
         {activeSlide === 3 && (
           <div className="space-y-6 animate-fadeIn">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
@@ -287,35 +323,29 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ onNavigate
               </div>
               <div className="text-right">
                 <div className="font-display text-3xl font-extrabold text-[var(--text)]">
-                  48.5 <span className="text-sm font-normal text-[var(--text-dim)]">Hours</span>
-                </div>
-                <div className="text-[11px] font-mono text-[var(--text-faint)]">
-                  Avg 45 Mins / Day
+                  {practiceHours} <span className="text-sm font-normal text-[var(--text-dim)]">Hours</span>
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {[
-                { module: 'Writing', hours: '18.0 hrs', color: 'border-amber-500/30' },
-                { module: 'Reading', hours: '12.5 hrs', color: 'border-blue-500/30' },
-                { module: 'Speaking', hours: '10.0 hrs', color: 'border-emerald-500/30' },
-                { module: 'Listening', hours: '8.0 hrs', color: 'border-purple-500/30' },
-              ].map((item, idx) => (
-                <div key={idx} className={`p-3.5 rounded-xl bg-[var(--panel-2)] border ${item.color} space-y-1`}>
-                  <div className="text-xs font-mono text-[var(--text-faint)]">{item.module}</div>
-                  <div className="font-bold text-sm text-[var(--text)]">{item.hours}</div>
-                </div>
-              ))}
-            </div>
+            {practiceHours > 0 ? (
+              <p className="text-sm text-[var(--text-dim)]">
+                You&apos;ve logged {practiceHours} hours of focused practice. Keep a steady daily rhythm to build toward Band {targetBand.toFixed(1)} readiness.
+              </p>
+            ) : (
+              <div className="py-8 text-center text-sm text-[var(--text-dim)]">
+                No practice time logged yet. Your hours accumulate as you complete tests.
+              </div>
+            )}
 
-            <p className="text-xs text-[var(--text-dim)]">
-              You have completed 82% of recommended practice hours for Band 7.5 readiness.
-            </p>
+            <Button onClick={() => onNavigateAction('mock-tests')} className="w-full flex items-center justify-center gap-2">
+              <Sparkles size={16} />
+              <span>Start Practicing</span>
+            </Button>
           </div>
         )}
 
-        {/* CARD 5: TESTS COMPLETED & MASTERY COUNT */}
+        {/* CARD 5: TESTS COMPLETED */}
         {activeSlide === 4 && (
           <div className="space-y-6 animate-fadeIn">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
@@ -330,10 +360,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ onNavigate
               </div>
               <div className="text-right">
                 <div className="font-display text-3xl font-extrabold text-[var(--text)]">
-                  52 <span className="text-sm font-normal text-[var(--text-dim)]">Total</span>
-                </div>
-                <div className="text-[11px] font-mono text-[var(--success)]">
-                  100% Evaluated by AI
+                  {testsCompleted} <span className="text-sm font-normal text-[var(--text-dim)]">Total</span>
                 </div>
               </div>
             </div>
@@ -341,27 +368,22 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({ onNavigate
             <div className="grid grid-cols-2 gap-4">
               <div className="p-4 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)] space-y-2">
                 <div className="text-xs font-mono text-[var(--text-faint)] uppercase">Full Mock Exams:</div>
-                <div className="font-display font-bold text-2xl text-[var(--accent-a)]">14 Exams</div>
-                <div className="text-[11px] text-[var(--text-dim)]">Avg Score: Band 7.0</div>
+                <div className="font-display font-bold text-2xl text-[var(--accent-a)]">{mockCount} Exams</div>
               </div>
               <div className="p-4 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)] space-y-2">
                 <div className="text-xs font-mono text-[var(--text-faint)] uppercase">Modular Practice Sets:</div>
-                <div className="font-display font-bold text-2xl text-[var(--text)]">38 Sets</div>
-                <div className="text-[11px] text-[var(--text-dim)]">Writing, Reading, Speaking</div>
+                <div className="font-display font-bold text-2xl text-[var(--text)]">{modularCount} Sets</div>
               </div>
             </div>
 
-            <Button
-              onClick={() => onNavigateAction('mock-tests')}
-              className="w-full flex items-center justify-center gap-2"
-            >
+            <Button onClick={() => onNavigateAction('mock-tests')} className="w-full flex items-center justify-center gap-2">
               <Sparkles size={16} />
               <span>Take Full Timed Mock Test Now</span>
             </Button>
           </div>
         )}
 
-        {/* Bottom Carousel Indicator Dots */}
+        {/* Indicator Dots */}
         <div className="flex items-center justify-center gap-2 pt-4 border-t border-[var(--border)]">
           {slides.map((slide) => (
             <button

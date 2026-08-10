@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   LayoutDashboard,
   BookOpen,
@@ -18,11 +18,12 @@ import {
   Bot,
 } from '../ui/icons';
 import { currentUser as fallbackUser } from '../../lib/data';
-import { db } from '../../lib/db';
+import { db, DbUser } from '../../lib/db';
 
 interface SidebarProps {
   currentRoute: string;
   onNavigate: (route: string) => void;
+  onLogout: () => void;
   id?: string;
 }
 
@@ -39,12 +40,24 @@ interface NavSection {
   items: NavItem[];
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, id }) => {
-  const activeUser = db.getCurrentUser() || fallbackUser;
+export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLogout, id }) => {
+  const [activeUser, setActiveUser] = useState<DbUser | typeof fallbackUser>(fallbackUser);
+
+  useEffect(() => {
+    let cancelled = false;
+    db.getCurrentUser().then((user) => {
+      if (!cancelled && user) {
+        setActiveUser(user);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+    // Re-fetch whenever the route changes (e.g. right after login/settings update).
+  }, [currentRoute]);
 
   const handleLogout = () => {
-    db.logout();
-    onNavigate('landing');
+    onLogout();
   };
 
   // Pin state: false = toggle on hover (icon-only by default), true = permanently fixed/expanded (w-64)

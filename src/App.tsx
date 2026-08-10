@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ThemeProvider } from './components/theme/ThemeProvider';
 import { AppShell } from './components/layout/AppShell';
 import { LandingView } from './views/LandingView';
@@ -19,43 +19,62 @@ import { LmsView } from './views/LmsView';
 import { AiTutorView } from './views/AiTutorView';
 import { db } from './lib/db';
 
+const PROTECTED_ROUTES = [
+  'dashboard',
+  'writing',
+  'reading',
+  'speaking',
+  'listening',
+  'mock-tests',
+  'submissions',
+  'search',
+  'settings',
+  'lms-grammar',
+  'lms-vocab',
+  'lms-tips',
+  'tutor-ai',
+  'tutor-examiner',
+];
+
 export default function App() {
   const [currentRoute, setCurrentRoute] = useState<string>('landing');
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => db.isAuthenticated());
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  // True once we've checked the session cookie at least once. Prevents a
+  // flash of "logged out" content (or a wrong redirect) before the very
+  // first async auth check resolves.
+  const [authChecked, setAuthChecked] = useState<boolean>(false);
 
-  // Keep auth state synced with DB state
+  // Check session once on mount.
   useEffect(() => {
-    setIsAuthenticated(db.isAuthenticated());
-  }, [currentRoute]);
+    let cancelled = false;
+    db.isAuthenticated().then((result) => {
+      if (!cancelled) {
+        setIsAuthenticated(result);
+        setAuthChecked(true);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
-  const handleNavigate = (route: string) => {
-    const protectedRoutes = [
-      'dashboard',
-      'writing',
-      'reading',
-      'speaking',
-      'listening',
-      'mock-tests',
-      'submissions',
-      'search',
-      'settings',
-      'lms-grammar',
-      'lms-vocab',
-      'lms-tips',
-      'tutor-ai',
-      'tutor-examiner',
-    ];
+  const handleNavigate = useCallback(
+    async (route: string) => {
+      if (PROTECTED_ROUTES.includes(route)) {
+        const authed = await db.isAuthenticated();
+        setIsAuthenticated(authed);
+        if (!authed) {
+          setCurrentRoute('login');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+      }
 
-    // Protected Route Enforcement: Require authentication
-    if (protectedRoutes.includes(route) && !db.isAuthenticated()) {
-      setCurrentRoute('login');
+      setCurrentRoute(route);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-
-    setCurrentRoute(route);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+    },
+    [],
+  );
 
   const handleLoginSuccess = () => {
     setIsAuthenticated(true);
@@ -65,6 +84,13 @@ export default function App() {
   const handleSignupSuccess = () => {
     setIsAuthenticated(true);
     handleNavigate('dashboard');
+  };
+
+  const handleLogout = async () => {
+    await db.logout();
+    setIsAuthenticated(false);
+    setCurrentRoute('landing');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const renderMainContent = () => {
@@ -86,7 +112,7 @@ export default function App() {
       case 'search':
         return <SearchView />;
       case 'settings':
-        return <SettingsView />;
+        return <SettingsView onLogout={handleLogout} />;
       case 'lms-grammar':
         return <LmsView initialTab="grammar" />;
       case 'lms-vocab':
@@ -101,6 +127,18 @@ export default function App() {
         return <DashboardView onNavigateAction={handleNavigate} />;
     }
   };
+
+  // Avoid rendering protected content (or bouncing to login) before the
+  // first session check has resolved.
+  if (!authChecked) {
+    return (
+      <ThemeProvider>
+        <div className="min-h-screen flex items-center justify-center bg-[var(--bg)] text-[var(--text-dim)] text-sm font-mono">
+          Loading...
+        </div>
+      </ThemeProvider>
+    );
+  }
 
   return (
     <ThemeProvider>
@@ -122,7 +160,7 @@ export default function App() {
           onNavigateToLanding={() => handleNavigate('landing')}
         />
       ) : (
-        <AppShell currentRoute={currentRoute} onNavigate={handleNavigate}>
+        <AppShell currentRoute={currentRoute} onNavigate={handleNavigate} onLogout={handleLogout}>
           {renderMainContent()}
         </AppShell>
       )}

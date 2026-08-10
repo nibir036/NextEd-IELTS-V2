@@ -1,3 +1,9 @@
 node_modules
 .next
 .env.local
+.env*
+.agents
+.claude
+.windsurf
+
+/src/generated/prisma

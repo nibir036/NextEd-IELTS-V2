@@ -1,0 +1,233 @@
+generator client {
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["partialIndexes"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model knowledge {
+  id         String                 @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  content    String
+  embedding  Unsupported("vector")?
+  metadata   Json?
+  created_at DateTime               @default(now()) @db.Timestamptz(6)
+
+  @@index([embedding], map: "idx_knowledge_embedding")
+}
+
+model learning_paths {
+  id         String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user_id    String
+  title      String?
+  plan       Json
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  users      users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([user_id], map: "idx_learning_paths_user")
+}
+
+model lesson_resources {
+  id        String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  lesson_id String  @db.Uuid
+  kind      String?
+  url       String
+  title     String?
+  position  Int     @default(0)
+  lessons   lessons @relation(fields: [lesson_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([lesson_id], map: "idx_lesson_resources_lesson")
+}
+
+model lessons {
+  id               String             @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  section          lesson_section
+  title            String
+  body             String?
+  difficulty       Int?               @db.SmallInt
+  position         Int                @default(0)
+  is_published     Boolean            @default(true)
+  created_at       DateTime           @default(now()) @db.Timestamptz(6)
+  updated_at       DateTime           @default(now()) @db.Timestamptz(6)
+  lesson_resources lesson_resources[]
+
+  @@index([section], map: "idx_lessons_section")
+}
+
+model mock_test_sections {
+  mock_test_id String     @db.Uuid
+  test_id      String     @db.Uuid
+  position     Int        @default(0)
+  mock_tests   mock_tests @relation(fields: [mock_test_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tests        tests      @relation(fields: [test_id], references: [id], onUpdate: NoAction)
+
+  @@id([mock_test_id, test_id])
+  @@index([mock_test_id], map: "idx_mock_sections_mock")
+}
+
+model mock_tests {
+  id                 String               @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  title              String
+  description        String?
+  is_published       Boolean              @default(true)
+  created_at         DateTime             @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime             @default(now()) @db.Timestamptz(6)
+  mock_test_sections mock_test_sections[]
+  submissions        submissions[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model submissions {
+  id           String            @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user_id      String
+  kind         submission_kind   @default(single_test)
+  test_id      String?           @db.Uuid
+  mock_test_id String?           @db.Uuid
+  skill        skill_type?
+  status       submission_status @default(pending)
+  band_score   Decimal?          @db.Decimal(2, 1)
+  feedback     Json?
+  answers      Json?
+  submitted_at DateTime          @default(now()) @db.Timestamptz(6)
+  scored_at    DateTime?         @db.Timestamptz(6)
+  mock_tests   mock_tests?       @relation(fields: [mock_test_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  tests        tests?            @relation(fields: [test_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  users        users             @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([user_id, test_id], map: "uniq_submission_user_test", where: raw("(test_id IS NOT NULL)"))
+  @@index([mock_test_id], map: "idx_submissions_mock")
+  @@index([test_id], map: "idx_submissions_test")
+  @@index([user_id], map: "idx_submissions_user")
+}
+
+model test_resources {
+  id       String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  test_id  String  @db.Uuid
+  kind     String?
+  url      String?
+  content  String?
+  position Int     @default(0)
+  tests    tests   @relation(fields: [test_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([test_id], map: "idx_test_resources_test")
+}
+
+model tests {
+  id                 String               @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  skill              skill_type
+  title              String
+  instructions       String?
+  band_target        Decimal?             @db.Decimal(2, 1)
+  duration_seconds   Int?
+  position           Int                  @default(0)
+  is_published       Boolean              @default(true)
+  created_at         DateTime             @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime             @default(now()) @db.Timestamptz(6)
+  mock_test_sections mock_test_sections[]
+  submissions        submissions[]
+  test_resources     test_resources[]
+
+  @@index([skill], map: "idx_tests_skill")
+}
+
+model uploads {
+  id           String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  storage_path String
+  file_name    String?
+  mime_type    String?
+  size_bytes   BigInt?
+  uploaded_by  String?
+  created_at   DateTime @default(now()) @db.Timestamptz(6)
+  users        users?   @relation(fields: [uploaded_by], references: [id], onUpdate: NoAction)
+}
+
+model user_skill_bands {
+  user_id    String
+  skill      skill_type
+  band       Decimal?   @db.Decimal(2, 1)
+  updated_at DateTime   @default(now()) @db.Timestamptz(6)
+  users      users      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([user_id, skill])
+}
+
+model users {
+  id                  String               @id
+  email               String?              @unique
+  display_name        String?
+  photo_url           String?
+  native_language     String?
+  role                user_role            @default(student)
+  target_band         Decimal?             @db.Decimal(2, 1)
+  overall_band        Decimal?             @db.Decimal(2, 1)
+  total_practice_time Int                  @default(0)
+  onboarding_complete Boolean              @default(false)
+  created_at          DateTime             @default(now()) @db.Timestamptz(6)
+  updated_at          DateTime             @default(now()) @db.Timestamptz(6)
+  last_active_at      DateTime?            @db.Timestamptz(6)
+  phone               String?              @unique(map: "uniq_users_phone", where: raw("(phone IS NOT NULL)"))
+  password_hash       String?
+  is_phone_verified   Boolean              @default(false)
+  exam_date           DateTime?            @db.Date
+  avatar              String?
+  legal_full_name     String?
+  country             String?
+  date_of_birth       DateTime?            @db.Date
+  exam_type           exam_type?
+  academic_background academic_background?
+  has_taken_ielts     Boolean              @default(false)
+  previous_ielts_year Int?                 @db.SmallInt
+  previous_ielts_band Decimal?             @db.Decimal(2, 1)
+  learning_paths      learning_paths[]
+  submissions         submissions[]
+  uploads             uploads[]
+  user_skill_bands    user_skill_bands[]
+}
+
+enum lesson_section {
+  grammar
+  vocab
+  tips
+}
+
+enum exam_type {
+  academic
+  general_training
+}
+
+enum academic_background {
+  ssc_olevels
+  hsc_alevels
+  diploma
+  bachelors
+  masters
+  phd
+  other
+}
+
+enum skill_type {
+  listening
+  reading
+  writing
+  speaking
+}
+
+enum submission_kind {
+  single_test
+  full_mock
+}
+
+enum submission_status {
+  pending
+  scoring
+  scored
+  failed
+}
+
+enum user_role {
+  student
+  admin
+}

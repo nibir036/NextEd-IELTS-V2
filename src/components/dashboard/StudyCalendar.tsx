@@ -15,7 +15,7 @@ import {
   Sparkles,
   Award,
 } from '../ui/icons';
-import { currentUser } from '../../lib/data';
+
 
 export interface ReminderItem {
   id: string;
@@ -72,7 +72,7 @@ const DEFAULT_REMINDERS: ReminderItem[] = [
   },
 ];
 
-export const StudyCalendar: React.FC = () => {
+export const StudyCalendar: React.FC<{ userEmail?: string }> = ({ userEmail }) => {
   // Calendar Navigation state (defaults to current month: August 2026)
   const [currentYear, setCurrentYear] = useState<number>(2026);
   const [currentMonth, setCurrentMonth] = useState<number>(7); // 0-indexed: 7 = August
@@ -185,7 +185,7 @@ export const StudyCalendar: React.FC = () => {
 
     // Construct toast notification channels text
     const channels = [];
-    if (newEmailNotify) channels.push(`Email (${currentUser.name.toLowerCase().replace(' ', '')}@gmail.com)`);
+    if (newEmailNotify) channels.push(`Email (${userEmail || 'your registered email'})`);
     if (newPhoneNotify) channels.push('Phone SMS Push');
 
     showToast(
@@ -272,7 +272,7 @@ export const StudyCalendar: React.FC = () => {
 
             <div className="flex items-center gap-2">
               <Button
-                variant="outline"
+                variant="secondary"
                 size="sm"
                 onClick={() => {
                   setCurrentYear(2026);
@@ -434,7 +434,7 @@ export const StudyCalendar: React.FC = () => {
                     No study reminders set for this date yet.
                   </div>
                   <Button
-                    variant="outline"
+                    variant="secondary"
                     size="sm"
                     onClick={() => setIsAddingModalOpen(true)}
                     className="text-xs"
@@ -511,7 +511,7 @@ export const StudyCalendar: React.FC = () => {
                             onClick={() => toggleNotify(rem.id, 'email')}
                             title={
                               rem.emailNotify
-                                ? `Email alerts enabled (${currentUser.name.toLowerCase().replace(' ', '')}@gmail.com)`
+                                ? `Email alerts enabled (${userEmail || 'your registered email'})`
                                 : 'Enable Email Alert'
                             }
                             className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-semibold border transition-all cursor-pointer ${
@@ -718,7 +718,7 @@ export const StudyCalendar: React.FC = () => {
               <div className="pt-4 flex items-center justify-end gap-3">
                 <Button
                   type="button"
-                  variant="outline"
+                  variant="secondary"
                   onClick={() => setIsAddingModalOpen(false)}
                 >
                   Cancel

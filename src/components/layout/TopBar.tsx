@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Search, Sparkles, Settings, BookOpen, PenTool, Mic, Headphones, FileCheck, History, LayoutDashboard } from '../ui/icons';
 import { useTheme } from '../theme/ThemeProvider';
 import { currentUser as fallbackUser } from '../../lib/data';
-import { db } from '../../lib/db';
+import { db, type DbUser } from '../../lib/db';
 
 interface TopBarProps {
   currentRoute: string;
@@ -12,7 +12,24 @@ interface TopBarProps {
 
 export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, id }) => {
   const { activeThemeConfig } = useTheme();
-  const activeUser = db.getCurrentUser() || fallbackUser;
+  const [user, setUser] = useState<DbUser | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    db.getCurrentUser()
+      .then((u) => {
+        if (!cancelled) setUser(u);
+      })
+      .catch(() => {
+        if (!cancelled) setUser(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Fall back to the placeholder profile until the real user resolves.
+  const activeUser = user ?? fallbackUser;
 
   const titleMap: Record<string, { title: string; subtitle: string; icon: React.FC<{ size?: number; className?: string }> }> = {
     dashboard: { title: 'Exam Dashboard', subtitle: 'Personalized Band 8.0 target tracker', icon: LayoutDashboard },

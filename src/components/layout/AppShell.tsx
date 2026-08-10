@@ -5,6 +5,7 @@ import { TopBar } from './TopBar';
 interface AppShellProps {
   currentRoute: string;
   onNavigate: (route: string) => void;
+  onLogout: () => void;
   children: React.ReactNode;
   id?: string;
 }
@@ -12,6 +13,7 @@ interface AppShellProps {
 export const AppShell: React.FC<AppShellProps> = ({
   currentRoute,
   onNavigate,
+  onLogout,
   children,
   id,
 }) => {
@@ -23,7 +25,7 @@ export const AppShell: React.FC<AppShellProps> = ({
       </div>
 
       {/* Persistent Left Sidebar */}
-      <Sidebar currentRoute={currentRoute} onNavigate={onNavigate} />
+      <Sidebar currentRoute={currentRoute} onNavigate={onNavigate} onLogout={onLogout} />
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 z-10">

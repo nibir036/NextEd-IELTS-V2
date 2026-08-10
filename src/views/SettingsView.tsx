@@ -165,11 +165,6 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
         </div>
       </GlassPanel>
 
-      {/* Theme */}
-      <GlassPanel className="p-6">
-        <ThemeSwitcher />
-      </GlassPanel>
-
       {/* Profile details */}
       <GlassPanel className="p-6 space-y-4">
         <div className="flex items-center gap-2">
@@ -424,6 +419,11 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
             {goalsSaved ? 'Goals Saved!' : goalsSaving ? 'Saving…' : 'Save Target Goals'}
           </Button>
         </div>
+      </GlassPanel>
+
+      {/* Theme */}
+      <GlassPanel className="p-6">
+        <ThemeSwitcher />
       </GlassPanel>
 
       {/* Account / Session */}

@@ -72,13 +72,25 @@ const DEFAULT_REMINDERS: ReminderItem[] = [
   },
 ];
 
-export const StudyCalendar: React.FC<{ userEmail?: string }> = ({ userEmail }) => {
-  // Calendar Navigation state (defaults to current month: August 2026)
-  const [currentYear, setCurrentYear] = useState<number>(2026);
-  const [currentMonth, setCurrentMonth] = useState<number>(7); // 0-indexed: 7 = August
+// Real "today" as YYYY-MM-DD in the user's local timezone (not UTC — avoids
+// the date shifting by one near midnight for timezones behind/ahead of UTC).
+function getTodayDateStr(): string {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, '0');
+  const d = String(now.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
 
-  // Today date format
-  const todayStr = '2026-08-07';
+export const StudyCalendar: React.FC<{ userEmail?: string }> = ({ userEmail }) => {
+  const today = new Date();
+
+  // Calendar Navigation state — defaults to the real current month/year.
+  const [currentYear, setCurrentYear] = useState<number>(today.getFullYear());
+  const [currentMonth, setCurrentMonth] = useState<number>(today.getMonth()); // 0-indexed
+
+  // Real today date, computed once per mount.
+  const [todayStr] = useState<string>(getTodayDateStr());
   const [selectedDateStr, setSelectedDateStr] = useState<string>(todayStr);
 
   // Reminders state with localStorage persistence
@@ -275,8 +287,9 @@ export const StudyCalendar: React.FC<{ userEmail?: string }> = ({ userEmail }) =
                 variant="secondary"
                 size="sm"
                 onClick={() => {
-                  setCurrentYear(2026);
-                  setCurrentMonth(7);
+                  const now = new Date();
+                  setCurrentYear(now.getFullYear());
+                  setCurrentMonth(now.getMonth());
                   setSelectedDateStr(todayStr);
                 }}
                 className="text-xs"
@@ -413,10 +426,9 @@ export const StudyCalendar: React.FC<{ userEmail?: string }> = ({ userEmail }) =
               <Button
                 size="sm"
                 onClick={() => setIsAddingModalOpen(true)}
-                className="flex items-center gap-1.5"
+                icon={<Plus size={16} />}
               >
-                <Plus size={16} />
-                <span>Add Reminder</span>
+                Add Reminder
               </Button>
             </div>
 
@@ -723,9 +735,8 @@ export const StudyCalendar: React.FC<{ userEmail?: string }> = ({ userEmail }) =
                 >
                   Cancel
                 </Button>
-                <Button type="submit" className="flex items-center gap-2">
-                  <Bell size={16} />
-                  <span>Set Practice Reminder</span>
+                <Button type="submit" icon={<Bell size={16} />}>
+                  Set Practice Reminder
                 </Button>
               </div>
             </form>

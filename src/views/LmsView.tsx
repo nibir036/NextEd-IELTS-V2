@@ -1,21 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
-import { GraduationCap, BookOpen, Sparkles, Check, ChevronRight } from '../components/ui/icons';
+import { GraduationCap, BookOpen, ChevronRight } from '../components/ui/icons';
 
 interface LmsViewProps {
   initialTab?: string;
   id?: string;
 }
 
+// NOTE: LMS content below is still static — grammar/vocab schema (JSONB vs
+// dedicated tables) is a decision pending real content. Frontend-only fix
+// for now: removed the dead Tips tab (moved to per-module SkillTips) and
+// the redundant in-page tab switcher that duplicated the sidebar's LMS
+// submenu and could fall out of sync with it.
 export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) => {
-  const [activeTab, setActiveTab] = useState<'grammar' | 'vocab' | 'tips'>(
-    initialTab.includes('vocab')
-      ? 'vocab'
-      : initialTab.includes('tips')
-      ? 'tips'
-      : 'grammar'
+  const [activeTab, setActiveTab] = useState<'grammar' | 'vocab'>(
+    initialTab.includes('vocab') ? 'vocab' : 'grammar',
   );
+
+  // Sidebar navigation changes `initialTab` on an existing LmsView instance
+  // (React reuses the component), so this keeps activeTab in sync instead
+  // of only reading the prop once at mount.
+  useEffect(() => {
+    setActiveTab(initialTab.includes('vocab') ? 'vocab' : 'grammar');
+  }, [initialTab]);
 
   const grammarLessons = [
     {
@@ -69,75 +77,29 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
     },
   ];
 
-  const tipsList = [
-    {
-      title: 'Task 2 Coherence Secret: The 1-Idea Paragraph Rule',
-      author: 'Former Senior IELTS Examiner',
-      rule: 'Each body paragraph MUST contain only ONE central topic sentence supported by 2 specific evidence points.',
-      checklist: ['Clear Topic Sentence', 'Explanation (Why / How)', 'Concrete Example', 'Concluding Link Sentence'],
-    },
-    {
-      title: 'Speaking Part 2: The PPF Structure (Past, Present, Future)',
-      author: 'IELTS Band 9 Specialist',
-      rule: 'If you run out of ideas during the 2-minute card response, shift time frames smoothly to extend talk time.',
-      checklist: ['Describe the core event', 'Compare it to past experiences', 'Project future developments'],
-    },
-  ];
-
   return (
     <div id={id} className="space-y-6">
-      {/* Header Banner */}
+      {/* Header Banner — no in-page tab switcher; the sidebar's LMS submenu
+          (Grammar Masterclass / IELTS Vocabulary) is the single navigation
+          source for this view. */}
       <GlassPanel className="p-6 md:p-8 relative overflow-hidden border border-[var(--border)]">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
-          <div>
-            <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--accent-a)] tracking-wider mb-2">
-              <GraduationCap size={18} />
-              <span>LMS • Learning Management System</span>
-            </div>
-            <h1 className="font-display text-2xl md:text-3xl font-bold text-[var(--text)]">
-              IELTS Masterclass Modules
-            </h1>
-            <p className="text-sm text-[var(--text-dim)] mt-1 max-w-2xl">
-              Curated grammar rules, Band 8.0+ vocabulary banks, and examiner-verified tips designed specifically to elevate your band scores.
-            </p>
+        <div className="relative z-10">
+          <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--accent-a)] tracking-wider mb-2">
+            <GraduationCap size={18} />
+            <span>LMS • Learning Management System</span>
           </div>
-
-          <div className="flex items-center gap-2 bg-[var(--panel-2)] p-1.5 rounded-xl border border-[var(--border)] self-start md:self-auto">
-            <button
-              onClick={() => setActiveTab('grammar')}
-              className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer ${
-                activeTab === 'grammar'
-                  ? 'bg-[image:var(--accent-gradient)] text-white shadow-md font-semibold'
-                  : 'text-[var(--text-dim)] hover:text-[var(--text)]'
-              }`}
-            >
-              Grammar
-            </button>
-            <button
-              onClick={() => setActiveTab('vocab')}
-              className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer ${
-                activeTab === 'vocab'
-                  ? 'bg-[image:var(--accent-gradient)] text-white shadow-md font-semibold'
-                  : 'text-[var(--text-dim)] hover:text-[var(--text)]'
-              }`}
-            >
-              Vocabulary
-            </button>
-            <button
-              onClick={() => setActiveTab('tips')}
-              className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer ${
-                activeTab === 'tips'
-                  ? 'bg-[image:var(--accent-gradient)] text-white shadow-md font-semibold'
-                  : 'text-[var(--text-dim)] hover:text-[var(--text)]'
-              }`}
-            >
-              Tips & Tricks
-            </button>
-          </div>
+          <h1 className="font-display text-2xl md:text-3xl font-bold text-[var(--text)]">
+            {activeTab === 'grammar' ? 'Grammar Masterclass' : 'IELTS Vocabulary Bank'}
+          </h1>
+          <p className="text-sm text-[var(--text-dim)] mt-1 max-w-2xl">
+            {activeTab === 'grammar'
+              ? 'Curated grammar rules designed specifically to elevate your Grammatical Range & Accuracy score.'
+              : 'Band 8.0+ vocabulary banks organized by topic, with collocations examiners look for.'}
+          </p>
         </div>
       </GlassPanel>
 
-      {/* Tab 1: Grammar */}
+      {/* Grammar */}
       {activeTab === 'grammar' && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {grammarLessons.map((lesson, idx) => (
@@ -175,7 +137,7 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
         </div>
       )}
 
-      {/* Tab 2: Vocabulary */}
+      {/* Vocabulary */}
       {activeTab === 'vocab' && (
         <div className="space-y-6">
           {vocabCategories.map((cat, catIdx) => (
@@ -203,43 +165,6 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
                     </div>
                   </div>
                 ))}
-              </div>
-            </GlassPanel>
-          ))}
-        </div>
-      )}
-
-      {/* Tab 3: Tips & Tricks */}
-      {activeTab === 'tips' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {tipsList.map((tip, tIdx) => (
-            <GlassPanel key={tIdx} className="p-6 border border-[var(--border)] space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono uppercase text-[var(--accent-a)] font-semibold flex items-center gap-1.5">
-                  <Sparkles size={14} />
-                  <span>{tip.author}</span>
-                </span>
-              </div>
-
-              <h3 className="font-display text-lg font-bold text-[var(--text)]">
-                {tip.title}
-              </h3>
-
-              <div className="p-3.5 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-xs text-[var(--text)] leading-relaxed">
-                <span className="font-bold text-[var(--accent-a)]">Core Principle: </span>
-                {tip.rule}
-              </div>
-
-              <div className="space-y-2">
-                <div className="text-[11px] font-mono uppercase text-[var(--text-faint)]">Checklist Before Submission:</div>
-                <div className="grid grid-cols-2 gap-2">
-                  {tip.checklist.map((item, iIdx) => (
-                    <div key={iIdx} className="flex items-center gap-2 text-xs text-[var(--text-dim)] p-2 rounded-lg bg-[var(--bg)] border border-[var(--border)]">
-                      <Check size={14} className="text-[var(--success)] shrink-0" />
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
               </div>
             </GlassPanel>
           ))}

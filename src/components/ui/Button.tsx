@@ -41,8 +41,14 @@ export const Button: React.FC<ButtonProps> = ({
       className={`${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
       {...props}
     >
-      {icon && <span className="shrink-0">{icon}</span>}
-      <span>{children}</span>
+      {/* Render icon (if passed via the `icon` prop) and children as direct
+          flex items of this button — NOT wrapped in an inner <span>. An
+          inner span mixing an icon (Tailwind sets svg { display: block })
+          with inline text forces a line break between them, stacking icon
+          above text. The button's own inline-flex + gap already lays out
+          direct children horizontally, so no wrapper is needed. */}
+      {icon && <span className="shrink-0 inline-flex">{icon}</span>}
+      {children}
     </button>
   );
 };

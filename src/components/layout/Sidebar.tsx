@@ -112,7 +112,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLo
       title: 'Practice Tests',
       icon: PenTool,
       items: [
-        { id: 'writing', label: 'Writing Evaluator', icon: PenTool },
+        { id: 'writing', label: 'Writing Practice', icon: PenTool },
         { id: 'reading', label: 'Reading Practice', icon: BookOpen },
         { id: 'listening', label: 'Listening Practice', icon: Headphones },
         { id: 'speaking', label: 'Speaking Practice', icon: Mic },

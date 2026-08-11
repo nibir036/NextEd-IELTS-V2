@@ -102,6 +102,28 @@ export interface DashboardData extends DashboardStats {
   trend: { startBand: number; latestBand: number; gain: number } | null;
 }
 
+export interface SubmissionSummary {
+  id: string;
+  skill: string;
+  kind: string;
+  status: string;
+  bandScore: number | null;
+  submittedAt: string;
+  title: string;
+  summary: string;
+}
+
+export interface SubmissionDetail {
+  id: string;
+  skill: string;
+  kind: string;
+  status: string;
+  bandScore: number | null;
+  submittedAt: string;
+  answers: Record<string, unknown>;
+  feedback: Record<string, unknown>;
+}
+
 // Postgres DATE / TIMESTAMPTZ come back either as 'YYYY-MM-DD' or a full ISO
 // string (once JSON-serialized). Normalize to the 'YYYY-MM-DD' a date input wants.
 function toDateInput(value: string | null | undefined): string {
@@ -224,6 +246,22 @@ export const db = {
   // Full dashboard payload (bands, streak, hours, weekly activity, trend).
   async getDashboard(): Promise<DashboardData> {
     return api<DashboardData>('/api/dashboard/stats');
+  },
+
+  // Submission history (list) for the current user.
+  async getSubmissions(): Promise<SubmissionSummary[]> {
+    const { submissions } = await api<{ submissions: SubmissionSummary[] }>(
+      '/api/submissions',
+    );
+    return submissions;
+  },
+
+  // A single submission with its full stored feedback + answers.
+  async getSubmission(id: string): Promise<SubmissionDetail> {
+    const { submission } = await api<{ submission: SubmissionDetail }>(
+      `/api/submissions/${id}`,
+    );
+    return submission;
   },
 
   // Stats endpoint failing shouldn't block a successful profile/goal save.

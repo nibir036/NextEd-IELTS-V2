@@ -11,17 +11,28 @@ interface ListeningExamViewProps {
   id?: string;
 }
 
+type AnswerValue = string | string[];
+
+function isAnswered(v: AnswerValue | undefined): boolean {
+  if (Array.isArray(v)) return v.length > 0;
+  return !!v && v.trim().length > 0;
+}
+
+function formatAnswerForReview(v: unknown): string {
+  if (Array.isArray(v)) return v.length ? v.join(', ').toUpperCase() : '—';
+  return v ? String(v) : '—';
+}
+
 export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id }) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [test, setTest] = useState<ListeningTest | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [answers, setAnswers] = useState<Record<string, AnswerValue>>({});
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<ListeningResult | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Timer: counts down from the test duration, but only after audio starts.
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [timerRunning, setTimerRunning] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -43,14 +54,12 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id }) => {
     return () => { cancelled = true; };
   }, [selectedId]);
 
-  // Countdown tick.
   useEffect(() => {
     if (!timerRunning) return;
     intervalRef.current = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev === null) return prev;
         if (prev <= 1) {
-          // Time's up -> auto-submit.
           if (intervalRef.current) clearInterval(intervalRef.current);
           setTimerRunning(false);
           submitRef.current();
@@ -64,6 +73,7 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id }) => {
 
   const allQuestions = test ? test.sections.flatMap((s) => s.questions) : [];
   const audioUrl = test?.sections.find((s) => s.audioUrl)?.audioUrl;
+  const answeredCount = Object.values(answers).filter(isAnswered).length;
 
   const doSubmit = async () => {
     if (!test || submitting || result) return;
@@ -80,7 +90,6 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id }) => {
       setSubmitting(false);
     }
   };
-  // Keep the latest submit closure available to the timer.
   submitRef.current = doSubmit;
 
   const backToTests = () => {
@@ -98,6 +107,20 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id }) => {
     const m = Math.floor(s / 60);
     const sec = s % 60;
     return `${m}:${sec.toString().padStart(2, '0')}`;
+  };
+
+  const setSingleAnswer = (qnumber: number, letter: string) => {
+    setAnswers((a) => ({ ...a, [String(qnumber)]: letter }));
+  };
+
+  const toggleMultiAnswer = (qnumber: number, letter: string) => {
+    setAnswers((a) => {
+      const key = String(qnumber);
+      const current = Array.isArray(a[key]) ? (a[key] as string[]) : [];
+      const has = current.includes(letter);
+      const next = has ? current.filter((l) => l !== letter) : [...current, letter];
+      return { ...a, [key]: next };
+    });
   };
 
   // ---------- BROWSE ----------
@@ -157,7 +180,7 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id }) => {
                       <span className="font-mono font-bold">{q.qnumber}.</span> {q.prompt?.replace('____', '______')}
                     </div>
                     <div className="text-[11px] font-mono mt-1">
-                      <span className={correct ? 'text-[var(--success)]' : 'text-[var(--danger)]'}>Your answer: {String(r?.your || '—')}</span>
+                      <span className={correct ? 'text-[var(--success)]' : 'text-[var(--danger)]'}>Your answer: {formatAnswerForReview(r?.your)}</span>
                       {!correct && <span className="text-[var(--text-dim)]"> · Accepted: {(r?.accepted || []).join(' / ')}</span>}
                     </div>
                   </div>
@@ -190,7 +213,6 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id }) => {
             <GlassPanel className="p-5 space-y-4">
               <h2 className="font-display text-xl font-bold text-[var(--text)]">{test.title}</h2>
 
-              {/* Timer */}
               <div className={`rounded-2xl border p-4 flex items-center justify-between ${timeIsLow ? 'border-[var(--danger)]/40 bg-[var(--danger)]/10' : 'border-[var(--border)] bg-[var(--bg-elevated)]'}`}>
                 <div className="flex items-center gap-2">
                   <Clock size={18} className={timeIsLow ? 'text-[var(--danger)]' : 'text-[var(--accent-a)]'} />
@@ -204,7 +226,6 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id }) => {
                 <p className="text-[11px] text-[var(--text-faint)] -mt-2">The timer starts when you start the audio.</p>
               )}
 
-              {/* Audio */}
               {audioUrl && (
                 <PlayOnceAudio
                   src={audioUrl}
@@ -212,7 +233,6 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id }) => {
                 />
               )}
 
-              {/* Instructions */}
               {test.instructions && (
                 <div className="rounded-xl bg-[var(--panel-2)] border border-[var(--border)] p-3">
                   <div className="text-[11px] font-mono uppercase text-[var(--text-faint)] mb-1">Instructions</div>
@@ -224,7 +244,7 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id }) => {
 
               <div className="flex items-center justify-between">
                 <span className="text-xs text-[var(--text-faint)]">
-                  {Object.values(answers).filter((v) => v.trim()).length} / {allQuestions.length} answered
+                  {answeredCount} / {allQuestions.length} answered
                 </span>
                 <Button
                   variant="primary" size="md"
@@ -240,80 +260,179 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id }) => {
 
           {/* RIGHT: scrollable questions, no visible scrollbar */}
           <div className="lg:col-span-8 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto no-scrollbar space-y-6 pr-1">
-            {test.sections.map((section) => (
-              <GlassPanel key={section.id} className="p-6 space-y-4">
-                <div>
-                  <h3 className="font-display font-bold text-base text-[var(--text)]">{section.title}</h3>
-                  {section.instructions && <p className="text-xs text-[var(--text-dim)] mt-1">{section.instructions}</p>}
-                </div>
+            {test.sections.map((section) => {
+              // If this section has `matching` questions, they all share the
+              // same option list — show that box ONCE, then render each
+              // question as a compact letter-pick (not the full list again).
+              const matchingOptions = section.questions.find((q) => q.type === 'matching')?.options as
+                | { letter: string; text?: string }[]
+                | undefined;
 
-                {section.imageUrl && (
-                  <div className="rounded-xl overflow-hidden border border-[var(--border)] bg-white">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={section.imageUrl} alt="Section figure" className="w-full h-auto" />
+              return (
+                <GlassPanel key={section.id} className="p-6 space-y-4">
+                  <div>
+                    <h3 className="font-display font-bold text-base text-[var(--text)]">{section.title}</h3>
+                    {section.instructions && <p className="text-xs text-[var(--text-dim)] mt-1">{section.instructions}</p>}
                   </div>
-                )}
 
-                <div className="space-y-2">
-                  {section.questions.map((q) => {
-                    // Multiple choice (A/B/C) — pick one.
-                    if (q.type === 'single_choice') {
-                      const opts = Array.isArray(q.options)
-                        ? (q.options as { letter: string; text: string }[])
-                        : [];
-                      const selected = answers[String(q.qnumber)] || '';
-                      return (
-                        <div key={q.id} className="p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] space-y-2">
-                          <div className="text-sm text-[var(--text)]">
-                            <span className="font-mono font-bold text-[var(--accent-a)]">{q.qnumber}.</span> {q.prompt}
-                          </div>
-                          <div className="space-y-1.5">
-                            {opts.map((o) => {
-                              const isSel = selected.toLowerCase() === o.letter.toLowerCase();
-                              return (
-                                <button
-                                  key={o.letter}
-                                  onClick={() => setAnswers((a) => ({ ...a, [String(q.qnumber)]: o.letter }))}
-                                  className={`w-full flex items-start gap-2.5 text-left p-2.5 rounded-lg border transition-colors cursor-pointer ${
-                                    isSel
-                                      ? 'border-[var(--accent-a)] bg-[var(--accent-a)]/10'
-                                      : 'border-[var(--border)] hover:border-[var(--border-strong)] hover:bg-[var(--panel-2)]'
-                                  }`}
-                                >
-                                  <span className={`w-5 h-5 rounded-full border flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5 ${
-                                    isSel ? 'border-[var(--accent-a)] bg-[var(--accent-a)] text-white' : 'border-[var(--border-strong)] text-[var(--text-faint)]'
-                                  }`}>
+                  {section.imageUrl && (
+                    <div className="rounded-xl overflow-hidden border border-[var(--border)] bg-white">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={section.imageUrl} alt="Section figure" className="w-full h-auto" />
+                    </div>
+                  )}
+
+                  {/* Shared reference box for matching questions — shown once
+                      per section, above the individual question rows. */}
+                  {matchingOptions && matchingOptions.length > 0 && (
+                    <div className="rounded-xl bg-[var(--panel-2)] border border-[var(--border)] p-3 space-y-1.5">
+                      <div className="text-[11px] font-mono uppercase text-[var(--text-faint)] mb-1">Options</div>
+                      {matchingOptions.map((o) => (
+                        <div key={o.letter} className="flex items-start gap-2 text-xs text-[var(--text-dim)]">
+                          <span className="font-mono font-bold text-[var(--accent-a)] shrink-0">{o.letter}</span>
+                          <span>{o.text}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="space-y-2">
+                    {section.questions.map((q) => {
+                      // Compact letter-grid: matching (shares the box above)
+                      // and map_label (bare room letters, no descriptions).
+                      if (q.type === 'matching' || q.type === 'map_label') {
+                        const opts = Array.isArray(q.options)
+                          ? (q.options as { letter: string; text?: string }[])
+                          : [];
+                        const selected = (answers[String(q.qnumber)] as string) || '';
+                        return (
+                          <div key={q.id} className="p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] space-y-2">
+                            <div className="text-sm text-[var(--text)]">
+                              <span className="font-mono font-bold text-[var(--accent-a)]">{q.qnumber}.</span> {q.prompt}
+                            </div>
+                            <div className="flex flex-wrap gap-1.5">
+                              {opts.map((o) => {
+                                const isSel = selected.toLowerCase() === o.letter.toLowerCase();
+                                return (
+                                  <button
+                                    key={o.letter}
+                                    onClick={() => setSingleAnswer(q.qnumber, o.letter)}
+                                    className={`w-9 h-9 rounded-lg border flex items-center justify-center text-xs font-bold cursor-pointer transition-colors ${
+                                      isSel
+                                        ? 'border-[var(--accent-a)] bg-[var(--accent-a)] text-white'
+                                        : 'border-[var(--border-strong)] text-[var(--text)] hover:border-[var(--accent-a)]'
+                                    }`}
+                                  >
                                     {o.letter}
-                                  </span>
-                                  <span className="text-xs text-[var(--text)] leading-snug">{o.text}</span>
-                                </button>
-                              );
-                            })}
+                                  </button>
+                                );
+                              })}
+                            </div>
                           </div>
+                        );
+                      }
+
+                      // single_choice — full inline list (each question's
+                      // options describe that specific scenario, so repeating
+                      // them per question is correct here, unlike matching).
+                      if (q.type === 'single_choice') {
+                        const opts = Array.isArray(q.options)
+                          ? (q.options as { letter: string; text: string }[])
+                          : [];
+                        const selected = (answers[String(q.qnumber)] as string) || '';
+                        return (
+                          <div key={q.id} className="p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] space-y-2">
+                            <div className="text-sm text-[var(--text)]">
+                              <span className="font-mono font-bold text-[var(--accent-a)]">{q.qnumber}.</span> {q.prompt}
+                            </div>
+                            <div className="space-y-1.5">
+                              {opts.map((o) => {
+                                const isSel = selected.toLowerCase() === o.letter.toLowerCase();
+                                return (
+                                  <button
+                                    key={o.letter}
+                                    onClick={() => setSingleAnswer(q.qnumber, o.letter)}
+                                    className={`w-full flex items-start gap-2.5 text-left p-2.5 rounded-lg border transition-colors cursor-pointer ${
+                                      isSel
+                                        ? 'border-[var(--accent-a)] bg-[var(--accent-a)]/10'
+                                        : 'border-[var(--border)] hover:border-[var(--border-strong)] hover:bg-[var(--panel-2)]'
+                                    }`}
+                                  >
+                                    <span className={`w-5 h-5 rounded-full border flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5 ${
+                                      isSel ? 'border-[var(--accent-a)] bg-[var(--accent-a)] text-white' : 'border-[var(--border-strong)] text-[var(--text-faint)]'
+                                    }`}>
+                                      {o.letter}
+                                    </span>
+                                    <span className="text-xs text-[var(--text)] leading-snug">{o.text}</span>
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        );
+                      }
+
+                      // multi_choice — checkboxes, array of chosen letters.
+                      if (q.type === 'multi_choice') {
+                        const opts = Array.isArray(q.options)
+                          ? (q.options as { letter: string; text: string }[])
+                          : [];
+                        const selected = Array.isArray(answers[String(q.qnumber)])
+                          ? (answers[String(q.qnumber)] as string[])
+                          : [];
+                        return (
+                          <div key={q.id} className="p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] space-y-2">
+                            <div className="text-sm text-[var(--text)]">
+                              <span className="font-mono font-bold text-[var(--accent-a)]">{q.qnumber}.</span> {q.prompt}
+                            </div>
+                            <div className="space-y-1.5">
+                              {opts.map((o) => {
+                                const isSel = selected.some((l) => l.toLowerCase() === o.letter.toLowerCase());
+                                return (
+                                  <button
+                                    key={o.letter}
+                                    onClick={() => toggleMultiAnswer(q.qnumber, o.letter)}
+                                    className={`w-full flex items-start gap-2.5 text-left p-2.5 rounded-lg border transition-colors cursor-pointer ${
+                                      isSel
+                                        ? 'border-[var(--accent-a)] bg-[var(--accent-a)]/10'
+                                        : 'border-[var(--border)] hover:border-[var(--border-strong)] hover:bg-[var(--panel-2)]'
+                                    }`}
+                                  >
+                                    <span className={`w-5 h-5 rounded-md border flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5 ${
+                                      isSel ? 'border-[var(--accent-a)] bg-[var(--accent-a)] text-white' : 'border-[var(--border-strong)] text-[var(--text-faint)]'
+                                    }`}>
+                                      {isSel ? <CheckCircle2 size={12} /> : o.letter}
+                                    </span>
+                                    <span className="text-xs text-[var(--text)] leading-snug">{o.text}</span>
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        );
+                      }
+
+                      // Default: text_input completion — inline blank.
+                      const parts = (q.prompt || '').split('____');
+                      return (
+                        <div key={q.id} className="flex flex-wrap items-center gap-2 p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] text-sm text-[var(--text)]">
+                          <span className="font-mono font-bold text-[var(--accent-a)]">{q.qnumber}.</span>
+                          <span>{parts[0]}</span>
+                          <input
+                            type="text"
+                            value={(answers[String(q.qnumber)] as string) || ''}
+                            onChange={(e) => setAnswers((a) => ({ ...a, [String(q.qnumber)]: e.target.value }))}
+                            placeholder="answer"
+                            className="inline-block w-32 bg-[var(--bg)] border border-[var(--border)] rounded-lg px-2 py-1 text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)]"
+                          />
+                          {parts[1] && <span>{parts[1]}</span>}
                         </div>
                       );
-                    }
-
-                    // Default: text_input completion — inline blank.
-                    const parts = (q.prompt || '').split('____');
-                    return (
-                      <div key={q.id} className="flex flex-wrap items-center gap-2 p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] text-sm text-[var(--text)]">
-                        <span className="font-mono font-bold text-[var(--accent-a)]">{q.qnumber}.</span>
-                        <span>{parts[0]}</span>
-                        <input
-                          type="text"
-                          value={answers[String(q.qnumber)] || ''}
-                          onChange={(e) => setAnswers((a) => ({ ...a, [String(q.qnumber)]: e.target.value }))}
-                          placeholder="answer"
-                          className="inline-block w-32 bg-[var(--bg)] border border-[var(--border)] rounded-lg px-2 py-1 text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)]"
-                        />
-                        {parts[1] && <span>{parts[1]}</span>}
-                      </div>
-                    );
-                  })}
-                </div>
-              </GlassPanel>
-            ))}
+                    })}
+                  </div>
+                </GlassPanel>
+              );
+            })}
           </div>
         </div>
       )}

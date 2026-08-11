@@ -130,8 +130,66 @@ model tests {
   mock_test_sections mock_test_sections[]
   submissions        submissions[]
   test_resources     test_resources[]
+  test_sections      test_sections[]
+  test_attempts      test_attempts[]
 
   @@index([skill], map: "idx_tests_skill")
+}
+
+model test_sections {
+  id           String           @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  test_id      String           @db.Uuid
+  position     Int              @default(0)
+  title        String?
+  instructions String?
+  audio_url    String?
+  image_url    String?
+  passage_text String?
+  created_at   DateTime         @default(now()) @db.Timestamptz(6)
+  tests        tests            @relation(fields: [test_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  questions    test_questions[]
+
+  @@index([test_id], map: "idx_test_sections_test")
+}
+
+model test_questions {
+  id         String        @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  section_id String        @db.Uuid
+  qnumber    Int
+  position   Int           @default(0)
+  type       question_type
+  prompt     String?
+  options    Json?
+  max_words  Int?
+  created_at DateTime      @default(now()) @db.Timestamptz(6)
+  section    test_sections @relation(fields: [section_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  answer     test_answers?
+
+  @@index([section_id], map: "idx_test_questions_section")
+}
+
+model test_answers {
+  id          String         @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  question_id String         @unique @db.Uuid
+  accepted    Json           @default("[]")
+  points      Int            @default(1)
+  question    test_questions @relation(fields: [question_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model test_attempts {
+  id           String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user_id      String
+  test_id      String   @db.Uuid
+  raw_score    Int?
+  total        Int?
+  band         Decimal? @db.Decimal(2, 1)
+  answers      Json     @default("{}")
+  submitted_at DateTime @default(now()) @db.Timestamptz(6)
+  tests        tests    @relation(fields: [test_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users        users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([user_id], map: "idx_test_attempts_user")
+  @@index([test_id], map: "idx_test_attempts_test")
 }
 
 model uploads {
@@ -184,6 +242,7 @@ model users {
   previous_ielts_band Decimal?             @db.Decimal(2, 1)
   learning_paths      learning_paths[]
   submissions         submissions[]
+  test_attempts       test_attempts[]
   uploads             uploads[]
   user_skill_bands    user_skill_bands[]
 }
@@ -214,6 +273,14 @@ enum skill_type {
   reading
   writing
   speaking
+}
+
+enum question_type {
+  text_input
+  single_choice
+  multi_choice
+  matching
+  map_label
 }
 
 enum submission_kind {

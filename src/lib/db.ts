@@ -112,6 +112,40 @@ export interface DiagnosticResult {
   keyImprovements: string[];
 }
 
+export interface ListeningQuestion {
+  id: string;
+  qnumber: number;
+  type: 'text_input' | 'single_choice' | 'multi_choice' | 'matching' | 'map_label';
+  prompt: string | null;
+  options: unknown;
+  maxWords: number | null;
+}
+
+export interface ListeningSection {
+  id: string;
+  title: string | null;
+  instructions: string | null;
+  audioUrl: string | null;
+  imageUrl: string | null;
+  passageText: string | null;
+  questions: ListeningQuestion[];
+}
+
+export interface ListeningTest {
+  id: string;
+  title: string;
+  instructions: string | null;
+  durationSeconds: number | null;
+  sections: ListeningSection[];
+}
+
+export interface ListeningResult {
+  rawScore: number;
+  total: number;
+  band: number;
+  review: Record<string, { correct: boolean; accepted: string[]; your: unknown }>;
+}
+
 export interface SubmissionSummary {
   id: string;
   skill: string;
@@ -295,5 +329,24 @@ export const db = {
     } catch {
       return { testsCompleted: 0, streakDays: 0, practiceHours: 0 };
     }
+  },
+
+  // Fetch a listening test (no answer key) by id, or the first published one.
+  async getListeningTest(id?: string): Promise<ListeningTest> {
+    const { test } = await api<{ test: ListeningTest }>(
+      id ? `/api/listening/test?id=${id}` : '/api/listening/test',
+    );
+    return test;
+  },
+
+  // Submit answers, get auto-scored band + per-question review.
+  async submitListening(
+    testId: string,
+    answers: Record<string, unknown>,
+  ): Promise<ListeningResult> {
+    return api<ListeningResult>('/api/listening/submit', {
+      method: 'POST',
+      body: JSON.stringify({ testId, answers }),
+    });
   },
 };

@@ -11,6 +11,7 @@ import { WritingView } from './views/WritingView';
 import { ReadingView } from './views/ReadingView';
 import { SpeakingView } from './views/SpeakingView';
 import { ListeningView } from './views/ListeningView';
+import { ListeningExamView } from './views/ListeningExamView';
 import { MockTestsView } from './views/MockTestsView';
 import { SubmissionsView } from './views/SubmissionsView';
 import { SearchView } from './views/SearchView';
@@ -108,7 +109,7 @@ export default function App() {
       case 'speaking':
         return <SpeakingView />;
       case 'listening':
-        return <ListeningView />;
+        return <ListeningExamView />;
       case 'mock-tests':
         return <MockTestsView onNavigateAction={handleNavigate} />;
       case 'submissions':

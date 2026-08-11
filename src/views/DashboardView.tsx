@@ -28,15 +28,21 @@ interface DashboardViewProps {
 export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, id }) => {
   const [user, setUser] = useState<DbUser | null>(null);
   const [dashboard, setDashboard] = useState<DashboardData | null>(null);
+  const [diagnosticDone, setDiagnosticDone] = useState(true); // assume done until known, avoids flash
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
-    Promise.all([db.getCurrentUser(), db.getDashboard().catch(() => null)]).then(
-      ([u, d]) => {
+    Promise.all([
+      db.getCurrentUser(),
+      db.getDashboard().catch(() => null),
+      db.getDiagnosticStatus().catch(() => true),
+    ]).then(
+      ([u, d, done]) => {
         if (!cancelled) {
           setUser(u);
           setDashboard(d);
+          setDiagnosticDone(done);
           setLoading(false);
         }
       },
@@ -63,6 +69,32 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
 
   return (
     <div id={id} className="space-y-10 w-full">
+      {!diagnosticDone && (
+        <GlassPanel className="p-5 border border-[var(--accent-a)]/30 bg-[var(--accent-a)]/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center shrink-0">
+              <Sparkles size={20} />
+            </div>
+            <div>
+              <h3 className="font-display font-bold text-sm text-[var(--text)]">
+                Estimate your starting band
+              </h3>
+              <p className="text-xs text-[var(--text-dim)] mt-0.5">
+                Take the 2-minute placement diagnostic to personalise your practice. You haven&apos;t done it yet.
+              </p>
+            </div>
+          </div>
+          <Button
+            variant="primary"
+            size="sm"
+            icon={<ChevronRight size={16} />}
+            onClick={() => onNavigateAction('diagnostic')}
+            className="shrink-0"
+          >
+            Take Diagnostic
+          </Button>
+        </GlassPanel>
+      )}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
         <div className="lg:col-span-5 xl:col-span-4 flex flex-col justify-between space-y-6">
           <GlassPanel className="p-6 md:p-8 border border-[var(--border)] shadow-lg space-y-6 flex-1 flex flex-col justify-between">

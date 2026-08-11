@@ -119,6 +119,7 @@ model tests {
   id                 String               @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   skill              skill_type
   title              String
+  description        String?
   instructions       String?
   band_target        Decimal?             @db.Decimal(2, 1)
   duration_seconds   Int?

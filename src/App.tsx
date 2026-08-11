@@ -17,10 +17,12 @@ import { SearchView } from './views/SearchView';
 import { SettingsView } from './views/SettingsView';
 import { LmsView } from './views/LmsView';
 import { AiTutorView } from './views/AiTutorView';
+import { DiagnosticView } from './views/DiagnosticView';
 import { db } from './lib/db';
 
 const PROTECTED_ROUTES = [
   'dashboard',
+  'diagnostic',
   'writing',
   'reading',
   'speaking',
@@ -31,7 +33,6 @@ const PROTECTED_ROUTES = [
   'settings',
   'lms-grammar',
   'lms-vocab',
-  'lms-tips',
   'tutor-ai',
   'tutor-examiner',
 ];
@@ -83,7 +84,8 @@ export default function App() {
 
   const handleSignupSuccess = () => {
     setIsAuthenticated(true);
-    handleNavigate('dashboard');
+    // Brand-new users go straight to the placement diagnostic (skippable).
+    handleNavigate('diagnostic');
   };
 
   const handleLogout = async () => {
@@ -97,6 +99,8 @@ export default function App() {
     switch (currentRoute) {
       case 'dashboard':
         return <DashboardView onNavigateAction={handleNavigate} />;
+      case 'diagnostic':
+        return <DiagnosticView onNavigateAction={handleNavigate} />;
       case 'writing':
         return <WritingView />;
       case 'reading':
@@ -117,8 +121,6 @@ export default function App() {
         return <LmsView initialTab="grammar" />;
       case 'lms-vocab':
         return <LmsView initialTab="vocab" />;
-      case 'lms-tips':
-        return <LmsView initialTab="tips" />;
       case 'tutor-ai':
         return <AiTutorView initialTab="tutor" />;
       case 'tutor-examiner':

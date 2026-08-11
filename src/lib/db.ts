@@ -102,6 +102,16 @@ export interface DashboardData extends DashboardStats {
   trend: { startBand: number; latestBand: number; gain: number } | null;
 }
 
+export interface DiagnosticResult {
+  estimatedBand: number;
+  taskResponseScore: number;
+  coherenceScore: number;
+  lexicalScore: number;
+  grammarScore: number;
+  generalSummary: string;
+  keyImprovements: string[];
+}
+
 export interface SubmissionSummary {
   id: string;
   skill: string;
@@ -246,6 +256,20 @@ export const db = {
   // Full dashboard payload (bands, streak, hours, weekly activity, trend).
   async getDashboard(): Promise<DashboardData> {
     return api<DashboardData>('/api/dashboard/stats');
+  },
+
+  // Submit the placement diagnostic; seeds bands + marks onboarding complete.
+  async submitDiagnostic(essayText: string): Promise<DiagnosticResult> {
+    return api<DiagnosticResult>('/api/diagnostic/submit', {
+      method: 'POST',
+      body: JSON.stringify({ essayText }),
+    });
+  },
+
+  // Whether the current user has completed the diagnostic.
+  async getDiagnosticStatus(): Promise<boolean> {
+    const { completed } = await api<{ completed: boolean }>('/api/diagnostic/status');
+    return completed;
   },
 
   // Submission history (list) for the current user.

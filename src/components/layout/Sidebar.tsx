@@ -8,7 +8,6 @@ import {
   FileCheck,
   History,
   Settings,
-  Sparkles,
   LogOut,
   ChevronDown,
   ChevronRight,
@@ -16,6 +15,7 @@ import {
   PinOff,
   GraduationCap,
   Bot,
+  Sparkles,
 } from '../ui/icons';
 import { currentUser as fallbackUser } from '../../lib/data';
 import { db, DbUser } from '../../lib/db';
@@ -126,7 +126,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLo
       items: [
         { id: 'lms-grammar', label: 'Grammar Masterclass', icon: GraduationCap },
         { id: 'lms-vocab', label: 'IELTS Vocabulary', icon: BookOpen },
-        { id: 'lms-tips', label: 'Band 8+ Tips & Tricks', icon: Sparkles },
       ],
     },
     {

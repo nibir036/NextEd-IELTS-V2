@@ -79,3 +79,14 @@ export function readingBand(rawScore: number, total: number): number {
   for (const row of table) if (scaled >= row.min) return row.band;
   return 2.5;
 }
+
+// IELTS overall band = mean of the component bands, rounded to the nearest
+// half band with IELTS's rule: a .25 mean rounds UP to the next half band,
+// and a .75 mean rounds UP to the next whole band.
+export function ieltsOverall(bands: number[]): number | null {
+  const vals = bands.filter((b) => typeof b === 'number' && !Number.isNaN(b));
+  if (vals.length === 0) return null;
+  const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+  const rounded = Math.round(mean * 2) / 2;
+  return Math.max(0, Math.min(9, rounded));
+}

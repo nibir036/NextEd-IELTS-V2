@@ -71,10 +71,10 @@ export const SubmissionsView: React.FC<SubmissionsViewProps> = ({ id }) => {
     };
   }, []);
 
-  const openDetail = async (submissionId: string) => {
+  const openDetail = async (item: SubmissionSummary) => {
     setDetailLoading(true);
     try {
-      const detail = await db.getSubmission(submissionId);
+      const detail = await db.getSubmission(item.id, item.origin);
       setSelected(detail);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load submission.');
@@ -97,7 +97,7 @@ export const SubmissionsView: React.FC<SubmissionsViewProps> = ({ id }) => {
               Practice Submissions History
             </h2>
             <p className="text-xs text-[var(--text-dim)] mt-1">
-              Review your past essays and evaluations with full criterion audit logs.
+              Review your past essays and tests with full criterion and answer audit logs.
             </p>
           </div>
         </div>
@@ -118,7 +118,7 @@ export const SubmissionsView: React.FC<SubmissionsViewProps> = ({ id }) => {
         <GlassPanel className="p-8 text-center space-y-2">
           <p className="text-sm font-semibold text-[var(--text)]">No submissions yet</p>
           <p className="text-xs text-[var(--text-dim)]">
-            Complete a writing evaluation and it will appear here with its full feedback.
+            Complete a writing, listening, or diagnostic test and it will appear here with full feedback.
           </p>
         </GlassPanel>
       )}
@@ -128,9 +128,9 @@ export const SubmissionsView: React.FC<SubmissionsViewProps> = ({ id }) => {
         <div className="space-y-4">
           {submissions.map((item) => (
             <GlassPanel
-              key={item.id}
+              key={`${item.origin}-${item.id}`}
               interactive
-              onClick={() => openDetail(item.id)}
+              onClick={() => openDetail(item)}
               className="p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 group"
             >
               <div className="flex items-start gap-4">
@@ -176,9 +176,11 @@ export const SubmissionsView: React.FC<SubmissionsViewProps> = ({ id }) => {
                     <SkillTag skill={asSkill(selected.skill)} />
                     <div>
                       <h3 className="font-display font-bold text-lg text-[var(--text)]">
-                        {typeof selected.answers.taskType === 'string'
-                          ? `Writing — ${selected.answers.taskType}`
-                          : 'Practice Submission'}
+                        {selected.origin === 'attempt'
+                          ? (selected.title ?? 'Test Attempt')
+                          : typeof selected.answers?.taskType === 'string'
+                            ? `Writing — ${selected.answers.taskType}`
+                            : 'Practice Submission'}
                       </h3>
                       <span className="text-xs font-mono text-[var(--text-faint)]">
                         Submitted: {formatDate(selected.submittedAt)}
@@ -191,58 +193,109 @@ export const SubmissionsView: React.FC<SubmissionsViewProps> = ({ id }) => {
                   </div>
                 </div>
 
-                {/* Prompt */}
-                {typeof selected.answers.prompt === 'string' && selected.answers.prompt && (
-                  <div className="p-3.5 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)]">
-                    <div className="text-[11px] font-mono uppercase text-[var(--text-faint)] mb-1">
-                      Task Prompt
-                    </div>
-                    <p className="text-xs text-[var(--text-dim)] leading-relaxed">
-                      {selected.answers.prompt as string}
-                    </p>
-                  </div>
-                )}
-
-                {/* Candidate response */}
-                {typeof selected.answers.essayText === 'string' && (
-                  <div className="p-3.5 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)]">
-                    <div className="text-[11px] font-mono uppercase text-[var(--text-faint)] mb-1">
-                      Your Response
-                    </div>
-                    <p className="text-xs text-[var(--text)] italic leading-relaxed whitespace-pre-wrap">
-                      {selected.answers.essayText as string}
-                    </p>
-                  </div>
-                )}
-
-                {/* Criteria grid */}
-                {writingCriteria(selected.feedback).length > 0 && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {writingCriteria(selected.feedback).map((e, idx) => (
-                      <div key={idx} className="p-3 rounded-xl bg-[var(--panel-2)] border border-[var(--border)]">
-                        <div className="flex justify-between items-center mb-1">
-                          <span className="text-xs font-semibold text-[var(--text)]">{e.label}</span>
-                          <span className="font-mono text-xs font-bold text-[var(--accent-a)]">
-                            {e.score.toFixed(1)}
-                          </span>
-                        </div>
-                        <p className="text-[11px] text-[var(--text-dim)] leading-tight">{e.notes}</p>
+                {/* ================= STRUCTURED TEST ATTEMPT (listening/reading) ================= */}
+                {selected.origin === 'attempt' ? (
+                  <>
+                    {selected.rawScore !== null && selected.rawScore !== undefined && (
+                      <div className="p-3.5 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] text-sm text-[var(--text)]">
+                        Scored{' '}
+                        <span className="font-bold text-[var(--accent-a)]">
+                          {selected.rawScore} / {selected.total}
+                        </span>{' '}
+                        correct.
                       </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Summary */}
-                {typeof selected.feedback.generalSummary === 'string' && (
-                  <div className="p-4 rounded-xl bg-[var(--panel-2)] border border-[var(--border)]">
-                    <div className="text-xs font-mono font-semibold text-[var(--accent-a)] mb-1 flex items-center gap-1.5">
-                      <Sparkles size={14} />
-                      <span>Examiner Summary</span>
+                    )}
+                    <div className="space-y-2">
+                      {(selected.questions ?? []).map((q) => {
+                        const yourStr = String(q.your ?? '').trim();
+                        const correct = q.accepted.some(
+                          (a) => a.toLowerCase() === yourStr.toLowerCase(),
+                        );
+                        return (
+                          <div
+                            key={q.qnumber}
+                            className="p-3 rounded-xl bg-[var(--panel-2)] border border-[var(--border)]"
+                          >
+                            <div className="text-xs text-[var(--text)]">
+                              <span className="font-mono font-bold">{q.qnumber}.</span>{' '}
+                              {q.prompt?.replace('____', '______')}
+                            </div>
+                            <div className="text-[11px] font-mono mt-1">
+                              <span className={correct ? 'text-[var(--success)]' : 'text-[var(--danger)]'}>
+                                Your answer: {yourStr || '—'}
+                              </span>
+                              {!correct && (
+                                <span className="text-[var(--text-dim)]">
+                                  {' '}
+                                  · Accepted: {q.accepted.join(' / ')}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
-                    <p className="text-xs text-[var(--text-dim)] leading-relaxed">
-                      {selected.feedback.generalSummary as string}
-                    </p>
-                  </div>
+                  </>
+                ) : (
+                  <>
+                    {/* ================= AI-GRADED SUBMISSION (writing/diagnostic) ================= */}
+                    {/* Prompt */}
+                    {typeof selected.answers?.prompt === 'string' && selected.answers.prompt && (
+                      <div className="p-3.5 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)]">
+                        <div className="text-[11px] font-mono uppercase text-[var(--text-faint)] mb-1">
+                          Task Prompt
+                        </div>
+                        <p className="text-xs text-[var(--text-dim)] leading-relaxed">
+                          {selected.answers.prompt as string}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Candidate response */}
+                    {typeof selected.answers?.essayText === 'string' && (
+                      <div className="p-3.5 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)]">
+                        <div className="text-[11px] font-mono uppercase text-[var(--text-faint)] mb-1">
+                          Your Response
+                        </div>
+                        <p className="text-xs text-[var(--text)] italic leading-relaxed whitespace-pre-wrap">
+                          {selected.answers.essayText as string}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Criteria grid */}
+                    {selected.feedback && writingCriteria(selected.feedback).length > 0 && (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {writingCriteria(selected.feedback).map((e, idx) => (
+                          <div
+                            key={idx}
+                            className="p-3 rounded-xl bg-[var(--panel-2)] border border-[var(--border)]"
+                          >
+                            <div className="flex justify-between items-center mb-1">
+                              <span className="text-xs font-semibold text-[var(--text)]">{e.label}</span>
+                              <span className="font-mono text-xs font-bold text-[var(--accent-a)]">
+                                {e.score.toFixed(1)}
+                              </span>
+                            </div>
+                            <p className="text-[11px] text-[var(--text-dim)] leading-tight">{e.notes}</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Summary */}
+                    {typeof selected.feedback?.generalSummary === 'string' && (
+                      <div className="p-4 rounded-xl bg-[var(--panel-2)] border border-[var(--border)]">
+                        <div className="text-xs font-mono font-semibold text-[var(--accent-a)] mb-1 flex items-center gap-1.5">
+                          <Sparkles size={14} />
+                          <span>Examiner Summary</span>
+                        </div>
+                        <p className="text-xs text-[var(--text-dim)] leading-relaxed">
+                          {selected.feedback.generalSummary as string}
+                        </p>
+                      </div>
+                    )}
+                  </>
                 )}
 
                 <div className="text-right">

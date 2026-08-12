@@ -148,6 +148,7 @@ export interface ListeningResult {
 
 export interface SubmissionSummary {
   id: string;
+  origin: 'submission' | 'attempt';
   skill: string;
   kind: string;
   status: string;
@@ -159,13 +160,20 @@ export interface SubmissionSummary {
 
 export interface SubmissionDetail {
   id: string;
+  origin: 'submission' | 'attempt';
   skill: string;
   kind: string;
   status: string;
   bandScore: number | null;
   submittedAt: string;
-  answers: Record<string, unknown>;
-  feedback: Record<string, unknown>;
+  // AI-graded (writing/diagnostic) shape:
+  answers?: Record<string, unknown>;
+  feedback?: Record<string, unknown>;
+  // Structured-test (listening/reading) shape:
+  rawScore?: number | null;
+  total?: number | null;
+  title?: string;
+  questions?: { qnumber: number; prompt: string | null; your: unknown; accepted: string[] }[];
 }
 
 // Postgres DATE / TIMESTAMPTZ come back either as 'YYYY-MM-DD' or a full ISO
@@ -315,9 +323,9 @@ export const db = {
   },
 
   // A single submission with its full stored feedback + answers.
-  async getSubmission(id: string): Promise<SubmissionDetail> {
+  async getSubmission(id: string, origin?: 'submission' | 'attempt'): Promise<SubmissionDetail> {
     const { submission } = await api<{ submission: SubmissionDetail }>(
-      `/api/submissions/${id}`,
+      origin ? `/api/submissions/${id}?origin=${origin}` : `/api/submissions/${id}`,
     );
     return submission;
   },

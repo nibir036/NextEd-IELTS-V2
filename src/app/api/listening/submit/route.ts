@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '../../../../lib/prisma';
 import { getSessionUserId } from '../../../../lib/session';
-import { isCorrect, listeningBand } from '../../../../lib/scoring';
+import { isCorrect, listeningBand, ieltsOverall } from '../../../../lib/scoring';
 
 // Scores a listening attempt against the server-side answer key, saves it,
-// and returns the band + per-question correctness for review.
+// updates the user's best listening band + overall band, and returns the
+// band + per-question correctness for review.
 export async function POST(req: NextRequest) {
   try {
     const userId = await getSessionUserId();
@@ -17,6 +18,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'testId and answers are required.' }, { status: 400 });
     }
 
+    // Load the test WITH its answer key (server-side only).
     const test = await prisma.tests.findFirst({
       where: { id: testId, skill: 'listening', is_published: true },
       select: {
@@ -62,6 +64,35 @@ export async function POST(req: NextRequest) {
         answers: answers as object,
       },
     });
+
+    // Update the user's listening skill band to their BEST band so far,
+    // then recompute the overall band from all known skill bands (IELTS avg).
+    const existing = await prisma.user_skill_bands.findUnique({
+      where: { user_id_skill: { user_id: userId, skill: 'listening' } },
+      select: { band: true },
+    });
+    const prevBest = existing?.band !== null && existing?.band !== undefined ? Number(existing.band) : null;
+    const bestBand = prevBest === null ? band : Math.max(prevBest, band);
+
+    if (bestBand !== prevBest) {
+      await prisma.user_skill_bands.upsert({
+        where: { user_id_skill: { user_id: userId, skill: 'listening' } },
+        create: { user_id: userId, skill: 'listening', band: bestBand },
+        update: { band: bestBand, updated_at: new Date() },
+      });
+    }
+
+    // Recompute overall from every skill band the user now has.
+    const allBands = await prisma.user_skill_bands.findMany({
+      where: { user_id: userId },
+      select: { band: true },
+    });
+    const overall = ieltsOverall(
+      allBands.map((b) => (b.band !== null ? Number(b.band) : NaN)).filter((n) => !Number.isNaN(n)),
+    );
+    if (overall !== null) {
+      await prisma.users.update({ where: { id: userId }, data: { overall_band: overall } });
+    }
 
     return NextResponse.json({ rawScore: raw, total, band, review });
   } catch (err: unknown) {

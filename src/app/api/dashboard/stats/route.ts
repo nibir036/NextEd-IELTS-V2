@@ -16,7 +16,7 @@ export async function GET() {
   }
 
   // --- Pull the raw rows we need in parallel ---
-  const [userRow, skillBandRows, scoredCount, allSubs, mockCount] = await Promise.all([
+  const [userRow, skillBandRows, scoredCount, allSubs, mockCount, attempts] = await Promise.all([
     prisma.users.findUnique({
       where: { id: userId },
       select: { total_practice_time: true, overall_band: true, target_band: true },
@@ -38,10 +38,25 @@ export async function GET() {
       orderBy: { submitted_at: 'desc' },
     }),
     prisma.submissions.count({ where: { user_id: userId, kind: 'full_mock' } }),
+    prisma.test_attempts.findMany({
+      where: { user_id: userId },
+      select: { submitted_at: true, band: true },
+      orderBy: { submitted_at: 'desc' },
+    }),
   ]);
 
+  // Normalize structured-test attempts into the same shape as scored submissions
+  // so every stat below counts listening/reading alongside writing.
+  const attemptRows = attempts.map((a) => ({
+    submitted_at: a.submitted_at,
+    band_score: a.band,
+    kind: 'single_test' as const,
+    status: 'scored' as const,
+  }));
+  const allActivity = [...allSubs, ...attemptRows];
+
   // --- Streak: consecutive days (ending today) with at least one submission ---
-  const dayKeys = Array.from(new Set(allSubs.map((s) => dayKey(s.submitted_at))));
+  const dayKeys = Array.from(new Set(allActivity.map((s) => dayKey(s.submitted_at)))).sort((a, b) => (a < b ? 1 : -1));
   let streakDays = 0;
   if (dayKeys.length > 0) {
     const cursor = new Date();
@@ -83,14 +98,14 @@ export async function GET() {
   }
 
   // --- Mock vs modular counts (scored only for modular practice sets) ---
-  const modularCount = allSubs.filter(
+  const modularCount = allActivity.filter(
     (s) => s.kind === 'single_test' && s.status === 'scored',
   ).length;
 
   // --- 30-day trend: earliest vs latest scored band within the window ---
   const now = Date.now();
   const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
-  const scoredInWindow = allSubs
+  const scoredInWindow = allActivity
     .filter((s) => s.status === 'scored' && s.band_score !== null)
     .filter((s) => now - s.submitted_at.getTime() <= THIRTY_DAYS)
     .sort((a, b) => a.submitted_at.getTime() - b.submitted_at.getTime());
@@ -108,7 +123,7 @@ export async function GET() {
 
   return NextResponse.json({
     // Existing fields (kept for backwards compatibility)
-    testsCompleted: scoredCount,
+    testsCompleted: scoredCount + attempts.length,
     streakDays,
     practiceHours,
     // Extended dashboard data

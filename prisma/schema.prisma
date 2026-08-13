@@ -395,4 +395,5 @@ enum grammar_exercise_kind {
   essay_edit
   mcq
   production
+  gap_fill
 }

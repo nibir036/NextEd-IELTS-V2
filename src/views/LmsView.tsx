@@ -57,6 +57,9 @@ type ContentBlock = {
   label?: string;
   bn?: string;        // ADD THIS
   bn_note?: string;   // ADD THIS
+  items?: string[];
+  ordered?: boolean;
+  caption?: string;
 };
 
 type ChapterDetail = {
@@ -150,6 +153,27 @@ function BlockRenderer({
           <BnNote text={block.bn ?? block.bn_note} />
         </div>
       );
+    
+    case 'list': {
+      const ListTag = block.ordered ? 'ol' : 'ul';
+      return (
+        <div className="mb-3">
+          <ListTag
+            className={`text-sm text-[var(--text-dim)] leading-relaxed mb-1 pl-5 space-y-1.5 ${
+              block.ordered ? 'list-decimal' : 'list-disc'
+            } marker:text-[var(--accent-a)]`}
+          >
+            {(block.items ?? []).map((it, i) => (
+              <li key={i} className="pl-1">
+                {it}
+              </li>
+            ))}
+          </ListTag>
+          <BnNote text={block.bn ?? block.bn_note} />
+        </div>
+      );
+    }
+    
     case 'table':
       return (
         <div className="overflow-x-auto mb-4 rounded-lg border border-[var(--border)]">

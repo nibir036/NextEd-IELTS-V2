@@ -55,6 +55,8 @@ type ContentBlock = {
   error_types?: Array<{ label: string; incorrect: string; correct: string }>;
   exercise_slug?: string;
   label?: string;
+  bn?: string;        // ADD THIS
+  bn_note?: string;   // ADD THIS
 };
 
 type ChapterDetail = {
@@ -106,6 +108,21 @@ type AttemptFeedback = {
   bnNote: string | null;
 };
 
+function BnNote({ text }: { text?: string | null }) {
+  if (!text) return null;
+  return (
+    <p
+      lang="bn"
+      className="mt-2 pt-2 border-t border-[var(--border)]/40 text-sm text-[var(--text-dim)] leading-relaxed"
+    >
+      <span className="font-mono text-[10px] uppercase text-[var(--accent-a)] mr-1.5 tracking-wide">
+        BN
+      </span>
+      {text}
+    </p>
+  );
+}
+
 function BlockRenderer({
   block,
   onStartExercise,
@@ -128,7 +145,10 @@ function BlockRenderer({
     }
     case 'paragraph':
       return (
-        <p className="text-sm text-[var(--text-dim)] leading-relaxed mb-3">{block.text}</p>
+        <div className="mb-3">
+          <p className="text-sm text-[var(--text-dim)] leading-relaxed">{block.text}</p>
+          <BnNote text={block.bn ?? block.bn_note} />
+        </div>
       );
     case 'table':
       return (
@@ -169,6 +189,7 @@ function BlockRenderer({
             </div>
           )}
           <p className="text-sm text-[var(--text)] leading-relaxed">{block.text}</p>
+          <BnNote text={block.bn ?? block.bn_note} />   {/* ADD THIS LINE */}
         </div>
       );
     case 'example_pair':
@@ -203,6 +224,7 @@ function BlockRenderer({
               <div className="text-emerald-400/80">OK {et.correct}</div>
             </div>
           ))}
+          <BnNote text={block.bn ?? block.bn_note} />   {/* ADD THIS LINE */}
         </div>
       );
     case 'ielts_impact':

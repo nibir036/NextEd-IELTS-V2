@@ -128,15 +128,15 @@
             "id": "c1_b014",
             "type": "example_pair",
             "incorrect": "The list of items are on the table.",
-            "correct": "T",
-            "why": null
+            "correct": "The list of items is on the table.",
+            "why": "the subject is “list” (singular), not “items”. Cross out the middle phrase and the truth is obvious: “The list … is.”"
           },
           {
             "id": "c1_b015",
             "type": "example_pair",
             "incorrect": "The quality of the answers were poor.",
-            "correct": "T",
-            "why": null
+            "correct": "The quality of the answers was poor.",
+            "why": "the subject is “quality” (singular), not “answers”. Cross out the middle phrase and the truth is obvious: “The quality … was.”"
           },
           {
             "id": "c1_b016",
@@ -152,7 +152,7 @@
           {
             "id": "c1_b018",
             "type": "paragraph",
-            "text": "This pair appears constantly in Writing Task 1, and the two behave in opposite ways. • “The number of + plural noun” takes a singular verb (the subject is number, one figure). • “A number of + plural noun” takes a plural verb (it simply means several). The number of tourists has increased since 2010. A number of tourists were waiting outside the museum."
+            "text": "This pair appears constantly in Writing Task 1, and the two behave in opposite ways. \n• “The number of + plural noun” takes a singular verb (the subject is number, one figure). \n• “A number of + plural noun” takes a plural verb (it simply means several). The number of tourists has increased since 2010. A number of tourists were waiting outside the museum."
           },
           {
             "id": "c1_b019",

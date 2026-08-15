@@ -14,6 +14,10 @@ interface LmsViewProps {
   id?: string;
 }
 
+/* =========================================================
+   GRAMMAR TYPES
+   ========================================================= */
+
 type ChapterSummary = {
   id: string;
   slug: string;
@@ -55,8 +59,8 @@ type ContentBlock = {
   error_types?: Array<{ label: string; incorrect: string; correct: string }>;
   exercise_slug?: string;
   label?: string;
-  bn?: string;        // ADD THIS
-  bn_note?: string;   // ADD THIS
+  bn?: string;
+  bn_note?: string;
 };
 
 type ChapterDetail = {
@@ -108,6 +112,80 @@ type AttemptFeedback = {
   bnNote: string | null;
 };
 
+/* =========================================================
+   WORD BANK TYPE
+   ========================================================= */
+
+type WordEntry = {
+  word: string;
+  part_of_speech: string | null;
+  meaning: string;
+  translation_bn: string | null;
+  example: string | null;
+  ielts_usage: string | null;
+  past: string | null;
+  past_participle: string | null;
+  ing_form: string | null;
+  noun_form: string | null;
+  adjective_form: string | null;
+  adverb_form: string | null;
+  synonyms: string[];
+  antonyms: string[];
+  collocations: string[];
+  topic: string | null;
+};
+
+/* =========================================================
+   ZERO TO BAND 9 TYPES
+   ========================================================= */
+
+type ZeroChapterMeta = {
+  id: string;
+  number: number;
+  title: string;
+  difficulty: number;
+  updatedAt: string;
+};
+
+type ZeroContentChapter = {
+  number: number;
+  slug: string;
+  title: string;
+  language: string;
+  description?: string;
+  learning_objectives?: string[];
+};
+
+type ZeroBlock = {
+  id: string;
+  type: string;
+  [key: string]: any;
+};
+
+type ZeroChapterResponse = {
+  success: boolean;
+  chapter: ZeroChapterMeta;
+  content: {
+    schema_version: string;
+    content_type?: string;
+    chapter: ZeroContentChapter;
+    blocks: ZeroBlock[];
+    answer_key?: any;
+    source?: any;
+    source_text?: string;
+    integrity?: any;
+  };
+};
+
+type ZeroChapterData = {
+  meta: ZeroChapterMeta;
+  content: ZeroChapterResponse['content'];
+};
+
+/* =========================================================
+   BANGLA NOTE
+   ========================================================= */
+
 function BnNote({ text }: { text?: string | null }) {
   if (!text) return null;
   return (
@@ -123,7 +201,11 @@ function BnNote({ text }: { text?: string | null }) {
   );
 }
 
-function BlockRenderer({
+/* =========================================================
+   GRAMMAR BLOCK RENDERER
+   ========================================================= */
+
+function GrammarBlockRenderer({
   block,
   onStartExercise,
 }: {
@@ -189,7 +271,7 @@ function BlockRenderer({
             </div>
           )}
           <p className="text-sm text-[var(--text)] leading-relaxed">{block.text}</p>
-          <BnNote text={block.bn ?? block.bn_note} />   {/* ADD THIS LINE */}
+          <BnNote text={block.bn ?? block.bn_note} />
         </div>
       );
     case 'example_pair':
@@ -224,7 +306,7 @@ function BlockRenderer({
               <div className="text-emerald-400/80">OK {et.correct}</div>
             </div>
           ))}
-          <BnNote text={block.bn ?? block.bn_note} />   {/* ADD THIS LINE */}
+          <BnNote text={block.bn ?? block.bn_note} />
         </div>
       );
     case 'ielts_impact':
@@ -258,12 +340,575 @@ function BlockRenderer({
         </div>
       );
     case 'exercise_ref':
-      // Listed once in the chapter Exercises panel — skip inline duplicates.
       return null;
     default:
       return null;
   }
 }
+
+/* =========================================================
+   ZERO TO BAND 9 BLOCK RENDERER
+   ========================================================= */
+
+function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
+  switch (block.type) {
+    case 'intro':
+      return (
+        <div className="mb-6 p-5 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)] space-y-3">
+          {block.title && (
+            <h3 className="font-display text-base font-bold text-[var(--text)]">{block.title}</h3>
+          )}
+          {block.part && (
+            <span className="inline-block px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[10px] uppercase">
+              {block.part}
+            </span>
+          )}
+          <p className="text-sm text-[var(--text-dim)] leading-relaxed whitespace-pre-wrap">
+            {block.content || block.source_text}
+          </p>
+          {(block.instructions ?? block.how_to_use ?? []).length > 0 && (
+            <ul className="text-xs text-[var(--text-faint)] list-disc list-inside space-y-1">
+              {(block.instructions ?? block.how_to_use).map((item: string, i: number) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      );
+
+    case 'batch_intro':
+      return (
+        <div className="mb-6 p-5 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)] space-y-3">
+          {block.title && (
+            <h3 className="font-display text-base font-bold text-[var(--text)]">{block.title}</h3>
+          )}
+          {block.batch && (
+            <span className="inline-block px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[10px] uppercase">
+              Batch {block.batch}
+            </span>
+          )}
+          <p className="text-sm text-[var(--text-dim)] leading-relaxed whitespace-pre-wrap">
+            {block.content}
+          </p>
+        </div>
+      );
+
+    case 'topic_bundle':
+      return (
+        <div className="mb-10 space-y-6">
+          <div className="flex items-center gap-3 flex-wrap">
+            <span className="px-2.5 py-1 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[11px] font-semibold">
+              Topic {block.topic_number}
+            </span>
+            <h3 className="font-display text-xl font-bold text-[var(--text)]">{block.title}</h3>
+          </div>
+          {(block.sections ?? []).map((section: any, idx: number) => (
+            <div
+              key={idx}
+              className="p-4 rounded-xl border border-[var(--border)] bg-[var(--panel-2)]/40 space-y-2"
+            >
+              <div className="text-[11px] font-mono uppercase text-[var(--accent-a)] tracking-wide">
+                {section.title}
+              </div>
+              <div className="text-sm text-[var(--text-dim)] leading-relaxed whitespace-pre-wrap">
+                {section.content}
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+
+    case 'answer_key':
+    case 'answer_key_section':
+      return (
+        <div className="mb-8 p-5 rounded-xl border border-[var(--border)] bg-[var(--panel-2)]/40 space-y-3">
+          {block.title && (
+            <h3 className="font-display text-lg font-bold text-[var(--text)]">{block.title}</h3>
+          )}
+          <div className="text-sm text-[var(--text-dim)] leading-relaxed whitespace-pre-wrap">
+            {block.content}
+          </div>
+          {block.source_chapter && (
+            <div className="text-[11px] font-mono text-[var(--text-faint)]">
+              Source: Chapter {block.source_chapter}
+            </div>
+          )}
+        </div>
+      );
+
+    case 'closing':
+      return (
+        <div className="mb-8 p-5 rounded-xl border border-[var(--border)] bg-[var(--panel-2)]/50 space-y-3">
+          {block.title && (
+            <h3 className="font-display text-lg font-bold text-[var(--text)]">{block.title}</h3>
+          )}
+          <div className="text-sm text-[var(--text-dim)] leading-relaxed whitespace-pre-wrap">
+            {block.content}
+          </div>
+        </div>
+      );
+
+    case 'register_rule':
+      return (
+        <div className="mb-6 p-5 rounded-xl border border-[var(--accent-a)]/30 bg-[var(--accent-a)]/8 space-y-3">
+          <div className="text-[11px] font-mono font-semibold uppercase text-[var(--accent-a)] tracking-wide">
+            {block.title || 'Register Rule'}
+          </div>
+          <p className="text-sm text-[var(--text)] leading-relaxed whitespace-pre-wrap">
+            {block.content}
+          </p>
+          {block.decision_rule && (
+            <div className="text-xs space-y-1 pt-2 border-t border-[var(--border)]/40">
+              <div>
+                <span className="font-semibold text-emerald-400">Safe for Task 2:</span>{' '}
+                {block.decision_rule.safe_for_task2}
+              </div>
+              <div>
+                <span className="font-semibold text-amber-400">Keep for Speaking:</span>{' '}
+                {block.decision_rule.keep_for_speaking}
+              </div>
+            </div>
+          )}
+          {block.phrasal_verb_note && (
+            <p className="text-xs text-[var(--text-faint)] pt-1">{block.phrasal_verb_note}</p>
+          )}
+        </div>
+      );
+
+    case 'error_matrix':
+      return (
+        <div className="mb-8 space-y-4">
+          <div>
+            <h3 className="font-display text-lg font-bold text-[var(--text)]">{block.title}</h3>
+            {block.instructions && (
+              <p className="text-sm text-[var(--text-dim)] mt-1">{block.instructions}</p>
+            )}
+          </div>
+          {(block.items ?? []).map((item: any) => (
+            <div
+              key={item.id}
+              className="p-4 rounded-xl border border-amber-500/25 bg-amber-500/5 space-y-2"
+            >
+              <div className="font-mono text-[11px] text-amber-400 font-semibold">
+                Error {item.number}
+              </div>
+              <div className="text-sm text-red-400/90">
+                <span className="font-mono font-semibold mr-1.5">X</span>
+                {item.incorrect_sentence}
+              </div>
+              {(item.band_9_corrections ?? []).map((c: string, i: number) => (
+                <div key={i} className="text-sm text-emerald-400/90">
+                  <span className="font-mono font-semibold mr-1.5">OK</span>
+                  {c}
+                </div>
+              ))}
+              {item.bangla_logic && (
+                <p className="text-xs text-[var(--text-faint)] pt-1 border-t border-[var(--border)]/30">
+                  <span className="font-semibold">Bangla logic:</span> {item.bangla_logic}
+                </p>
+              )}
+              {item.grammar_lexical_rule && (
+                <p className="text-xs text-[var(--text-dim)]">
+                  <span className="font-semibold">Rule:</span> {item.grammar_lexical_rule}
+                </p>
+              )}
+              {item.examiner_insight && (
+                <p className="text-xs text-[var(--text-faint)] italic">
+                  Examiner: {item.examiner_insight}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      );
+
+    case 'vocabulary_matrix':
+      return (
+        <div className="mb-8 space-y-4">
+          <div>
+            <h3 className="font-display text-lg font-bold text-[var(--text)]">{block.title}</h3>
+            {block.instructions && (
+              <p className="text-sm text-[var(--text-dim)] mt-1">{block.instructions}</p>
+            )}
+          </div>
+          {(block.items ?? []).map((item: any) => (
+            <div
+              key={item.id}
+              className="p-4 rounded-xl border border-[var(--border)] bg-[var(--panel-2)]/50 space-y-2"
+            >
+              <div className="flex items-baseline gap-2 flex-wrap">
+                <span className="font-display font-bold text-[var(--text)]">
+                  {item.number}. {item.term}
+                </span>
+                {item.transliteration && (
+                  <span className="text-xs font-mono text-[var(--text-faint)]">
+                    {item.transliteration}
+                  </span>
+                )}
+              </div>
+              {item.levels && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+                  <div className="p-2 rounded-lg bg-red-500/10 border border-red-500/20">
+                    <div className="font-mono text-[10px] uppercase text-red-400 mb-1">Band 5.5</div>
+                    {item.levels.band_5_5}
+                  </div>
+                  <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                    <div className="font-mono text-[10px] uppercase text-amber-400 mb-1">Band 7.5</div>
+                    {item.levels.band_7_5}
+                  </div>
+                  <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                    <div className="font-mono text-[10px] uppercase text-emerald-400 mb-1">Band 9.0</div>
+                    {item.levels.band_9_0}
+                  </div>
+                </div>
+              )}
+              {item.speaking_vs_writing && (
+                <p className="text-xs text-[var(--text-dim)]">
+                  <span className="font-semibold">Speaking vs Writing:</span>{' '}
+                  {item.speaking_vs_writing}
+                </p>
+              )}
+              {item.bangla_nuance && (
+                <p className="text-xs text-[var(--text-faint)]">
+                  <span className="font-semibold">Bangla nuance:</span> {item.bangla_nuance}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      );
+
+    case 'verb_matrix':
+      return (
+        <div className="mb-8 space-y-4">
+          <div>
+            <h3 className="font-display text-lg font-bold text-[var(--text)]">{block.title}</h3>
+            {block.instructions && (
+              <p className="text-sm text-[var(--text-dim)] mt-1">{block.instructions}</p>
+            )}
+            {block.spelling_note && (
+              <p className="text-xs text-[var(--text-faint)] mt-1">{block.spelling_note}</p>
+            )}
+          </div>
+          <div className="overflow-x-auto rounded-xl border border-[var(--border)]">
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="bg-[var(--panel-2)]">
+                  {(block.columns ?? ['#', 'V1', 'V2', 'V3', 'V4', 'Noun', 'Adj', 'Prep']).map(
+                    (h: string, i: number) => (
+                      <th
+                        key={i}
+                        className="text-left px-3 py-2 font-mono font-semibold text-[var(--text)] border-b border-[var(--border)]"
+                      >
+                        {h}
+                      </th>
+                    ),
+                  )}
+                </tr>
+              </thead>
+              <tbody>
+                {(block.items ?? []).map((row: any) => (
+                  <tr key={row.number} className="border-b border-[var(--border)]/40 last:border-0">
+                    <td className="px-3 py-1.5 text-[var(--text-faint)]">{row.number}</td>
+                    <td className="px-3 py-1.5 font-semibold text-[var(--text)]">{row.base_v1}</td>
+                    <td className="px-3 py-1.5 text-[var(--text-dim)]">{row.past_v2}</td>
+                    <td className="px-3 py-1.5 text-[var(--text-dim)]">{row.participle_v3}</td>
+                    <td className="px-3 py-1.5 text-[var(--text-dim)]">{row.ing_v4}</td>
+                    <td className="px-3 py-1.5 text-[var(--text-dim)]">{row.noun}</td>
+                    <td className="px-3 py-1.5 text-[var(--text-dim)]">{row.adjective}</td>
+                    <td className="px-3 py-1.5 text-[var(--text-dim)]">{row.preposition}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {(block.notes ?? []).map((note: string, i: number) => (
+            <p key={i} className="text-xs text-[var(--text-faint)]">
+              {note}
+            </p>
+          ))}
+        </div>
+      );
+
+    case 'linking_guide':
+      return (
+        <div className="mb-8 space-y-5">
+          <div>
+            <h3 className="font-display text-lg font-bold text-[var(--text)]">{block.title}</h3>
+            {block.introduction && (
+              <p className="text-sm text-[var(--text-dim)] mt-1">{block.introduction}</p>
+            )}
+          </div>
+          {(block.categories ?? []).map((cat: any, i: number) => (
+            <div
+              key={i}
+              className="p-4 rounded-xl border border-[var(--border)] bg-[var(--panel-2)]/40 space-y-2"
+            >
+              <div className="font-semibold text-[var(--text)]">{cat.category}</div>
+              <div className="text-xs text-[var(--text-faint)]">
+                Basic: {(cat.basic ?? []).join(', ')}
+              </div>
+              <div className="text-xs text-emerald-400/90">
+                Upgrades: {(cat.upgrades ?? []).join(', ')}
+              </div>
+              {cat.example && (
+                <p className="text-xs text-[var(--text-dim)] italic pt-1">e.g. {cat.example}</p>
+              )}
+            </div>
+          ))}
+          {(block.traps ?? []).map((trap: any) => (
+            <div
+              key={trap.id}
+              className="p-4 rounded-xl border border-red-500/25 bg-red-500/5 space-y-1"
+            >
+              <div className="font-semibold text-red-400 text-sm">{trap.title}</div>
+              <p className="text-xs text-[var(--text-dim)]">{trap.explanation}</p>
+              {trap.wrong && <div className="text-xs text-red-400/80">X {trap.wrong}</div>}
+              {(trap.right ?? []).map((r: string, i: number) => (
+                <div key={i} className="text-xs text-emerald-400/80">
+                  OK {r}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      );
+
+    case 'idiom_list':
+    case 'collocation_list':
+      return (
+        <div className="mb-8 space-y-4">
+          <div>
+            <h3 className="font-display text-lg font-bold text-[var(--text)]">{block.title}</h3>
+            {block.intro && (
+              <p className="text-sm text-[var(--text-dim)] mt-1">{block.intro}</p>
+            )}
+            {block.usage && (
+              <span className="inline-block mt-1 px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[10px] uppercase">
+                {block.usage}
+              </span>
+            )}
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {(block.items ?? []).map((item: any) => (
+              <div
+                key={item.number}
+                className="p-3 rounded-xl border border-[var(--border)] bg-[var(--panel-2)]/50 space-y-1"
+              >
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="font-semibold text-[var(--text)]">
+                    {item.number}. {item.expression}
+                  </span>
+                  {(item.part || item.category) && (
+                    <span className="text-[10px] font-mono text-[var(--text-faint)]">
+                      {item.part || item.category}
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-[var(--text-dim)]">{item.meaning}</p>
+                {item.bangla && (
+                  <p className="text-xs text-[var(--text-faint)]" lang="bn">
+                    {item.bangla}
+                  </p>
+                )}
+                {item.example && (
+                  <p className="text-xs italic text-[var(--text-dim)]">“{item.example}”</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+
+    case 'exercise': {
+      if (block.exercise_type === 'essay_rewrite' && Array.isArray(block.essays)) {
+        return (
+          <div className="mb-8 p-5 rounded-xl border border-[var(--border)] bg-[var(--panel-2)]/40 space-y-6">
+            <div>
+              <div className="text-[11px] font-mono uppercase text-[var(--accent-a)] mb-1">
+                essay rewrite
+              </div>
+              <h3 className="font-display text-lg font-bold text-[var(--text)]">{block.title}</h3>
+              {block.instructions && (
+                <p className="text-sm text-[var(--text-dim)] mt-1">{block.instructions}</p>
+              )}
+            </div>
+            {block.essays.map((essay: any) => (
+              <div
+                key={essay.id}
+                className="p-4 rounded-xl border border-[var(--border)] bg-[var(--bg)] space-y-3"
+              >
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="font-mono text-[11px] text-[var(--accent-a)]">
+                    Essay {essay.number}
+                  </span>
+                  {essay.question_type && (
+                    <span className="px-2 py-0.5 rounded-md bg-[var(--panel-2)] text-[10px] font-mono text-[var(--text-faint)]">
+                      {essay.question_type}
+                    </span>
+                  )}
+                  {essay.band && (
+                    <span className="px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-400 text-[10px] font-mono">
+                      {essay.band}
+                    </span>
+                  )}
+                </div>
+                <div className="text-sm font-semibold text-[var(--text)]">{essay.prompt}</div>
+                <div className="p-3 rounded-lg bg-red-500/5 border border-red-500/20">
+                  <div className="text-[10px] font-mono uppercase text-red-400 mb-1">
+                    Band 6.0 Draft
+                  </div>
+                  <p className="text-xs text-[var(--text-dim)] whitespace-pre-wrap leading-relaxed">
+                    {essay.draft}
+                  </p>
+                </div>
+                {essay.model_answer && (
+                  <div className="p-3 rounded-lg bg-emerald-500/5 border border-emerald-500/20">
+                    <div className="text-[10px] font-mono uppercase text-emerald-400 mb-1">
+                      Model Band 8.5–9.0
+                    </div>
+                    <p className="text-xs text-[var(--text)] whitespace-pre-wrap leading-relaxed">
+                      {essay.model_answer}
+                    </p>
+                  </div>
+                )}
+                {essay.key_upgrades && (
+                  <p className="text-[11px] text-[var(--text-faint)]">
+                    <span className="font-semibold">Key upgrades:</span> {essay.key_upgrades}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        );
+      }
+
+      return (
+        <div className="mb-8 p-5 rounded-xl border border-[var(--border)] bg-[var(--panel-2)]/40 space-y-4">
+          <div>
+            <div className="text-[11px] font-mono uppercase text-[var(--accent-a)] mb-1">
+              {(block.exercise_type || 'exercise').replace(/_/g, ' ')}
+            </div>
+            <h3 className="font-display text-lg font-bold text-[var(--text)]">{block.title}</h3>
+            {block.instructions && (
+              <p className="text-sm text-[var(--text-dim)] mt-1">{block.instructions}</p>
+            )}
+          </div>
+          <div className="space-y-3">
+            {(block.questions ?? []).map((q: any) => (
+              <div
+                key={q.id}
+                className="p-3 rounded-lg bg-[var(--bg)] border border-[var(--border)]"
+              >
+                <div className="text-[11px] font-mono text-[var(--text-faint)] mb-1">
+                  Q{q.number}
+                </div>
+                <p className="text-sm text-[var(--text)]">{q.prompt || q.sentence}</p>
+              </div>
+            ))}
+          </div>
+          {block.prompt && (
+            <div className="p-3 rounded-lg bg-[var(--bg)] border border-[var(--border)]">
+              <p className="text-sm text-[var(--text)] whitespace-pre-wrap">{block.prompt}</p>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    case 'speaking_simulation':
+      return (
+        <div className="mb-8 p-5 rounded-xl border border-[var(--border)] bg-[var(--panel-2)]/40 space-y-5">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-[11px] font-mono uppercase text-[var(--accent-a)]">
+              Speaking Simulation {block.simulation_number}
+            </span>
+            {block.title && (
+              <span className="font-display font-bold text-[var(--text)] text-sm">
+                {block.title}
+              </span>
+            )}
+          </div>
+          {block.part2 && (
+            <div className="p-4 rounded-lg bg-[var(--bg)] border border-[var(--border)] space-y-2">
+              <div className="text-[11px] font-mono uppercase text-amber-400">
+                Part 2 · Cue Card
+              </div>
+              <div className="font-semibold text-[var(--text)]">{block.part2.title}</div>
+              {(block.part2.prompts ?? []).length > 0 && (
+                <ul className="text-xs text-[var(--text-dim)] list-disc list-inside space-y-0.5">
+                  {block.part2.prompts.map((p: string, i: number) => (
+                    <li key={i}>{p}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
+          {block.model_long_turn && (
+            <div className="p-4 rounded-lg bg-emerald-500/5 border border-emerald-500/20 space-y-2">
+              <div className="text-[11px] font-mono uppercase text-emerald-400">
+                Model Long-Turn Answer
+              </div>
+              <p className="text-sm text-[var(--text)] leading-relaxed whitespace-pre-wrap">
+                {block.model_long_turn}
+              </p>
+            </div>
+          )}
+          {(block.part3 ?? []).length > 0 && (
+            <div className="space-y-3">
+              <div className="text-[11px] font-mono uppercase text-[var(--accent-a)]">
+                Part 3 · Follow-up Questions
+              </div>
+              {block.part3.map((q: any, i: number) => (
+                <div
+                  key={i}
+                  className="p-3 rounded-lg bg-[var(--bg)] border border-[var(--border)] space-y-1.5"
+                >
+                  <div className="text-xs font-semibold text-[var(--text)]">
+                    Q{i + 1}. {q.question}
+                  </div>
+                  <p className="text-xs text-[var(--text-dim)] leading-relaxed">{q.answer}</p>
+                </div>
+              ))}
+            </div>
+          )}
+          {block.lexical_analysis && (
+            <div className="p-3 rounded-lg bg-[var(--panel-2)] border border-[var(--border)]">
+              <div className="text-[11px] font-mono uppercase text-[var(--text-faint)] mb-1">
+                Lexical Analysis
+              </div>
+              <p className="text-xs text-[var(--text-dim)] leading-relaxed">
+                {block.lexical_analysis}
+              </p>
+            </div>
+          )}
+        </div>
+      );
+
+    default:
+      return (
+        <div className="mb-4 p-4 rounded-xl border border-dashed border-[var(--border)] bg-[var(--panel-2)]/30 space-y-2">
+          <div className="text-[11px] font-mono uppercase text-amber-400">
+            Unsupported block · {block.type}
+          </div>
+          {block.title && (
+            <div className="font-display font-bold text-[var(--text)] text-sm">{block.title}</div>
+          )}
+          {block.content && (
+            <p className="text-sm text-[var(--text-dim)] whitespace-pre-wrap">{block.content}</p>
+          )}
+          <details className="text-[10px] text-[var(--text-faint)]">
+            <summary className="cursor-pointer">Show raw data</summary>
+            <pre className="mt-2 overflow-auto max-h-48">{JSON.stringify(block, null, 2)}</pre>
+          </details>
+        </div>
+      );
+  }
+}
+
+/* =========================================================
+   STATUS CHIP
+   ========================================================= */
 
 function StatusChip({ status }: { status: string }) {
   const map: Record<string, string> = {
@@ -278,27 +923,31 @@ function StatusChip({ status }: { status: string }) {
   };
   return (
     <span
-      className={`px-2 py-0.5 rounded-md font-mono text-[10px] font-semibold uppercase ${map[status] ?? map.not_started}`}
+      className={`px-2 py-0.5 rounded-md font-mono text-[10px] font-semibold uppercase ${
+        map[status] ?? map.not_started
+      }`}
     >
       {label[status] ?? status}
     </span>
   );
 }
 
+/* =========================================================
+   LMS VIEW
+   ========================================================= */
+
 export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) => {
   const [activeTab, setActiveTab] = useState<'grammar' | 'vocab'>(
     initialTab.includes('vocab') ? 'vocab' : 'grammar',
   );
 
+  /* Grammar state */
   const [modules, setModules] = useState<GrammarModule[]>([]);
   const [loadingModules, setLoadingModules] = useState(false);
   const [modulesError, setModulesError] = useState<string | null>(null);
-
-  // Drill-down: modules list → module chapters → chapter content → exercise
   const [selectedModule, setSelectedModule] = useState<GrammarModule | null>(null);
   const [chapter, setChapter] = useState<ChapterDetail | null>(null);
   const [loadingChapter, setLoadingChapter] = useState(false);
-
   const [exercise, setExercise] = useState<ExerciseDetail | null>(null);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
@@ -308,16 +957,38 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
     items: AttemptFeedback[];
   } | null>(null);
 
+  /* Zero to Band 9 state */
+  const [zeroChapters, setZeroChapters] = useState<ZeroChapterData[]>([]);
+  const [loadingZero, setLoadingZero] = useState(false);
+  const [zeroError, setZeroError] = useState<string | null>(null);
+  const [selectedZero, setSelectedZero] = useState<ZeroChapterData | null>(null);
+
+  /* Word Bank state */
+  const [vocabSubTab, setVocabSubTab] = useState<'chapters' | 'wordbank'>('chapters');
+  const [wordBank, setWordBank] = useState<WordEntry[]>([]);
+  const [wordBankLoading, setWordBankLoading] = useState(false);
+  const [wordBankError, setWordBankError] = useState<string | null>(null);
+  const [wbQuery, setWbQuery] = useState('');
+  const [wbTopic, setWbTopic] = useState('');
+  const [wbLetter, setWbLetter] = useState('');
+  const [wbTopics, setWbTopics] = useState<string[]>([]);
+  const [wbPage, setWbPage] = useState(1);
+  const [wbTotalPages, setWbTotalPages] = useState(1);
+  const [wbTotal, setWbTotal] = useState(0);
+
+  /* Tab change */
   useEffect(() => {
     const next = initialTab.includes('vocab') ? 'vocab' : 'grammar';
     setActiveTab(next);
-    // Reset drill-down when switching LMS tabs via sidebar
     setSelectedModule(null);
     setChapter(null);
     setExercise(null);
     setFeedback(null);
+    setSelectedZero(null);
+    setVocabSubTab('chapters');
   }, [initialTab]);
 
+  /* Load grammar modules */
   useEffect(() => {
     if (activeTab !== 'grammar') return;
     let cancelled = false;
@@ -340,34 +1011,111 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
     };
   }, [activeTab]);
 
+  /* Load Zero to Band 9 chapters */
+  useEffect(() => {
+    if (activeTab !== 'vocab') return;
+    let cancelled = false;
+    (async () => {
+      setLoadingZero(true);
+      setZeroError(null);
+      try {
+        const numbers = [1, 2, 3, 4, 5, 6, 7];
+        const results = await Promise.all(
+          numbers.map(async (num) => {
+            const res = await fetch(`/api/vocab/${num}`);
+            if (!res.ok) {
+              console.warn(`Failed to load chapter ${num}:`, res.status);
+              return null;
+            }
+            const data: ZeroChapterResponse = await res.json();
+            if (!data.success || !data.chapter || !data.content) return null;
+            return { meta: data.chapter, content: data.content };
+          }),
+        );
+        if (!cancelled) {
+          setZeroChapters(results.filter(Boolean) as ZeroChapterData[]);
+        }
+      } catch (e) {
+        if (!cancelled) {
+          setZeroError(e instanceof Error ? e.message : 'Failed to load chapters');
+        }
+      } finally {
+        if (!cancelled) setLoadingZero(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [activeTab]);
+
+  /* Load Word Bank */
+  useEffect(() => {
+    if (activeTab !== 'vocab' || vocabSubTab !== 'wordbank') return;
+    let cancelled = false;
+    (async () => {
+      setWordBankLoading(true);
+      setWordBankError(null);
+      try {
+        const params = new URLSearchParams();
+        if (wbQuery) params.set('q', wbQuery);
+        if (wbTopic) params.set('topic', wbTopic);
+        if (wbLetter) params.set('letter', wbLetter);
+        params.set('page', String(wbPage));
+        params.set('limit', '40');
+
+        const res = await fetch(`/api/word-bank?${params.toString()}`);
+        if (!res.ok) throw new Error('Failed to load word bank');
+        const data = await res.json();
+        if (!cancelled && data.success) {
+          setWordBank(data.data.words ?? []);
+          setWbTopics(data.data.filters?.topics ?? []);
+          setWbTotalPages(data.data.pagination?.totalPages ?? 1);
+          setWbTotal(data.data.pagination?.total ?? 0);
+        }
+      } catch (e) {
+        if (!cancelled) {
+          setWordBankError(e instanceof Error ? e.message : 'Load failed');
+        }
+      } finally {
+        if (!cancelled) setWordBankLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [activeTab, vocabSubTab, wbQuery, wbTopic, wbLetter, wbPage]);
+
   const scrollMainToTop = useCallback(() => {
     const main = document.querySelector('main');
     if (main) main.scrollTo({ top: 0, behavior: 'auto' });
     window.scrollTo({ top: 0, behavior: 'auto' });
   }, []);
 
-  const openChapter = useCallback(async (slug: string) => {
-    setLoadingChapter(true);
-    setExercise(null);
-    setFeedback(null);
-    scrollMainToTop();
-    try {
-      const res = await fetch(`/api/grammar/chapters/${slug}`);
-      if (!res.ok) throw new Error('Chapter not found');
-      const data = await res.json();
-      setChapter(data.chapter);
+  const openChapter = useCallback(
+    async (slug: string) => {
+      setLoadingChapter(true);
+      setExercise(null);
+      setFeedback(null);
       scrollMainToTop();
-      fetch(`/api/grammar/chapters/${slug}/progress`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: 'in_progress' }),
-      }).catch(() => {});
-    } catch {
-      setChapter(null);
-    } finally {
-      setLoadingChapter(false);
-    }
-  }, [scrollMainToTop]);
+      try {
+        const res = await fetch(`/api/grammar/chapters/${slug}`);
+        if (!res.ok) throw new Error('Chapter not found');
+        const data = await res.json();
+        setChapter(data.chapter);
+        scrollMainToTop();
+        fetch(`/api/grammar/chapters/${slug}/progress`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: 'in_progress' }),
+        }).catch(() => {});
+      } catch {
+        setChapter(null);
+      } finally {
+        setLoadingChapter(false);
+      }
+    },
+    [scrollMainToTop],
+  );
 
   const startExercise = useCallback(
     async (exerciseSlug: string) => {
@@ -435,27 +1183,9 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
     );
   }, [chapter]);
 
-  const vocabCategories = [
-    {
-      category: 'Topic: Environment & Sustainability',
-      bandScore: 'Band 8.0 Level',
-      words: [
-        { word: 'Mitigate', POS: 'verb', def: 'Make less severe or serious.', collocation: 'mitigate climate risks' },
-        { word: 'Precipitous', POS: 'adj', def: 'Dangerously high or steep / sudden.', collocation: 'precipitous decline in biodiversity' },
-        { word: 'Detrimental', POS: 'adj', def: 'Tending to cause harm.', collocation: 'detrimental impacts on ecosystem' },
-      ],
-    },
-    {
-      category: 'Topic: Education & Technology',
-      bandScore: 'Band 8.0 Level',
-      words: [
-        { word: 'Ubiquitous', POS: 'adj', def: 'Present, appearing, or found everywhere.', collocation: 'ubiquitous smartphone adoption' },
-        { word: 'Impediment', POS: 'noun', def: 'A hindrance or obstruction in doing something.', collocation: 'major impediment to learning' },
-        { word: 'Foster', POS: 'verb', def: 'Encourage or promote the development of.', collocation: 'foster critical thinking skills' },
-      ],
-    },
-  ];
-
+  /* =========================================================
+     EXERCISE SCREEN
+     ========================================================= */
   if (exercise) {
     return (
       <div id={id} className="space-y-6 w-full">
@@ -497,7 +1227,7 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
                     <p className="text-sm text-[var(--text)]">{item.prompt}</p>
                     <textarea
                       className="w-full mt-1 px-3 py-2 rounded-lg bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)]/50 min-h-[60px] resize-y"
-                      placeholder="Rewrite the sentence correctly (or type Correct)..."
+                      placeholder="Rewrite the sentence correctly..."
                       value={answers[item.id] ?? ''}
                       onChange={(e) =>
                         setAnswers((prev) => ({ ...prev, [item.id]: e.target.value }))
@@ -582,6 +1312,9 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
     );
   }
 
+  /* =========================================================
+     GRAMMAR CHAPTER SCREEN
+     ========================================================= */
   if (chapter || loadingChapter) {
     return (
       <div id={id} className="space-y-6 w-full">
@@ -632,7 +1365,7 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
 
             <GlassPanel className="p-6 md:p-8 border border-[var(--border)]">
               {(chapter.content?.blocks ?? []).map((block) => (
-                <BlockRenderer
+                <GrammarBlockRenderer
                   key={block.id}
                   block={block}
                   onStartExercise={startExercise}
@@ -695,8 +1428,12 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
     );
   }
 
+  /* =========================================================
+     MAIN LMS
+     ========================================================= */
   return (
     <div id={id} className="space-y-6">
+      {/* Header */}
       <GlassPanel className="p-6 md:p-8 relative overflow-hidden border border-[var(--border)]">
         <div className="relative z-10">
           <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--accent-a)] tracking-wider mb-2">
@@ -704,16 +1441,17 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
             <span>LMS · Learning Management System</span>
           </div>
           <h1 className="font-display text-2xl md:text-3xl font-bold text-[var(--text)]">
-            {activeTab === 'grammar' ? 'Grammar Masterclass' : 'IELTS Vocabulary Bank'}
+            {activeTab === 'grammar' ? 'Grammar Masterclass' : 'Zero to Band 9'}
           </h1>
           <p className="text-sm text-[var(--text-dim)] mt-1 max-w-2xl">
             {activeTab === 'grammar'
               ? 'Curated grammar rules designed specifically to elevate your Grammatical Range & Accuracy score.'
-              : 'Band 8.0+ vocabulary banks organized by topic, with collocations examiners look for.'}
+              : 'Complete chapters + searchable Word Bank.'}
           </p>
         </div>
       </GlassPanel>
 
+      {/* ===================== GRAMMAR TAB ===================== */}
       {activeTab === 'grammar' && (
         <div className="space-y-6">
           {loadingModules && (
@@ -728,11 +1466,10 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
           )}
           {!loadingModules && !modulesError && modules.length === 0 && (
             <GlassPanel className="p-6 border border-[var(--border)] text-sm text-[var(--text-dim)]">
-              No grammar modules published yet. Run the seed migration if you have not already.
+              No grammar modules published yet.
             </GlassPanel>
           )}
 
-          {/* Level 2: chapters inside a selected module */}
           {!loadingModules && selectedModule && (
             <div className="space-y-4">
               <button
@@ -746,7 +1483,6 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
                 <ChevronLeft size={14} />
                 All modules
               </button>
-
               <div className="flex items-baseline justify-between gap-3 flex-wrap">
                 <div>
                   <h2 className="font-display text-xl font-bold text-[var(--text)]">
@@ -767,7 +1503,6 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
                   {selectedModule.description}
                 </p>
               )}
-
               {selectedModule.chapters.length === 0 ? (
                 <GlassPanel className="p-6 border border-[var(--border)] text-sm text-[var(--text-dim)]">
                   No chapters published in this module yet.
@@ -799,11 +1534,6 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
                             {ch.summary}
                           </p>
                         )}
-                        {ch.estimatedMin && (
-                          <div className="text-[11px] font-mono text-[var(--text-faint)] mb-3">
-                            ~{ch.estimatedMin} min
-                          </div>
-                        )}
                       </div>
                       <Button
                         variant="secondary"
@@ -824,7 +1554,6 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
             </div>
           )}
 
-          {/* Level 1: module cards */}
           {!loadingModules && !selectedModule && modules.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {modules.map((mod) => {
@@ -856,11 +1585,6 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
                       {mod.subtitle && (
                         <p className="text-xs text-[var(--text-dim)] mb-3">{mod.subtitle}</p>
                       )}
-                      {mod.description && (
-                        <p className="text-xs text-[var(--text-faint)] mb-4 line-clamp-3">
-                          {mod.description}
-                        </p>
-                      )}
                       <div className="text-[11px] font-mono text-[var(--text-faint)] mb-4">
                         {total} chapter{total === 1 ? '' : 's'}
                         {total > 0 && ` · ${done}/${total} completed`}
@@ -887,42 +1611,347 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
         </div>
       )}
 
+      {/* ===================== VOCAB TAB (Chapters + Word Bank) ===================== */}
       {activeTab === 'vocab' && (
         <div className="space-y-6">
-          {vocabCategories.map((cat, catIdx) => (
-            <GlassPanel key={catIdx} className="p-6 border border-[var(--border)]">
-              <div className="flex items-center justify-between mb-4 pb-3 border-b border-[var(--border)]">
-                <h3 className="font-display text-lg font-bold text-[var(--text)] flex items-center gap-2">
-                  <BookOpen size={18} className="text-[var(--accent-a)]" />
-                  <span>{cat.category}</span>
-                </h3>
-                <span className="px-2.5 py-1 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[11px] font-semibold">
-                  {cat.bandScore}
-                </span>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {cat.words.map((w, wIdx) => (
-                  <div
-                    key={wIdx}
-                    className="p-4 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)] space-y-2"
+          {/* Sub-tab switcher */}
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                setVocabSubTab('chapters');
+                setSelectedZero(null);
+              }}
+              className={`px-4 py-2 rounded-lg text-sm font-mono font-semibold transition-colors ${
+                vocabSubTab === 'chapters'
+                  ? 'bg-[var(--accent-a)]/20 text-[var(--accent-a)] border border-[var(--accent-a)]/40'
+                  : 'bg-[var(--panel-2)] text-[var(--text-faint)] border border-[var(--border)] hover:text-[var(--text)]'
+              }`}
+            >
+              Chapters
+            </button>
+            <button
+              type="button"
+              onClick={() => setVocabSubTab('wordbank')}
+              className={`px-4 py-2 rounded-lg text-sm font-mono font-semibold transition-colors ${
+                vocabSubTab === 'wordbank'
+                  ? 'bg-[var(--accent-a)]/20 text-[var(--accent-a)] border border-[var(--accent-a)]/40'
+                  : 'bg-[var(--panel-2)] text-[var(--text-faint)] border border-[var(--border)] hover:text-[var(--text)]'
+              }`}
+            >
+              Word Bank
+            </button>
+          </div>
+
+          {/* ---------- CHAPTERS ---------- */}
+          {vocabSubTab === 'chapters' && (
+            <>
+              {loadingZero && (
+                <div className="text-sm text-[var(--text-dim)] font-mono py-12 text-center">
+                  Loading Zero to Band 9 chapters...
+                </div>
+              )}
+              {zeroError && (
+                <GlassPanel className="p-4 border border-red-500/30 text-sm text-red-400">
+                  {zeroError}
+                </GlassPanel>
+              )}
+
+              {!loadingZero && selectedZero && (
+                <div className="space-y-6">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedZero(null);
+                      scrollMainToTop();
+                    }}
+                    className="flex items-center gap-1.5 text-xs font-mono text-[var(--text-faint)] hover:text-[var(--accent-a)] transition-colors"
                   >
-                    <div className="flex items-baseline justify-between">
-                      <span className="font-display font-bold text-base text-[var(--text)]">
-                        {w.word}
+                    <ChevronLeft size={14} />
+                    All chapters
+                  </button>
+
+                  <GlassPanel className="p-6 md:p-8 border border-[var(--border)]">
+                    <div className="flex items-center gap-2 flex-wrap mb-2">
+                      <span className="text-[11px] font-mono uppercase text-[var(--accent-a)]">
+                        Chapter {selectedZero.meta.number}
                       </span>
-                      <span className="text-[11px] font-mono text-[var(--text-faint)] italic">
-                        {w.POS}
+                      <span className="px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[10px] font-semibold">
+                        Difficulty {selectedZero.meta.difficulty}
                       </span>
                     </div>
-                    <p className="text-xs text-[var(--text-dim)]">{w.def}</p>
-                    <div className="pt-2 border-t border-[var(--border)]/60 text-[11px] font-mono text-[var(--accent-a)]">
-                      Collocation: &quot;{w.collocation}&quot;
-                    </div>
+                    <h1 className="font-display text-2xl md:text-3xl font-bold text-[var(--text)]">
+                      {selectedZero.meta.title}
+                    </h1>
+                    {selectedZero.content.chapter.description && (
+                      <p className="text-sm text-[var(--text-dim)] mt-2">
+                        {selectedZero.content.chapter.description}
+                      </p>
+                    )}
+                    {(selectedZero.content.chapter.learning_objectives ?? []).length > 0 && (
+                      <ul className="mt-3 space-y-1">
+                        {selectedZero.content.chapter.learning_objectives!.map((obj, i) => (
+                          <li key={i} className="text-xs text-[var(--text-faint)] flex gap-2">
+                            <span className="text-[var(--accent-a)]">•</span>
+                            {obj}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </GlassPanel>
+
+                  <GlassPanel className="p-6 md:p-8 border border-[var(--border)] space-y-2">
+                    {(selectedZero.content.blocks ?? []).map((block) => (
+                      <ZeroBlockRenderer key={block.id} block={block} />
+                    ))}
+                  </GlassPanel>
+
+                  <div className="flex justify-start">
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => {
+                        setSelectedZero(null);
+                        scrollMainToTop();
+                      }}
+                    >
+                      <ChevronLeft size={14} />
+                      Back to chapters
+                    </Button>
                   </div>
-                ))}
-              </div>
-            </GlassPanel>
-          ))}
+                </div>
+              )}
+
+              {!loadingZero && !zeroError && !selectedZero && (
+                <>
+                  {zeroChapters.length === 0 ? (
+                    <GlassPanel className="p-6 border border-[var(--border)] text-sm text-[var(--text-dim)]">
+                      No chapters found.
+                    </GlassPanel>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                      {zeroChapters
+                        .sort((a, b) => a.meta.number - b.meta.number)
+                        .map(({ meta, content }) => (
+                          <GlassPanel
+                            key={meta.id}
+                            className="p-6 flex flex-col justify-between border border-[var(--border)] hover:border-[var(--accent-a)]/40 transition-colors cursor-pointer"
+                            onClick={() => {
+                              setSelectedZero({ meta, content });
+                              scrollMainToTop();
+                            }}
+                          >
+                            <div>
+                              <div className="flex items-center justify-between mb-3 gap-2">
+                                <span className="px-2.5 py-1 rounded-md bg-[var(--panel-2)] text-[var(--text-faint)] font-mono text-[11px] font-semibold">
+                                  Chapter {meta.number}
+                                </span>
+                                <span className="px-2.5 py-1 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[11px] font-semibold">
+                                  Diff {meta.difficulty}
+                                </span>
+                              </div>
+                              <h3 className="font-display text-lg font-bold text-[var(--text)] mb-2">
+                                {meta.title}
+                              </h3>
+                              {content.chapter.description && (
+                                <p className="text-xs text-[var(--text-dim)] mb-3 line-clamp-3">
+                                  {content.chapter.description}
+                                </p>
+                              )}
+                              <div className="text-[11px] font-mono text-[var(--text-faint)]">
+                                {content.blocks?.length ?? 0} blocks
+                              </div>
+                            </div>
+                            <Button
+                              variant="secondary"
+                              size="sm"
+                              className="w-full flex items-center justify-center gap-1.5 mt-4"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedZero({ meta, content });
+                                scrollMainToTop();
+                              }}
+                            >
+                              <span>Open chapter</span>
+                              <ChevronRight size={16} />
+                            </Button>
+                          </GlassPanel>
+                        ))}
+                    </div>
+                  )}
+                </>
+              )}
+            </>
+          )}
+
+          {/* ---------- WORD BANK ---------- */}
+          {vocabSubTab === 'wordbank' && (
+            <div className="space-y-5">
+              <GlassPanel className="p-4 border border-[var(--border)] space-y-3">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <input
+                    type="text"
+                    placeholder="Search word or meaning..."
+                    value={wbQuery}
+                    onChange={(e) => {
+                      setWbQuery(e.target.value);
+                      setWbPage(1);
+                    }}
+                    className="flex-1 px-3 py-2 rounded-lg bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)]/50"
+                  />
+                  <select
+                    value={wbTopic}
+                    onChange={(e) => {
+                      setWbTopic(e.target.value);
+                      setWbPage(1);
+                    }}
+                    className="px-3 py-2 rounded-lg bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)]/50"
+                  >
+                    <option value="">All topics</option>
+                    {wbTopics.map((t) => (
+                      <option key={t} value={t}>
+                        {t}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="flex flex-wrap gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setWbLetter('');
+                      setWbPage(1);
+                    }}
+                    className={`px-2 py-1 rounded-md text-[11px] font-mono ${
+                      !wbLetter
+                        ? 'bg-[var(--accent-a)]/20 text-[var(--accent-a)]'
+                        : 'bg-[var(--panel-2)] text-[var(--text-faint)] hover:text-[var(--text)]'
+                    }`}
+                  >
+                    All
+                  </button>
+                  {'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map((L) => (
+                    <button
+                      key={L}
+                      type="button"
+                      onClick={() => {
+                        setWbLetter(L.toLowerCase());
+                        setWbPage(1);
+                      }}
+                      className={`px-2 py-1 rounded-md text-[11px] font-mono ${
+                        wbLetter === L.toLowerCase()
+                          ? 'bg-[var(--accent-a)]/20 text-[var(--accent-a)]'
+                          : 'bg-[var(--panel-2)] text-[var(--text-faint)] hover:text-[var(--text)]'
+                      }`}
+                    >
+                      {L}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="text-[11px] font-mono text-[var(--text-faint)]">
+                  {wbTotal} word{wbTotal === 1 ? '' : 's'} found
+                </div>
+              </GlassPanel>
+
+              {wordBankLoading && (
+                <div className="text-sm text-[var(--text-dim)] font-mono py-10 text-center">
+                  Loading words...
+                </div>
+              )}
+
+              {wordBankError && (
+                <GlassPanel className="p-4 border border-red-500/30 text-sm text-red-400">
+                  {wordBankError}
+                </GlassPanel>
+              )}
+
+              {!wordBankLoading && !wordBankError && (
+                <>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {wordBank.map((w) => (
+                      <GlassPanel
+                        key={w.word}
+                        className="p-4 border border-[var(--border)] space-y-2"
+                      >
+                        <div className="flex items-baseline justify-between gap-2">
+                          <span className="font-display font-bold text-[var(--text)] text-base">
+                            {w.word}
+                          </span>
+                          {w.part_of_speech && (
+                            <span className="text-[11px] font-mono text-[var(--text-faint)] italic">
+                              {w.part_of_speech}
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-sm text-[var(--text-dim)]">{w.meaning}</p>
+                        {w.example && (
+                          <p className="text-xs italic text-[var(--text-faint)]">
+                            “{w.example}”
+                          </p>
+                        )}
+                        {(w.past || w.noun_form || w.adjective_form) && (
+                          <div className="flex flex-wrap gap-1.5 pt-1">
+                            {w.past && (
+                              <span className="px-1.5 py-0.5 rounded bg-[var(--panel-2)] text-[10px] font-mono text-[var(--text-faint)]">
+                                past: {w.past}
+                              </span>
+                            )}
+                            {w.noun_form && (
+                              <span className="px-1.5 py-0.5 rounded bg-[var(--panel-2)] text-[10px] font-mono text-[var(--text-faint)]">
+                                n: {w.noun_form}
+                              </span>
+                            )}
+                            {w.adjective_form && (
+                              <span className="px-1.5 py-0.5 rounded bg-[var(--panel-2)] text-[10px] font-mono text-[var(--text-faint)]">
+                                adj: {w.adjective_form}
+                              </span>
+                            )}
+                          </div>
+                        )}
+                        {w.topic && (
+                          <div className="text-[10px] font-mono text-[var(--accent-a)] pt-1">
+                            {w.topic}
+                          </div>
+                        )}
+                      </GlassPanel>
+                    ))}
+                  </div>
+
+                  {wbTotalPages > 1 && (
+                    <div className="flex items-center justify-center gap-3 pt-2">
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        disabled={wbPage <= 1}
+                        onClick={() => setWbPage((p) => Math.max(1, p - 1))}
+                      >
+                        <ChevronLeft size={14} /> Prev
+                      </Button>
+                      <span className="text-xs font-mono text-[var(--text-faint)]">
+                        Page {wbPage} / {wbTotalPages}
+                      </span>
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        disabled={wbPage >= wbTotalPages}
+                        onClick={() => setWbPage((p) => Math.min(wbTotalPages, p + 1))}
+                      >
+                        Next <ChevronRight size={14} />
+                      </Button>
+                    </div>
+                  )}
+
+                  {wordBank.length === 0 && (
+                    <GlassPanel className="p-6 border border-[var(--border)] text-sm text-[var(--text-dim)] text-center">
+                      No words match your filters.
+                    </GlassPanel>
+                  )}
+                </>
+              )}
+            </div>
+          )}
         </div>
       )}
     </div>

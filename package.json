@@ -6,10 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "db:seed": "prisma db seed"
+  },
+  "prisma": {
+    "seed": "npx ts-node --compiler-options {\"module\":\"CommonJS\"} ./prisma/seed.ts"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
+    "@google/generative-ai": "^0.24.1",
     "@prisma/adapter-pg": "^7.9.1",
     "bcryptjs": "^3.0.3",
     "lucide-react": "^0.546.0",
@@ -27,6 +32,7 @@
     "@types/react-dom": "^19.0.1",
     "prisma": "^7.9.1",
     "tailwindcss": "^4.1.14",
+    "ts-node": "^10.9.2",
     "typescript": "~5.8.2"
   }
 }

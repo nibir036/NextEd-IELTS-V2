@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
 import {
@@ -38,6 +39,7 @@ export const SignupView: React.FC<SignupViewProps> = ({
   onNavigateToLogin,
   onNavigateToLanding,
 }) => {
+  const router = useRouter();
   const [countryCode, setCountryCode] = useState<string>('+1');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [fullName, setFullName] = useState<string>('');
@@ -45,8 +47,6 @@ export const SignupView: React.FC<SignupViewProps> = ({
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [targetBand, setTargetBand] = useState<number>(8.0);
-  // moduleType has no backing column in `users` yet — kept in UI state only
-  // until a users.module_type migration is added.
   const [moduleType, setModuleType] = useState<'Academic' | 'General Training'>('Academic');
   const [examDate, setExamDate] = useState<string>('2026-11-14');
 
@@ -55,8 +55,6 @@ export const SignupView: React.FC<SignupViewProps> = ({
 
   const fullPhone = `${countryCode} ${phoneNumber.trim()}`;
 
-  // NOTE: OTP verification is planned as a second step after this succeeds.
-  // For now this is a single-step phone + password + email registration.
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
@@ -92,8 +90,10 @@ export const SignupView: React.FC<SignupViewProps> = ({
         targetBand,
         examDate,
       });
+
       if (newUser) {
         onSignupSuccess();
+        router.push('/diagnostic-test'); // <--- সাইনআপ সফল হলে ডায়াগনস্টিক টেস্টে নিয়ে যাবে
       } else {
         setErrorMessage('Failed to create account. Please try again.');
       }
@@ -106,12 +106,10 @@ export const SignupView: React.FC<SignupViewProps> = ({
 
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] flex flex-col justify-between relative overflow-hidden">
-      {/* Background ambient pattern */}
       <div className="bg-layer">
         <div className="bg-pattern" />
       </div>
 
-      {/* Header bar */}
       <header className="relative z-10 border-b border-[var(--border)] px-6 py-4 flex items-center justify-between">
         <div
           onClick={onNavigateToLanding}
@@ -128,7 +126,6 @@ export const SignupView: React.FC<SignupViewProps> = ({
         </Button>
       </header>
 
-      {/* Main Signup Form */}
       <main className="relative z-10 flex-1 flex items-center justify-center p-4 md:p-8">
         <div className="w-full max-w-lg space-y-6">
           <GlassPanel className="p-6 md:p-8 border border-[var(--border)] shadow-2xl space-y-6 relative">
@@ -151,7 +148,6 @@ export const SignupView: React.FC<SignupViewProps> = ({
             )}
 
             <form onSubmit={handleRegister} className="space-y-4">
-              {/* Full Candidate Name */}
               <div>
                 <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
                   Full Candidate Name
@@ -171,7 +167,6 @@ export const SignupView: React.FC<SignupViewProps> = ({
                 </div>
               </div>
 
-              {/* Email */}
               <div>
                 <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
                   Email Address
@@ -191,7 +186,6 @@ export const SignupView: React.FC<SignupViewProps> = ({
                 </div>
               </div>
 
-              {/* Phone number and country code */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div>
                   <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
@@ -230,7 +224,6 @@ export const SignupView: React.FC<SignupViewProps> = ({
                 </div>
               </div>
 
-              {/* Password + Confirm Password */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
@@ -260,7 +253,6 @@ export const SignupView: React.FC<SignupViewProps> = ({
                 </div>
               </div>
 
-              {/* Target Band & Module Choice */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
@@ -295,7 +287,6 @@ export const SignupView: React.FC<SignupViewProps> = ({
                 </div>
               </div>
 
-              {/* Target Exam Date */}
               <div>
                 <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
                   Target Official Exam Date
@@ -319,7 +310,6 @@ export const SignupView: React.FC<SignupViewProps> = ({
               </Button>
             </form>
 
-            {/* Footer Navigation */}
             <div className="text-center pt-4 border-t border-[var(--border)]">
               <span className="text-xs text-[var(--text-dim)]">Already have a candidate account? </span>
               <button

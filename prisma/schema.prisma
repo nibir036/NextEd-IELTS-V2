@@ -46,7 +46,8 @@ model lessons {
   id               String             @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   section          lesson_section
   title            String
-  body             String?
+  titleBn          String?            // নতুন
+  body             Json?              // String? → Json?
   difficulty       Int?               @db.SmallInt
   position         Int                @default(0)
   is_published     Boolean            @default(true)
@@ -56,7 +57,6 @@ model lessons {
 
   @@index([section], map: "idx_lessons_section")
 }
-
 model mock_test_sections {
   mock_test_id String     @db.Uuid
   test_id      String     @db.Uuid
@@ -185,6 +185,9 @@ model users {
   submissions         submissions[]
   uploads             uploads[]
   user_skill_bands    user_skill_bands[]
+  isDiagnosticCompleted Boolean  @default(false) // নতুন ইউজার হলে এটি অটোমেটিক false থাকবে
+  diagnosticAnswers     Json?    // উত্তরগুলো সেভ রাখতে চাইলে
+
 }
 
 enum lesson_section {

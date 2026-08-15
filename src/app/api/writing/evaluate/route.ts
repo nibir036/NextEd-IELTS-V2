@@ -4,94 +4,75 @@ import { GoogleGenAI, Type } from '@google/genai';
 function getGenAIClient() {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    throw new Error('GEMINI_API_KEY environment variable is missing.');
+    throw new Error('GEMINI_API_KEY is missing');
   }
-  return new GoogleGenAI({
-    apiKey,
-    httpOptions: {
-      headers: {
-        'User-Agent': 'aistudio-build',
-      },
-    },
-  });
+  return new GoogleGenAI({ apiKey });
 }
 
 export async function POST(req: NextRequest) {
   try {
-    const { prompt, essayText, taskType } = await req.json();
+    const { question, essay, targetBand } = await req.json();
 
-    if (!essayText || essayText.trim().length < 20) {
-      return NextResponse.json(
-        { error: 'Essay response is too short. Please provide at least 20 words.' },
-        { status: 400 },
-      );
+    // শব্দের দৈর্ঘ্য চেক (কমপক্ষে ৫০ শব্দ না হলে এরর দেবে)
+    const wordCount = essay ? essay.trim().split(/\s+/).length : 0;
+    if (wordCount < 30) {
+      return NextResponse.json({
+        overall: 4.0,
+        writing: 4.0,
+        reading: 5.0,
+        listening: 5.0,
+        speaking: 5.0,
+        feedback: "Your essay is too short. IELTS Task 2 requires at least 250 words.",
+        errors: ["Word count issue: Please write at least 150-250 words for an accurate evaluation."]
+      });
     }
 
     const ai = getGenAIClient();
 
-    const systemInstruction = `You are an expert official Cambridge IELTS Writing Examiner with 15+ years of experience.
-Evaluate the user's essay strictly against official IELTS Band Descriptors for Task Response / Achievement, Coherence & Cohesion, Lexical Resource, and Grammatical Range & Accuracy.
-Provide realistic scores in half-band increments (e.g. 6.0, 6.5, 7.0, 7.5, 8.0).
-Return response as JSON with scores and actionable feedback.`;
+    const prompt = `
+You are an official IELTS Writing Task 2 Examiner.
+Evaluate the candidate's essay objectively based on IELTS scoring criteria (Task Achievement, Coherence & Cohesion, Lexical Resource, Grammatical Accuracy).
 
-    const userMessage = `IELTS Writing ${taskType || 'Task 2'} Evaluation Request.
-Prompt: ${prompt || 'General IELTS Writing Task'}
-Student Essay:
-"""
-${essayText}
-"""`;
+Target Band: ${targetBand}
+Question: "${question}"
+Candidate Essay: "${essay}"
+
+Provide:
+1. Realistic IELTS Band Scores (Overall, Writing, Reading, Listening, Speaking).
+2. A concise summary feedback.
+3. A list of specific mistakes found (grammar, vocabulary, spelling, punctuation) with their corrections.
+`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-3.6-flash',
-      contents: userMessage,
+      model: 'gemini-2.5-flash',
+      contents: prompt,
       config: {
-        systemInstruction,
         responseMimeType: 'application/json',
         responseSchema: {
           type: Type.OBJECT,
           properties: {
-            overallBand: { type: Type.NUMBER, description: 'Overall IELTS Band score between 0 and 9 in half steps' },
-            taskResponseScore: { type: Type.NUMBER },
-            coherenceScore: { type: Type.NUMBER },
-            lexicalScore: { type: Type.NUMBER },
-            grammarScore: { type: Type.NUMBER },
-            taskResponseFeedback: { type: Type.STRING },
-            coherenceFeedback: { type: Type.STRING },
-            lexicalFeedback: { type: Type.STRING },
-            grammarFeedback: { type: Type.STRING },
-            generalSummary: { type: Type.STRING },
-            keyImprovements: {
+            overall: { type: Type.NUMBER },
+            writing: { type: Type.NUMBER },
+            reading: { type: Type.NUMBER },
+            listening: { type: Type.NUMBER },
+            speaking: { type: Type.NUMBER },
+            feedback: { type: Type.STRING },
+            errors: {
               type: Type.ARRAY,
-              items: { type: Type.STRING },
-            },
-            enhancedVersionSnippet: { type: Type.STRING },
+              items: { type: Type.STRING }
+            }
           },
-          required: [
-            'overallBand',
-            'taskResponseScore',
-            'coherenceScore',
-            'lexicalScore',
-            'grammarScore',
-            'taskResponseFeedback',
-            'coherenceFeedback',
-            'lexicalFeedback',
-            'grammarFeedback',
-            'generalSummary',
-            'keyImprovements',
-          ],
-        },
-      },
+          required: ['overall', 'writing', 'reading', 'listening', 'speaking', 'feedback', 'errors']
+        }
+      }
     });
 
-    if (!response.text) {
-      throw new Error('No evaluation response returned from AI.');
-    }
+    const data = JSON.parse(response.text || '{}');
+    return NextResponse.json(data);
 
-    const evalData = JSON.parse(response.text.trim());
-    return NextResponse.json(evalData);
-  } catch (err: unknown) {
-    console.error('Writing evaluation error:', err);
-    const errorObj = err as Error;
-    return NextResponse.json({ error: errorObj.message || 'Failed to evaluate essay.' }, { status: 500 });
+  } catch (error: unknown) {
+    const err = error as Error;
+    console.error("Evaluation Error:", err);
+    return NextResponse.json({ error: err.message || "Failed to evaluate" }, { status: 500 });
   }
 }

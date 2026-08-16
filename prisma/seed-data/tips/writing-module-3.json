@@ -1,0 +1,3016 @@
+{
+  "modules": [
+    {
+      "id": "b3000001-0003-4000-8000-000000000001",
+      "slug": "writing-module-3-tips-and-tricks",
+      "skill": "writing",
+      "title": "Module 3: IELTS Writing — Tips & Tricks",
+      "subtitle": "Task analysis, Task 1 chart reading, idea development, coherence, and the 60-minute plan",
+      "description": "The full Writing module from the Zero to Band 9 field guide: how the test and its four criteria really work, reading and writing Task 1 visuals, generating and developing Task 2 ideas, coherence and vocabulary as strategy, the complete trap library, the 60-minute time plan, and self-checking.",
+      "position": 1
+    }
+  ],
+  "chapters": [
+    {
+      "id": "b3000001-0003-4000-8000-000000000101",
+      "module_id": "b3000001-0003-4000-8000-000000000001",
+      "slug": "file-16-how-writing-works-and-task-analysis",
+      "title": "File 16: How IELTS Writing Really Works and Task Analysis",
+      "position": 1,
+      "estimated_min": 30,
+      "summary": "The shape of the test, the four marking criteria in plain language, and the READ-BREAK DOWN-IDENTIFY-PLAN-WRITE task analysis routine for both tasks.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "c16_b001",
+            "type": "paragraph",
+            "text": "In Listening and Reading, the answer already existed and your job was to find it. Writing is different. Now there is no answer waiting in a recording or a passage. You have to build it. That shift, from finding to building, changes everything, and it is why Writing is the module where preparation and strategy pay off most visibly."
+          },
+          {
+            "id": "c16_b002",
+            "type": "paragraph",
+            "text": "One thing this module is not: a grammar course or a vocabulary course. Those live in separate books in this series, and if your sentences break down or your word choice is thin, work through those first. Here we assume you can already form sentences, and we focus on the things that actually decide Writing bands: understanding exactly what the question asks, generating and developing relevant ideas, organising them clearly, managing your time, and checking your own work. Grammar and vocabulary appear only where a specific writing decision depends on them, never as lessons in themselves."
+          },
+          {
+            "id": "c16_b003",
+            "type": "paragraph",
+            "text": "We begin, as always, by understanding how the test is really built and what the examiner is really rewarding."
+          },
+          {
+            "id": "c16_b004",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 1"
+          },
+          {
+            "id": "c16_b005",
+            "type": "heading",
+            "level": 2,
+            "text": "HOW IELTS WRITING REALLY WORKS"
+          },
+          {
+            "id": "c16_b006",
+            "type": "heading",
+            "level": 3,
+            "text": "The shape of the test"
+          },
+          {
+            "id": "c16_b007",
+            "type": "paragraph",
+            "text": "Two tasks, sixty minutes."
+          },
+          {
+            "id": "c16_b008",
+            "type": "paragraph",
+            "text": "Task 1 asks for at least 150 words. In the Academic test you describe a visual: a graph, chart, table, process diagram, or map. In the General Training test you write a letter. Aim to spend about twenty minutes."
+          },
+          {
+            "id": "c16_b009",
+            "type": "paragraph",
+            "text": "Task 2 asks for at least 250 words. It is an essay responding to a prompt, and it is the same for Academic and General Training. Aim to spend about forty minutes."
+          },
+          {
+            "id": "c16_b010",
+            "type": "paragraph",
+            "text": "Here is the fact that should govern your whole hour:"
+          },
+          {
+            "id": "c16_b011",
+            "type": "principle",
+            "text": "Task 2 is worth roughly twice as much as Task 1 in your Writing score. So Task 2 deserves roughly twice the time and twice the care. A common, costly mistake is to pour thirty-five minutes into a beautiful Task 1 and then rush Task 2, sacrificing the more valuable task."
+          },
+          {
+            "id": "c16_b012",
+            "type": "paragraph",
+            "text": "Writing below the word count is penalised, so 150 and 250 are floors, not targets. Aim comfortably above them, without padding."
+          },
+          {
+            "id": "c16_b013",
+            "type": "heading",
+            "level": 3,
+            "text": "The four criteria, in plain language"
+          },
+          {
+            "id": "c16_b014",
+            "type": "paragraph",
+            "text": "Each task is marked on four criteria, each worth a quarter of that task's score. Examiners do not award marks for effort or for big words; they award them against these four things. Understand what each one actually rewards."
+          },
+          {
+            "id": "c16_b015",
+            "type": "paragraph",
+            "text": "1. Task Achievement (Task 1) or Task Response (Task 2). This is whether you did exactly what the question asked, fully and relevantly. In Task 1, did you report the main features, make the right comparisons, and include a clear overview. In Task 2, did you answer the precise question, take a clear position where one is required, and develop your ideas rather than just listing them."
+          },
+          {
+            "id": "c16_b016",
+            "type": "principle",
+            "text": "Task Response is the criterion candidates lose most easily and most avoidably. A fluent, well-written essay that answers a slightly different question than the one asked is capped low, often at Band 6, no matter how good the English. Answering the exact question is the highest-leverage thing you can do in Writing."
+          },
+          {
+            "id": "c16_b017",
+            "type": "paragraph",
+            "text": "2. Coherence and Cohesion. This is whether your writing is easy to follow: a logical flow of ideas, clear paragraphing with one main idea per paragraph, and natural connection between sentences. It is not about stuffing in linking words. Overusing “Firstly, Moreover, In addition, Furthermore” actually lowers this score, because it reads mechanically. We treat coherence as a strategy in File 21."
+          },
+          {
+            "id": "c16_b018",
+            "type": "paragraph",
+            "text": "3. Lexical Resource. This is the range and precision of your vocabulary, and whether it sounds natural. Examiners reward the right word used well, and natural word partnerships, far above rare words used awkwardly. Forced “advanced” vocabulary and memorised phrases lower this score. This is the domain of the separate vocabulary book; here we treat vocabulary only as a strategic choice, in File 21."
+          },
+          {
+            "id": "c16_b019",
+            "type": "paragraph",
+            "text": "4. Grammatical Range and Accuracy. This is the range of sentence structures you use and how accurately you use them. It is covered fully in the separate grammar book. In this module we touch grammar only when a writing decision needs it, for example choosing whether a Task 1 figure should be described with a comparison structure."
+          },
+          {
+            "id": "c16_b020",
+            "type": "heading",
+            "level": 3,
+            "text": "What examiners are not impressed by"
+          },
+          {
+            "id": "c16_b021",
+            "type": "paragraph",
+            "text": "Knowing the criteria lets you stop wasting effort on things that do not score."
+          },
+          {
+            "id": "c16_b022",
+            "type": "list",
+            "ordered": false,
+            "items": [
+              "Big words used incorrectly. A wrong “advanced” word scores worse than a correct simple one.",
+              "Memorised phrases and template sentences. Examiners are trained to spot them, and they pull down both Task Response and Lexical Resource.",
+              "Complexity for its own sake. A long, tangled sentence that loses the reader hurts Coherence.",
+              "Padding to reach a word count. Repetition and filler lower Task Response."
+            ]
+          },
+          {
+            "id": "c16_b023",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Students often lose Writing marks because they answer the topic rather than the exact question. The prompt might be about “online learning,” and they write everything they know about online learning, when the question actually asked only whether its benefits outweigh its drawbacks. Answer the question on the page, not the topic in your head.",
+            "bn": "শিক্ষার্থীরা প্রায়ই প্রশ্নের বদলে টপিক নিয়ে লেখে, তাই নম্বর হারায়। প্রশ্নে হয়তা “অনলাইন শিক্ষার সুবিধা কি অসুবিধা বেশি” জানতে চেয়েছে, আর শিক্ষার্থী অনলাইন শিক্ষা নিয়ে -সব লিখে ফেলে। মাথায় টপিক নয়, পাতায় প্রশ্নের উত্তর দিন।"
+          },
+          {
+            "id": "c16_b024",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 2"
+          },
+          {
+            "id": "c16_b025",
+            "type": "heading",
+            "level": 2,
+            "text": "TASK ANALYSIS"
+          },
+          {
+            "id": "c16_b026",
+            "type": "paragraph",
+            "text": "Most band-limiting Writing errors are made before a single sentence is written, in the thirty seconds when a candidate misreads the task. Task analysis is the habit that prevents this. It costs a minute and saves your score."
+          },
+          {
+            "id": "c16_b027",
+            "type": "heading",
+            "level": 3,
+            "text": "The routine: READ, BREAK DOWN, IDENTIFY, PLAN, WRITE"
+          },
+          {
+            "id": "c16_b028",
+            "type": "paragraph",
+            "text": "READ. Read the whole prompt slowly, twice. Not skimmed, read. The question is short; every word counts, and the instruction words especially."
+          },
+          {
+            "id": "c16_b029",
+            "type": "paragraph",
+            "text": "BREAK DOWN. Separate the prompt into its parts: the topic (the subject), the instruction (what you must do), and any limits or conditions."
+          },
+          {
+            "id": "c16_b030",
+            "type": "paragraph",
+            "text": "IDENTIFY THE TASK. Name exactly what is being asked. This is the pivotal step, and we detail it below."
+          },
+          {
+            "id": "c16_b031",
+            "type": "paragraph",
+            "text": "PLAN. Spend a short, deliberate moment deciding your position, your main points, and your paragraph shape, before writing. Planning is covered in Files 19 and 20."
+          },
+          {
+            "id": "c16_b032",
+            "type": "paragraph",
+            "text": "WRITE. Only now do you write, and because you know exactly what is asked, you write to the point."
+          },
+          {
+            "id": "c16_b033",
+            "type": "heading",
+            "level": 3,
+            "text": "Identifying the task: Task 1"
+          },
+          {
+            "id": "c16_b034",
+            "type": "paragraph",
+            "text": "In Academic Task 1, the instruction is nearly always a version of: “Summarise the information by selecting and reporting the main features, and make comparisons where relevant.” Read that as three commands: select the main features (do not report everything), report them, and compare where relevant. Then identify which visual you have (line graph, bar chart, pie chart, table, process, or map), because each has its own approach, taught in File 17."
+          },
+          {
+            "id": "c16_b035",
+            "type": "heading",
+            "level": 3,
+            "text": "Identifying the task: Task 2 question types"
+          },
+          {
+            "id": "c16_b036",
+            "type": "paragraph",
+            "text": "Task 2 is where misreading costs the most, because the wording tells you exactly what to deliver, and different wordings demand different essays. Learn to recognise each type from its instruction."
+          },
+          {
+            "id": "c16_b037",
+            "type": "paragraph",
+            "text": "Opinion (agree or disagree). Wording: “To what extent do you agree or disagree?” You must take a clear position and defend it throughout. Sitting on the fence is answering a different question."
+          },
+          {
+            "id": "c16_b038",
+            "type": "paragraph",
+            "text": "Discussion (both views). Wording: “Discuss both these views and give your own opinion.” You must present both sides fairly and state your own opinion. Missing either half caps your Task Response."
+          },
+          {
+            "id": "c16_b039",
+            "type": "paragraph",
+            "text": "Advantages and disadvantages. Wording: “What are the advantages and disadvantages?” or “Do the advantages outweigh the disadvantages?” Note the difference: the first asks you to describe both; the second asks you to weigh them and reach a verdict. The verb “outweigh” demands a judgement."
+          },
+          {
+            "id": "c16_b040",
+            "type": "paragraph",
+            "text": "Problem and solution (or cause and solution). Wording: “What problems does this cause and what solutions can you suggest?” A two-part answer: identify the problems or causes, then propose solutions. Both parts are required."
+          },
+          {
+            "id": "c16_b041",
+            "type": "paragraph",
+            "text": "Two-part (direct questions). Wording: two separate questions, for example “Why is this happening, and is it a positive or negative development?” You must answer both parts explicitly."
+          },
+          {
+            "id": "c16_b042",
+            "type": "paragraph",
+            "text": "The instruction verbs are your map: agree, discuss, outweigh, suggest, why, to what extent. Underline them in the exam. They tell you the shape of the essay before you have an idea in your head."
+          },
+          {
+            "id": "c16_b043",
+            "type": "heading",
+            "level": 3,
+            "text": "What you must deliver"
+          },
+          {
+            "id": "c16_b044",
+            "type": "paragraph",
+            "text": "After identifying the type, state plainly to yourself what the essay must contain: a clear position, both sides, causes, solutions, a comparison, a judgement, your opinion. If the question has two parts, both must appear, each developed. A checklist in your head prevents the most common failure, answering only part of the question."
+          },
+          {
+            "id": "c16_b045",
+            "type": "heading",
+            "level": 3,
+            "text": "Common misreadings (the traps)"
+          },
+          {
+            "id": "c16_b046",
+            "type": "list",
+            "ordered": false,
+            "items": [
+              "Answering the topic, not the exact question.",
+              "Ignoring one half of a two-part question.",
+              "Not giving an opinion when the question asks for one (“give your own opinion”).",
+              "Giving an opinion when the question does not ask for one (some advantage-disadvantage prompts do not want your view).",
+              "Turning an opinion question into a both-sides essay, which weakens your position."
+            ]
+          },
+          {
+            "id": "c16_b047",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Underline the instruction words before you plan. “Discuss both views and give your opinion” is three requirements: view one, view two, your opinion. Miss any of the three and your Task Response is capped, however good the writing. The instruction is a contract; deliver every clause of it.",
+            "bn": "পরিকল্পনার আগে নির্দেশনা-শব্দগুলো দাগিয়ে নিন। “Discuss both views and give your opinion” মানে তিনটি দাবি: প্রথম মত, দ্বিতীয় মত, আপনার মত। যে-কোনো একটি বাদ পড়লে Task Response আটকে যাবে।"
+          },
+          {
+            "id": "c16_b048",
+            "type": "heading",
+            "level": 1,
+            "text": "PRACTICE"
+          },
+          {
+            "id": "c16_b049",
+            "type": "paragraph",
+            "text": "Analyse before you ever write. Reasoning keys follow."
+          },
+          {
+            "id": "c16_b050",
+            "type": "heading",
+            "level": 4,
+            "text": "Drill 16.1 (Level 1): Name the criterion"
+          },
+          {
+            "id": "c16_b051",
+            "type": "practice_drill",
+            "label": "Drill 16.1 (Level 1): Name the criterion",
+            "prompt": "Which of the four criteria is most directly affected?\n1. You used “Furthermore” at the start of every paragraph.\n2. You wrote a superb essay, but about a slightly different question.\n3. You used a rare word incorrectly.\n4. Your ideas jump around with no clear paragraphing.",
+            "answer": "1. Coherence and Cohesion. Mechanical, repetitive linking lowers this score; it does not raise it.\n2. Task Response. The English quality cannot rescue an answer to the wrong question; TR is capped.\n3. Lexical Resource. A misused rare word lowers LR; the right simple word would have scored better.\n4. Coherence and Cohesion. Poor organisation and paragraphing is exactly what this criterion measures.\nLesson: knowing which criterion your habit affects tells you whether the habit helps or hurts. Three of these four common “efforts” actually lower scores."
+          },
+          {
+            "id": "c16_b052",
+            "type": "practice_drill",
+            "label": "Drill 16.2 (Level 2): Identify the Task 2 type and what to deliver",
+            "prompt": "For each prompt, name the type and list what the essay must contain.\n1. “Some people think children should start school at a very early age, while others believe they should start later. Discuss both views and give your own opinion.”\n2. “Many cities are becoming overcrowded. What problems does this cause, and what measures could solve them?”\n3. “The internet has made face-to-face communication less common. To what extent do you agree or disagree?”\n4. “More people are working from home. Do the advantages of this outweigh the disadvantages?”",
+            "answer": "1. Discussion (both views + opinion). Deliver: the case for starting early, the case for starting later, and your own clear opinion.\n2. Problem and solution. Deliver: the problems overcrowding causes, and measures that would solve them. Both parts, developed.\n3. Opinion (agree or disagree). Deliver: a clear position on whether the internet has reduced face-to-face communication, defended throughout.\n4. Advantages outweigh disadvantages. Deliver: the advantages, the disadvantages, and a clear judgement on which is greater. The verb “outweigh” requires a verdict, not just a list.\nLesson: the instruction words dictate the contents. Read them, and the essay's required shape is fixed before you brainstorm a single idea."
+          },
+          {
+            "id": "c16_b053",
+            "type": "practice_drill",
+            "label": "Drill 16.3 (Level 3): Spot the misreading",
+            "prompt": "A candidate is given: “Some believe governments should fund space exploration; others think the money should be spent on problems on Earth. Discuss both views and give your opinion.” The candidate writes three paragraphs, all arguing that money should be spent on Earth. What did they get wrong, and what will it cost them?",
+            "answer": "The candidate treated a discussion question as an opinion question. The prompt said “Discuss both views and give your opinion,” which requires presenting the case for funding space exploration as well as the case for spending on Earth, then giving their own view. By arguing only one side, they ignored one full requirement (the other view). This caps Task Response, because they answered only part of the question, and it will likely hold the essay around Band 6 however well written. The fix costs nothing: one body paragraph fairly presenting the space-exploration case, before arguing their own position. This is why the analysis step exists, to catch exactly this before writing begins."
+          },
+          {
+            "id": "f16_b054",
+            "type": "paragraph",
+            "variant": "footer",
+            "text": "Zero to Band 9: The Complete IELTS Tips & Tricks Field Guide. Module 3, Writing. File 16: How IELTS Writing Really Works and Task Analysis. Next: File 17, IELTS Writing Task 1 by chart type, with worked figures."
+          }
+        ]
+      },
+      "is_published": true
+    },
+    {
+      "id": "b3000001-0003-4000-8000-000000000102",
+      "module_id": "b3000001-0003-4000-8000-000000000001",
+      "slug": "file-17-task-1-by-chart-type",
+      "title": "File 17: Writing Task 1 by Chart Type",
+      "position": 2,
+      "estimated_min": 40,
+      "summary": "How to read all seven Task 1 visual types in the first 20 seconds — line graph, bar chart, pie chart, table, mixed chart, process diagram, and map — with a worked overview seed for each.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "c17_b001",
+            "type": "paragraph",
+            "text": "In Academic Task 1 you are given a visual and asked to describe it. Most candidates start writing too soon, before they have understood what the visual actually shows, and their answer wanders through random numbers with no shape. The fix is a reading habit. Before you write a word, you read the visual the way an expert does, and this file teaches exactly how, for each of the seven types you might meet."
+          },
+          {
+            "id": "c17_b002",
+            "type": "paragraph",
+            "text": "Two related chapters follow this one: the Overview Masterclass (File 18) and Data Selection (File 18), which is where we turn a well-read chart into a well-written answer. This file is about the reading itself, because a chart read badly cannot be written well."
+          },
+          {
+            "id": "c17_b003",
+            "type": "paragraph",
+            "text": "The figures here use invented data, created for teaching. Beside each one is its data table, both so you can practise reading the numbers and because tables are themselves a Task 1 type."
+          },
+          {
+            "id": "c17_b004",
+            "type": "heading",
+            "level": 1,
+            "text": "THE FIRST 20 SECONDS"
+          },
+          {
+            "id": "c17_b005",
+            "type": "paragraph",
+            "text": "Whatever the visual, spend the first twenty to thirty seconds reading it, not writing. Do these four things:"
+          },
+          {
+            "id": "c17_b006",
+            "type": "list",
+            "ordered": true,
+            "items": [
+              "Read the frame. Title, axis labels, units, legend, and time period. Know exactly what is measured, in what units, and over what: time, categories, or places.",
+              "Find the big picture. What is the main story? The highest and lowest, the biggest change, the overall trend or dominant category. This becomes your overview.",
+              "Decide the type of visual. Is it change over time (which means trends and usually past or future tenses), or a snapshot comparison with no time (which means comparisons, no trend language), or a process or map (which means stages or changes, not numbers)?",
+              "Decide what to ignore. You will not report every number. Minor wiggles, tiny differences, and exact decimals are noise. Identify the few features that carry the story."
+            ]
+          },
+          {
+            "id": "c17_b007",
+            "type": "principle",
+            "text": "Task 1 rewards selection, not transcription. You are not copying the chart into words; you are reporting its main features and the comparisons that matter. Reading well is deciding what to leave out."
+          },
+          {
+            "id": "c17_b008",
+            "type": "heading",
+            "level": 2,
+            "text": "1. LINE GRAPH (change over time)"
+          },
+          {
+            "id": "c17_b009",
+            "type": "figure",
+            "chart_type": "line",
+            "title": "Figure 17.1 — Spending on cinema, streaming and DVD",
+            "caption": "Line graph of annual household spending on cinema, streaming and DVD, 2012 to 2022 (US$ per household; selected years shown)",
+            "data": {
+              "headers": [
+                "Year",
+                "Cinema",
+                "Streaming",
+                "DVD"
+              ],
+              "rows": [
+                [
+                  "2012",
+                  "140",
+                  "20",
+                  "110"
+                ],
+                [
+                  "2016",
+                  "125",
+                  "80",
+                  "55"
+                ],
+                [
+                  "2020",
+                  "95",
+                  "190",
+                  "20"
+                ],
+                [
+                  "2022",
+                  "80",
+                  "240",
+                  "10"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "c17_b010",
+            "type": "paragraph",
+            "text": "What to identify: the trend of each line (rising, falling, flat, or fluctuating), how fast it moves (steep or gradual), the start and end points, any crossover where one line overtakes another, and any peak or trough."
+          },
+          {
+            "id": "c17_b011",
+            "type": "paragraph",
+            "text": "Comparisons and exceptions: which category is highest and lowest overall, and where the lines cross. Here, streaming rises steeply while cinema and DVD both decline, and streaming overtakes both at around 2016. The crossover is the most reportable feature."
+          },
+          {
+            "id": "c17_b012",
+            "type": "paragraph",
+            "text": "Overview seed: streaming grew dramatically to become the largest category, while cinema declined gradually and DVD fell to almost nothing. That one sentence is the story."
+          },
+          {
+            "id": "c17_b013",
+            "type": "paragraph",
+            "text": "Language note (strategy, not grammar): the dates decide your tense. Past dates take past tenses; future dates take future forms. Movement is described with verbs (rose, fell, climbed) and adverbs of degree (sharply, gradually)."
+          },
+          {
+            "id": "c17_b014",
+            "type": "heading",
+            "level": 2,
+            "text": "2. BAR CHART (comparison)"
+          },
+          {
+            "id": "c17_b015",
+            "type": "figure",
+            "chart_type": "grouped_bar",
+            "title": "Figure 17.2 — Weekly hours by activity and age group",
+            "caption": "Grouped bar chart of average weekly hours on social media, reading and exercise by age group (hours per week)",
+            "data": {
+              "headers": [
+                "Activity",
+                "18 to 29",
+                "30 to 49",
+                "50+"
+              ],
+              "rows": [
+                [
+                  "Social media",
+                  "25",
+                  "15",
+                  "6"
+                ],
+                [
+                  "Reading",
+                  "3",
+                  "5",
+                  "9"
+                ],
+                [
+                  "Exercise",
+                  "6",
+                  "5",
+                  "7"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "c17_b016",
+            "type": "paragraph",
+            "text": "What to identify: the tallest and shortest bars, patterns across the groups, and any reversal. Here, social media falls sharply with age while reading rises with age, an inverse pattern that is the chart's main feature."
+          },
+          {
+            "id": "c17_b017",
+            "type": "paragraph",
+            "text": "Grouping: cluster categories that behave alike. Reading and, more weakly, exercise both increase with age; social media does the opposite. Reporting these as groups is stronger than listing nine separate numbers."
+          },
+          {
+            "id": "c17_b018",
+            "type": "paragraph",
+            "text": "Overview seed: younger people spend far more time on social media, while older people read and exercise somewhat more. The contrast is the story."
+          },
+          {
+            "id": "c17_b019",
+            "type": "heading",
+            "level": 2,
+            "text": "3. PIE CHART (proportions)"
+          },
+          {
+            "id": "c17_b020",
+            "type": "figure",
+            "chart_type": "pie_pair",
+            "title": "Figure 17.3 — Household energy use by category (%)",
+            "caption": "Two pie charts comparing household energy use by category in Country A and Country B (share of household energy use)",
+            "data": {
+              "headers": [
+                "Category",
+                "Country A",
+                "Country B"
+              ],
+              "rows": [
+                [
+                  "Heating",
+                  "45%",
+                  "20%"
+                ],
+                [
+                  "Appliances",
+                  "25%",
+                  "40%"
+                ],
+                [
+                  "Water heating",
+                  "20%",
+                  "25%"
+                ],
+                [
+                  "Other",
+                  "10%",
+                  "15%"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "c17_b021",
+            "type": "paragraph",
+            "text": "What to identify: the largest and smallest slice in each pie, and which category dominates. With two pies, the key skill is comparing the same category across both. Heating dominates in Country A but is much smaller in Country B, where appliances take the largest share."
+          },
+          {
+            "id": "c17_b022",
+            "type": "paragraph",
+            "text": "Overview seed: heating is the main energy use in Country A, whereas appliances dominate in Country B, so the two countries have very different energy profiles."
+          },
+          {
+            "id": "c17_b023",
+            "type": "paragraph",
+            "text": "Language note: proportions are described with the language of share (accounted for, made up, represented) and with fractions or percentages, not movement verbs, because there is no time here."
+          },
+          {
+            "id": "c17_b024",
+            "type": "heading",
+            "level": 2,
+            "text": "4. TABLE (raw numbers)"
+          },
+          {
+            "id": "c17_b025",
+            "type": "paragraph",
+            "text": "A table has no built-in shape, so you must find the pattern yourself. This makes it, for many candidates, the hardest Task 1 type."
+          },
+          {
+            "id": "c17_b026",
+            "type": "figure",
+            "chart_type": "table_only",
+            "title": "Table 17.4 — Percentage of households owning selected devices, 2010 and 2020",
+            "caption": "Percentage of households owning selected devices, 2010 and 2020 (percentage of households)",
+            "data": {
+              "headers": [
+                "Device",
+                "2010",
+                "2020"
+              ],
+              "rows": [
+                [
+                  "Smartphone",
+                  "35",
+                  "88"
+                ],
+                [
+                  "Laptop",
+                  "45",
+                  "70"
+                ],
+                [
+                  "Smart TV",
+                  "10",
+                  "65"
+                ],
+                [
+                  "Desktop PC",
+                  "60",
+                  "30"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "c17_b027",
+            "type": "paragraph",
+            "text": "What to identify: the highest and lowest figures, the biggest change, and any outlier or reversal. Scan each row for its change over time and each column for its ranking. Here, smartphone ownership rose most (35 to 88), smart TV ownership grew sharply from a low base, and desktop PCs were the only device to fall (60 to 30), the one reversal."
+          },
+          {
+            "id": "c17_b028",
+            "type": "paragraph",
+            "text": "Overview seed: ownership of most devices rose over the decade, led by smartphones, while desktop PCs became less common, the only category to decline."
+          },
+          {
+            "id": "c17_b029",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "With a table, do the finding the chart would normally do for you. Circle the biggest number, the smallest, and the largest change before you write. A table hides its story in a grid; your job is to pull the story out, not to read the grid aloud row by row.",
+            "bn": "টেবিলে চার্টের মতো ছবি নেই, তাই প্যাটার্নটা আপনাকেই খুঁজতে হবে। লেখার আগে সবচেয়ে বড় সংখ্যা, সবচেয়ে ছোট আর সবচেয়ে বড় পরিবর্তন দাগিয়ে নিন। সারি ধরে ধরে পড়বেন না।"
+          },
+          {
+            "id": "c17_b030",
+            "type": "heading",
+            "level": 2,
+            "text": "5. MIXED CHART (two data types)"
+          },
+          {
+            "id": "c17_b031",
+            "type": "figure",
+            "chart_type": "mixed",
+            "title": "Figure 17.5 — Museum visitors and average spend",
+            "caption": "Combined bar and line chart of museum visitors and average spend per visitor, 2016 to 2021",
+            "data": {
+              "headers": [
+                "Year",
+                "Visitors (thousands)",
+                "Average spend (US$)"
+              ],
+              "rows": [
+                [
+                  "2016",
+                  "200",
+                  "12"
+                ],
+                [
+                  "2018",
+                  "260",
+                  "15"
+                ],
+                [
+                  "2019",
+                  "300",
+                  "16"
+                ],
+                [
+                  "2020",
+                  "90",
+                  "22"
+                ],
+                [
+                  "2021",
+                  "180",
+                  "18"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "c17_b032",
+            "type": "paragraph",
+            "text": "What to identify: each dataset has its own story, and you must cover both, then note any relationship between them. Visitors rose to a peak in 2019, fell sharply in 2020, and partly recovered. Average spend rose steadily and, strikingly, peaked in 2020 exactly when visitors collapsed."
+          },
+          {
+            "id": "c17_b033",
+            "type": "paragraph",
+            "text": "Overview seed: visitor numbers grew then fell sharply before a partial recovery, while average spend per visitor rose throughout and was highest when visitors were fewest. The inverse relationship in 2020 is the standout feature."
+          },
+          {
+            "id": "c17_b034",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "With a mixed chart, the commonest mistake is describing one half and forgetting the other. Cover both datasets, then look for whether they move together or in opposite directions. The relationship between the two is often the highest-scoring observation you can make.",
+            "bn": "Mixed chart-এ সবচেয়ে সাধারণ ভুল একটা অংশ লিখে অন্যটা ভুলে যাওয়া। দুটো তথ্যই লিখুন, তারপর দেখুন এরা একসঙ্গে চলে নাকি উল্টো দিকে। এই সংযোগটাই প্রায়ই সবচেয়ে ভালো পর্যবেক্ষণ।"
+          },
+          {
+            "id": "c17_b035",
+            "type": "heading",
+            "level": 2,
+            "text": "6. PROCESS DIAGRAM (how something happens)"
+          },
+          {
+            "id": "c17_b036",
+            "type": "figure",
+            "chart_type": "process",
+            "title": "Figure 17.6 — The paper recycling process",
+            "caption": "Flow diagram of the paper recycling process in six stages",
+            "data": {
+              "headers": [
+                "Stage",
+                "Description"
+              ],
+              "rows": [
+                [
+                  "1",
+                  "Waste paper collected"
+                ],
+                [
+                  "2",
+                  "Sorted by type"
+                ],
+                [
+                  "3",
+                  "Pulped with water"
+                ],
+                [
+                  "4",
+                  "Cleaned and de-inked"
+                ],
+                [
+                  "5",
+                  "Pressed and dried"
+                ],
+                [
+                  "6",
+                  "Rolled for reuse"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "c17_b037",
+            "type": "paragraph",
+            "text": "A process has no numbers and no trends. You describe stages in order."
+          },
+          {
+            "id": "c17_b038",
+            "type": "paragraph",
+            "text": "What to identify: how many stages there are, where the process starts and ends, whether it is linear or a cycle, and any inputs (water, heat) or outputs at each stage. This process is linear, with six stages, from collection to reuse."
+          },
+          {
+            "id": "c17_b039",
+            "type": "paragraph",
+            "text": "Overview seed: the diagram shows how waste paper is recycled through six main stages, from collection to a finished roll ready for reuse."
+          },
+          {
+            "id": "c17_b040",
+            "type": "paragraph",
+            "text": "Language note: processes are described with sequence markers (first, then, next, after that, finally) and usually with the present passive (the paper is sorted, the pulp is cleaned), because the focus is on the action, not the actor."
+          },
+          {
+            "id": "c17_b041",
+            "type": "heading",
+            "level": 2,
+            "text": "7. MAP (changes to a place)"
+          },
+          {
+            "id": "c17_b042",
+            "type": "figure",
+            "chart_type": "map_before_after",
+            "title": "Figure 17.7 — Greenford town centre, 1995 and 2020",
+            "caption": "Two maps comparing Greenford town centre in 1995 and 2020",
+            "data": {
+              "headers": [
+                "1995",
+                "2020"
+              ],
+              "rows": [
+                [
+                  "Houses",
+                  "Houses (unchanged)"
+                ],
+                [
+                  "School",
+                  "Enlarged school"
+                ],
+                [
+                  "Main Road",
+                  "Main Road + new footbridge"
+                ],
+                [
+                  "Field",
+                  "Shopping centre"
+                ],
+                [
+                  "Open land",
+                  "Car park"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "c17_b043",
+            "type": "paragraph",
+            "text": "Maps show either changes to one place over time (before and after) or differences between two places. Here it is before and after."
+          },
+          {
+            "id": "c17_b044",
+            "type": "paragraph",
+            "text": "What to identify: what was added, removed, replaced, expanded, or moved, and what stayed the same. In Greenford, the field became a shopping centre, the open land became a car park, the school was enlarged, and a new footbridge appeared, while the houses were unchanged."
+          },
+          {
+            "id": "c17_b045",
+            "type": "paragraph",
+            "text": "Overview seed: between 1995 and 2020 the town centre changed from a largely open, rural area into a developed one, with shopping and parking replacing green space."
+          },
+          {
+            "id": "c17_b046",
+            "type": "paragraph",
+            "text": "Language note: maps use location and direction language (in the north, to the east of, beside) and, for changes, the past passive (the field was replaced by, the school was expanded). Reporting what stayed the same is worth a mark too."
+          },
+          {
+            "id": "c17_b047",
+            "type": "heading",
+            "level": 1,
+            "text": "PRACTICE"
+          },
+          {
+            "id": "c17_b048",
+            "type": "paragraph",
+            "text": "This practice bridges to the next file, where we turn reading into writing. Reasoning keys follow."
+          },
+          {
+            "id": "c17_b049",
+            "type": "practice_drill",
+            "label": "Drill 17.1 (Level 2): Find the overview",
+            "prompt": "For the line graph (Figure 17.1), write a one-sentence overview: the main trend and the biggest change, no specific numbers.",
+            "answer": "Something like: “Over the period, spending on streaming rose steeply to become the largest category, while spending on cinema and, especially, DVDs declined.” This captures the dominant trend (streaming up, others down) and the biggest change (streaming's rise), with no numbers, which is exactly what an overview should do."
+          },
+          {
+            "id": "c17_b050",
+            "type": "practice_drill",
+            "label": "Drill 17.2 (Level 3): Select, do not transcribe",
+            "prompt": "For the bar chart (Figure 17.2), list the three or four features worth reporting, and name one thing you would deliberately leave out.",
+            "answer": "Worth reporting: social media use falls sharply with age; reading rises with age; the two form an inverse pattern; exercise is fairly steady across ages. Leave out: the exact three-versus-five-hour gap for reading in the youngest two groups, a minor detail that adds nothing to the pattern. Selection, not transcription."
+          },
+          {
+            "id": "c17_b051",
+            "type": "practice_drill",
+            "label": "Drill 17.3 (Level 3): Read the relationship",
+            "prompt": "For the mixed chart (Figure 17.5), state in one sentence the relationship between visitor numbers and average spend in 2020.",
+            "answer": "In 2020, visitor numbers fell to their lowest point while average spend per visitor rose to its highest, so the two moved in opposite directions. Spotting this inverse relationship is the strongest single observation available in the chart."
+          },
+          {
+            "id": "c17_b052",
+            "type": "practice_drill",
+            "label": "Drill 17.4 (Level 2): Overview a process",
+            "prompt": "For the recycling process (Figure 17.6), write a one-sentence overview naming what the process produces and how many stages it has.",
+            "answer": "Something like: “The diagram shows how waste paper is recycled into reusable rolls through six main stages, from collection to the finished product.” It names the output and the number of stages, the two things a process overview needs."
+          },
+          {
+            "id": "c17_b053",
+            "type": "paragraph",
+            "text": "The lesson across all four: reading the visual well produces the overview and the shortlist of features almost automatically. Writing then becomes reporting what you have already seen, which is what the next file builds."
+          },
+          {
+            "id": "f17_b054",
+            "type": "paragraph",
+            "variant": "footer",
+            "text": "Zero to Band 9: The Complete IELTS Tips & Tricks Field Guide. Module 3, Writing. File 17: Writing Task 1 by Chart Type. Next: File 18, the Overview Masterclass and Data Selection. (Figures are stored in the images subfolder and bundle into the final Word and PDF editions.)"
+          }
+        ]
+      },
+      "is_published": true
+    },
+    {
+      "id": "b3000001-0003-4000-8000-000000000103",
+      "module_id": "b3000001-0003-4000-8000-000000000001",
+      "slug": "file-18-overview-masterclass-and-data-selection",
+      "title": "File 18: The Overview Masterclass and Data Selection",
+      "position": 3,
+      "estimated_min": 35,
+      "summary": "How to write a number-free overview that names the exception, and how to select, group and compare data instead of dumping every figure.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "c18_b001",
+            "type": "paragraph",
+            "text": "File 17 taught you to read a visual. This file turns that reading into the two things that decide most Task 1 scores: writing a strong overview, and selecting the right data. Get these two right and you are most of the way to a strong Task Achievement mark, whatever your grammar and vocabulary."
+          },
+          {
+            "id": "c18_b002",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 4"
+          },
+          {
+            "id": "c18_b003",
+            "type": "heading",
+            "level": 2,
+            "text": "THE OVERVIEW MASTERCLASS"
+          },
+          {
+            "id": "c18_b004",
+            "type": "heading",
+            "level": 3,
+            "text": "What an overview is"
+          },
+          {
+            "id": "c18_b005",
+            "type": "paragraph",
+            "text": "An overview is one or two sentences that summarise the main features of the visual, without specific numbers. It is the big picture: the main trend, the dominant category, the overall change. It is not a detail; it is the shape of the whole."
+          },
+          {
+            "id": "c18_b006",
+            "type": "principle",
+            "text": "The overview is the single most important part of a Task 1 answer. Task Achievement explicitly requires it, and an answer with no clear overview is very hard to lift above Band 5 or 6, no matter how accurate the rest. Conversely, a clear, correct overview signals competence in the examiner's first few seconds of reading."
+          },
+          {
+            "id": "c18_b007",
+            "type": "heading",
+            "level": 3,
+            "text": "Where it goes"
+          },
+          {
+            "id": "c18_b008",
+            "type": "paragraph",
+            "text": "Your Task 1 answer has a simple shape: a one-sentence introduction (the question rephrased in your own words), then the overview, then one or two body paragraphs with the selected detail. Put the overview immediately after the introduction and signal it clearly with a word like “Overall.” Examiners look for it there, and making it easy to find is free marks."
+          },
+          {
+            "id": "c18_b009",
+            "type": "heading",
+            "level": 3,
+            "text": "What makes an overview strong"
+          },
+          {
+            "id": "c18_b010",
+            "type": "paragraph",
+            "text": "A strong overview:"
+          },
+          {
+            "id": "c18_b011",
+            "type": "list",
+            "ordered": false,
+            "items": [
+              "captures the big picture: the main trend, the dominant category, or the overall direction of change,",
+              "covers the whole visual, not just one part of it,",
+              "names the most striking features: the highest and lowest, the biggest change, the main pattern, a crossover, or a clear exception,",
+              "and contains no specific numbers. Figures belong in the body paragraphs, not the overview."
+            ]
+          },
+          {
+            "id": "c18_b012",
+            "type": "heading",
+            "level": 3,
+            "text": "What to exclude"
+          },
+          {
+            "id": "c18_b013",
+            "type": "paragraph",
+            "text": "Leave out specific figures, minor categories, small differences, and anything that is detail rather than shape. If you find yourself writing a number in your overview, you are probably writing a body sentence in the wrong place."
+          },
+          {
+            "id": "c18_b014",
+            "type": "heading",
+            "level": 3,
+            "text": "Bad, average, strong: a worked progression"
+          },
+          {
+            "id": "c18_b015",
+            "type": "paragraph",
+            "text": "Take the line graph from File 17 (repeated here)."
+          },
+          {
+            "id": "c18_b016",
+            "type": "figure",
+            "chart_type": "line",
+            "title": "Spending on cinema, streaming and DVD",
+            "caption": "Line graph of annual household spending on cinema, streaming and DVD, 2012 to 2022",
+            "data": {
+              "headers": [
+                "Year",
+                "Cinema",
+                "Streaming",
+                "DVD"
+              ],
+              "rows": [
+                [
+                  "2012",
+                  "140",
+                  "20",
+                  "110"
+                ],
+                [
+                  "2016",
+                  "125",
+                  "80",
+                  "55"
+                ],
+                [
+                  "2020",
+                  "95",
+                  "190",
+                  "20"
+                ],
+                [
+                  "2022",
+                  "80",
+                  "240",
+                  "10"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "c18_b017",
+            "type": "paragraph",
+            "text": "Bad overview: “The graph shows household spending on cinema, streaming, and DVDs from 2012 to 2022.”"
+          },
+          {
+            "id": "c18_b018",
+            "type": "paragraph",
+            "text": "Why it is bad: this only restates the question. It contains no information about what actually happened, no trend, no comparison. It is a topic sentence pretending to be an overview, and it earns nothing for Task Achievement."
+          },
+          {
+            "id": "c18_b019",
+            "type": "paragraph",
+            "text": "Average overview: “Overall, spending on streaming increased over the period.”"
+          },
+          {
+            "id": "c18_b020",
+            "type": "paragraph",
+            "text": "Why it is average: it finally states a trend, and a true one, but it covers only one of the three categories. It ignores cinema and DVDs entirely, so it does not capture the whole visual. Partial credit at best."
+          },
+          {
+            "id": "c18_b021",
+            "type": "paragraph",
+            "text": "Strong overview: “Overall, spending on streaming rose dramatically to become by far the largest category by the end of the period, while spending on both cinema and, especially, DVDs declined steadily.”"
+          },
+          {
+            "id": "c18_b022",
+            "type": "paragraph",
+            "text": "Why it is strong: it captures all three categories, names the dominant trend (streaming's rise), notes the contrasting decline of the other two, flags the most striking feature (streaming becoming the largest, which implies the crossover), and uses no specific numbers. That single sentence shows the examiner you have understood the whole chart."
+          },
+          {
+            "id": "c18_b023",
+            "type": "heading",
+            "level": 3,
+            "text": "A second progression: the table"
+          },
+          {
+            "id": "c18_b024",
+            "type": "paragraph",
+            "text": "Take the device-ownership table from File 17:"
+          },
+          {
+            "id": "c18_b025",
+            "type": "table",
+            "headers": [
+              "Device",
+              "2010",
+              "2020"
+            ],
+            "rows": [
+              [
+                "Smartphone",
+                "35",
+                "88"
+              ],
+              [
+                "Laptop",
+                "45",
+                "70"
+              ],
+              [
+                "Smart TV",
+                "10",
+                "65"
+              ],
+              [
+                "Desktop PC",
+                "60",
+                "30"
+              ]
+            ]
+          },
+          {
+            "id": "c18_b026",
+            "type": "paragraph",
+            "text": "Bad: “The table gives information about device ownership in 2010 and 2020.” (Restates the question.)"
+          },
+          {
+            "id": "c18_b027",
+            "type": "paragraph",
+            "text": "Average: “Overall, ownership of most devices increased.” (True, but misses the one device that fell, the most interesting feature.)"
+          },
+          {
+            "id": "c18_b028",
+            "type": "paragraph",
+            "text": "Strong: “Overall, ownership of most devices rose over the decade, most sharply for smartphones and smart TVs, while desktop computers were the only category to become less common.” (Whole picture, the dominant pattern, and the key exception, no numbers.)"
+          },
+          {
+            "id": "c18_b029",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Your overview must always include the exception. If most things rise but one falls, the one that falls is the most reportable feature in the whole visual, and a strong overview names it. Examiners reward the candidate who noticed the odd one out.",
+            "bn": "আপনার overview-তে সবসময় ব্যতিক্রমটা রাখুন। বেশিরভাগ বাড়লেও একটা কমলে, সেই কমাটাই সবচেয়ে গুরুত্বপূর্ণ ফিচার। যে শিক্ষার্থী ব্যতিক্রমটা খেয়াল করে, পরীক্ষক তাকে নম্বর দেন।"
+          },
+          {
+            "id": "c18_b030",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 5"
+          },
+          {
+            "id": "c18_b031",
+            "type": "heading",
+            "level": 2,
+            "text": "DATA SELECTION"
+          },
+          {
+            "id": "c18_b032",
+            "type": "heading",
+            "level": 3,
+            "text": "The principle that fixes most Task 1 answers"
+          },
+          {
+            "id": "c18_b033",
+            "type": "principle",
+            "text": "You do not need to report every number. You select the significant data and group it. Reporting every figure in order, with no shape, is the single most common Task 1 failure, and it lowers both Task Achievement and Coherence."
+          },
+          {
+            "id": "c18_b034",
+            "type": "paragraph",
+            "text": "The visual may contain forty numbers. A strong answer might use eight of them, chosen because they carry the story. The rest are noise you deliberately leave out."
+          },
+          {
+            "id": "c18_b035",
+            "type": "heading",
+            "level": 3,
+            "text": "What counts as significant"
+          },
+          {
+            "id": "c18_b036",
+            "type": "paragraph",
+            "text": "Report these:"
+          },
+          {
+            "id": "c18_b037",
+            "type": "list",
+            "ordered": false,
+            "items": [
+              "Extremes: the highest and the lowest.",
+              "Biggest changes: the largest rise or fall.",
+              "Crossovers and turning points: where one line overtakes another, or a trend reverses.",
+              "Notable groupings: categories that behave alike, reported together.",
+              "Exceptions: the one item that bucks the pattern.",
+              "The overall pattern itself."
+            ]
+          },
+          {
+            "id": "c18_b038",
+            "type": "heading",
+            "level": 3,
+            "text": "What to leave out"
+          },
+          {
+            "id": "c18_b039",
+            "type": "list",
+            "ordered": false,
+            "items": [
+              "Small differences and minor categories.",
+              "Every intermediate value between the start and the end.",
+              "Repetitive figures that say the same thing as one you have already reported.",
+              "Exact decimals, when a rounded figure carries the point."
+            ]
+          },
+          {
+            "id": "c18_b040",
+            "type": "heading",
+            "level": 3,
+            "text": "Grouping: the efficiency skill"
+          },
+          {
+            "id": "c18_b041",
+            "type": "paragraph",
+            "text": "Instead of describing each category on its own, group those that behave similarly. Compare:"
+          },
+          {
+            "id": "c18_b042",
+            "type": "paragraph",
+            "text": "Ungrouped (weak): “Cinema fell. DVDs fell. Streaming rose.” Three flat, disconnected sentences."
+          },
+          {
+            "id": "c18_b043",
+            "type": "paragraph",
+            "text": "Grouped (strong): “While spending on both cinema and DVDs declined over the period, streaming moved in the opposite direction, rising steeply.” One sentence, a clear contrast, better coherence."
+          },
+          {
+            "id": "c18_b044",
+            "type": "paragraph",
+            "text": "Grouping raises your Coherence score and lets you cover more of the data in fewer, stronger sentences."
+          },
+          {
+            "id": "c18_b045",
+            "type": "heading",
+            "level": 3,
+            "text": "Comparing, not listing"
+          },
+          {
+            "id": "c18_b046",
+            "type": "paragraph",
+            "text": "Task 1 rewards comparison. Whenever you report a figure, ask what it should be compared with: the start against the end, the highest against the lowest, one category against another. A body paragraph of paired comparisons scores far higher than a list of standalone numbers."
+          },
+          {
+            "id": "c18_b047",
+            "type": "heading",
+            "level": 3,
+            "text": "Numbers in the body"
+          },
+          {
+            "id": "c18_b048",
+            "type": "paragraph",
+            "text": "The overview has no numbers, but the body needs them, chosen carefully. Support each main feature with one or two key figures: the start and end values, the peak, the biggest gap. You are illustrating the trend with evidence, not cataloguing every point."
+          },
+          {
+            "id": "c18_b049",
+            "type": "heading",
+            "level": 3,
+            "text": "Worked selection example"
+          },
+          {
+            "id": "c18_b050",
+            "type": "paragraph",
+            "text": "Take the bar chart data from File 17:"
+          },
+          {
+            "id": "c18_b051",
+            "type": "table",
+            "headers": [
+              "Activity",
+              "18 to 29",
+              "30 to 49",
+              "50+"
+            ],
+            "rows": [
+              [
+                "Social media",
+                "25",
+                "15",
+                "6"
+              ],
+              [
+                "Reading",
+                "3",
+                "5",
+                "9"
+              ],
+              [
+                "Exercise",
+                "6",
+                "5",
+                "7"
+              ]
+            ]
+          },
+          {
+            "id": "c18_b052",
+            "type": "paragraph",
+            "text": "There are nine numbers. A strong answer reports perhaps four features, grouped:"
+          },
+          {
+            "id": "c18_b053",
+            "type": "list",
+            "ordered": true,
+            "items": [
+              "Social media use is far higher among the young and falls steeply with age (25 down to 6).",
+              "Reading shows the opposite, rising with age (3 up to 9).",
+              "These two form an inverse pattern, the chart's main story.",
+              "Exercise is fairly steady across all ages (around 5 to 7)."
+            ]
+          },
+          {
+            "id": "c18_b054",
+            "type": "paragraph",
+            "text": "Notice what is left out: the exact middle values are mostly implied rather than all stated, and no number is repeated once its point is made. Four grouped, compared features beat nine listed ones."
+          },
+          {
+            "id": "c18_b055",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Before writing the body, choose your figures like a photographer chooses shots: the extremes, the biggest change, the exception, and the endpoints. If a number does not illustrate one of those, leave it out. A Task 1 answer is judged on what it selects, not on how much it includes.",
+            "bn": "Body লেখার আগে সংখ্যা বেছে নিন: চরম মান, সবচেয়ে বড় পরিবর্তন, ব্যতিক্রম, শুরু ও শেষ। কোনো সংখ্যা এর কোনোটা না দেখালে বাদ দিন। Task 1-এ কতা লিখলেন নয়, কী বেছে নিলেন সেটাই বিচার্য।"
+          },
+          {
+            "id": "c18_b056",
+            "type": "heading",
+            "level": 1,
+            "text": "PRACTICE"
+          },
+          {
+            "id": "c18_b057",
+            "type": "paragraph",
+            "text": "Reasoning keys follow."
+          },
+          {
+            "id": "c18_b058",
+            "type": "practice_drill",
+            "label": "Drill 18.1 (Level 2): Rank the overviews",
+            "prompt": "For the two pie charts (energy use, Country A versus B, from File 17), which of these is the strong overview, and why are the others weak? a) “The pie charts show energy use in two countries.” b) “Overall, heating dominates in Country A, whereas appliances are the largest use in Country B, giving the two countries clearly different energy profiles.” c) “In Country A, heating is 45% and appliances 25%, while in Country B heating is 20%.”",
+            "answer": "b is strong. It captures the whole picture (the dominant category in each country) and the key contrast between them, with no clutter. a is weak because it only restates the question, giving no information. c is weak because it is a body sentence, not an overview: it dumps specific numbers and covers only part of the data. An overview names the shape; c reads the grid."
+          },
+          {
+            "id": "c18_b059",
+            "type": "practice_drill",
+            "label": "Drill 18.2 (Level 3): Select and group",
+            "prompt": "From the device-ownership table (above), you may report only three features in your body. Which three, and how would you group them?",
+            "answer": "Report: (1) most devices rose over the decade; (2) the sharpest rises were smartphones (35 to 88) and smart TVs (10 to 65); (3) desktop PCs were the exception, falling (60 to 30). Grouping: put the two big risers together, then set the falling desktop against them as the exception. This covers the whole table in three grouped, compared features, and it foregrounds the exception, which is the most reportable point."
+          },
+          {
+            "id": "c18_b060",
+            "type": "practice_drill",
+            "label": "Drill 18.3 (Level 3): Cut the detail dump",
+            "prompt": "A candidate writes: “Cinema was 140, then 135, then 125, then 110, then 95, then 80. Streaming was 20, then 45, then 80, then 130, then 190, then 240. DVD was 110, then 80, then 55, then 35, then 20, then 10.” Rewrite this as one strong, grouped, selective sentence with only the key figures.",
+            "answer": "Something like: “Over the period, spending on streaming rose steeply from 20 to 240, overtaking both cinema and DVDs, which declined from 140 to 80 and from 110 to 10 respectively.” One sentence replaces the entire number-dump: it groups the two decliners, contrasts them with the riser, keeps only the start and end figures, and notes the crossover. This is selection and grouping in action, and it scores far higher than the original list on both Task Achievement and Coherence."
+          },
+          {
+            "id": "c18_b061",
+            "type": "paragraph",
+            "text": "The lesson across all three: the examiner is not counting how many numbers you fit in. They are checking whether you saw the shape and reported it selectively. Choose the extremes, the biggest changes, and the exceptions; group what behaves alike; compare rather than list; and keep the overview number-free. That is the whole of Task 1 data handling."
+          },
+          {
+            "id": "f18_b062",
+            "type": "paragraph",
+            "variant": "footer",
+            "text": "Zero to Band 9: The Complete IELTS Tips & Tricks Field Guide. Module 3, Writing. File 18: The Overview Masterclass and Data Selection. Next: File 19, Task 2 Question Types and the 60-Second Idea Generation System."
+          }
+        ]
+      },
+      "is_published": true
+    },
+    {
+      "id": "b3000001-0003-4000-8000-000000000104",
+      "module_id": "b3000001-0003-4000-8000-000000000001",
+      "slug": "file-19-task-2-types-and-idea-generation",
+      "title": "File 19: Task 2 Question Types and the 60-Second Idea Generation System",
+      "position": 4,
+      "estimated_min": 35,
+      "summary": "The exact essay plan for each Task 2 type (opinion, discussion, advantages/disadvantages, problem-solution, two-part), plus the lens-menu system for generating relevant ideas in under a minute.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "c19_b001",
+            "type": "paragraph",
+            "text": "File 16 taught you to recognise the Task 2 types. This file goes further: for each type it gives the essay plan, so you know exactly what each paragraph must do. Then it solves the problem that stops most candidates before they start, the blank-page moment, with a system for generating relevant ideas in about a minute."
+          },
+          {
+            "id": "c19_b002",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 6"
+          },
+          {
+            "id": "c19_b003",
+            "type": "heading",
+            "level": 2,
+            "text": "TASK 2 QUESTION TYPES: THE ESSAY PLAN FOR EACH"
+          },
+          {
+            "id": "c19_b004",
+            "type": "principle",
+            "text": "The wording of the question dictates the structure of the essay. Match your paragraph plan to the exact task, and half your Task Response mark is secured before you write a word of content."
+          },
+          {
+            "id": "c19_b005",
+            "type": "paragraph",
+            "text": "The plans below are flexible starting shapes, not rigid templates to memorise. Adapt them to your ideas."
+          },
+          {
+            "id": "c19_b006",
+            "type": "heading",
+            "level": 3,
+            "text": "Opinion (agree or disagree)"
+          },
+          {
+            "id": "c19_b007",
+            "type": "paragraph",
+            "text": "Recognise it: “To what extent do you agree or disagree?” or “Do you agree?”"
+          },
+          {
+            "id": "c19_b008",
+            "type": "paragraph",
+            "text": "What the essay must do: take a clear position and defend it throughout."
+          },
+          {
+            "id": "c19_b009",
+            "type": "paragraph",
+            "text": "Plan: introduction stating your position; body paragraph one giving your first main reason, developed; body paragraph two giving your second reason, developed; conclusion restating the position."
+          },
+          {
+            "id": "c19_b010",
+            "type": "paragraph",
+            "text": "A note on partial agreement: you may fully agree, fully disagree, or partly agree, and all three are valid. If you partly agree, make that position clear and consistent; do not drift between sides by accident. Clarity of position matters more than which position you choose."
+          },
+          {
+            "id": "c19_b011",
+            "type": "paragraph",
+            "text": "Pitfall: turning it into a both-sides essay and never committing. That answers a discussion question, not an opinion one, and caps Task Response."
+          },
+          {
+            "id": "c19_b012",
+            "type": "heading",
+            "level": 3,
+            "text": "Discussion (both views and your opinion)"
+          },
+          {
+            "id": "c19_b013",
+            "type": "paragraph",
+            "text": "Recognise it: “Discuss both these views and give your own opinion.”"
+          },
+          {
+            "id": "c19_b014",
+            "type": "paragraph",
+            "text": "What the essay must do: present both views fairly and give your own opinion. Both halves are required."
+          },
+          {
+            "id": "c19_b015",
+            "type": "paragraph",
+            "text": "Plan: introduction that previews both views and states your opinion; body paragraph one presenting the first view; body paragraph two presenting the second view; a clear statement of your own opinion, either as a short third body paragraph or woven in and reinforced in the conclusion."
+          },
+          {
+            "id": "c19_b016",
+            "type": "paragraph",
+            "text": "Pitfall: forgetting to give your own opinion, or giving it so faintly the examiner cannot find it. State it plainly."
+          },
+          {
+            "id": "c19_b017",
+            "type": "heading",
+            "level": 3,
+            "text": "Advantages and disadvantages"
+          },
+          {
+            "id": "c19_b018",
+            "type": "paragraph",
+            "text": "This type has two sub-types, and confusing them is a common error."
+          },
+          {
+            "id": "c19_b019",
+            "type": "paragraph",
+            "text": "Sub-type A: “What are the advantages and disadvantages?” You describe both. No verdict is required; you are not asked which is greater. Plan: introduction; body one on advantages; body two on disadvantages; conclusion summarising."
+          },
+          {
+            "id": "c19_b020",
+            "type": "paragraph",
+            "text": "Sub-type B: “Do the advantages outweigh the disadvantages?” You must reach a verdict. The word “outweigh” demands a judgement about which side is greater. Plan: introduction stating your verdict; body one and body two covering both sides; conclusion confirming which outweighs which."
+          },
+          {
+            "id": "c19_b021",
+            "type": "paragraph",
+            "text": "Pitfall: treating sub-type B like sub-type A, describing both sides but never saying which wins. That leaves the actual question unanswered."
+          },
+          {
+            "id": "c19_b022",
+            "type": "heading",
+            "level": 3,
+            "text": "Problem and solution (or cause and solution)"
+          },
+          {
+            "id": "c19_b023",
+            "type": "paragraph",
+            "text": "Recognise it: “What problems does this cause, and what solutions can you suggest?” or “What are the causes, and what measures could address them?”"
+          },
+          {
+            "id": "c19_b024",
+            "type": "paragraph",
+            "text": "What the essay must do: answer both parts. Identify the problems or causes, then propose solutions."
+          },
+          {
+            "id": "c19_b025",
+            "type": "paragraph",
+            "text": "Plan: introduction; body one on the problems or causes; body two on the solutions; conclusion. Make sure your solutions actually address the problems you raised, not unrelated ones."
+          },
+          {
+            "id": "c19_b026",
+            "type": "paragraph",
+            "text": "Pitfall: listing generic solutions that do not connect to the specific problems named, which weakens coherence and task response."
+          },
+          {
+            "id": "c19_b027",
+            "type": "heading",
+            "level": 3,
+            "text": "Two-part questions (direct questions)"
+          },
+          {
+            "id": "c19_b028",
+            "type": "paragraph",
+            "text": "Recognise it: two separate questions, for example “Why is this trend happening, and is it a positive or negative development?”"
+          },
+          {
+            "id": "c19_b029",
+            "type": "paragraph",
+            "text": "What the essay must do: answer both questions explicitly."
+          },
+          {
+            "id": "c19_b030",
+            "type": "paragraph",
+            "text": "Plan: introduction; body one answering the first question; body two answering the second; conclusion. Give each question genuine space; do not answer one fully and the other in a sentence."
+          },
+          {
+            "id": "c19_b031",
+            "type": "paragraph",
+            "text": "Pitfall: answering only the more interesting question and neglecting the other."
+          },
+          {
+            "id": "c19_b032",
+            "type": "heading",
+            "level": 3,
+            "text": "Mixed and other"
+          },
+          {
+            "id": "c19_b033",
+            "type": "paragraph",
+            "text": "Some prompts combine elements, for example a statement plus “why is this, and what can be done?” Read carefully, list every part the question contains, and ensure your plan has a paragraph for each. The rule never changes: cover every part the question asks."
+          },
+          {
+            "id": "c19_b034",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Before planning, count the questions inside the prompt. “Discuss both views and give your opinion” is three tasks; “why is this happening and is it positive or negative” is two. Write the number in the margin, and give each part a paragraph. The commonest Task Response failure is simply answering fewer parts than were asked.",
+            "bn": "পরিকল্পনার আগে প্রশ্নের ভেতরে কয়টি কাজ আছে গুনে নিন। Discuss both views and give your opinion” = তিনটি কাজ। মার্জিনে সংখ্যাটা লিখে প্রতিটি অংশের জন্য একটি প্যারা দিন। সবচেয়ে সাধারণ ভুল, যতটা চাওয়া হয়েছে তার কম উত্তর দেওয়া।"
+          },
+          {
+            "id": "c19_b035",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 7"
+          },
+          {
+            "id": "c19_b036",
+            "type": "heading",
+            "level": 2,
+            "text": "THE 60-SECOND IDEA GENERATION SYSTEM"
+          },
+          {
+            "id": "c19_b037",
+            "type": "heading",
+            "level": 3,
+            "text": "The blank-page problem"
+          },
+          {
+            "id": "c19_b038",
+            "type": "paragraph",
+            "text": "The hardest moment in Task 2 is not writing; it is the silence just after reading the prompt, when your mind is empty and the clock is running. Weak candidates either freeze or seize the first thin idea they find. The system below fills the page with relevant ideas in about a minute."
+          },
+          {
+            "id": "c19_b039",
+            "type": "heading",
+            "level": 3,
+            "text": "The lens menu"
+          },
+          {
+            "id": "c19_b040",
+            "type": "paragraph",
+            "text": "Run the topic through a set of perspectives, or lenses. Each lens is a question: “What does this topic look like from here?” The menu:"
+          },
+          {
+            "id": "c19_b041",
+            "type": "list",
+            "ordered": false,
+            "items": [
+              "Individual (the person, their choices, wellbeing)",
+              "Family (parents, children, the home)",
+              "Society (community, equality, social cohesion)",
+              "Education (schools, universities, skills)",
+              "Government (policy, law, public spending)",
+              "Economy (jobs, cost, growth, money)",
+              "Environment (pollution, climate, resources)",
+              "Technology (digital tools, automation, access)",
+              "Health (physical and mental wellbeing)",
+              "Culture (values, traditions, identity)",
+              "Employment (work, careers, the labour market)",
+              "Future (long-term consequences, the next generation)"
+            ]
+          },
+          {
+            "id": "c19_b042",
+            "type": "paragraph",
+            "text": "You do not use all twelve. You scan the menu, pick the three or four that genuinely fit the topic, and generate one idea from each."
+          },
+          {
+            "id": "c19_b043",
+            "type": "heading",
+            "level": 3,
+            "text": "The crucial rule: relevance over quantity"
+          },
+          {
+            "id": "c19_b044",
+            "type": "principle",
+            "text": "Never force a lens that does not fit. An irrelevant idea, however clever, lowers your Task Response, because it does not answer the question. Two strong, relevant ideas beat five that wander off topic. The lens menu is a way to find good ideas fast, not a licence to include everything."
+          },
+          {
+            "id": "c19_b045",
+            "type": "paragraph",
+            "text": "If a lens produces nothing that genuinely bears on the question, drop it and move on. The menu is a prompt for your thinking, not a checklist to complete."
+          },
+          {
+            "id": "c19_b046",
+            "type": "heading",
+            "level": 3,
+            "text": "Worked example"
+          },
+          {
+            "id": "c19_b047",
+            "type": "paragraph",
+            "text": "Prompt: “To what extent do you agree that university education should be free for all students?”"
+          },
+          {
+            "id": "c19_b048",
+            "type": "paragraph",
+            "text": "Scan the menu and pick the lenses that fit:"
+          },
+          {
+            "id": "c19_b049",
+            "type": "list",
+            "ordered": false,
+            "items": [
+              "Individual: free education lets talented students attend regardless of their family's wealth.",
+              "Society: it can improve social mobility and reduce inequality.",
+              "Economy: it is expensive for taxpayers, and a skilled workforce may or may not repay that cost.",
+              "Government: limited budgets mean money spent here is not spent on health or infrastructure.",
+              "Employment: graduates may earn more, so some argue they should contribute to the cost."
+            ]
+          },
+          {
+            "id": "c19_b050",
+            "type": "paragraph",
+            "text": "Five relevant ideas in under a minute. Now select the best two or three for your position. If you agree, you might build on Individual and Society (access and mobility). If you disagree, you might build on Economy and Government (cost and priorities). Notice that lenses like Environment or Culture were skipped, because they add nothing genuine here. That skipping is the skill."
+          },
+          {
+            "id": "c19_b051",
+            "type": "heading",
+            "level": 3,
+            "text": "The 60-second routine"
+          },
+          {
+            "id": "c19_b052",
+            "type": "list",
+            "ordered": true,
+            "items": [
+              "Read the prompt and identify the type (File 16).",
+              "Decide your position or approach.",
+              "Scan the lens menu; pick three or four that fit.",
+              "Generate one idea per chosen lens.",
+              "Select the best two or three, and check each is one you can develop, not just state."
+            ]
+          },
+          {
+            "id": "c19_b053",
+            "type": "paragraph",
+            "text": "That last check matters. An idea you cannot explain and support with an example is not yet usable. The next file, on idea development, turns a selected idea into a full paragraph. Choose ideas with development in mind: a slightly simpler idea you can build deeply beats an impressive one you can only assert."
+          },
+          {
+            "id": "c19_b054",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Pick ideas you can explain, not ideas that sound clever. A simple point you can develop with a clear reason and a real example will always outscore a sophisticated point you can only state in one sentence. Depth of development, not cleverness of idea, is what lifts the band.",
+            "bn": "যে idea ব্যাখ্যা করতে পারবেন সেটাই নিন, শোনায় এমন idea নয়। একটা সহজ পয়েন্ট, যেটা কারণ আর উদাহরণ দিয়ে গভীরভাবে বোঝানো যায়, সেটা সবসময় একটা জটিল পয়েন্টের চেয়ে ভালো নম্বর পায় যেটা শুধু এক লাইনে বলা হয়।"
+          },
+          {
+            "id": "c19_b055",
+            "type": "heading",
+            "level": 1,
+            "text": "PRACTICE"
+          },
+          {
+            "id": "c19_b056",
+            "type": "paragraph",
+            "text": "Reasoning keys follow."
+          },
+          {
+            "id": "c19_b057",
+            "type": "practice_drill",
+            "label": "Drill 19.1 (Level 2): Match plan to prompt",
+            "prompt": "For each prompt, name the type and sketch the paragraph plan. 1. “Some people believe that zoos are cruel and should be closed. To what extent do you agree or disagree?” 2. “More families are having fewer children. What are the causes, and what effects might this have?” 3. “Do the benefits of remote working outweigh the drawbacks?”",
+            "answer": "1. Opinion. Plan: intro (your position on whether zoos should close); body one (first reason); body two (second reason); conclusion. Take a clear side.\n2. Two-part (cause and effect). Plan: intro; body one (causes of falling birth rates); body two (possible effects); conclusion. Both parts required.\n3. Advantages outweigh disadvantages (sub-type B). Plan: intro stating your verdict; body one and two covering benefits and drawbacks; conclusion confirming which outweighs. A verdict is required, not just a description."
+          },
+          {
+            "id": "c19_b058",
+            "type": "practice_drill",
+            "label": "Drill 19.2 (Level 3): Generate ideas with the lenses",
+            "prompt": "Prompt: “Many people now prefer to buy goods online rather than in shops. Is this a positive or negative development?” Pick three relevant lenses and generate one idea from each. Then name one lens you would NOT use, and why.",
+            "answer": "Relevant lenses: Individual (convenience, wider choice, but less social contact); Economy (cheaper prices online, but harm to local shops and high-street jobs); Society (impact on town centres and community life). One lens to avoid: Health, which has no genuine bearing here; forcing “online shopping means less walking” would be a weak, off-topic stretch. Recognising that Health does not fit is exactly the selection skill."
+          },
+          {
+            "id": "c19_b059",
+            "type": "practice_drill",
+            "label": "Drill 19.3 (Level 3): Reject the forced idea",
+            "prompt": "A candidate brainstorming the online-shopping prompt writes: “Online shopping is bad because it uses electricity from computers, which harms the environment.” Is this a strong idea for this essay? Why or why not?",
+            "answer": "It is a weak, forced idea. The environmental angle here is a stretch: the electricity used by a computer to place an order is negligible and not what the question is about. A stronger environmental point, if you wanted one, would be delivery emissions or packaging waste, but even then, more central ideas (convenience, prices, the decline of physical shops) fit the prompt better. This illustrates the rule: do not force a lens. The idea sounds like it is doing work, but it does not genuinely answer whether online shopping is a positive or negative development, so it would lower Task Response rather than raise it."
+          },
+          {
+            "id": "c19_b060",
+            "type": "paragraph",
+            "text": "The lesson: the lens menu generates ideas fast, but your judgement selects them. Relevance and developability decide what stays; cleverness and completeness do not."
+          },
+          {
+            "id": "f19_b061",
+            "type": "paragraph",
+            "variant": "footer",
+            "text": "Zero to Band 9: The Complete IELTS Tips & Tricks Field Guide. Module 3, Writing. File 19: Task 2 Question Types and the 60-Second Idea Generation System. Next: File 20, Idea Development and Essay Structure."
+          }
+        ]
+      },
+      "is_published": true
+    },
+    {
+      "id": "b3000001-0003-4000-8000-000000000105",
+      "module_id": "b3000001-0003-4000-8000-000000000001",
+      "slug": "file-20-idea-development-and-essay-structure",
+      "title": "File 20: Idea Development and Essay Structure",
+      "position": 5,
+      "estimated_min": 35,
+      "summary": "The Point-Explanation-Example-Consequence method for developing ideas deeply, plus the flexible building blocks of essay structure matched to each task type.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "c20_b001",
+            "type": "paragraph",
+            "text": "Two chapters that, more than any others, separate a Band 6 essay from a Band 7 one. First, how to develop an idea deeply instead of listing many shallow ones. Then, how to structure an essay flexibly, so the shape fits the task rather than a memorised template."
+          },
+          {
+            "id": "c20_b002",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 8"
+          },
+          {
+            "id": "c20_b003",
+            "type": "heading",
+            "level": 2,
+            "text": "IDEA DEVELOPMENT"
+          },
+          {
+            "id": "c20_b004",
+            "type": "heading",
+            "level": 3,
+            "text": "The principle that lifts the band"
+          },
+          {
+            "id": "c20_b005",
+            "type": "principle",
+            "text": "Depth beats quantity. Two ideas developed fully will always outscore five ideas merely stated. A list of undeveloped points is the signature of a Band 6 essay, however many ideas it contains. Developing fewer ideas deeply is how you reach Band 7 and above."
+          },
+          {
+            "id": "c20_b006",
+            "type": "paragraph",
+            "text": "Most candidates think a better essay needs more ideas. The opposite is usually true. The examiner is not counting your ideas; they are checking whether you can take an idea and build it into a convincing, well-explained paragraph."
+          },
+          {
+            "id": "c20_b007",
+            "type": "heading",
+            "level": 3,
+            "text": "The method: Point, Explanation, Example, Consequence"
+          },
+          {
+            "id": "c20_b008",
+            "type": "paragraph",
+            "text": "Develop every main idea in four moves. Learn them as a single habit."
+          },
+          {
+            "id": "c20_b009",
+            "type": "paragraph",
+            "text": "Point. State your main idea in one clear sentence. This is the paragraph's topic sentence, its claim. One point per paragraph."
+          },
+          {
+            "id": "c20_b010",
+            "type": "paragraph",
+            "text": "Explanation. Explain why the point is true. This is the reasoning, the mechanism, the “because.” It is the step most candidates skip, and skipping it is the single biggest cause of undeveloped writing. A point without an explanation is an assertion; a point with one is an argument."
+          },
+          {
+            "id": "c20_b011",
+            "type": "paragraph",
+            "text": "Example. Illustrate the point with a specific instance. It can be a real case or a plausible, general scenario; it does not need to be a famous fact. What it must do is make the abstract point concrete."
+          },
+          {
+            "id": "c20_b012",
+            "type": "paragraph",
+            "text": "Consequence. State the result, or link the point back to the question or your position. This closes the paragraph and shows why the point matters."
+          },
+          {
+            "id": "c20_b013",
+            "type": "paragraph",
+            "text": "Point, explanation, example, consequence. The two middle steps, explanation and example, are where depth lives, and they are exactly what weak essays leave out."
+          },
+          {
+            "id": "c20_b014",
+            "type": "heading",
+            "level": 3,
+            "text": "A note on examples"
+          },
+          {
+            "id": "c20_b015",
+            "type": "paragraph",
+            "text": "Your example does not have to be a real statistic, and you should never invent precise fake figures (“studies show 73% of…”), because a fabricated statistic looks weak and can read as dishonest. A general or hypothetical example is fine and often better: “For instance, a student from a low-income family who could not otherwise afford tuition…” A concrete scenario illustrates the point without pretending to cite data you do not have."
+          },
+          {
+            "id": "c20_b016",
+            "type": "heading",
+            "level": 3,
+            "text": "Weak to developed: a worked transformation"
+          },
+          {
+            "id": "c20_b017",
+            "type": "paragraph",
+            "text": "Weak (a bare point, no development): “Space exploration is a waste of money because there are problems on Earth.”"
+          },
+          {
+            "id": "c20_b018",
+            "type": "paragraph",
+            "text": "That is one sentence with no explanation, no example, and no consequence. It asserts; it does not argue. In an essay, a paragraph built of sentences like this stalls at Band 6."
+          },
+          {
+            "id": "c20_b019",
+            "type": "paragraph",
+            "text": "Developed (the full method): “Critics argue that spending heavily on space exploration is hard to justify while urgent problems remain unsolved on Earth. (Point.) The reasoning is that public budgets are finite, so every large sum directed into orbit is money not spent on healthcare, education, or poverty reduction, which affect people's lives directly and immediately. (Explanation.) A single mission to another planet can cost billions, an amount that could instead fund thousands of hospital beds or clean-water projects in poorer regions. (Example.) Seen this way, prioritising distant scientific ambitions over pressing human needs strikes many people as both inefficient and difficult to defend morally. (Consequence.)”"
+          },
+          {
+            "id": "c20_b020",
+            "type": "paragraph",
+            "text": "The idea is the same. The difference is that the second version explains, illustrates, and draws out the consequence. That is a Band 7 paragraph, and nothing about it required rare vocabulary or complex grammar, only development."
+          },
+          {
+            "id": "c20_b021",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "If your paragraph is short, the missing piece is almost always the explanation. Ask “why is this true?” and write the answer. Most under-length essays are not short of ideas; they are short of the reasoning that turns each idea into a paragraph.",
+            "bn": "আপনার প্যারাগ্রাফ ছোটা হলে, প্রায় সবসময় দেখা যায় যেটা বাদ পড়েছে সেটা হলো ব্যাখ্যা। এটা কেন সত্যি?” জিজ্ঞাসা করে উত্তরটা লিখুন। বেশিরভাগ ছোট রচনায় idea-র অভাব নয়, কারণ-ব্যাখ্যার অভাব।"
+          },
+          {
+            "id": "c20_b022",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 9"
+          },
+          {
+            "id": "c20_b023",
+            "type": "heading",
+            "level": 2,
+            "text": "ESSAY STRUCTURE"
+          },
+          {
+            "id": "c20_b024",
+            "type": "heading",
+            "level": 3,
+            "text": "Flexible, not rigid"
+          },
+          {
+            "id": "c20_b025",
+            "type": "principle",
+            "text": "Structure serves the task, not the other way round. Memorised template essays are penalised, because examiners are trained to recognise them and they signal an inability to respond to the specific question. Learn the building blocks and their purposes, then arrange them to fit the prompt in front of you."
+          },
+          {
+            "id": "c20_b026",
+            "type": "paragraph",
+            "text": "There is no single correct essay shape. There is a set of parts, each with a job, that you assemble to suit the task."
+          },
+          {
+            "id": "c20_b027",
+            "type": "heading",
+            "level": 3,
+            "text": "The building blocks and their purposes"
+          },
+          {
+            "id": "c20_b028",
+            "type": "paragraph",
+            "text": "Introduction (two or three sentences). Its job is to orient the reader and show your direction. Paraphrase the topic in your own words, then state your position or outline what the essay will do. Keep it short; a long introduction wastes words the body needs."
+          },
+          {
+            "id": "c20_b029",
+            "type": "paragraph",
+            "text": "Body paragraphs (usually two, sometimes three). Each has one job: to develop one main idea, using the Point-Explanation-Example-Consequence method above. If you cannot say in a few words what a paragraph's job is, it needs restructuring."
+          },
+          {
+            "id": "c20_b030",
+            "type": "paragraph",
+            "text": "Conclusion (one to three sentences). Its job is to close. Restate your position and summarise your main reasons. Introduce no new ideas; a new argument in the conclusion is a common and costly error, because it opens something you have no space to develop."
+          },
+          {
+            "id": "c20_b031",
+            "type": "heading",
+            "level": 3,
+            "text": "Paraphrasing the prompt"
+          },
+          {
+            "id": "c20_b032",
+            "type": "paragraph",
+            "text": "Your introduction should restate the topic in your own words, not copy the question. Copying the prompt word for word scores nothing for Lexical Resource, and examiners discount copied text. Change the wording and structure while keeping the meaning: “Some people believe that…” can become “It is sometimes argued that…” Paraphrase shows range; copying shows none."
+          },
+          {
+            "id": "c20_b033",
+            "type": "heading",
+            "level": 3,
+            "text": "Logical progression and paragraph purpose"
+          },
+          {
+            "id": "c20_b034",
+            "type": "paragraph",
+            "text": "Arrange your body paragraphs in an order that makes sense: often your stronger reason first, or a logical sequence where one point leads to the next. Within the essay, each paragraph should follow naturally from the last. The test is simple: can you name the job of every paragraph? Introduction orients, body one develops the first idea, body two develops the second, conclusion closes. If a paragraph has no clear job, cut or merge it."
+          },
+          {
+            "id": "c20_b035",
+            "type": "heading",
+            "level": 3,
+            "text": "When the structure changes"
+          },
+          {
+            "id": "c20_b036",
+            "type": "paragraph",
+            "text": "The number and role of body paragraphs depends on the task type, which is why rigid templates fail:"
+          },
+          {
+            "id": "c20_b037",
+            "type": "list",
+            "ordered": false,
+            "items": [
+              "An opinion essay usually has two body paragraphs, each a reason for your position.",
+              "A discussion essay needs a paragraph for each view, plus your opinion.",
+              "A problem and solution essay needs one paragraph for problems and one for solutions.",
+              "A two-part essay needs a paragraph for each question."
+            ]
+          },
+          {
+            "id": "c20_b038",
+            "type": "paragraph",
+            "text": "Let the task set the shape. A template that forces every essay into the same mould will misfit half the questions you meet."
+          },
+          {
+            "id": "c20_b039",
+            "type": "heading",
+            "level": 3,
+            "text": "A worked skeleton"
+          },
+          {
+            "id": "c20_b040",
+            "type": "paragraph",
+            "text": "For the prompt “Some believe governments should fund space exploration; others think the money should be spent on Earth. Discuss both views and give your opinion,” a sound structure is:"
+          },
+          {
+            "id": "c20_b041",
+            "type": "list",
+            "ordered": false,
+            "items": [
+              "Introduction: paraphrase the debate; state that you will discuss both views and that you lean towards spending on Earth. (Job: orient and position.)",
+              "Body 1: the case for funding space exploration, developed with explanation and example (scientific advances, technology that benefits daily life). (Job: present view one fairly.)",
+              "Body 2: the case for spending on Earth, developed similarly (finite budgets, urgent human needs). (Job: present view two.)",
+              "Opinion and conclusion: state clearly which view you find stronger and why, without new arguments. (Job: give your opinion and close.)"
+            ]
+          },
+          {
+            "id": "c20_b042",
+            "type": "paragraph",
+            "text": "Notice this is not a template you memorise; it is the discussion type's building blocks arranged for this prompt. A different type would need a different arrangement."
+          },
+          {
+            "id": "c20_b043",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Test your essay by naming each paragraph's job in three words. Orients reader. Develops first reason. Develops second reason. Closes and concludes. If any paragraph resists a clear three-word job, it is doing two jobs or none, and that is where your Coherence mark leaks. One paragraph, one job.",
+            "bn": "প্রতিটি প্যারাগ্রাফের কাজ তিন শব্দে বলে পরীক্ষা করুন। কোনো প্যারা যদি স্পষ্ট কাজ না দেখায়, সেটা হয় দুটো কাজ করছে নয়তো একটাও না, আর সেখানেই Coherence নম্বর হারায়। এক প্যারা, এক কাজ।"
+          },
+          {
+            "id": "c20_b044",
+            "type": "heading",
+            "level": 1,
+            "text": "PRACTICE"
+          },
+          {
+            "id": "c20_b045",
+            "type": "paragraph",
+            "text": "Reasoning keys follow."
+          },
+          {
+            "id": "c20_b046",
+            "type": "practice_drill",
+            "label": "Drill 20.1 (Level 2): Name the missing step",
+            "prompt": "Each mini-paragraph is missing one development step (explanation, example, or consequence). Name what is missing. 1. “Public transport reduces traffic. For instance, a single bus can replace dozens of cars. This eases congestion in city centres.” 2. “Working from home saves time. It cuts out the daily commute, giving people hours back each week.” 3. “Tourism harms the environment. Popular sites are damaged by the sheer number of visitors, and fragile habitats suffer. This is a growing concern.”",
+            "answer": "1. Missing the explanation. It has a point, an example, and a consequence, but never explains why replacing cars with buses reduces traffic (fewer vehicles occupying road space). Add the reasoning.\n2. Missing the example. It has a point, an explanation (no commute), and a consequence (hours back), but no concrete illustration. Add one: “a worker with a two-hour daily commute, for instance, regains ten hours a week.”\n3. Missing a specific example. It states the point, explains it, and gives a consequence, but stays general. A concrete case (a named type of site overwhelmed by crowds) would strengthen it.\nLesson: most weak paragraphs are missing exactly one of the four moves, and naming which one shows you precisely what to add."
+          },
+          {
+            "id": "c20_b047",
+            "type": "practice_drill",
+            "label": "Drill 20.2 (Level 3): Develop a weak point",
+            "prompt": "Take this bare point and develop it into a full paragraph using Point, Explanation, Example, Consequence: “Learning a second language is useful.”",
+            "answer": "“Learning a second language brings clear practical benefits. (Point.) This is because it opens access to opportunities that a single language cannot: jobs that require communication with foreign clients, study at overseas universities, and travel without a language barrier. (Explanation.) A graduate who speaks both their national language and English, for example, can apply for multinational roles that a monolingual peer cannot even consider. (Example.) As a result, a second language is not merely a personal enrichment but a concrete advantage in an increasingly connected job market. (Consequence.)” The bare point has become a Band 7 paragraph purely through development."
+          },
+          {
+            "id": "c20_b048",
+            "type": "practice_drill",
+            "label": "Drill 20.3 (Level 3): Fix the structure",
+            "prompt": "A candidate's essay has: an introduction; a body paragraph on the advantages of city life; a body paragraph on the disadvantages of city life; and a conclusion that introduces a brand-new point about rural broadband. What is the structural error, and how should it be fixed?",
+            "answer": "The error is a new idea in the conclusion. A conclusion must close by restating the position and summarising the reasons already given; it must not introduce a fresh point (rural broadband), which the essay has no space to develop and which belongs, if anywhere, in a body paragraph. The fix: remove the broadband point from the conclusion, and instead have the conclusion briefly restate the writer's overall view on city life. If the broadband idea is genuinely important, it should have been developed earlier as part of a body paragraph, not sprung at the end."
+          },
+          {
+            "id": "c20_b049",
+            "type": "paragraph",
+            "text": "The lesson across all three: development and structure are judged by whether each idea is built out with reasoning and example, and whether each paragraph does one clear job in a logical order. Fix those, and the band rises without a single rare word."
+          },
+          {
+            "id": "f20_b050",
+            "type": "paragraph",
+            "variant": "footer",
+            "text": "Zero to Band 9: The Complete IELTS Tips & Tricks Field Guide. Module 3, Writing. File 20: Idea Development and Essay Structure. Next: File 21, Coherence and Cohesion as Strategy, and Vocabulary as Strategy."
+          }
+        ]
+      },
+      "is_published": true
+    },
+    {
+      "id": "b3000001-0003-4000-8000-000000000106",
+      "module_id": "b3000001-0003-4000-8000-000000000001",
+      "slug": "file-21-coherence-cohesion-and-vocabulary-as-strategy",
+      "title": "File 21: Coherence and Cohesion as Strategy, and Vocabulary as Strategy",
+      "position": 6,
+      "estimated_min": 30,
+      "summary": "Why more linking words lower your score, how referencing does the real work of cohesion, and why precise ordinary vocabulary beats forced advanced words.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "c21_b001",
+            "type": "paragraph",
+            "text": "Two of the four Writing criteria are Coherence and Cohesion, and Lexical Resource. This file treats both as strategy, not as lessons. It will not teach you grammar or drill vocabulary; those live in the separate grammar and vocabulary books in this series. Here you learn the strategic choices that raise these two scores, and, just as importantly, the common habits that lower them."
+          },
+          {
+            "id": "c21_b002",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 10"
+          },
+          {
+            "id": "c21_b003",
+            "type": "heading",
+            "level": 2,
+            "text": "COHERENCE AND COHESION AS STRATEGY"
+          },
+          {
+            "id": "c21_b004",
+            "type": "heading",
+            "level": 3,
+            "text": "What this criterion actually measures"
+          },
+          {
+            "id": "c21_b005",
+            "type": "paragraph",
+            "text": "Coherence and Cohesion asks one question: is your writing easy to follow? It has two levels."
+          },
+          {
+            "id": "c21_b006",
+            "type": "paragraph",
+            "text": "Coherence is the logic: are your ideas in a sensible order, and does each one follow naturally from the last."
+          },
+          {
+            "id": "c21_b007",
+            "type": "paragraph",
+            "text": "Cohesion is the connection: do your sentences and paragraphs link together clearly, through referencing and, where genuinely needed, linking words."
+          },
+          {
+            "id": "c21_b008",
+            "type": "paragraph",
+            "text": "Note what is not on that list: a high count of connectors. Cohesion is about being easy to follow, not about how many “Furthermores” you can fit."
+          },
+          {
+            "id": "c21_b009",
+            "type": "heading",
+            "level": 3,
+            "text": "Logical progression"
+          },
+          {
+            "id": "c21_b010",
+            "type": "paragraph",
+            "text": "The backbone of coherence is order. Arrange your ideas so each builds on the one before, and within a paragraph, make each sentence follow its predecessor. A reader should never have to jump back to work out how two sentences relate. If your ideas are in a logical sequence, much of your cohesion happens for free, because logically ordered ideas already feel connected."
+          },
+          {
+            "id": "c21_b011",
+            "type": "heading",
+            "level": 3,
+            "text": "Paragraph organisation"
+          },
+          {
+            "id": "c21_b012",
+            "type": "paragraph",
+            "text": "One idea per paragraph, announced by a topic sentence and then developed (the method from File 20). Clear paragraphing is itself a major cohesion feature: it shows the examiner the shape of your thinking at a glance. A wall of text with no paragraph breaks, or paragraphs that mix several ideas, lowers this score regardless of the linking words inside them."
+          },
+          {
+            "id": "c21_b013",
+            "type": "heading",
+            "level": 3,
+            "text": "Referencing: the quiet cohesion tool"
+          },
+          {
+            "id": "c21_b014",
+            "type": "paragraph",
+            "text": "The most natural way to connect sentences is referencing: using words like this, it, these, such, and the former to point back to something already mentioned. “The government introduced a new policy. This has reduced congestion.” The word “this” links the two sentences without any connector, and it also avoids repeating “the new policy.” Referencing is the cohesion device of strong writers, and it is nearly invisible, which is exactly why it works."
+          },
+          {
+            "id": "c21_b015",
+            "type": "heading",
+            "level": 3,
+            "text": "The strategic insight most candidates miss"
+          },
+          {
+            "id": "c21_b016",
+            "type": "principle",
+            "text": "Cohesion is not about adding linking words. Overusing them lowers your score. Starting every sentence with “Firstly, Moreover, Furthermore, In addition, Additionally” reads as mechanical and formulaic, and examiners mark it down. High-band cohesion is mostly invisible: ideas connect through logical order and referencing, with linking words used only where the logic genuinely turns."
+          },
+          {
+            "id": "c21_b017",
+            "type": "paragraph",
+            "text": "This surprises many candidates, who have been taught that more connectors mean higher scores. The opposite is true past a certain point. A Band 5 essay is often stuffed with linkers used decoratively; a Band 8 essay uses few, placed exactly where the argument shifts."
+          },
+          {
+            "id": "c21_b018",
+            "type": "heading",
+            "level": 3,
+            "text": "Avoiding mechanical linking"
+          },
+          {
+            "id": "c21_b019",
+            "type": "paragraph",
+            "text": "Do not begin every sentence with a connector. Vary your openings, and let many sentences flow directly from the previous one through referencing and logic alone. Reserve linking words for the moments they are truly needed: “however” where you genuinely contrast, “because” or “as a result” where you show cause, “for example” where you illustrate. Used this way, a connector adds meaning; used decoratively, it adds clutter."
+          },
+          {
+            "id": "c21_b020",
+            "type": "heading",
+            "level": 3,
+            "text": "Over-linked versus naturally cohesive"
+          },
+          {
+            "id": "c21_b021",
+            "type": "paragraph",
+            "text": "Over-linked (weak): “Firstly, cars cause pollution. Moreover, they create traffic. Furthermore, traffic wastes time. In addition, wasted time reduces productivity. Additionally, this harms the economy.”"
+          },
+          {
+            "id": "c21_b022",
+            "type": "paragraph",
+            "text": "Every sentence opens with a connector, and they read as a mechanical list. The cohesion feels bolted on."
+          },
+          {
+            "id": "c21_b023",
+            "type": "paragraph",
+            "text": "Naturally cohesive (strong): “Cars are a major source of urban pollution, and they also create the congestion that clogs city centres. This congestion wastes commuters' time, and those lost hours reduce productivity across the workforce, which in turn weakens the wider economy.”"
+          },
+          {
+            "id": "c21_b024",
+            "type": "paragraph",
+            "text": "The same five ideas, now connected through referencing (“this congestion,” “those lost hours,” “which in turn”) and logical flow, with only where the logic needs it. It reads as thought, not as a checklist."
+          },
+          {
+            "id": "c21_b025",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "If you can delete a linking word and the sentence still reads clearly and logically, the linker was decoration, and deleting it improves your score. Test your essay by removing every “Moreover” and “Furthermore” and seeing whether the logic survives. Usually it does, and the writing reads better.",
+            "bn": "কোনো linking word মাছে দিলে যদি বাক্যটা তবু স্পষ্ট আর যুক্তিসঙ্গত থাকে, তাহলে সেটা ছিল শুধু সাজসজ্জা, আর মাছে দিলে স্কোর বাড়ে। প্রতিটি “Moreover”, “Furthermore” মাছে দেখুন যুক্তি টিকছে কিনা, সাধারণত থাকে।"
+          },
+          {
+            "id": "c21_b026",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 11"
+          },
+          {
+            "id": "c21_b027",
+            "type": "heading",
+            "level": 2,
+            "text": "VOCABULARY AS STRATEGY"
+          },
+          {
+            "id": "c21_b028",
+            "type": "heading",
+            "level": 3,
+            "text": "What Lexical Resource actually measures"
+          },
+          {
+            "id": "c21_b029",
+            "type": "paragraph",
+            "text": "Lexical Resource rewards the range and precision of your vocabulary and whether it sounds natural. It does not reward rare words for their own sake. A common word used precisely scores higher than a rare word used awkwardly."
+          },
+          {
+            "id": "c21_b030",
+            "type": "paragraph",
+            "text": "This chapter is strategy, not a vocabulary course. To actually build your word stock, use the separate vocabulary book in this series. Here we focus on how to deploy the vocabulary you have for the highest score."
+          },
+          {
+            "id": "c21_b031",
+            "type": "heading",
+            "level": 3,
+            "text": "Precision over size"
+          },
+          {
+            "id": "c21_b032",
+            "type": "paragraph",
+            "text": "Choose the word that means exactly what you intend, even if it is ordinary. If you mean “essential,” write “essential,” not a grander word that fits less well. The exact plain word beats an approximate impressive one every time. Reaching for a big word that is slightly off (“paramount,” “plethora”) when a precise simple word was available actually lowers your score."
+          },
+          {
+            "id": "c21_b033",
+            "type": "heading",
+            "level": 3,
+            "text": "Collocation: words that belong together"
+          },
+          {
+            "id": "c21_b034",
+            "type": "paragraph",
+            "text": "Natural writing uses natural word partnerships: make a decision, heavy rain, a strong argument, take action, a widespread belief. Using the expected partner word signals command of English far more than a rare synonym does. “Heavy rain” scores better than “substantial precipitation,” because it is what a fluent speaker actually says. Collocation is one of the highest-value vocabulary skills, and it is about naturalness, not difficulty."
+          },
+          {
+            "id": "c21_b035",
+            "type": "heading",
+            "level": 3,
+            "text": "Topic vocabulary, used naturally"
+          },
+          {
+            "id": "c21_b036",
+            "type": "paragraph",
+            "text": "Common IELTS topics (environment, education, technology, health, work) have their own natural vocabulary, and knowing it helps. But use it naturally, in real sentences, not as a shower of dropped-in keywords. A few well-placed topic words read as knowledge; a pile of them reads as a memorised list."
+          },
+          {
+            "id": "c21_b037",
+            "type": "heading",
+            "level": 3,
+            "text": "Avoiding repetition, without forcing it"
+          },
+          {
+            "id": "c21_b038",
+            "type": "paragraph",
+            "text": "Vary your word choice so you are not repeating the same word many times, mainly through referencing and correct synonyms. But do not force a synonym that does not fit, the “elegant variation” trap, where a writer calls a car “the automobile,” then “the vehicle,” then “the four-wheeled conveyance,” growing more awkward each time. Some repetition is natural and fine. Vary where it reads well, and repeat where the alternative would be forced."
+          },
+          {
+            "id": "c21_b039",
+            "type": "heading",
+            "level": 3,
+            "text": "Avoiding forced advanced vocabulary"
+          },
+          {
+            "id": "c21_b040",
+            "type": "principle",
+            "text": "A rare word used incorrectly scores worse than a simple word used correctly. Do not shoehorn “advanced” vocabulary into your essay to look impressive. Examiners reward natural, accurate word choice and penalise forced, awkward attempts at sophistication."
+          },
+          {
+            "id": "c21_b041",
+            "type": "paragraph",
+            "text": "The instinct to prove your vocabulary is understandable, but it backfires. Write the word you actually command, used correctly, rather than a showy word you half-know."
+          },
+          {
+            "id": "c21_b042",
+            "type": "heading",
+            "level": 3,
+            "text": "Avoiding memorised phrases"
+          },
+          {
+            "id": "c21_b043",
+            "type": "paragraph",
+            "text": "Certain phrases are so overused in memorised essays that examiners recognise them instantly and discount them: “since the dawn of time,” “in this fast-paced modern world,” “a double-edged sword,” “it is a well-known fact that.” These lower both Lexical Resource and Task Response, because they are filler that could sit in any essay on any topic. Write in your own words about the specific question, not in borrowed phrases."
+          },
+          {
+            "id": "c21_b044",
+            "type": "heading",
+            "level": 3,
+            "text": "Natural versus forced: a comparison"
+          },
+          {
+            "id": "c21_b045",
+            "type": "list",
+            "ordered": false,
+            "items": [
+              "Forced: “A myriad of individuals utilise public transportation.” Natural: “Many people use public transport.”",
+              "Forced: “Education is of paramount importance in this day and age.” Natural: “Education is essential today.”",
+              "Forced: “The economy witnessed a plethora of ameliorations.” Natural: “The economy improved in several ways.”"
+            ]
+          },
+          {
+            "id": "c21_b046",
+            "type": "paragraph",
+            "text": "In each pair, the natural version scores higher, because it is precise, correctly collocated, and free of strained vocabulary. The forced version mistakes difficulty for quality."
+          },
+          {
+            "id": "c21_b047",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Before using an impressive word, ask whether you would confidently use it in speech and whether it is exactly right here. If you are unsure of either, use the simpler word you trust. One wrong “sophisticated” word can pull your Lexical Resource down further than ten correct ordinary ones can lift it.",
+            "bn": "কোনো কঠিন শব্দ ব্যবহারের আগে ভাবুন, কথা বলার সময় আত্মবিশ্বাসের সঙ্গে এটা বলবেন কিনা, আর এখানে এটা ঠিক মানায় কিনা। সন্দেহ থাকলে সহজ শব্দটাই লিখুন।"
+          },
+          {
+            "id": "c21_b048",
+            "type": "heading",
+            "level": 1,
+            "text": "PRACTICE"
+          },
+          {
+            "id": "c21_b049",
+            "type": "paragraph",
+            "text": "Reasoning keys follow."
+          },
+          {
+            "id": "c21_b050",
+            "type": "practice_drill",
+            "label": "Drill 21.1 (Level 2): Cut the mechanical linkers",
+            "prompt": "Rewrite this over-linked passage so it flows naturally, keeping the ideas: “Firstly, online learning is flexible. Moreover, it saves travel time. Furthermore, it is often cheaper. In addition, it suits working adults.”",
+            "answer": "“Online learning is flexible and saves travel time, and it is often cheaper as well, which makes it especially suitable for working adults.” The four ideas remain, now connected by referencing and natural flow rather than a connector at the start of every sentence. It reads as writing, not as a list. Note that not a single “Firstly/Moreover” was needed."
+          },
+          {
+            "id": "c21_b051",
+            "type": "practice_drill",
+            "label": "Drill 21.2 (Level 2): Natural or forced?",
+            "prompt": "For each pair, choose the stronger version and say why. 1. a) “There was heavy rain.” b) “There was substantial precipitation.” 2. a) “The plan has a plethora of benefits.” b) “The plan has many benefits.” 3. a) “This is a paramount issue.” b) “This is a crucial issue.”",
+            "answer": "1. a. “Heavy rain” is the natural collocation; “substantial precipitation” is technically correct but unnatural in an essay and reads as forced.\n2. b. “Many benefits” is precise and natural; “a plethora of” is a classic forced-vocabulary flag that examiners notice.\n3. b. “Crucial issue” is a natural collocation; “paramount issue” is awkward, as “paramount” rarely pairs with “issue.” The simpler precise word wins.\nLesson: in every case the natural, precise choice outscores the showy one. Difficulty is not quality."
+          },
+          {
+            "id": "c21_b052",
+            "type": "practice_drill",
+            "label": "Drill 21.3 (Level 3): Fix the forced variation",
+            "prompt": "A candidate writes: “Students should read books. Learners ought to peruse tomes. Pupils benefit from consuming literature.” What has gone wrong, and how would you fix it?",
+            "answer": "This is the elegant-variation trap. Trying to avoid repeating “students read books,” the writer forces increasingly awkward synonyms (“peruse tomes,” “consuming literature”) that no fluent writer would use. The fix is to accept some natural repetition and vary only through referencing: “Students should read regularly. This habit builds vocabulary and broadens their thinking.” Here “this habit” refers back cleanly, avoiding both repetition and forced synonyms. Natural variation, not a thesaurus, is the goal."
+          },
+          {
+            "id": "c21_b053",
+            "type": "paragraph",
+            "text": "The lesson across both parts of this file: coherence and vocabulary are won by naturalness, not by decoration. Connect ideas through logic and referencing rather than a pile of linkers, and choose precise, natural words rather than forced impressive ones. In both, the invisible, natural choice is the high-scoring one."
+          },
+          {
+            "id": "f21_b054",
+            "type": "paragraph",
+            "variant": "footer",
+            "text": "Zero to Band 9: The Complete IELTS Tips & Tricks Field Guide. Module 3, Writing. File 21: Coherence and Cohesion as Strategy, and Vocabulary as Strategy. Next: File 22, the Writing Trap Library and the 60-Minute Writing Time Plan."
+          }
+        ]
+      },
+      "is_published": true
+    },
+    {
+      "id": "b3000001-0003-4000-8000-000000000107",
+      "module_id": "b3000001-0003-4000-8000-000000000001",
+      "slug": "file-22-trap-library-and-60-minute-plan",
+      "title": "File 22: The Writing Trap Library and the 60-Minute Writing Plan",
+      "position": 7,
+      "estimated_min": 30,
+      "summary": "All 12 band-capping Writing traps in one place, plus the full 20/40-minute time plan for Task 1 and Task 2, including which to write first.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "c22_b001",
+            "type": "paragraph",
+            "text": "First, the Writing Trap Library: the mistakes that most often cap a Writing score, gathered in one place for revision. Then the time plan that gives each task its proper share of the hour."
+          },
+          {
+            "id": "c22_b002",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 12"
+          },
+          {
+            "id": "c22_b003",
+            "type": "heading",
+            "level": 2,
+            "text": "THE WRITING TRAP LIBRARY"
+          },
+          {
+            "id": "c22_b004",
+            "type": "paragraph",
+            "text": "Several of these traps appeared across the module. Here they are consolidated, each with what it looks like, why students fall for it, how to recognise it, how to avoid it, and an example. Traps 9 to 11 are Task 1 specific; the rest are mainly Task 2."
+          },
+          {
+            "id": "c22_b005",
+            "type": "heading",
+            "level": 3,
+            "text": "Trap 1: Answering only part of the question"
+          },
+          {
+            "id": "c22_b006",
+            "type": "paragraph",
+            "text": "Looks like: the prompt has two or three parts, and the essay covers only one or two. Why students fall: they answer the part they find easiest and forget the rest. Recognise it: count the tasks in the prompt (File 19); if your essay has fewer parts, you have fallen in. Avoid it: write the number of tasks in the margin and give each a paragraph. Example: “Discuss both views and give your opinion,” answered with both views but no opinion. Task Response capped. (See Files 16, 19.)"
+          },
+          {
+            "id": "c22_b007",
+            "type": "heading",
+            "level": 3,
+            "text": "Trap 2: Unclear position"
+          },
+          {
+            "id": "c22_b008",
+            "type": "paragraph",
+            "text": "Looks like: an opinion essay where the reader cannot tell what the writer actually thinks. Why students fall: they present both sides to seem balanced, and never commit. Recognise it: if a reader could not state your position in one sentence, it is unclear. Avoid it: state your position in the introduction and hold it consistently to the conclusion. Example: an “agree or disagree” essay that argues both sides equally. (See File 19.)"
+          },
+          {
+            "id": "c22_b009",
+            "type": "heading",
+            "level": 3,
+            "text": "Trap 3: Too many ideas"
+          },
+          {
+            "id": "c22_b010",
+            "type": "paragraph",
+            "text": "Looks like: an essay listing five or six points, none developed. Why students fall: they believe more ideas mean a higher score. Recognise it: your body paragraphs each contain several undeveloped points. Avoid it: choose two or three ideas and develop each fully. Example: a body paragraph naming five reasons in five sentences, explaining none. (See File 20.)"
+          },
+          {
+            "id": "c22_b011",
+            "type": "heading",
+            "level": 3,
+            "text": "Trap 4: Undeveloped ideas"
+          },
+          {
+            "id": "c22_b012",
+            "type": "paragraph",
+            "text": "Looks like: points that are stated but never explained or illustrated. Why students fall: they skip the explanation and example steps. Recognise it: your paragraphs are short and read as assertions. Avoid it: use Point, Explanation, Example, Consequence on every main idea. Example: “Pollution is bad for health. Governments should act.” No reasoning, no example. (See File 20.)"
+          },
+          {
+            "id": "c22_b013",
+            "type": "heading",
+            "level": 3,
+            "text": "Trap 5: Irrelevant examples"
+          },
+          {
+            "id": "c22_b014",
+            "type": "paragraph",
+            "text": "Looks like: an example that does not actually support the point, or wanders off topic. Why students fall: they reach for any example rather than a fitting one, or force an off-topic idea. Recognise it: the example does not clearly illustrate the sentence before it. Avoid it: choose examples that directly demonstrate the point; drop forced ones (File 19). Example: arguing that online shopping harms high streets, then giving an example about computer electricity use. (See File 19.)"
+          },
+          {
+            "id": "c22_b015",
+            "type": "heading",
+            "level": 3,
+            "text": "Trap 6: Memorised essays and phrases"
+          },
+          {
+            "id": "c22_b016",
+            "type": "paragraph",
+            "text": "Looks like: chunks of pre-learned text that could fit any prompt. Why students fall: they hope a memorised structure or phrase will save effort. Recognise it: phrases like “since the dawn of time” or a body that does not quite fit the question. Avoid it: write about the specific question in your own words. Example: “In this fast-paced modern world, it is a double-edged sword.” Discounted on sight. (See File 21.)"
+          },
+          {
+            "id": "c22_b017",
+            "type": "heading",
+            "level": 3,
+            "text": "Trap 7: Generic introductions"
+          },
+          {
+            "id": "c22_b018",
+            "type": "paragraph",
+            "text": "Looks like: an introduction that copies the prompt or says nothing specific. Why students fall: they do not know how to open, so they restate the question. Recognise it: your introduction contains the prompt's exact words, or no position. Avoid it: paraphrase the topic in your own words and state your position or outline. Example: copying “Some people think that… while others believe…” verbatim. Scores nothing for Lexical Resource. (See Files 16, 20.)"
+          },
+          {
+            "id": "c22_b019",
+            "type": "heading",
+            "level": 3,
+            "text": "Trap 8: Repetitive conclusions"
+          },
+          {
+            "id": "c22_b020",
+            "type": "paragraph",
+            "text": "Looks like: a conclusion that repeats the introduction word for word, or adds a new idea. Why students fall: they run out of time or ideas and either copy or improvise. Recognise it: your conclusion either mirrors the intro exactly or raises something new. Avoid it: restate the position and summarise the reasons in fresh words; add nothing new. Example: a conclusion introducing a brand-new argument in its final sentence. (See File 20.)"
+          },
+          {
+            "id": "c22_b021",
+            "type": "heading",
+            "level": 3,
+            "text": "Trap 9: Data dumping (Task 1)"
+          },
+          {
+            "id": "c22_b022",
+            "type": "paragraph",
+            "text": "Looks like: every number in the visual reported in order, with no shape. Why students fall: they think completeness is rewarded. Recognise it: your Task 1 answer is a list of figures. Avoid it: select significant data, group it, and compare (File 18). Example: “Cinema was 140, then 135, then 125…” (See File 18.)"
+          },
+          {
+            "id": "c22_b023",
+            "type": "heading",
+            "level": 3,
+            "text": "Trap 10: No clear overview (Task 1)"
+          },
+          {
+            "id": "c22_b024",
+            "type": "paragraph",
+            "text": "Looks like: a Task 1 answer with no summary of the main features. Why students fall: they start describing detail immediately and forget the overview. Recognise it: there is no “Overall” sentence capturing the big picture. Avoid it: write the overview straight after the introduction, with no numbers. Example: a Task 1 answer that jumps into figures with no big-picture sentence. Caps the score. (See File 18.)"
+          },
+          {
+            "id": "c22_b025",
+            "type": "heading",
+            "level": 3,
+            "text": "Trap 11: Poor grouping (Task 1)"
+          },
+          {
+            "id": "c22_b026",
+            "type": "paragraph",
+            "text": "Looks like: each category described separately, with no comparison. Why students fall: they take the categories one at a time as listed. Recognise it: your paragraphs describe items in isolation. Avoid it: group categories that behave alike and contrast them. Example: three flat sentences (“Cinema fell. DVDs fell. Streaming rose.”) instead of one grouped contrast. (See File 18.)"
+          },
+          {
+            "id": "c22_b027",
+            "type": "heading",
+            "level": 3,
+            "text": "Trap 12: Overusing linking words"
+          },
+          {
+            "id": "c22_b028",
+            "type": "paragraph",
+            "text": "Looks like: a connector at the start of almost every sentence. Why students fall: they were taught that more linkers mean better cohesion. Recognise it: “Firstly, Moreover, Furthermore, In addition” open your sentences in sequence. Avoid it: connect through logic and referencing; use linkers only where the logic turns. Example: “Firstly… Moreover… Furthermore… In addition…” (See File 21.)"
+          },
+          {
+            "id": "c22_b029",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "The most expensive traps are the ones decided before you write: answering the wrong question, missing a part, and having no clear position. These cap your Task Response no matter how well you write. Spend the first minute on task analysis, and you remove the three costliest traps at a stroke.",
+            "bn": "সবচেয়ে ব্যয়বহুল ফাঁদগুলো লেখার আগেই ধরা হয়: ভুল প্রশ্নের উত্তর, একটা অংশ বাদ, আর অস্পষ্ট অবস্থান। এগুলো যতই ভালোই লিখুন Task Response আটকে দেয়। প্রথম মিনিটটা task analysis-এ দিন।"
+          },
+          {
+            "id": "c22_b030",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 13"
+          },
+          {
+            "id": "c22_b031",
+            "type": "heading",
+            "level": 2,
+            "text": "THE 60-MINUTE WRITING PLAN"
+          },
+          {
+            "id": "c22_b032",
+            "type": "heading",
+            "level": 3,
+            "text": "The split, and why Task 2 gets more"
+          },
+          {
+            "id": "c22_b033",
+            "type": "paragraph",
+            "text": "Sixty minutes, two tasks. The recommended split is about twenty minutes for Task 1 and forty for Task 2."
+          },
+          {
+            "id": "c22_b034",
+            "type": "principle",
+            "text": "Task 2 is worth roughly twice as much as Task 1 in your Writing score, so it deserves roughly twice the time. The most common and costly timing error is polishing Task 1 while Task 2 goes unfinished. Never sacrifice the more valuable task for the less valuable one."
+          },
+          {
+            "id": "c22_b035",
+            "type": "heading",
+            "level": 3,
+            "text": "Task 1: twenty minutes"
+          },
+          {
+            "id": "c22_b036",
+            "type": "list",
+            "ordered": false,
+            "items": [
+              "Read and plan (3 to 4 minutes): identify the visual type, read the frame and units, find the main features and the overview, decide what to select. (Files 17, 18.)",
+              "Write (about 14 minutes): introduction, overview, one or two body paragraphs of selected, grouped, compared data. Aim comfortably above 150 words.",
+              "Check (about 2 minutes): overview present, main features covered, no data dump, word count met."
+            ]
+          },
+          {
+            "id": "c22_b037",
+            "type": "heading",
+            "level": 3,
+            "text": "Task 2: forty minutes"
+          },
+          {
+            "id": "c22_b038",
+            "type": "list",
+            "ordered": false,
+            "items": [
+              "Analyse and plan (about 5 minutes): identify the type, decide your position, generate ideas with the lens menu, and sketch a paragraph plan. (Files 16, 19.)",
+              "Write (about 30 minutes): introduction with position, two or three developed body paragraphs, conclusion. Aim comfortably above 250 words.",
+              "Check (about 5 minutes): every part of the question answered, position clear, ideas developed, no memorised phrases, no new idea in the conclusion. (File 23.)"
+            ]
+          },
+          {
+            "id": "c22_b039",
+            "type": "heading",
+            "level": 3,
+            "text": "Which task first?"
+          },
+          {
+            "id": "c22_b040",
+            "type": "paragraph",
+            "text": "Both orders work, and you should choose based on your own tendency."
+          },
+          {
+            "id": "c22_b041",
+            "type": "paragraph",
+            "text": "Task 1 first is the common choice: it is shorter and acts as a warm-up before the heavier essay."
+          },
+          {
+            "id": "c22_b042",
+            "type": "paragraph",
+            "text": "Task 2 first is the safer choice if you tend to run out of time, because it protects the more valuable task. Write Task 2 while you are fresh and the clock is generous, then do Task 1 in the time that remains."
+          },
+          {
+            "id": "c22_b043",
+            "type": "paragraph",
+            "text": "The rule behind both: whichever you do first, guard Task 2's time. If you are the kind of candidate who over-invests in Task 1, do Task 2 first and remove the temptation."
+          },
+          {
+            "id": "c22_b044",
+            "type": "heading",
+            "level": 3,
+            "text": "Planning is not wasted time"
+          },
+          {
+            "id": "c22_b045",
+            "type": "paragraph",
+            "text": "Five minutes of planning on Task 2 feels like time not writing, but it prevents the most expensive errors: the wrong structure, the missing part, the blank mind halfway through. A planned essay is faster to write and far less likely to fall into the traps above. The candidates who skip planning are usually the ones who run out of both ideas and time."
+          },
+          {
+            "id": "c22_b046",
+            "type": "heading",
+            "level": 3,
+            "text": "Word-count discipline"
+          },
+          {
+            "id": "c22_b047",
+            "type": "paragraph",
+            "text": "Do not undershoot: writing below 150 or 250 words is penalised. Do not massively overshoot either: a very long essay wastes time you need for checking and usually contains more errors. Aim a little above the minimum, then stop and check."
+          },
+          {
+            "id": "c22_b048",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "If you must leave one task slightly unfinished, it should never be Task 2. A complete Task 2 and a slightly short Task 1 will almost always score higher than a perfect Task 1 and a rushed, incomplete Task 2. Protect the bigger task with your life.",
+            "bn": "যদি একটা টাস্ক কিছুটা অসম্পূর্ণ রাখতেই হয়, সেটা কখনো Task 2 নয়। সম্পূর্ণ Task 2 আর একটা ছোটো Task 1 প্রায় সবসময় নিখুঁত Task 1 আর তাড়াহুডো অসম্পূর্ণ Task 2-এর চেয়ে বেশি নম্বর পায়।"
+          },
+          {
+            "id": "c22_b049",
+            "type": "heading",
+            "level": 1,
+            "text": "PRACTICE"
+          },
+          {
+            "id": "c22_b050",
+            "type": "paragraph",
+            "text": "Reasoning keys follow."
+          },
+          {
+            "id": "c22_b051",
+            "type": "practice_drill",
+            "label": "Drill 22.1 (Level 2): Name the trap",
+            "prompt": "1. A Task 1 answer with no “Overall” sentence.\n2. An essay whose conclusion introduces a new argument.\n3. An opinion essay arguing both sides equally.\n4. A body paragraph listing six reasons, none explained.",
+            "answer": "1. No clear overview (Trap 10). The single most damaging Task 1 omission.\n2. Repetitive conclusion / new idea in conclusion (Trap 8). A conclusion must not open new arguments.\n3. Unclear position (Trap 2). An opinion essay must commit.\n4. Too many ideas plus undeveloped ideas (Traps 3 and 4). Depth, not a longer list, is needed."
+          },
+          {
+            "id": "c22_b052",
+            "type": "practice_drill",
+            "label": "Drill 22.2 (Level 2): Fix the timing",
+            "prompt": "A candidate spends 32 minutes on Task 1 and 25 minutes on Task 2, leaving Task 2 unfinished. What went wrong, and what should they do next time?",
+            "answer": "The candidate inverted the time split, giving the shorter, less valuable task more time than the longer, more valuable one, and sacrificed Task 2, which is worth double. Next time: cap Task 1 at twenty minutes and move on even if it is not perfect, or do Task 2 first to protect it. A finished Task 2 matters far more than a flawless Task 1."
+          },
+          {
+            "id": "c22_b053",
+            "type": "practice_drill",
+            "label": "Drill 22.3 (Level 3): Plan the hour",
+            "prompt": "You have a Task 1 line graph and a Task 2 discussion essay. Sketch how you would spend the 60 minutes, including planning and checking, and say which you would do first and why.",
+            "answer": "Task 1 first (a line graph is quick to plan): 3 to 4 minutes reading and finding the overview, about 14 minutes writing, 2 minutes checking. Then Task 2: about 5 minutes analysing the discussion prompt and planning both views plus my opinion with the lens menu, about 30 minutes writing, 5 minutes checking. I would do Task 1 first here because a line graph is straightforward and warms me up, but I would watch the clock and stop Task 1 at twenty minutes no matter what, to protect Task 2's forty. If I knew I tended to overrun on Task 1, I would do Task 2 first instead.\nThe lesson: the plan is not rigid, but the priority is: Task 2 gets its full share, planning and checking are built in, and Task 1 is capped so it cannot steal the essay's time."
+          },
+          {
+            "id": "f22_b054",
+            "type": "paragraph",
+            "variant": "footer",
+            "text": "Zero to Band 9: The Complete IELTS Tips & Tricks Field Guide. Module 3, Writing. File 22: The Writing Trap Library and the 60-Minute Writing Plan. Next: File 23, Self-Checking, Writing Practice, and the close of Module 3."
+          }
+        ]
+      },
+      "is_published": true
+    },
+    {
+      "id": "b3000001-0003-4000-8000-000000000108",
+      "module_id": "b3000001-0003-4000-8000-000000000001",
+      "slug": "file-23-self-checking-practice-and-module-close",
+      "title": "File 23: Self-Checking, Writing Practice, and the Close of Module 3",
+      "position": 8,
+      "estimated_min": 45,
+      "summary": "The priority-order self-check routine, a full progressive practice set (analysis through timed 60-minute challenge), a Band 6 vs Band 8 paragraph comparison, and the Module 3 wrap-up.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "c23_b001",
+            "type": "paragraph",
+            "text": "The final Writing chapter. First, how to check your work in the last few minutes so you recover marks instead of wasting the time. Then a progressive set of practice drills that pull the whole module together, ending with a timed challenge and a band comparison that shows you exactly what lifts an essay."
+          },
+          {
+            "id": "c23_b002",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 14"
+          },
+          {
+            "id": "c23_b003",
+            "type": "heading",
+            "level": 2,
+            "text": "SELF-CHECKING"
+          },
+          {
+            "id": "c23_b004",
+            "type": "heading",
+            "level": 3,
+            "text": "Check strategically, not randomly"
+          },
+          {
+            "id": "c23_b005",
+            "type": "paragraph",
+            "text": "You will have a few minutes at the end of each task, and they are valuable, but only if you spend them on the right things. Random re-reading finds little. A priority checklist finds the biggest, most recoverable losses first."
+          },
+          {
+            "id": "c23_b006",
+            "type": "principle",
+            "text": "Self-checking is not line-by-line grammar proofreading. Grammar has its own book in this series, and a deep grammar audit is neither possible nor most valuable in three minutes. Check in priority order, highest-impact first: did you answer the question, is your position clear, is it organised and relevant. These recover far more marks than hunting for a missing article."
+          },
+          {
+            "id": "c23_b007",
+            "type": "heading",
+            "level": 3,
+            "text": "The checklist, in priority order"
+          },
+          {
+            "id": "c23_b008",
+            "type": "paragraph",
+            "text": "Run these in order. Stop worrying about the low ones if the high ones are not right."
+          },
+          {
+            "id": "c23_b009",
+            "type": "list",
+            "ordered": true,
+            "items": [
+              "Task completion. Did you answer every part of the question? For Task 1, is there an overview and are the main features covered? This is the highest-impact check, because a missing part or overview caps your score.",
+              "Position (Task 2). Is your opinion clear and consistent from introduction to conclusion? Could a reader state it in one sentence?",
+              "Organisation. One idea per paragraph, clear paragraph breaks, logical order? Can you name each paragraph's job?",
+              "Relevance. Does every paragraph actually answer the question? Is there an off-topic sentence or forced example to cut?",
+              "Repetition. Any word or idea repeated so often it should be varied or removed?",
+              "Obvious errors. Glaring spelling mistakes, missing words, or clearly wrong words, the ones that jump out on a read-through. Not a deep grammar hunt; the surface errors a reader would notice.",
+              "Word count. Did you meet the minimum comfortably?"
+            ]
+          },
+          {
+            "id": "c23_b010",
+            "type": "heading",
+            "level": 3,
+            "text": "How to do it in three to five minutes"
+          },
+          {
+            "id": "c23_b011",
+            "type": "paragraph",
+            "text": "Two quick passes. First pass, read for content: task completion, position, relevance. This is where the marks are. Second pass, read for surface: obvious spelling and missing words. Fix what you can quickly and cleanly."
+          },
+          {
+            "id": "c23_b012",
+            "type": "heading",
+            "level": 3,
+            "text": "Do not over-edit"
+          },
+          {
+            "id": "c23_b013",
+            "type": "paragraph",
+            "text": "Under time pressure, do not rewrite whole sentences or restructure paragraphs; you risk introducing new errors and leaving a mess half-finished. Make small, safe corrections. If a sentence is understandable, leave it. The check is for catching clear problems, not for perfecting prose you have no time to perfect."
+          },
+          {
+            "id": "c23_b014",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Spend your first check on content, not commas. A misplaced comma costs almost nothing; a missing half of the question costs a whole band. Read first to confirm you answered everything asked, and only then look at surface errors. Most candidates check in exactly the wrong order and fix trivia while a capped Task Response sits untouched.",
+            "bn": "প্রথম check-টা content-এ দিন, কমায় নয়। ভাল কমা প্রায় কিছুই কারে না; প্রশ্নের অর্ধেক বাদ পড়লে পুরো একটা band নষ্ট হয়। আগে নিশ্চিত করুন সব উত্তর দিয়েছেন, তারপর ছোট ভুল দেখুন।"
+          },
+          {
+            "id": "c23_b015",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 15"
+          },
+          {
+            "id": "c23_b016",
+            "type": "heading",
+            "level": 2,
+            "text": "WRITING PRACTICE"
+          },
+          {
+            "id": "c23_b017",
+            "type": "paragraph",
+            "text": "Progressive drills that assemble the module. Guidance keys follow each group."
+          },
+          {
+            "id": "c23_b018",
+            "type": "heading",
+            "level": 3,
+            "text": "Analysis and idea drills"
+          },
+          {
+            "id": "c23_b019",
+            "type": "practice_drill",
+            "label": "Drill 23.1 (question analysis)",
+            "prompt": "For each, name the type and what to deliver. a) “Some think advertising should be banned. To what extent do you agree or disagree?” b) “More people are moving to cities. Why is this happening, and what problems does it create?”",
+            "answer": "a) Opinion. Deliver a clear position on banning advertising, defended throughout. b) Two-part (cause and problem). Deliver the causes of urban migration and the problems it creates, both developed."
+          },
+          {
+            "id": "c23_b020",
+            "type": "practice_drill",
+            "label": "Drill 23.2 (brainstorming)",
+            "prompt": "For “Governments should tax unhealthy food to improve public health. To what extent do you agree?”, pick three relevant lenses and give one idea each.",
+            "answer": "Health (reduced disease from lower consumption); Economy (revenue raised, but a burden on poorer households); Individual (freedom of choice versus nudging healthier behaviour). Three relevant lenses; note that Environment or Culture would be a stretch here."
+          },
+          {
+            "id": "c23_b021",
+            "type": "heading",
+            "level": 3,
+            "text": "Task 1 drills"
+          },
+          {
+            "id": "c23_b022",
+            "type": "paragraph",
+            "text": "Drill 23.3 (overview): For the device-ownership table (from File 17, repeated below), write a number-free overview."
+          },
+          {
+            "id": "c23_b023",
+            "type": "table",
+            "headers": [
+              "Device",
+              "2010",
+              "2020"
+            ],
+            "rows": [
+              [
+                "Smartphone",
+                "35",
+                "88"
+              ],
+              [
+                "Laptop",
+                "45",
+                "70"
+              ],
+              [
+                "Smart TV",
+                "10",
+                "65"
+              ],
+              [
+                "Desktop PC",
+                "60",
+                "30"
+              ]
+            ]
+          },
+          {
+            "id": "c23_b024",
+            "type": "practice_drill",
+            "label": "Drill 23.3 (overview)",
+            "prompt": "For the device-ownership table above, write a number-free overview.",
+            "answer": "“Overall, ownership of most devices rose over the decade, most sharply for smartphones and smart TVs, while desktop computers were the only category to become less common.” Whole picture, the exception named, no numbers."
+          },
+          {
+            "id": "c23_b025",
+            "type": "practice_drill",
+            "label": "Drill 23.4 (data selection)",
+            "prompt": "From the same table, list the three features worth reporting in the body.",
+            "answer": "(1) smartphones rose most (35 to 88); (2) smart TVs rose sharply from a low base (10 to 65); (3) desktop PCs fell, the only decline (60 to 30). Group the two risers, contrast the faller as the exception."
+          },
+          {
+            "id": "c23_b026",
+            "type": "heading",
+            "level": 3,
+            "text": "Paragraph drills"
+          },
+          {
+            "id": "c23_b027",
+            "type": "practice_drill",
+            "label": "Drill 23.5 (development)",
+            "prompt": "Develop this bare point using Point, Explanation, Example, Consequence: “Taxing unhealthy food could reduce consumption.”",
+            "answer": "“Taxing unhealthy food could reduce how much of it people buy. (Point.) Higher prices tend to discourage consumption, especially of non-essential items, because cost influences everyday choices at the point of sale. (Explanation.) When some countries introduced taxes on sugary drinks, for instance, sales of those drinks noticeably fell. (Example.) Over time, this could shift diets towards healthier options and ease the burden on public health systems. (Consequence.)”"
+          },
+          {
+            "id": "c23_b028",
+            "type": "practice_drill",
+            "label": "Drill 23.6 (introduction)",
+            "prompt": "Paraphrase this prompt for an introduction, without copying it: “Some believe that children should be taught to compete, while others think cooperation is more valuable.”",
+            "answer": "“Whether schools should encourage competition or cooperation among children is a subject of ongoing debate.” The prompt's meaning is kept; its wording is changed, so it scores for Lexical Resource rather than being discounted as copying."
+          },
+          {
+            "id": "c23_b029",
+            "type": "practice_drill",
+            "label": "Drill 23.7 (conclusion)",
+            "prompt": "Write a two-sentence conclusion for an essay that argued cooperation is more valuable than competition, adding no new idea.",
+            "answer": "“In conclusion, while competition has its place, the ability to work well with others is the more valuable skill for children to develop. Schools that prioritise cooperation are therefore likely to prepare their pupils better for adult life.” Restates the position, summarises, adds nothing new."
+          },
+          {
+            "id": "c23_b030",
+            "type": "heading",
+            "level": 3,
+            "text": "Full-task exercises"
+          },
+          {
+            "id": "c23_b031",
+            "type": "practice_drill",
+            "label": "Drill 23.8 (full Task 1)",
+            "prompt": "Using the device table above, write a full Task 1 answer (introduction, overview, one or two body paragraphs), in about 15 minutes.",
+            "answer": "This is a full writing task; assess yours against the criteria. Check: a paraphrased introduction, a clear number-free overview, and body paragraphs that select and group data with a few key figures."
+          },
+          {
+            "id": "c23_b032",
+            "type": "practice_drill",
+            "label": "Drill 23.9 (full Task 2)",
+            "prompt": "Write a full essay in about 40 minutes: “In many countries, people are working longer hours. Do the advantages of this outweigh the disadvantages?”",
+            "answer": "This is a full writing task; assess yours against the criteria. Check: a clear verdict in the introduction (the word “outweigh” demands one), both sides covered, each idea developed with Point-Explanation-Example-Consequence, and a conclusion confirming which side outweighs, with no new idea."
+          },
+          {
+            "id": "c23_b033",
+            "type": "practice_drill",
+            "label": "Drill 23.10 (timed challenge)",
+            "prompt": "Do Drills 23.8 and 23.9 back to back in 60 minutes, applying the time plan from File 22.",
+            "answer": "The challenge is not just writing both but pacing them: Task 1 capped at twenty minutes, Task 2 given its full forty, with planning and checking inside each. If you overran Task 1, log it and do Task 2 first next time."
+          },
+          {
+            "id": "c23_b034",
+            "type": "heading",
+            "level": 2,
+            "text": "BAND COMPARISON: what lifts a paragraph"
+          },
+          {
+            "id": "c23_b035",
+            "type": "paragraph",
+            "text": "Same point, two bands. Read both and see the difference."
+          },
+          {
+            "id": "c23_b036",
+            "type": "paragraph",
+            "text": "Band 6 body paragraph: “Firstly, longer hours are bad. Moreover, people get tired. In addition, they have no time for family. Furthermore, this is a big problem. Additionally, health can suffer.”"
+          },
+          {
+            "id": "c23_b037",
+            "type": "paragraph",
+            "text": "Why Band 6: the ideas are listed, not developed; every sentence opens with a mechanical linker; nothing is explained or illustrated. It is a chain of assertions."
+          },
+          {
+            "id": "c23_b038",
+            "type": "paragraph",
+            "text": "Band 8 body paragraph: “The most serious drawback of longer working hours is the toll they take on wellbeing. When employees spend more of each day at work, they have less time to rest and to see their families, and chronic tiredness gradually undermines both their health and their relationships. A parent working twelve-hour shifts, for example, may rarely see their children awake, straining family life in ways that no salary fully compensates for. Over time, such pressure can lead to burnout, which harms not only the worker but the employer who loses them.”"
+          },
+          {
+            "id": "c23_b039",
+            "type": "paragraph",
+            "text": "Why Band 8: one clear point, explained (why longer hours harm wellbeing), illustrated (the twelve-hour-shift parent), and carried to a consequence (burnout affecting both sides). The cohesion is invisible, through referencing and logic, with no mechanical linkers. The vocabulary is precise and natural, not forced."
+          },
+          {
+            "id": "c23_b040",
+            "type": "paragraph",
+            "text": "The gap between the two is not rare words or complex grammar. It is development, natural cohesion, and precise word choice, exactly the strategies of Files 20 and 21."
+          },
+          {
+            "id": "c23_b041",
+            "type": "heading",
+            "level": 1,
+            "text": "MODULE 3 WRAP-UP: WRITING IN ONE BREATH"
+          },
+          {
+            "id": "c23_b042",
+            "type": "paragraph",
+            "text": "Compressed to its core, Writing is this:"
+          },
+          {
+            "id": "c23_b043",
+            "type": "paragraph",
+            "text": "Read the question twice and identify exactly what it asks, every part of it. For Task 1, read the visual, find the overview, and select and group the data rather than dumping it. For Task 2, take a clear position, generate relevant ideas with the lens menu, and develop two or three of them fully with point, explanation, example, and consequence. Structure flexibly, one job per paragraph, and connect through logic and referencing rather than a pile of linkers. Choose precise, natural words over forced impressive ones. Give Task 2 its full share of the hour, and spend the last minutes checking that you answered the whole question before you check anything else."
+          },
+          {
+            "id": "c23_b044",
+            "type": "paragraph",
+            "text": "That is the whole module. Not “write well,” but a precise sequence of analysing, planning, developing, and checking, that you can now run on any prompt. When you can do it without thinking, the blank page stops being frightening, because you always know what to put on it."
+          },
+          {
+            "id": "c23_b045",
+            "type": "paragraph",
+            "text": "You should now be able to say, of any Task 1 visual and any Task 2 prompt:"
+          },
+          {
+            "id": "c23_b046",
+            "type": "paragraph",
+            "text": "“I know exactly what the question is asking and how to build my answer.”"
+          },
+          {
+            "id": "c23_b047",
+            "type": "paragraph",
+            "text": "Three modules down. Turn next to Module 4, Speaking, where there is no page to plan on and no time to check, only you, the examiner, and the words as they come."
+          },
+          {
+            "id": "f23_b048",
+            "type": "paragraph",
+            "variant": "footer",
+            "text": "Zero to Band 9: The Complete IELTS Tips & Tricks Field Guide. Module 3, Writing. File 23: Self-Checking, Writing Practice, and Module 3 Close. MODULE 3 COMPLETE. Next: Module 4, Speaking, File 24, Understanding the Speaking Test and the Speaking Mindset."
+          }
+        ]
+      },
+      "is_published": true
+    }
+  ]
+}

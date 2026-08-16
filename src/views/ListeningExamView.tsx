@@ -140,8 +140,6 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id }) => {
           onSelect={(tid) => setSelectedId(tid)}
           emptyDescription="Listening tests are being prepared. In the meantime, review the tips below to get ready."
         />
-
-        <SkillTips skill="listening" />
       </div>
     );
   }

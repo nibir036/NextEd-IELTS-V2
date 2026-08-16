@@ -25,8 +25,6 @@ export const ReadingView: React.FC<ReadingViewProps> = ({ id }) => {
         onSelect={() => { /* Wired when reading tests are added. */ }}
         emptyDescription="Reading tests are being prepared. In the meantime, review the tips below to get ready."
       />
-
-      <SkillTips skill="reading" />
     </div>
   );
 };

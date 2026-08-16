@@ -25,8 +25,6 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id }) => {
         onSelect={() => { /* Wired when speaking tests are added. */ }}
         emptyDescription="Speaking tests are being prepared. In the meantime, review the tips below to get ready."
       />
-
-      <SkillTips skill="speaking" />
     </div>
   );
 };

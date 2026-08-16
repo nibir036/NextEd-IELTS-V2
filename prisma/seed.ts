@@ -186,6 +186,108 @@ async function upsertExercise(ex: SeedExercise) {
   });
 }
 
+type SeedTipsModule = {
+  id: string;
+  skill?: string;
+  slug: string;
+  title: string;
+  subtitle?: string | null;
+  description?: string | null;
+  position: number;
+};
+
+type SeedTipsChapter = {
+  id: string;
+  module_id: string;
+  slug: string;
+  title: string;
+  position: number;
+  estimated_min?: number | null;
+  summary?: string | null;
+  content: unknown;
+  is_published?: boolean;
+};
+
+type AllTipsSeed = {
+  modules: SeedTipsModule[];
+  chapters: SeedTipsChapter[];
+};
+
+async function upsertTipsModule(m: SeedTipsModule) {
+  const bySlug = await prisma.tips_modules.findUnique({ where: { slug: m.slug } });
+  const byId = await prisma.tips_modules.findUnique({ where: { id: m.id } });
+
+  const data = {
+    skill: m.skill ?? 'writing',
+    title: m.title,
+    subtitle: m.subtitle ?? null,
+    description: m.description ?? null,
+    position: m.position,
+    is_published: true,
+    updated_at: new Date(),
+  };
+
+  if (bySlug && bySlug.id === m.id) {
+    await prisma.tips_modules.update({ where: { id: m.id }, data });
+    return;
+  }
+  if (bySlug && bySlug.id !== m.id) {
+    await prisma.tips_modules.update({ where: { id: bySlug.id }, data: { ...data, slug: m.slug } });
+    return;
+  }
+  if (byId && byId.slug !== m.slug) {
+    await prisma.tips_modules.update({ where: { id: m.id }, data: { ...data, slug: m.slug } });
+    return;
+  }
+  await prisma.tips_modules.create({ data: { id: m.id, slug: m.slug, ...data } });
+}
+
+async function upsertTipsChapter(ch: SeedTipsChapter) {
+  const byId = await prisma.tips_chapters.findUnique({ where: { id: ch.id } });
+  const bySlug = await prisma.tips_chapters.findUnique({
+    where: { module_id_slug: { module_id: ch.module_id, slug: ch.slug } },
+  });
+
+  const data = {
+    title: ch.title,
+    position: ch.position,
+    estimated_min: ch.estimated_min ?? null,
+    summary: ch.summary ?? null,
+    content: ch.content as object,
+    is_published: ch.is_published ?? true,
+    updated_at: new Date(),
+  };
+
+  if (byId) {
+    await prisma.tips_chapters.update({ where: { id: ch.id }, data: { ...data, module_id: ch.module_id, slug: ch.slug } });
+    return;
+  }
+  if (bySlug) {
+    await prisma.tips_chapters.update({ where: { id: bySlug.id }, data });
+    return;
+  }
+  await prisma.tips_chapters.create({ data: { id: ch.id, module_id: ch.module_id, slug: ch.slug, ...data } });
+}
+
+async function seedTips() {
+  const file = join(__dirname, 'seed-data', 'tips', 'writing-module-3.json');
+  if (!existsSync(file)) {
+    console.log('No tips seed file at', file, '- skipping.');
+    return;
+  }
+  const data = JSON.parse(readFileSync(file, 'utf8')) as AllTipsSeed;
+  console.log(`Seeding tips modules=${data.modules.length} chapters=${data.chapters.length}`);
+  for (const m of data.modules) {
+    await upsertTipsModule(m);
+    console.log('  tips module', m.slug);
+  }
+  for (const ch of data.chapters) {
+    await upsertTipsChapter(ch);
+    const n = (ch.content as { blocks?: unknown[] })?.blocks?.length ?? 0;
+    console.log('  tips chapter', ch.slug, `(${n} blocks)`);
+  }
+}
+
 async function main() {
   const file = join(__dirname, 'seed-data', 'grammar', 'all-chapters.json');
   if (!existsSync(file)) {
@@ -214,6 +316,8 @@ async function main() {
     console.log('  exercise', ex.slug);
   }
 
+  await seedTips();
+
   console.log('Done.');
 }
 
@@ -225,3 +329,4 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+  

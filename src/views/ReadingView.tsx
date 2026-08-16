@@ -1,187 +1,140 @@
 import React, { useState } from 'react';
 import { GlassPanel } from '../components/ui/GlassPanel';
-import { Button } from '../components/ui/Button';
-import { readingPassageSample } from '../lib/data';
-import { BookOpen, Sparkles, CheckCircle2, X, RefreshCw, Trophy } from '../components/ui/icons';
+import ReadingTipsList from '../components/reading/ReadingTipsList';
+import { ReadingTestView } from './ReadingTestView';
+import { BookOpen, ChevronRight, Clock } from '../components/ui/icons';
 
 interface ReadingViewProps {
   id?: string;
 }
 
+// আপাতত একটাই sample test. পরে DB/API থেকে এনে .map() করা যাবে।
+const readingTests = [
+  {
+    id: 'sample-1',
+    title: 'Deep-Water Coral Ecosystems',
+    category: 'Academic Reading',
+    durationMinutes: 20,
+    questionCount: 3,
+  },
+];
+
+type Tab = 'tests' | 'tips';
+
 export const ReadingView: React.FC<ReadingViewProps> = ({ id }) => {
-  const passage = readingPassageSample;
-  const [userAnswers, setUserAnswers] = useState<Record<number, string>>({});
-  const [submitted, setSubmitted] = useState(false);
+  const [activeTestId, setActiveTestId] = useState<string | null>(null);
+  const [tab, setTab] = useState<Tab>('tests');
 
-  const handleSelectOption = (qId: number, option: string) => {
-    if (submitted) return;
-    setUserAnswers((prev) => ({ ...prev, [qId]: option }));
-  };
+  // Test খোলা থাকলে passage+questions view দেখাও
+  if (activeTestId) {
+    return (
+      <div id={id} className="space-y-4">
+        <button
+          onClick={() => setActiveTestId(null)}
+          className="inline-flex items-center gap-1.5 text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition"
+        >
+          <ChevronRight size={16} className="rotate-180" />
+          Back to Reading Tests
+        </button>
+        <ReadingTestView />
+      </div>
+    );
+  }
 
-  const correctCount = passage.questions.reduce((acc, q) => {
-    return userAnswers[q.id] === q.correctAnswer ? acc + 1 : acc;
-  }, 0);
-
-  const calculatedBand = (correctCount / passage.questions.length) >= 0.8
-    ? 8.0
-    : (correctCount / passage.questions.length) >= 0.5
-    ? 7.0
-    : 6.0;
-
-  const handleReset = () => {
-    setUserAnswers({});
-    setSubmitted(false);
-  };
-
+  // নাহলে hub/list view দেখাও
   return (
     <div id={id} className="space-y-6">
-      {/* Header Banner */}
+      {/* Header Banner — ভিতরে ডান পাশে Tests/Tips button */}
       <GlassPanel className="p-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-start justify-between gap-4">
+          {/* বাম পাশ — title */}
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono mb-2">
               <BookOpen size={14} />
-              <span>{passage.category}</span>
+              <span>Reading Practice</span>
             </div>
+
             <h2 className="font-display text-2xl font-bold text-[var(--text)]">
-              {passage.title}
+              IELTS Reading Simulator
             </h2>
+
             <p className="text-xs text-[var(--text-dim)] mt-1">
-              Time Allowed: {passage.durationMinutes} Mins · Passage Paragraph Analysis & Evidence Justification
+              Passage paragraph analysis with AI-examined evidence justification & band feedback.
             </p>
           </div>
 
-          {submitted && (
-            <div className="flex items-center gap-3 bg-[var(--bg-elevated)] p-3 rounded-2xl border border-[var(--border)]">
-              <div className="text-right">
-                <div className="text-[10px] font-mono text-[var(--text-faint)] uppercase">Score Outcome</div>
-                <div className="font-display font-bold text-lg text-[var(--text)]">
-                  {correctCount} / {passage.questions.length} Correct
-                </div>
-              </div>
-              <div className="w-12 h-12 rounded-xl bg-[image:var(--accent-gradient)] text-white font-bold text-lg flex items-center justify-center">
-                {calculatedBand}
-              </div>
-            </div>
-          )}
+          {/* ডান পাশ — Tests / Tips button */}
+          <div className="flex flex-row gap-2 shrink-0">
+            <button
+              onClick={() => setTab('tests')}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition ${
+                tab === 'tests'
+                  ? 'bg-[var(--accent-a)]/15 text-[var(--accent-a)] border border-[var(--accent-a)]/30'
+                  : 'border border-[var(--border)] text-[var(--text-dim)] hover:border-[var(--accent-a)]/40'
+              }`}
+            >
+              <BookOpen size={16} />
+              Tests
+            </button>
+
+            <button
+              onClick={() => setTab('tips')}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition ${
+                tab === 'tips'
+                  ? 'bg-[var(--accent-a)]/15 text-[var(--accent-a)] border border-[var(--accent-a)]/30'
+                  : 'border border-[var(--border)] text-[var(--text-dim)] hover:border-[var(--accent-a)]/40'
+              }`}
+            >
+              <BookOpen size={16} />
+              Tips
+            </button>
+          </div>
         </div>
       </GlassPanel>
 
-      {/* Split Screen Grid: Passage Text vs Questions */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left Passage Panel */}
-        <div className="lg:col-span-7">
-          <GlassPanel className="p-6 max-h-[600px] overflow-y-auto space-y-5 border-l-4 border-l-[var(--accent-a)]">
-            <div className="flex items-center justify-between border-b border-[var(--border)] pb-3">
-              <span className="text-xs font-mono font-semibold uppercase text-[var(--text-faint)]">
-                Reading Passage Text
-              </span>
-              <span className="text-xs font-mono text-[var(--text-dim)]">
-                4 Paragraphs
-              </span>
-            </div>
+      {/* List — Tests বা Tips */}
+      <div className="space-y-3">
+        <h3 className="text-lg font-semibold text-[var(--text)] px-1">
+          {tab === 'tests' ? 'Reading Tests' : 'Reading Tips'}
+        </h3>
 
-            {passage.paragraphs.map((p, idx) => (
-              <div key={idx} className="space-y-1.5">
-                <span className="inline-block px-2 py-0.5 rounded bg-[var(--accent-a)]/15 text-[var(--accent-a)] text-[11px] font-mono font-bold">
-                  {p.label}
-                </span>
-                <p className="text-xs text-[var(--text)] leading-relaxed font-sans">
-                  {p.text}
+        {tab === 'tests' ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {readingTests.map((test) => (
+              <div
+                key={test.id}
+                className="flex flex-col rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 hover:border-[var(--accent-a)]/40 transition"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <span className="px-2.5 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-medium">
+                    {test.category}
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-xs text-[var(--text-dim)] font-mono">
+                    <Clock size={12} />
+                    {test.durationMinutes} min
+                  </span>
+                </div>
+
+                <h3 className="font-display text-lg font-bold text-[var(--text)] leading-snug">
+                  {test.title}
+                </h3>
+                <p className="text-sm text-[var(--text-dim)] mt-1">
+                  {test.questionCount} questions · Passage analysis
                 </p>
+
+                <button
+                  onClick={() => setActiveTestId(test.id)}
+                  className="mt-auto pt-5 flex items-center justify-center gap-1.5 rounded-xl border border-[var(--border)] py-2.5 text-sm font-medium text-[var(--text)] hover:border-[var(--accent-a)]/40 hover:bg-[var(--accent-a)]/5 transition"
+                >
+                  Start Test
+                  <ChevronRight className="w-4 h-4" />
+                </button>
               </div>
             ))}
-          </GlassPanel>
-        </div>
-
-        {/* Right Questions Pane */}
-        <div className="lg:col-span-5 space-y-4">
-          <GlassPanel className="p-6 space-y-5">
-            <div className="flex items-center justify-between border-b border-[var(--border)] pb-3">
-              <h3 className="font-display font-bold text-base text-[var(--text)]">
-                Questions 1–3
-              </h3>
-              <span className="text-xs font-mono text-[var(--text-dim)]">
-                {Object.keys(userAnswers).length} / {passage.questions.length} Answered
-              </span>
-            </div>
-
-            {passage.questions.map((q) => {
-              const selected = userAnswers[q.id];
-              const isCorrect = selected === q.correctAnswer;
-
-              return (
-                <div key={q.id} className="p-4 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)] space-y-3">
-                  <div className="text-xs font-semibold text-[var(--text)]">
-                    <span className="font-mono text-[var(--accent-a)] mr-1.5">Q{q.id}.</span>
-                    {q.question}
-                  </div>
-
-                  {/* Options List */}
-                  <div className="space-y-1.5">
-                    {(q.options || ['TRUE', 'FALSE', 'NOT GIVEN']).map((opt) => {
-                      const isOptionSelected = selected === opt;
-                      let optionClasses = 'bg-[var(--bg-elevated)] border-[var(--border)] text-[var(--text-dim)] hover:border-[var(--border-strong)]';
-
-                      if (submitted) {
-                        if (opt === q.correctAnswer) {
-                          optionClasses = 'bg-[var(--success)]/15 border-[var(--success)] text-[var(--success)] font-semibold';
-                        } else if (isOptionSelected) {
-                          optionClasses = 'bg-[var(--danger)]/15 border-[var(--danger)] text-[var(--danger)]';
-                        }
-                      } else if (isOptionSelected) {
-                        optionClasses = 'bg-[var(--accent-a)]/20 border-[var(--accent-a)] text-[var(--text)] font-semibold';
-                      }
-
-                      return (
-                        <button
-                          key={opt}
-                          onClick={() => handleSelectOption(q.id, opt)}
-                          className={`w-full text-left p-2.5 rounded-lg border text-xs transition-all cursor-pointer flex items-center justify-between ${optionClasses}`}
-                        >
-                          <span>{opt}</span>
-                          {submitted && opt === q.correctAnswer && <CheckCircle2 size={14} className="text-[var(--success)] shrink-0" />}
-                          {submitted && isOptionSelected && opt !== q.correctAnswer && <X size={14} className="text-[var(--danger)] shrink-0" />}
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {/* AI Explanation Banner when submitted */}
-                  {submitted && (
-                    <div className="p-3 rounded-lg bg-[var(--bg-elevated)] border border-[var(--accent-a)]/30 text-xs space-y-1">
-                      <div className="font-mono font-semibold text-[var(--accent-a)] flex items-center gap-1">
-                        <Sparkles size={13} />
-                        <span>AI Evidence Justification</span>
-                      </div>
-                      <p className="text-[var(--text-dim)] leading-relaxed">
-                        {q.explanation}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-
-            <div className="pt-2 flex items-center justify-between">
-              {submitted ? (
-                <Button variant="secondary" size="md" icon={<RefreshCw size={16} />} onClick={handleReset}>
-                  Try Again
-                </Button>
-              ) : (
-                <Button
-                  variant="primary"
-                  size="md"
-                  icon={<Trophy size={16} />}
-                  disabled={Object.keys(userAnswers).length < passage.questions.length}
-                  onClick={() => setSubmitted(true)}
-                >
-                  Check Answers & AI Evidence
-                </Button>
-              )}
-            </div>
-          </GlassPanel>
-        </div>
+          </div>
+        ) : (
+          <ReadingTipsList />
+        )}
       </div>
     </div>
   );

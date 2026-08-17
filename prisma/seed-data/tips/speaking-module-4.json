@@ -1,0 +1,1742 @@
+{
+  "modules": [
+    {
+      "id": "9a76c78b-1b90-4b04-986f-33c32eeaa41a",
+      "slug": "speaking-module-4-tips-and-tricks",
+      "skill": "speaking",
+      "title": "Module 4: IELTS Speaking — Tips & Tricks",
+      "subtitle": "The Speaking mindset, Part 1 extension, Part 2 cue cards, Part 3 reasoning, recovery, pronunciation, and insider tips",
+      "description": "The full Speaking module from the Zero to Band 9 field guide, preserved in the PDF sequence and organized by Files 24–29.",
+      "position": 4
+    }
+  ],
+  "chapters": [
+    {
+      "id": "24ccc691-9057-425c-9642-36448d15ad09",
+      "module_id": "9a76c78b-1b90-4b04-986f-33c32eeaa41a",
+      "slug": "file-24-understanding-the-speaking-test-and-the-speaking-mindset",
+      "title": "File 24: Understanding the Speaking Test and the Speaking Mindset",
+      "position": 1,
+      "estimated_min": 22,
+      "summary": "The Speaking test format, the four scoring criteria, what the examiner does not judge, and the conversational mindset that underlies every high score.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "s24_b0001",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 1"
+          },
+          {
+            "id": "s24_b0002",
+            "type": "heading",
+            "level": 2,
+            "text": "UNDERSTANDING THE SPEAKING TEST"
+          },
+          {
+            "id": "s24_b0003",
+            "type": "heading",
+            "level": 3,
+            "text": "What it is"
+          },
+          {
+            "id": "s24_b0004",
+            "type": "paragraph",
+            "text": "The Speaking test is a live interview with a real examiner, lasting about eleven to fourteen minutes. It may be face to face in a room or by video call, but either way it is a real person, in real time, not a recording and not a machine. That single fact should reassure you: it is a conversation, and you already know how to have a conversation."
+          },
+          {
+            "id": "s24_b0005",
+            "type": "paragraph",
+            "text": "The examiner has two jobs: to guide you through the three parts, and to assess you against four criteria. They are not your opponent. They want you to speak, because they cannot score silence."
+          },
+          {
+            "id": "s24_b0006",
+            "type": "heading",
+            "level": 3,
+            "text": "The three parts"
+          },
+          {
+            "id": "s24_b0007",
+            "type": "paragraph",
+            "text": "Part 1: Introduction and interview (about four to five minutes). The examiner introduces themselves, checks your identity, then asks questions about familiar topics: your home, work or studies, hobbies, daily routines, food, travel. The questions are short and personal, and so are the answers, though not one word long. This part is a warm-up, and it should feel like easy small talk."
+          },
+          {
+            "id": "s24_b0008",
+            "type": "paragraph",
+            "text": "Part 2: The long turn (about three to four minutes). The examiner gives you a task card with a topic and some points to cover. You get one minute to prepare, with paper and pencil to make notes, then you speak on your own for one to two minutes, without interruption. Afterwards the examiner may ask one or two quick rounding-off questions. This is the only part where you speak at length alone."
+          },
+          {
+            "id": "s24_b0009",
+            "type": "paragraph",
+            "text": "Part 3: Discussion (about four to five minutes). The examiner asks broader, more abstract questions connected to the Part 2 topic. Here you discuss ideas, give opinions, compare, speculate, and explain. It is the most demanding part, because it asks you to think, not just describe."
+          },
+          {
+            "id": "s24_b0010",
+            "type": "heading",
+            "level": 3,
+            "text": "The four criteria, in practical terms"
+          },
+          {
+            "id": "s24_b0011",
+            "type": "paragraph",
+            "text": "Each criterion is a quarter of your score. Here is what the examiner is actually listening for."
+          },
+          {
+            "id": "s24_b0012",
+            "type": "paragraph",
+            "text": "Fluency and Coherence. Can you keep talking smoothly, without long unnatural pauses, staying on the question and connecting your ideas so they are easy to follow. This is not about speed; it is about flow and staying on track."
+          },
+          {
+            "id": "s24_b0013",
+            "type": "paragraph",
+            "text": "Lexical Resource. The range and precision of your vocabulary, and whether you can paraphrase your way around a word you do not know rather than stopping dead."
+          },
+          {
+            "id": "s24_b0014",
+            "type": "paragraph",
+            "text": "Grammatical Range and Accuracy. The variety of sentence structures you use and how accurately. This is the domain of the separate grammar book; here we treat it only where a speaking decision touches it."
+          },
+          {
+            "id": "s24_b0015",
+            "type": "paragraph",
+            "text": "Pronunciation. Whether you are easy to understand, with clear sounds, word and sentence stress, and natural intonation. Note carefully: this is about being intelligible, not about having a British or American accent."
+          },
+          {
+            "id": "s24_b0016",
+            "type": "heading",
+            "level": 3,
+            "text": "What the examiner is NOT judging"
+          },
+          {
+            "id": "s24_b0017",
+            "type": "paragraph",
+            "text": "Knowing this removes half the pressure."
+          },
+          {
+            "id": "s24_b0018",
+            "type": "list",
+            "items": [
+              "Your opinions. There are no right or wrong answers. You can say anything, as long as you say it well.",
+              "Your knowledge. It is a language test, not a general-knowledge quiz. You are never expected to be an expert on the topic.",
+              "Your accent. A clear accent of any origin is fine. You do not need to sound British or American.",
+              "Whether your stories are true. You may invent details freely. The examiner is assessing your English, not fact-checking your life."
+            ]
+          },
+          {
+            "id": "s24_b0019",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "The examiner cannot give marks for silence, so your first duty is simply to keep speaking. A candidate who talks naturally, even with small mistakes, always outscores one who says little for fear of being wrong. There is no wrong opinion and no wrong story, only too few words.",
+            "bn": "পরীক্ষক নীরবতায় নম্বর দিতে পারেন না, তাই আপনার প্রথম কাজ কেবল কথা বলে যাওয়া। ছোটখাটো ভুল করলেও যে স্বাভাবিকভাবে কথা বলে, সে সবসময় ভয়ে চুপ থাকা প্রার্থীর চেয়ে বেশি নম্বর পায়। কোনো মতামত ভুল নয়, কোনো গল্পও ভুল নয়।"
+          },
+          {
+            "id": "s24_b0020",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 2"
+          },
+          {
+            "id": "s24_b0021",
+            "type": "heading",
+            "level": 2,
+            "text": "THE SPEAKING MINDSET"
+          },
+          {
+            "id": "s24_b0022",
+            "type": "heading",
+            "level": 3,
+            "text": "The reframe: it is a conversation"
+          },
+          {
+            "id": "s24_b0023",
+            "type": "paragraph",
+            "text": "Most candidates walk in treating Speaking as an exam where they must produce correct, impressive answers. That mindset makes them stiff, slow, and afraid. The high scorer treats it as what it is: a conversation with an interested stranger. You are not reciting; you are talking. Everything below follows from that reframe."
+          },
+          {
+            "id": "s24_b0024",
+            "type": "heading",
+            "level": 3,
+            "text": "Natural communication"
+          },
+          {
+            "id": "s24_b0025",
+            "type": "paragraph",
+            "text": "Talk the way you would to a friendly person who is genuinely interested in your answer. Use everyday spoken English, react naturally, and let your personality show. Examiners reward natural communication and can hear the difference instantly between a person speaking and a person performing a memorised script."
+          },
+          {
+            "id": "s24_b0026",
+            "type": "heading",
+            "level": 3,
+            "text": "Confidence"
+          },
+          {
+            "id": "s24_b0027",
+            "type": "paragraph",
+            "text": "Nervousness is normal and the examiner expects it. They are not trying to trip you up; their questions are ordinary and their manner is neutral, not hostile. Because there are no wrong opinions and no knowledge being tested, there is genuinely little to fear. Confidence here is not a personality trait; it is the calm that comes from knowing the examiner is on your side and there is no trap."
+          },
+          {
+            "id": "s24_b0028",
+            "type": "heading",
+            "level": 3,
+            "text": "Fluency is not speed"
+          },
+          {
+            "id": "s24_b0029",
+            "type": "principle",
+            "text": "Speaking fast is not the same as speaking fluently. Fluency is smooth, connected, comfortable flow, and you can be perfectly fluent at a moderate pace. Speaking too fast usually causes more errors, unclear pronunciation, and a breathless, anxious sound. Slow down to a natural conversational speed, and your fluency and pronunciation both improve."
+          },
+          {
+            "id": "s24_b0030",
+            "type": "paragraph",
+            "text": "Many candidates believe they must speak quickly to sound fluent, and it backfires. A steady, relaxed pace with clear words and natural pauses scores higher than a rushed torrent. Aim to sound comfortable, not fast."
+          },
+          {
+            "id": "s24_b0031",
+            "type": "heading",
+            "level": 3,
+            "text": "Thinking while speaking"
+          },
+          {
+            "id": "s24_b0032",
+            "type": "paragraph",
+            "text": "You do not need the perfect answer fully formed before you open your mouth. Fluent speakers of any language think as they talk. Start with a general response to the question, then develop it as you go. Beginning is more important than beginning perfectly, and the act of speaking usually brings the next idea with it."
+          },
+          {
+            "id": "s24_b0033",
+            "type": "heading",
+            "level": 3,
+            "text": "Recovering from mistakes"
+          },
+          {
+            "id": "s24_b0034",
+            "type": "paragraph",
+            "text": "You will make small errors, and they matter far less than you think. The damage is not the error; it is stopping, apologising, and restarting, which breaks your fluency, the thing actually being scored. When you slip, keep going. A tiny self-correction in passing is fine; a full stop and restart is not."
+          },
+          {
+            "id": "s24_b0035",
+            "type": "heading",
+            "level": 3,
+            "text": "Extending answers"
+          },
+          {
+            "id": "s24_b0036",
+            "type": "paragraph",
+            "text": "Do not give bare one-word or one-sentence answers, which starve the examiner of language to assess. But do not over-talk either, rambling until you lose the point. The target is a natural extended answer: enough to show your range, then a natural stop. The next files teach exactly how to extend."
+          },
+          {
+            "id": "s24_b0037",
+            "type": "heading",
+            "level": 3,
+            "text": "The Expert Speaking Mindset"
+          },
+          {
+            "id": "s24_b0038",
+            "type": "paragraph",
+            "text": "Watch what a confident candidate is doing throughout the test. They treat it as a chat, not an interrogation. They listen to the actual question and answer that question, not a memorised topic near it. They extend each answer naturally with a reason or an example, then stop. They speak at a comfortable pace, clearly, without racing. When they make a small mistake, they carry on as if it were nothing, because to a fluent speaker it is nothing. They never recite a rehearsed speech, because they know a natural simple answer beats a memorised impressive one. Underneath it all, they are relaxed, because they understand there is no wrong answer to give."
+          },
+          {
+            "id": "s24_b0039",
+            "type": "paragraph",
+            "text": "EXPERT THINKING: a simple Part 1 question. The examiner asks: “Do you enjoy cooking?” WHAT A BEGINNER THINKS “Yes.” Then silence, waiting for the next question, having given the examiner almost nothing to assess. WHAT AN EXPERIENCED STUDENT THINKS “Yes, I like cooking.” A complete sentence, but it stops too soon, offering little range. WHAT AN EXPERT CANDIDATE NOTICES They answer the actual question and extend it naturally: “Yes, I really enjoy it, especially at weekends when I have time to try new recipes. Cooking relaxes me after a busy week, though I have to admit I am much better at desserts than main meals.” Answered, with a reason, a detail, and a touch of personality, then a natural stop. Not memorised, not rushed, just a person talking."
+          },
+          {
+            "id": "s24_b0040",
+            "type": "paragraph",
+            "text": "The gap between these three is not vocabulary or grammar. It is the habit of answering naturally and extending, which is the whole of the Speaking mindset, and the subject of the next file."
+          },
+          {
+            "id": "s24_b0041",
+            "type": "heading",
+            "level": 2,
+            "text": "PRACTICE"
+          },
+          {
+            "id": "s24_b0042",
+            "type": "paragraph",
+            "text": "These warm-ups train the mindset. Reasoning keys follow."
+          },
+          {
+            "id": "s24_b0043_h",
+            "type": "heading",
+            "level": 4,
+            "text": "Drill 24.1 (Level 1): Natural or unnatural?"
+          },
+          {
+            "id": "s24_b0043",
+            "type": "practice_drill",
+            "label": "Drill 24.1 (Level 1): Natural or unnatural?",
+            "prompt": "Which response sounds like natural conversation, and which like a memorised script? a) “Well, I suppose my favourite season is winter, mainly because I love the cold weather and staying in with a book.” b) “My favourite season is winter. Winter is a season that has many advantages. Firstly, the weather is cold. Secondly, one can read books.”",
+            "answer": "a is natural; b is a memorised script. Response a uses everyday spoken markers (“Well, I suppose”), gives a genuine reason, and sounds like a person talking. Response b uses essay-style connectors (“Firstly, Secondly”) and the stiff, impersonal “one can,” which no one says in conversation. Examiners are trained to hear the difference, and b would score lower on Fluency and Lexical Resource despite sounding “structured.” Speak, do not recite."
+          },
+          {
+            "id": "s24_b0044_h",
+            "type": "heading",
+            "level": 4,
+            "text": "Drill 24.2 (Level 2): Extend the answer"
+          },
+          {
+            "id": "s24_b0044",
+            "type": "practice_drill",
+            "label": "Drill 24.2 (Level 2): Extend the answer",
+            "prompt": "Turn each bare answer into a natural extended one (answer, reason, detail). 1. “Do you like your hometown?” Bare: “Yes.” 2. “Do you use public transport?” Bare: “Sometimes.” 3. “What do you do in your free time?” Bare: “I watch films.”",
+            "answer": "(samples) 1. “Yes, I do. It is a small, quiet town, and although there is not much to do, I love how peaceful it is and how everyone knows each other.” 2. “Yes, sometimes, mostly the bus to work. It is cheaper than driving and I can read on the way, though it can get crowded in the mornings.” 3. “In my free time I usually watch films, especially thrillers. It is how I unwind, and I like discussing them with friends afterwards.” Each follows answer, reason, detail, and stops naturally. That shape is the backbone of Part 1."
+          },
+          {
+            "id": "s24_b0045_h",
+            "type": "heading",
+            "level": 4,
+            "text": "Drill 24.3 (Level 1): Fluency or speed?"
+          },
+          {
+            "id": "s24_b0045",
+            "type": "practice_drill",
+            "label": "Drill 24.3 (Level 1): Fluency or speed?",
+            "prompt": "A candidate speaks very fast, running words together and making several slips, then another speaks at a calm, steady pace with clear words and a couple of natural pauses. Which is more fluent, and why?",
+            "answer": "The calm, steady speaker is more fluent. Fluency is smooth, comfortable flow and being easy to follow, not raw speed. The fast speaker’s running-together and slips actually reduce fluency and hurt pronunciation. A moderate, clear pace with natural pauses sounds more fluent and is easier to score well. Slow down to speed up your band."
+          },
+          {
+            "id": "s24_b0046",
+            "type": "paragraph",
+            "variant": "footer",
+            "text": "Zero to Band 9: The Complete IELTS Tips & Tricks Field Guide. Module 4, Speaking. File 24: Understanding the Speaking Test and the Speaking Mindset. Next: File 25, Speaking Part 1 and How to Extend an Answer."
+          }
+        ]
+      }
+    },
+    {
+      "id": "270dd30b-a7c3-48d2-aab1-3815ec7ff01d",
+      "module_id": "9a76c78b-1b90-4b04-986f-33c32eeaa41a",
+      "slug": "file-25-speaking-part-1-and-how-to-extend-an-answer",
+      "title": "File 25: Speaking Part 1 and How to Extend an Answer",
+      "position": 2,
+      "estimated_min": 22,
+      "summary": "The Answer-Reason-Detail framework for Part 1, and the extension toolkit for turning any bare answer into a natural, developed one.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "s25_b0001",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 3"
+          },
+          {
+            "id": "s25_b0002",
+            "type": "heading",
+            "level": 2,
+            "text": "SPEAKING PART 1"
+          },
+          {
+            "id": "s25_b0003",
+            "type": "heading",
+            "level": 3,
+            "text": "What Part 1 is"
+          },
+          {
+            "id": "s25_b0004",
+            "type": "paragraph",
+            "text": "Part 1 lasts about four to five minutes. The examiner asks short questions on familiar, personal topics: your home, your work or studies, your hobbies, food, travel, technology, family, and daily routines. It is designed to feel like relaxed small talk, a warm-up before the harder parts."
+          },
+          {
+            "id": "s25_b0005",
+            "type": "heading",
+            "level": 3,
+            "text": "The goal"
+          },
+          {
+            "id": "s25_b0006",
+            "type": "paragraph",
+            "text": "Give answers that are natural and extended, but not long. Two to four sentences is the sweet spot. One word is too little; a one-minute monologue is too much and out of place here. You are having a friendly exchange, not delivering a talk."
+          },
+          {
+            "id": "s25_b0007",
+            "type": "heading",
+            "level": 3,
+            "text": "The core framework: Answer, Reason, Detail"
+          },
+          {
+            "id": "s25_b0008",
+            "type": "paragraph",
+            "text": "For most Part 1 questions, a reliable shape is: Answer. Respond to the question directly, first. Reason. Say why, briefly. Detail. Add an example, a specific, or a bit of personal colour."
+          },
+          {
+            "id": "s25_b0009",
+            "type": "paragraph",
+            "text": "For “Do you prefer tea or coffee?”: “I much prefer coffee, actually. (Answer.) It is mainly the caffeine, since I need it to wake up properly in the mornings. (Reason.) I usually have a strong cup before work, and I have become a bit fussy about how it is made. (Detail.)” Three sentences, natural, complete. That is a strong Part 1 answer."
+          },
+          {
+            "id": "s25_b0010",
+            "type": "heading",
+            "level": 3,
+            "text": "The framework across topics"
+          },
+          {
+            "id": "s25_b0011",
+            "type": "paragraph",
+            "text": "The same shape flexes to any Part 1 topic. A few models:"
+          },
+          {
+            "id": "s25_b0012",
+            "type": "list",
+            "items": [
+              "Home: “I live in a small flat near the city centre. I like it because everything is within walking distance, which suits me since I do not drive. The only downside is that it can get a little noisy at weekends.”",
+              "Work or study: “I am studying business at university. I chose it because I have always been interested in how companies are run, and I am hoping it leads to a marketing career. My favourite part is the group projects.”",
+              "Hobbies: “I love photography, mostly landscapes. It started as a way to get outdoors more, and now I plan whole weekend trips around finding good spots. I am not professional, but it relaxes me.”",
+              "Food: “I really enjoy cooking, especially spicy food. Growing up, my family always ate together, so it feels natural to me. These days I like trying dishes from other countries.”",
+              "Travel: “I love travelling whenever I can. It is the best way to see how differently people live, which fascinates me. My favourite trip so far was to the mountains, for the quiet.”"
+            ]
+          },
+          {
+            "id": "s25_b0013",
+            "type": "paragraph",
+            "text": "Notice each is Answer, Reason, Detail, but none sounds mechanical, because the wording and rhythm change every time."
+          },
+          {
+            "id": "s25_b0014",
+            "type": "heading",
+            "level": 3,
+            "text": "The crucial rule: do not sound formulaic"
+          },
+          {
+            "id": "s25_b0015",
+            "type": "principle",
+            "text": "Answer, Reason, Detail is a shape to lean on, not a rigid template to repeat identically. If every answer sounds like the same three-step machine, it becomes robotic, and robotic scores lower on Fluency. Vary how you start, sometimes lead with a preference or a contrast, and let the shape bend to the question."
+          },
+          {
+            "id": "s25_b0016",
+            "type": "paragraph",
+            "text": "Sometimes you will answer, give a contrast, and stop. Sometimes you will start with an example. The framework is training wheels; as you improve, the shape becomes invisible and you simply talk naturally, which is the goal."
+          },
+          {
+            "id": "s25_b0017",
+            "type": "heading",
+            "level": 3,
+            "text": "Common Part 1 mistakes"
+          },
+          {
+            "id": "s25_b0018",
+            "type": "list",
+            "items": [
+              "One-word answers (“Yes.” “No.” “Sometimes.”), which give the examiner nothing to assess.",
+              "Memorised speeches, which sound rehearsed and are penalised.",
+              "Turning Part 1 into Part 2, delivering a long monologue when a short natural answer was wanted.",
+              "Misunderstanding the question and answering a slightly different one. If you do not catch it, it is fine to ask the examiner to repeat."
+            ]
+          },
+          {
+            "id": "s25_b0019",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "In Part 1, answer the question you were actually asked, then add a little. Do not launch into a prepared speech about the topic. “Do you like your job?” wants your feeling about your job and a reason, not a two-minute history of your career. Match the size of your answer to the size of the question.",
+            "bn": "Part 1-এ যে প্রশ্ন করা হয়েছে তার উত্তর দিন, তারপর একটু যোগ করুন। প্রস্তুত করা বক্তৃতা শুরু করবেন না। “আপনি কি আপনার চাকরি পছন্দ করেন?” প্রশ্নটির জন্য আপনার অনুভূতি আর একটি কারণ প্রয়োজন, ক্যারিয়ারের দুই মিনিটের ইতিহাস নয়।"
+          },
+          {
+            "id": "s25_b0020",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 4"
+          },
+          {
+            "id": "s25_b0021",
+            "type": "heading",
+            "level": 2,
+            "text": "HOW TO EXTEND AN ANSWER"
+          },
+          {
+            "id": "s25_b0022",
+            "type": "heading",
+            "level": 3,
+            "text": "Why extension is the whole game"
+          },
+          {
+            "id": "s25_b0023",
+            "type": "paragraph",
+            "text": "A bare answer gives the examiner almost no language to score. Extension is how you show your range of vocabulary and grammar, your fluency, and your ability to develop an idea. Learning to extend any answer naturally is perhaps the single most useful Speaking skill, and it applies across all three parts."
+          },
+          {
+            "id": "s25_b0024",
+            "type": "heading",
+            "level": 3,
+            "text": "The extension toolkit"
+          },
+          {
+            "id": "s25_b0025",
+            "type": "paragraph",
+            "text": "Here are the moves you can use to add more, naturally. You do not use all of them at once; you pick one or two that fit."
+          },
+          {
+            "id": "s25_b0026",
+            "type": "list",
+            "items": [
+              "Reason: why. “because,” “the reason is,” “mainly because.”",
+              "Example: a specific instance. “for example,” “like when,” “such as.”",
+              "Contrast: the other side. “but,” “although,” “on the other hand,” “that said.”",
+              "Personal experience: a moment from your life. “I remember once,” “there was a time when.”",
+              "Consequence: the result. “so,” “which means,” “as a result.”",
+              "Explanation: elaborate on how or why something is so.",
+              "Preference or comparison: “I prefer X to Y because.”",
+              "Hypothetical or future: “I would love to,” “if I could,” “one day I hope to.”"
+            ]
+          },
+          {
+            "id": "s25_b0027",
+            "type": "heading",
+            "level": 3,
+            "text": "The worked transformation"
+          },
+          {
+            "id": "s25_b0028",
+            "type": "paragraph",
+            "text": "Take the bare answer: “Yes, I like travelling.” Now extend it with different tools:"
+          },
+          {
+            "id": "s25_b0029",
+            "type": "paragraph",
+            "text": "With reason and example: “Yes, I love travelling, mainly because it lets me experience completely different ways of life. Last year, for instance, I visited a small fishing village and the pace of life there amazed me.”"
+          },
+          {
+            "id": "s25_b0030",
+            "type": "paragraph",
+            "text": "With contrast: “Yes, I enjoy travelling a lot, although I have to admit I find the airports and packing quite stressful. It is the being-there that I love, not the getting-there.”"
+          },
+          {
+            "id": "s25_b0031",
+            "type": "paragraph",
+            "text": "With personal experience and consequence: “Yes, very much. I remember my first trip abroad completely changed how I saw the world, and ever since then I have tried to travel at least once a year.”"
+          },
+          {
+            "id": "s25_b0032",
+            "type": "paragraph",
+            "text": "With preference and hypothetical: “Yes, I do, especially to mountains rather than beaches. If I could, I would spend every holiday hiking somewhere remote and quiet.”"
+          },
+          {
+            "id": "s25_b0033",
+            "type": "paragraph",
+            "text": "Same three-word starting point, four natural, extended answers. That is the extension toolkit in action."
+          },
+          {
+            "id": "s25_b0034",
+            "type": "heading",
+            "level": 3,
+            "text": "How much is enough"
+          },
+          {
+            "id": "s25_b0035",
+            "type": "paragraph",
+            "text": "For Part 1, two to four sentences, one or two extension moves. For Part 3, more, because those questions invite discussion. The skill is not maximum length; it is adding enough to show range, then stopping naturally before you ramble. An answer that goes on too long, losing its point, hurts Coherence as much as one that is too short."
+          },
+          {
+            "id": "s25_b0036",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "When you are stuck for how to extend, silently ask “why?” or “for example?” of your own answer, and say the reply out loud. Those two questions, reason and example, will extend almost any answer naturally, and they are always available when your mind goes blank. Answer, then ask yourself why, then answer that too.",
+            "bn": "কীভাবে বাড়াবেন বুঝতে না পারলে, নিজেকে নীরবে জিজ্ঞাসা করুন “কেন?” বা “উদাহরণ?” আর সেই উত্তরটা বলে ফেলুন। এই দুটি প্রশ্ন প্রায় যেকোনো উত্তরকে স্বাভাবিকভাবে বাড়িয়ে দেয়, আর মাথা ফাঁকা হয়ে গেলেও এগুলো সবসময় হাতের কাছে থাকে।"
+          },
+          {
+            "id": "s25_b0037",
+            "type": "heading",
+            "level": 2,
+            "text": "PRACTICE"
+          },
+          {
+            "id": "s25_b0038",
+            "type": "paragraph",
+            "text": "Reasoning keys follow."
+          },
+          {
+            "id": "s25_b0039_h",
+            "type": "heading",
+            "level": 4,
+            "text": "Drill 25.1 (Level 2): Answer, Reason, Detail"
+          },
+          {
+            "id": "s25_b0039",
+            "type": "practice_drill",
+            "label": "Drill 25.1 (Level 2): Answer, Reason, Detail",
+            "prompt": "Answer each Part 1 question using the framework, in two or three sentences. 1. “Do you enjoy your work or studies?” 2. “What kind of food do you like?” 3. “Do you use social media much?”",
+            "answer": "(samples) 1. “Yes, I really enjoy my studies. I am doing engineering, which I chose because I love solving practical problems, and the lab work in particular keeps it interesting.” 2. “I like most food, but especially anything spicy. I grew up eating a lot of it, so mild food feels a bit boring to me now. Thai curry is probably my favourite.” 3. “Yes, quite a lot, mainly to keep in touch with friends who live abroad. I try not to overuse it, though, since it can eat up the whole evening.” Each is Answer, Reason, Detail, kept short and natural. Note the varied openings, which stop it sounding mechanical."
+          },
+          {
+            "id": "s25_b0040_h",
+            "type": "heading",
+            "level": 4,
+            "text": "Drill 25.2 (Level 3): Extend with a named tool"
+          },
+          {
+            "id": "s25_b0040",
+            "type": "practice_drill",
+            "label": "Drill 25.2 (Level 3): Extend with a named tool",
+            "prompt": "Extend each bare answer using the tool in brackets. 1. “Yes, I like music.” (reason and example) 2. “No, I do not read much.” (contrast) 3. “I usually get up early.” (consequence) 4. “I would like to visit Japan.” (hypothetical)",
+            "answer": "(samples) 1. “Yes, I love music, mainly because it lifts my mood. For example, I always play something upbeat when I am cooking or cleaning.” (reason and example) 2. “No, I do not read much these days, although I used to read constantly as a child. I just find I have less time now.” (contrast) 3. “I usually get up early, so I have plenty of quiet time to myself before the day gets busy.” (consequence) 4. “I would love to visit Japan. If I could, I would go in spring to see the cherry blossom, which I have always dreamed of.” (hypothetical)"
+          },
+          {
+            "id": "s25_b0041_h",
+            "type": "heading",
+            "level": 4,
+            "text": "Drill 25.3 (Level 2): Name the tool"
+          },
+          {
+            "id": "s25_b0041",
+            "type": "practice_drill",
+            "label": "Drill 25.3 (Level 2): Name the tool",
+            "prompt": "For each extended answer, name the extension tool used. 1. “I love the countryside, although the lack of shops can be inconvenient.” 2. “I enjoy cooking, for example I made a whole three-course meal last weekend.” 3. “I drink a lot of water, so I rarely feel tired during the day.”",
+            "answer": "1. Contrast (“although”). 2. Example (“for example”). 3. Consequence (“so”). Lesson across both parts: a bare answer becomes a strong one with a single, natural extension move. Keep Answer, Reason, Detail as your default shape, reach for the toolkit when you need more, and when your mind blanks, just ask yourself “why?” or “for example?” and answer that."
+          },
+          {
+            "id": "s25_b0042",
+            "type": "paragraph",
+            "variant": "footer",
+            "text": "Zero to Band 9: The Complete IELTS Tips & Tricks Field Guide. Module 4, Speaking. File 25: Speaking Part 1 and How to Extend an Answer. Next: File 26, Part 2 Cue Cards, Unfamiliar Topics, and How to Keep Talking."
+          }
+        ]
+      }
+    },
+    {
+      "id": "56db571c-8205-45fa-9659-318786219936",
+      "module_id": "9a76c78b-1b90-4b04-986f-33c32eeaa41a",
+      "slug": "file-26-part-2-cue-cards-unfamiliar-topics-and-how-to-keep-talking",
+      "title": "File 26: Part 2 Cue Cards, Unfamiliar Topics, and How to Keep Talking",
+      "position": 3,
+      "estimated_min": 25,
+      "summary": "The universal five-part cue card system, strategies for unfamiliar topics, and a rescue toolkit for when you run out of things to say.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "s26_b0001",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 5"
+          },
+          {
+            "id": "s26_b0002",
+            "type": "heading",
+            "level": 2,
+            "text": "PART 2 CUE CARDS: THE UNIVERSAL SYSTEM"
+          },
+          {
+            "id": "s26_b0003",
+            "type": "heading",
+            "level": 3,
+            "text": "What Part 2 is"
+          },
+          {
+            "id": "s26_b0004",
+            "type": "paragraph",
+            "text": "The examiner hands you a card with a topic and a few prompts, gives you one minute to prepare with paper and pencil, then asks you to speak for one to two minutes on your own. Afterwards they ask one or two short follow-up questions."
+          },
+          {
+            "id": "s26_b0005",
+            "type": "paragraph",
+            "text": "A typical card looks like this: Describe a place you have visited that you found peaceful. You should say: - where it is - when you went there - what you did there and explain why you found it peaceful."
+          },
+          {
+            "id": "s26_b0006",
+            "type": "paragraph",
+            "text": "Notice the last line, the “explain” prompt. It is the most important part of the card, because it asks for reasons and feelings, which is where development and higher marks live. Many candidates rush the facts and neglect the explanation; do the opposite."
+          },
+          {
+            "id": "s26_b0007",
+            "type": "heading",
+            "level": 3,
+            "text": "Using the one minute"
+          },
+          {
+            "id": "s26_b0008",
+            "type": "paragraph",
+            "text": "Do not write sentences in your minute; you will not have time, and reading them aloud sounds unnatural. Jot keywords, a few for each prompt, plus any extra ideas that come to mind. You are preparing a story to tell, not a script to read."
+          },
+          {
+            "id": "s26_b0009",
+            "type": "heading",
+            "level": 3,
+            "text": "The Universal Cue Card System"
+          },
+          {
+            "id": "s26_b0010",
+            "type": "paragraph",
+            "text": "Here is a flexible five-part skeleton that works for almost any card. It is not a template to memorise word for word; it is a running order for your thoughts."
+          },
+          {
+            "id": "s26_b0011",
+            "type": "list",
+            "ordered": true,
+            "items": [
+              "Introduce. Say what you are going to talk about, with a quick frame. “I’d like to tell you about…”",
+              "The facts. Cover the who, what, where, and when prompts, setting the scene.",
+              "The story or description. Tell what happened, in order, or describe what it is like in detail. This is the body of your turn.",
+              "Feelings and reasons. Answer the “explain” prompt: why it matters, why it is memorable, how you felt. Spend real time here.",
+              "Reflection or result. Wrap up: what it means to you now, what came of it, why you still remember it."
+            ]
+          },
+          {
+            "id": "s26_b0012",
+            "type": "paragraph",
+            "text": "Use the card’s prompts as a map, but add beyond them. The prompts are the minimum; the marks come from what you build on top."
+          },
+          {
+            "id": "s26_b0013",
+            "type": "heading",
+            "level": 3,
+            "text": "Creating a story"
+          },
+          {
+            "id": "s26_b0014",
+            "type": "paragraph",
+            "text": "A description becomes far more engaging as a mini-story. Two ways to shape it:"
+          },
+          {
+            "id": "s26_b0015",
+            "type": "list",
+            "items": [
+              "Chronology: before, during, after. “I had been meaning to go for years… when I finally arrived… and afterwards…”",
+              "Description: bring in the senses and specifics. What you saw, heard, smelled; the small details that make it real."
+            ]
+          },
+          {
+            "id": "s26_b0016",
+            "type": "paragraph",
+            "text": "Your tenses will shift naturally as you do this: past for the events, present for how you feel about it now. You do not need to think about that consciously; telling the story properly makes the grammar happen."
+          },
+          {
+            "id": "s26_b0017",
+            "type": "heading",
+            "level": 3,
+            "text": "Adapt, do not memorise"
+          },
+          {
+            "id": "s26_b0018",
+            "type": "principle",
+            "text": "You cannot memorise an answer for every possible cue card, and memorised answers sound rehearsed and score lower. What you can do is internalise the system and practise applying it to random cards until it is automatic. The skill is not a stock of prepared speeches; it is the ability to build a good turn on the spot, every time."
+          },
+          {
+            "id": "s26_b0019",
+            "type": "heading",
+            "level": 3,
+            "text": "Worked example"
+          },
+          {
+            "id": "s26_b0020",
+            "type": "paragraph",
+            "text": "Card: the peaceful place card above. One-minute notes (keywords only): “mountain lake / near hometown / last summer, family / walked, sat by water, no phone signal / silence, nature, no city noise, felt calm, forgot my worries”"
+          },
+          {
+            "id": "s26_b0021",
+            "type": "paragraph",
+            "text": "Model long turn: “I’d like to tell you about a mountain lake I visited that I found incredibly peaceful. (Introduce.) It is a couple of hours from my hometown, high up in the hills, and I went there last summer with my family for a long weekend. (Facts.) We spent the days walking around the shore, and in the afternoons we would just sit by the water with a picnic. What struck me most was that there was no phone signal at all, so for once nobody was staring at a screen. (Story.) The reason it felt so peaceful was the silence, a kind of silence you never get in the city, just birds and the water. Being surrounded by nature like that, with none of the usual noise and rush, made me feel completely calm, and I genuinely forgot all my worries for a few days. (Feelings and reasons.) Even now, when I am stressed, I think back to that lake, and I have promised myself I will go again this year. (Reflection.)” That is a full, natural, well-developed long turn, built from keyword notes using the system, not memorised."
+          },
+          {
+            "id": "s26_b0022",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Spend most of your minute preparing the “explain” prompt, not the facts. Anyone can say where and when; the marks are in why and how you felt. If you run short on ideas, it should be for the facts, never for the feelings.",
+            "bn": "আপনার এক মিনিটের বেশিরভাগ সময় “explain” অংশটির জন্য প্রস্তুতি নিন, তথ্যের জন্য নয়। কোথায় আর কখন তা যে কেউ বলতে পারে; নম্বর থাকে কেন আর কেমন লেগেছিল তাতে।"
+          },
+          {
+            "id": "s26_b0023",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 6"
+          },
+          {
+            "id": "s26_b0024",
+            "type": "heading",
+            "level": 2,
+            "text": "WHAT IF I DON’T KNOW THE TOPIC?"
+          },
+          {
+            "id": "s26_b0025",
+            "type": "paragraph",
+            "text": "Sometimes you get a card for which you have no real experience: a person you cannot think of, a place you have never been, an object you do not own, an experience you have never had. This is not a problem, because the examiner is testing your English, not fact-checking your life."
+          },
+          {
+            "id": "s26_b0026",
+            "type": "heading",
+            "level": 3,
+            "text": "Three strategies"
+          },
+          {
+            "id": "s26_b0027",
+            "type": "list",
+            "items": [
+              "Invent plausibly. Build a believable example from general knowledge. If the card asks about a historical building you have visited and you cannot think of one, describe a famous one you have seen in photos or films as if you had been. It only needs to be plausible and describable.",
+              "Adapt a real memory. Bend a real experience to fit the card. A card about “a gift you gave someone” can borrow the details of any gift you remember, reshaped to fit.",
+              "Generalise, then commit. If you truly have no instance, start general and then settle on one. “I have not travelled abroad much, but if I had to choose a memorable trip, it would be a visit to the coast near my city, which…” Then treat that as your answer."
+            ]
+          },
+          {
+            "id": "s26_b0028",
+            "type": "heading",
+            "level": 3,
+            "text": "Quick tactics by card type"
+          },
+          {
+            "id": "s26_b0029",
+            "type": "list",
+            "items": [
+              "Unfamiliar person: base them on someone you actually know, adjusting details to fit the prompt.",
+              "Unfamiliar place: use a place you have seen in media or heard about, and describe it confidently.",
+              "Unfamiliar object: almost any object can be described; pick one you can say a lot about, even loosely related.",
+              "Unfamiliar experience: adapt a similar experience, or imagine a plausible one and narrate it as if real."
+            ]
+          },
+          {
+            "id": "s26_b0030",
+            "type": "heading",
+            "level": 3,
+            "text": "What not to do"
+          },
+          {
+            "id": "s26_b0031",
+            "type": "paragraph",
+            "text": "Do not say “I don’t know” and stop. Do not fall silent. Do not announce that you are making it up. Simply construct your answer naturally and speak as though it is yours. Confidence in delivery matters more than the truth of the content, because content is not what is being scored."
+          },
+          {
+            "id": "s26_b0032",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "You are allowed to invent. A vivid, well-told imaginary answer scores far higher than an honest “I can’t think of one.” The examiner will never know, and it is not their concern. Treat every cue card as a chance to tell a good story, true or not.",
+            "bn": "আপনি কল্পনা করতে পারেন, এটা অনুমোদিত। একটা প্রাণবন্ত, ভালোভাবে বলা কাল্পনিক উত্তর “আমি কিছু ভাবতে পারছি না”-এর চেয়ে অনেক বেশি নম্বর পায়। পরীক্ষক কখনো জানবেন না, আর এটা তাঁর বিষয়ও নয়।"
+          },
+          {
+            "id": "s26_b0033",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 7"
+          },
+          {
+            "id": "s26_b0034",
+            "type": "heading",
+            "level": 2,
+            "text": "HOW TO KEEP TALKING: THE RESCUE SYSTEM"
+          },
+          {
+            "id": "s26_b0035",
+            "type": "paragraph",
+            "text": "You are halfway through Part 2, or deep in a Part 3 answer, and your mind empties with time still to fill. This happens to everyone. Here is how to generate more, on demand."
+          },
+          {
+            "id": "s26_b0036",
+            "type": "heading",
+            "level": 3,
+            "text": "The “I have nothing else to say” rescue system"
+          },
+          {
+            "id": "s26_b0037",
+            "type": "paragraph",
+            "text": "When you run dry, run silently through these moves. Each one generates another sentence or two."
+          },
+          {
+            "id": "s26_b0038",
+            "type": "list",
+            "items": [
+              "Add detail. Describe more: what it looked like, sounded like, the specifics.",
+              "Explain. Say why, or how, something is so.",
+              "Give an example. A specific instance of what you just said.",
+              "Compare. To something else, or before versus now.",
+              "Reflect. What it means to you, what you learned from it.",
+              "Feelings. How you felt then, or feel now.",
+              "Consequence. What happened as a result.",
+              "Speculate. What might happen, or what you would do."
+            ]
+          },
+          {
+            "id": "s26_b0039",
+            "type": "paragraph",
+            "text": "You do not use all eight. You reach for whichever fits, and it restarts your flow. With practice, this becomes automatic, and you will never truly run out, because there is always another angle."
+          },
+          {
+            "id": "s26_b0040",
+            "type": "heading",
+            "level": 3,
+            "text": "Worked rescue"
+          },
+          {
+            "id": "s26_b0041",
+            "type": "paragraph",
+            "text": "Suppose you have said: “My favourite gadget is my phone. I use it all the time.” You have run dry. Apply the moves:"
+          },
+          {
+            "id": "s26_b0042",
+            "type": "list",
+            "items": [
+              "Explain: “I rely on it because it does almost everything, from my alarm to my banking.”",
+              "Example: “For instance, I planned my whole last holiday on it, from the flights to the restaurants.”",
+              "Compare: “It is strange to think that a few years ago I needed a separate camera, map, and diary, and now it is all in one device.”",
+              "Reflect: “In a way it worries me how dependent I have become, but I honestly could not manage my day without it.”"
+            ]
+          },
+          {
+            "id": "s26_b0043",
+            "type": "paragraph",
+            "text": "Four moves turned two dead sentences into a full, developing answer."
+          },
+          {
+            "id": "s26_b0044",
+            "type": "heading",
+            "level": 3,
+            "text": "Do not fill with empty filler"
+          },
+          {
+            "id": "s26_b0045",
+            "type": "paragraph",
+            "text": "Rescuing is about adding real content, not noise. Avoid strings of “um, yeah, so, I don’t know,” which lower your Fluency score. The rescue moves give you something genuine to say; use them instead of empty sounds."
+          },
+          {
+            "id": "s26_b0046",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Memorise the rescue moves as a short mental list you can run through under pressure: explain, example, compare, feel, reflect. When you freeze, silently walk the list and pick one. Having a fixed set to reach for is what turns a panic into a pause. You are never truly stuck; you have simply not asked yourself the next question yet.",
+            "bn": "rescue move-গুলো একটা ছোট তালিকা হিসেবে মুখস্থ রাখুন: explain, example, compare, feel, reflect. আটকে গেলে নীরবে তালিকাটা মনে করে একটা বেছে নিন। একটা নির্দিষ্ট সেট হাতে থাকলে আতঙ্ক শুধু একটা বিরতিতে পরিণত হয়।"
+          },
+          {
+            "id": "s26_b0047",
+            "type": "heading",
+            "level": 2,
+            "text": "PRACTICE"
+          },
+          {
+            "id": "s26_b0048",
+            "type": "paragraph",
+            "text": "Reasoning keys follow."
+          },
+          {
+            "id": "s26_b0049_h",
+            "type": "heading",
+            "level": 4,
+            "text": "Drill 26.1 (Level 2): Plan a cue card"
+          },
+          {
+            "id": "s26_b0049",
+            "type": "practice_drill",
+            "label": "Drill 26.1 (Level 2): Plan a cue card",
+            "prompt": "Take this card and write keyword notes (not sentences) using the five-part system: “Describe a skill you would like to learn. You should say: what it is, why you want to learn it, how you would learn it, and explain how it would help you.”",
+            "answer": "(sample notes) Introduce: skill = playing the guitar. Facts: always loved music, never had lessons. Story/how: online videos + a cheap second-hand guitar + practise evenings. Feelings/reasons: why = relaxation, express myself, play at gatherings. Reflection: would boost confidence, make social events more fun. These keywords are enough to speak from for two minutes; you would never write full sentences in the minute."
+          },
+          {
+            "id": "s26_b0050_h",
+            "type": "heading",
+            "level": 4,
+            "text": "Drill 26.2 (Level 3): Construct an unknown topic"
+          },
+          {
+            "id": "s26_b0050",
+            "type": "practice_drill",
+            "label": "Drill 26.2 (Level 3): Construct an unknown topic",
+            "prompt": "You get: “Describe a famous person from your country you admire.” You cannot think of one you genuinely admire. Describe your strategy in one or two sentences, then give the opening lines of your answer.",
+            "answer": "(sample) Strategy: adapt or invent plausibly, choosing a well-known figure I can say a lot about and treating them as someone I admire. Opening: “I’d like to talk about a scientist from my country who is widely respected for her work in public health. I may not know her personally, of course, but from everything I have read, she is someone I genuinely look up to…” Then continue with plausible detail. The key is to commit and speak confidently, not to stall over whether it is your truest choice."
+          },
+          {
+            "id": "s26_b0051_h",
+            "type": "heading",
+            "level": 4,
+            "text": "Drill 26.3 (Level 3): Rescue a dying answer"
+          },
+          {
+            "id": "s26_b0051",
+            "type": "practice_drill",
+            "label": "Drill 26.3 (Level 3): Rescue a dying answer",
+            "prompt": "You have said only: “I enjoy going to the beach.” Using three rescue moves, extend it into a fuller answer, and name the moves you used.",
+            "answer": "(sample) “I enjoy going to the beach, mainly because it is the one place I feel completely relaxed. (explain) For example, last month I spent a whole day there just swimming and reading, and I came home feeling refreshed. (example) Compared to a city break, which I find tiring, the beach genuinely recharges me. (compare)” Three moves, explain, example, compare, turned one flat sentence into a developed answer."
+          },
+          {
+            "id": "s26_b0052",
+            "type": "paragraph",
+            "text": "The lesson across all three: Part 2 is not about having the perfect memory or the right topic. It is about a system you can apply to anything, a willingness to construct when you must, and a set of rescue moves that guarantee you never run dry. With these, the minute alone stops being frightening and becomes your chance to shine."
+          },
+          {
+            "id": "s26_b0053",
+            "type": "paragraph",
+            "variant": "footer",
+            "text": "Zero to Band 9: The Complete IELTS Tips & Tricks Field Guide. Module 4, Speaking. File 26: Part 2 Cue Cards, Unfamiliar Topics, and How to Keep Talking. Next: File 27, Speaking Part 3 and Thinking Time."
+          }
+        ]
+      }
+    },
+    {
+      "id": "6beecb60-787b-4d6b-9f86-9271b1f098e2",
+      "module_id": "9a76c78b-1b90-4b04-986f-33c32eeaa41a",
+      "slug": "file-27-speaking-part-3-and-thinking-time",
+      "title": "File 27: Speaking Part 3 and Thinking Time",
+      "position": 4,
+      "estimated_min": 25,
+      "summary": "Part 3 question types, the Answer-Explain-Example-Consequence framework, and natural ways to buy thinking time without stalling.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "s27_b0001",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 8"
+          },
+          {
+            "id": "s27_b0002",
+            "type": "heading",
+            "level": 2,
+            "text": "SPEAKING PART 3"
+          },
+          {
+            "id": "s27_b0003",
+            "type": "heading",
+            "level": 3,
+            "text": "What Part 3 is"
+          },
+          {
+            "id": "s27_b0004",
+            "type": "paragraph",
+            "text": "Part 3 lasts about four to five minutes. The examiner asks broader, more abstract questions connected to the Part 2 topic. If Part 2 was about a peaceful place, Part 3 might ask why people need quiet in modern life, or how cities have changed. The questions are no longer about you personally; they are about society, ideas, and general trends."
+          },
+          {
+            "id": "s27_b0005",
+            "type": "heading",
+            "level": 3,
+            "text": "The shift from Part 1"
+          },
+          {
+            "id": "s27_b0006",
+            "type": "paragraph",
+            "text": "Part 1 asked for personal facts in short answers. Part 3 asks for opinions, analysis, and speculation, in longer, more developed answers. This is the part that most tests your Fluency and Coherence, because you must organise a genuine argument on the spot. Treat each answer as a short spoken essay, natural but reasoned."
+          },
+          {
+            "id": "s27_b0007",
+            "type": "heading",
+            "level": 3,
+            "text": "The question types, and how to handle each"
+          },
+          {
+            "id": "s27_b0008",
+            "type": "list",
+            "items": [
+              "Opinion: “Do you think…?” State your view and defend it.",
+              "Cause: “Why do people…?” Give reasons.",
+              "Effect: “What effect does X have?” Give consequences.",
+              "Comparison: “What is the difference between X and Y?” Contrast them.",
+              "Change over time: “How has X changed?” Compare past, present, and perhaps future.",
+              "Prediction: “Will X happen in the future?” Speculate with “might,” “could,” “is likely to.”",
+              "Advantages and disadvantages, or problem and solution: cover both sides, or identify problems and suggest solutions."
+            ]
+          },
+          {
+            "id": "s27_b0009",
+            "type": "paragraph",
+            "text": "Recognising the type tells you the shape of the answer, exactly as in Writing Task 2."
+          },
+          {
+            "id": "s27_b0010",
+            "type": "heading",
+            "level": 3,
+            "text": "The core framework: Answer, Explain, Example, Consequence or Contrast"
+          },
+          {
+            "id": "s27_b0011",
+            "type": "paragraph",
+            "text": "For most Part 3 questions, develop your answer in four moves: Answer. Give your response or position directly. Explain. Say why, the reasoning behind it. Example. Illustrate it with a specific instance. Consequence or Contrast. State the result, or acknowledge the other side."
+          },
+          {
+            "id": "s27_b0012",
+            "type": "paragraph",
+            "text": "For “Why do you think people need peaceful places in modern life?”: “I think peaceful places have become almost essential nowadays. (Answer.) Modern life, especially in cities, is so fast and noisy that people are constantly stimulated, which is genuinely exhausting over time. (Explain.) Someone who commutes through heavy traffic and then works in a noisy open-plan office, for example, may go a whole day without a single quiet moment. (Example.) So having somewhere calm to retreat to, even just a local park, helps them recover and protects their mental health. (Consequence.)” That is a developed, well-reasoned Part 3 answer, and it is a mini spoken essay, not a memorised speech."
+          },
+          {
+            "id": "s27_b0013",
+            "type": "heading",
+            "level": 3,
+            "text": "Language that adds range and buys time"
+          },
+          {
+            "id": "s27_b0014",
+            "type": "paragraph",
+            "text": "Part 3 rewards the language of nuanced opinion, which also gives you thinking space: “I suppose,” “generally speaking,” “it depends,” “some might argue,” “on balance,” “to some extent.” These phrases signal a sophisticated speaker and let you begin an answer while your main idea forms."
+          },
+          {
+            "id": "s27_b0015",
+            "type": "heading",
+            "level": 3,
+            "text": "Handling “it depends”"
+          },
+          {
+            "id": "s27_b0016",
+            "type": "paragraph",
+            "text": "“It depends” is a legitimate and sophisticated Part 3 answer, but only if you then explain the conditions. “It depends on the age group, really. For younger people… whereas for older people…” Do not stop at “it depends”; use it as the opening of a nuanced answer, not an escape from one."
+          },
+          {
+            "id": "s27_b0017",
+            "type": "heading",
+            "level": 3,
+            "text": "There is no correct answer"
+          },
+          {
+            "id": "s27_b0018",
+            "type": "paragraph",
+            "text": "As everywhere in Speaking, your opinion is never marked right or wrong. A balanced, nuanced answer that sees more than one side often shows the most sophisticated English, and Part 3 is the ideal place to display that."
+          },
+          {
+            "id": "s27_b0019",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "In Part 3, always say why. The examiner is listening for reasoning, so an answer that gives an opinion and then explains and illustrates it scores far higher than a longer answer that just asserts several opinions. One well-developed reason beats three bare ones, exactly as in the Writing essay.",
+            "bn": "Part 3-এ সবসময় কারণ বলুন। পরীক্ষক যুক্তি শোনেন, তাই যে উত্তর একটা মত দিয়ে সেটা ব্যাখ্যা ও উদাহরণ দেয়, সেটা কেবল কয়েকটা মত বলে যাওয়া লম্বা উত্তরের চেয়ে অনেক বেশি নম্বর পায়।"
+          },
+          {
+            "id": "s27_b0020",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 9"
+          },
+          {
+            "id": "s27_b0021",
+            "type": "heading",
+            "level": 2,
+            "text": "THINKING TIME"
+          },
+          {
+            "id": "s27_b0022",
+            "type": "paragraph",
+            "text": "Part 3 questions often need a moment’s thought, and you must take that moment without an awkward silence or a string of “ums.” The good news is that fluent speakers of every language buy thinking time constantly, and they do it with natural moves you can learn."
+          },
+          {
+            "id": "s27_b0023",
+            "type": "heading",
+            "level": 3,
+            "text": "How to buy time naturally"
+          },
+          {
+            "id": "s27_b0024",
+            "type": "paragraph",
+            "text": "A brief pause. A short, natural pause before answering is completely fine, and even sounds thoughtful. Silence for one second is not a problem; silence for six is. Take the small pause without fear."
+          },
+          {
+            "id": "s27_b0025",
+            "type": "paragraph",
+            "text": "A general opener or comment on the question. Begin with a natural remark: “That’s an interesting question.” “I’ve never really thought about that, but…” “Well, that’s a tricky one.” These buy a second or two and sound entirely natural, because they are what real speakers say."
+          },
+          {
+            "id": "s27_b0026",
+            "type": "paragraph",
+            "text": "Reformulate the question. Restate it in your own words as you begin: “So, whether technology has made us less social… I’d say…” This buys time and, as a bonus, shows the examiner you understood the question and gives a small display of vocabulary."
+          },
+          {
+            "id": "s27_b0027",
+            "type": "paragraph",
+            "text": "Natural fillers, used sparingly. “Well,” “I suppose,” “to be honest,” “actually,” “you know” are natural in small doses. They oil ordinary speech. Used constantly, they become a distracting tic, so sprinkle, do not pour."
+          },
+          {
+            "id": "s27_b0028",
+            "type": "paragraph",
+            "text": "Start general, then narrow. Open with a broad statement while your specific idea forms: “There are probably several reasons for that. The main one, I think, is…” The general opener holds the floor while you assemble the detail."
+          },
+          {
+            "id": "s27_b0029",
+            "type": "paragraph",
+            "text": "Hedge as thinking space. “It’s hard to say, but generally…” gives you a moment and sounds sophisticated at the same time."
+          },
+          {
+            "id": "s27_b0030",
+            "type": "heading",
+            "level": 3,
+            "text": "The balance: natural, not stalling"
+          },
+          {
+            "id": "s27_b0031",
+            "type": "principle",
+            "text": "These are natural spoken behaviours, not stalling tactics, and the difference is quantity. One brief opener and a short pause sound thoughtful; a five-second “ummmm,” or repeating the whole question every single time, or stacking “well, you know, I mean, actually, basically” sounds like stalling and lowers your Fluency. Buy a moment, then speak."
+          },
+          {
+            "id": "s27_b0032",
+            "type": "heading",
+            "level": 3,
+            "text": "What to avoid"
+          },
+          {
+            "id": "s27_b0033",
+            "type": "list",
+            "items": [
+              "Long silences while you visibly search for an idea.",
+              "Excessive “um” and “er.”",
+              "Repeating the entire question back word for word every time; occasional reformulation is good, robotic repetition is not.",
+              "Stacking empty phrases with no content behind them."
+            ]
+          },
+          {
+            "id": "s27_b0034",
+            "type": "heading",
+            "level": 3,
+            "text": "Worked example"
+          },
+          {
+            "id": "s27_b0035",
+            "type": "paragraph",
+            "text": "A hard question: “Do you think people will work fewer hours in the future?” A natural response with time-buying built in: “That’s a really interesting question, and honestly it’s quite hard to predict. (Opener, buys time.) But on balance, I think we probably will, at least in some jobs. (Answer.) As technology and automation take over more routine tasks, the same work can be done in less time, so it seems likely that working weeks will gradually shorten. (Explain.) We have already seen some companies trialling four-day weeks, for instance. (Example.) That said, it may not happen evenly, since some industries will resist it. (Contrast.)” The opener bought a moment naturally, and then the answer developed cleanly. No awkward silence, no pile of fillers."
+          },
+          {
+            "id": "s27_b0036",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Have two or three natural openers ready, such as “That’s an interesting question” and “I’ve not thought about that before, but…”, and let them become automatic. They are not memorised answers, so they are not penalised; they are the natural connective tissue of speech, and they give your brain the half-second it needs. The goal is to pause like a fluent speaker, not to fill silence like a nervous one.",
+            "bn": "দুই-তিনটি স্বাভাবিক opener প্রস্তুত রাখুন, যেমন “That’s an interesting question”, আর সেগুলো স্বয়ংক্রিয় করে তুলুন। এগুলো মুখস্থ উত্তর নয়, তাই penalise হয় না; এগুলো কথার স্বাভাবিক অংশ, আর মস্তিষ্ককে দরকারি আধা সেকেন্ড দেয়।"
+          },
+          {
+            "id": "s27_b0037",
+            "type": "heading",
+            "level": 2,
+            "text": "PRACTICE"
+          },
+          {
+            "id": "s27_b0038",
+            "type": "paragraph",
+            "text": "Reasoning keys follow."
+          },
+          {
+            "id": "s27_b0039_h",
+            "type": "heading",
+            "level": 4,
+            "text": "Drill 27.1 (Level 2): Identify the question type"
+          },
+          {
+            "id": "s27_b0039",
+            "type": "practice_drill",
+            "label": "Drill 27.1 (Level 2): Identify the question type",
+            "prompt": "Name the Part 3 question type and the shape of a good answer. 1. “Why do you think fewer young people read books these days?” 2. “How has the way people communicate changed over the last twenty years?” 3. “Do the benefits of remote work outweigh the drawbacks?”",
+            "answer": "1. Cause. Give reasons (distraction of screens, less free time, changing habits), explained. 2. Change over time. Contrast the past with the present, perhaps touching the future. 3. Advantages outweigh disadvantages. Weigh both sides and give a verdict, just like the Writing task of the same name."
+          },
+          {
+            "id": "s27_b0040_h",
+            "type": "heading",
+            "level": 4,
+            "text": "Drill 27.2 (Level 3): Answer with the framework"
+          },
+          {
+            "id": "s27_b0040",
+            "type": "practice_drill",
+            "label": "Drill 27.2 (Level 3): Answer with the framework",
+            "prompt": "Answer this using Answer, Explain, Example, Consequence or Contrast: “Do you think technology has made people less social?”",
+            "answer": "(sample) “To some extent, yes, though it’s complicated. (Answer.) On one hand, people now spend hours on their phones even when they’re together, which can reduce real conversation. (Explain.) You often see a group of friends in a café all looking at their own screens, for example. (Example.) On the other hand, technology also connects people who would otherwise never speak, like family living abroad, so it has arguably made us more social in a different way. (Contrast.)” A balanced, developed answer that sees both sides scores highly."
+          },
+          {
+            "id": "s27_b0041_h",
+            "type": "heading",
+            "level": 4,
+            "text": "Drill 27.3 (Level 2): Natural or stalling?"
+          },
+          {
+            "id": "s27_b0041",
+            "type": "practice_drill",
+            "label": "Drill 27.3 (Level 2): Natural or stalling?",
+            "prompt": "Which opening buys time naturally, and which sounds like stalling? a) “Um… er… well… um… the thing is… um…” b) “That’s a good question. I suppose it depends, but on the whole…”",
+            "answer": "b buys time naturally; a is stalling. Response b uses a short opener and a hedge, sounds thoughtful, and moves quickly into an answer. Response a is a pile of empty fillers with no content and no progress, which lowers Fluency. A brief natural opener is good; a string of “ums” is not."
+          },
+          {
+            "id": "s27_b0042",
+            "type": "paragraph",
+            "text": "The lesson across both parts: Part 3 rewards developed reasoning, so answer, explain, illustrate, and add the other side. And when you need a moment to think, buy it the way fluent speakers do, with a short pause and a natural opener, then speak, rather than filling the air with empty sound."
+          },
+          {
+            "id": "s27_b0043",
+            "type": "paragraph",
+            "variant": "footer",
+            "text": "Zero to Band 9: The Complete IELTS Tips & Tricks Field Guide. Module 4, Speaking. File 27: Speaking Part 3 and Thinking Time. Next: File 28, Recovery Strategies, Pronunciation Strategy, and Memorisation Traps."
+          }
+        ]
+      }
+    },
+    {
+      "id": "9d2c88da-e50b-4a88-8181-f7e10c10142a",
+      "module_id": "9a76c78b-1b90-4b04-986f-33c32eeaa41a",
+      "slug": "file-28-recovery-strategies-pronunciation-strategy-and-memorisation-traps",
+      "title": "File 28: Recovery Strategies, Pronunciation Strategy, and Memorisation Traps",
+      "position": 5,
+      "estimated_min": 25,
+      "summary": "How to recover smoothly from slips, what Pronunciation is really scoring, and why memorised answers backfire.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "s28_b0001",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 10"
+          },
+          {
+            "id": "s28_b0002",
+            "type": "heading",
+            "level": 2,
+            "text": "RECOVERY STRATEGIES"
+          },
+          {
+            "id": "s28_b0003",
+            "type": "paragraph",
+            "text": "Everyone makes mistakes when speaking, including fluent native speakers. What separates a high band from a low one is not the absence of slips; it is how smoothly you carry on after them."
+          },
+          {
+            "id": "s28_b0004",
+            "type": "principle",
+            "text": "Recovery beats perfection. A small mistake, smoothly passed over, costs almost nothing. The same mistake, followed by a full stop, an apology, and a restart, costs your Fluency, which is the thing actually being scored. Keep the flow, and most errors become invisible."
+          },
+          {
+            "id": "s28_b0005",
+            "type": "paragraph",
+            "text": "Here is what to do in each situation."
+          },
+          {
+            "id": "s28_b0006",
+            "type": "list",
+            "items": [
+              "After a grammar mistake. Usually, just carry on. Examiners expect some grammatical errors and do not mark down a single slip. If it is easy to fix in passing, a quick natural self-correction is fine (“she go, sorry, she goes”), but do not stop to obsess over it or repeat it.",
+              "After a wrong word. Correct it briefly and naturally: “the, sorry, I mean the manager,” then continue. One clean correction, then move on.",
+              "When you forget a word. Do not freeze. Paraphrase around it: describe the thing you cannot name. “The, you know, the machine you use to make coffee.” This is not a failure; it actively demonstrates Lexical Resource, because working around a missing word is a real language skill. Freezing loses marks; paraphrasing gains them.",
+              "When you misunderstand the question. Ask for repetition or clarification, politely. “Sorry, could you say that again?” or “Do you mean…?” This is allowed and is far better than confidently answering the wrong question, which hurts Coherence. In Part 1 and Part 3 the examiner can repeat; in Part 2 you work with the card as given.",
+              "When you lose your train of thought. Buy a brief moment, or move on gracefully. “Anyway, my main point is…” or “Sorry, where was I, yes…” These are natural and let you rejoin your flow. Do not panic and restart the whole answer.",
+              "When you speak too much. It is fine if the examiner interrupts you; managing the time is their job, not a sign you did badly. Stop naturally when they move on, and do not be thrown by it.",
+              "When you speak too little. Extend, using the toolkit from File 25 and the rescue moves from File 26. A too-short answer is fixed by adding a reason, an example, or a consequence."
+            ]
+          },
+          {
+            "id": "s28_b0007",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Do not apologise for small mistakes. Stopping to say “sorry, sorry” draws the examiner’s attention to an error they might have barely noticed, and it breaks your fluency far more than the error did. Fix it in a word if it is easy, otherwise let it go and keep talking. Confident continuation is itself a mark of fluency.",
+            "bn": "ছোট ভুলের জন্য ক্ষমা চাইবেন না। বারবার sorry, sorry বলা পরীক্ষকের মনোযোগ এমন ভুলের দিকে টানে যা তিনি হয়তো খেয়ালই করেননি, আর এটা ভুলের চেয়ে বেশি fluency নষ্ট করে। সহজ হলে এক শব্দে ঠিক করুন, নাহলে ছেড়ে দিয়ে কথা চালিয়ে যান।"
+          },
+          {
+            "id": "s28_b0008",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 11"
+          },
+          {
+            "id": "s28_b0009",
+            "type": "heading",
+            "level": 2,
+            "text": "PRONUNCIATION STRATEGY"
+          },
+          {
+            "id": "s28_b0010",
+            "type": "paragraph",
+            "text": "This is not a phonetics course, and it is not about your accent. Let us be clear about what the Pronunciation criterion actually measures."
+          },
+          {
+            "id": "s28_b0011",
+            "type": "principle",
+            "text": "Pronunciation is scored on intelligibility, how easy you are to understand, plus features like stress, rhythm, and intonation. You do NOT need a British or American accent. A clear accent of any origin scores well. The goal is to be understood easily and to sound natural, not to sound foreign or native."
+          },
+          {
+            "id": "s28_b0012",
+            "type": "heading",
+            "level": 3,
+            "text": "The features worth working on"
+          },
+          {
+            "id": "s28_b0013",
+            "type": "paragraph",
+            "text": "Clarity. Pronounce full words and do not swallow the endings. Being clear enough to be understood without effort is the foundation of the whole criterion."
+          },
+          {
+            "id": "s28_b0014",
+            "type": "paragraph",
+            "text": "Word stress. Stress the correct syllable: comFORTable, phoTOGraphy, deVELop. Wrong word stress can genuinely obscure meaning and make a word hard to recognise, so it is worth getting right on common words."
+          },
+          {
+            "id": "s28_b0015",
+            "type": "paragraph",
+            "text": "Sentence stress. Stress the important content words in a sentence, not every word. “I REALLY enjoyed the FILM” sounds natural; stressing everything sounds robotic. Sentence stress is what gives English its rhythm."
+          },
+          {
+            "id": "s28_b0016",
+            "type": "paragraph",
+            "text": "Rhythm. English is stress-timed, riding on the stressed words. A natural rhythm sounds fluent; a flat, evenly-hammered delivery sounds mechanical."
+          },
+          {
+            "id": "s28_b0017",
+            "type": "paragraph",
+            "text": "Intonation. Let your voice rise and fall, for questions, for emphasis, for interest. This is the single biggest win, because the opposite, a monotone, is what most damages an otherwise good speaker."
+          },
+          {
+            "id": "s28_b0018",
+            "type": "paragraph",
+            "text": "Pausing. Pause at natural boundaries, between thought groups, not in the middle of a phrase. Natural pausing makes you easier to follow."
+          },
+          {
+            "id": "s28_b0019",
+            "type": "heading",
+            "level": 3,
+            "text": "The biggest single win: avoid monotone"
+          },
+          {
+            "id": "s28_b0020",
+            "type": "paragraph",
+            "text": "If you fix only one thing, fix flatness. A monotone voice makes even good English sound dull and can obscure your meaning, because English carries a lot of information in its intonation. Speaking with natural variation and a little energy makes you sound engaged and is easier to understand. You do not need perfect individual sounds; you need to not be flat."
+          },
+          {
+            "id": "s28_b0021",
+            "type": "heading",
+            "level": 3,
+            "text": "The speed connection"
+          },
+          {
+            "id": "s28_b0022",
+            "type": "paragraph",
+            "text": "As File 24 noted, slowing slightly improves clarity. Rushed speech blurs sounds and endings; a steady pace lets each word land. Slowing down is often the quickest pronunciation improvement available."
+          },
+          {
+            "id": "s28_b0023",
+            "type": "heading",
+            "level": 3,
+            "text": "How to practise"
+          },
+          {
+            "id": "s28_b0024",
+            "type": "paragraph",
+            "text": "Read aloud and record yourself, then listen for clarity, stress, and flatness. Do not chase individual sounds you cannot easily change; focus on being clear, stressing the right words, and varying your intonation. Those three lift the score far more than perfecting a single tricky consonant."
+          },
+          {
+            "id": "s28_b0025",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Do not waste effort trying to erase your accent; it is not assessed and cannot be changed quickly. Spend that effort on being clear and not flat. A candidate with a strong regional accent who speaks clearly, stresses the right words, and uses lively intonation will outscore a candidate with a “neutral” accent who mumbles in a monotone.",
+            "bn": "উচ্চারণের accent মুছে ফেলার চেষ্টায় শ্রম নষ্ট করবেন না; এটা মূল্যায়ন হয় না আর দ্রুত বদলানোও যায় না। সেই শ্রম দিন স্পষ্ট হওয়া আর একঘেয়ে না হওয়ায়। স্পষ্ট, সঠিক জোরে আর প্রাণবন্ত intonation-ওয়ালা শক্ত accent-এর প্রার্থী একঘেয়ে গলায় neutral accent-এর প্রার্থীর চেয়ে বেশি নম্বর পায়।"
+          },
+          {
+            "id": "s28_b0026",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 12"
+          },
+          {
+            "id": "s28_b0027",
+            "type": "heading",
+            "level": 2,
+            "text": "MEMORISATION TRAPS: WHY MEMORISED ANSWERS CAN HURT"
+          },
+          {
+            "id": "s28_b0028",
+            "type": "paragraph",
+            "text": "It is tempting to memorise answers and stories so you feel safe walking in. Resist it. Memorised answers usually lower your score, for several reasons."
+          },
+          {
+            "id": "s28_b0029",
+            "type": "heading",
+            "level": 3,
+            "text": "Why it hurts"
+          },
+          {
+            "id": "s28_b0030",
+            "type": "list",
+            "items": [
+              "Examiners are trained to detect it. Memorised speech has a giveaway rhythm, a change of pace, an upward glance of recall, and a shift into unnaturally polished vocabulary. When an examiner hears it, they discount it, and your Fluency mark drops, because reciting is not spontaneous speech.",
+              "It rarely fits the exact question. A pre-learned answer is built for a general topic, not the specific question asked, so it drifts off-target and hurts Coherence and relevance.",
+              "The vocabulary sounds forced. Memorised answers are usually stuffed with rehearsed “advanced” phrases that sit awkwardly in real speech, lowering Lexical Resource rather than raising it.",
+              "Over-prepared stories get forced onto the wrong cards. A candidate who memorised a story about “a memorable journey” may force it onto a card about “a memorable meal,” and the mismatch is obvious.",
+              "The delivery turns robotic. Recited text lacks the natural hesitations, self-corrections, and warmth of real talk, and it sounds it."
+            ]
+          },
+          {
+            "id": "s28_b0031",
+            "type": "heading",
+            "level": 3,
+            "text": "What to do instead: prepare flexibly"
+          },
+          {
+            "id": "s28_b0032",
+            "type": "paragraph",
+            "text": "Preparation is good; it is memorising whole answers that is the trap. Prepare like this:"
+          },
+          {
+            "id": "s28_b0033",
+            "type": "list",
+            "items": [
+              "Prepare ideas and vocabulary for common topics, not scripts. Know the kinds of things you could say about family, work, technology, the environment, and have some useful words ready, then build a fresh answer on the day.",
+              "Practise the frameworks until they are automatic. Answer-Reason-Detail, the cue card system, Answer-Explain-Example-Consequence. These are flexible tools, not memorised text, and making them automatic is exactly the right kind of preparation.",
+              "Build a bank of personal examples you can adapt. A few flexible experiences that can be bent to many questions beat a set of rigid, pre-written stories.",
+              "Practise speaking spontaneously on random questions, so that building an answer on the spot becomes normal and comfortable."
+            ]
+          },
+          {
+            "id": "s28_b0034",
+            "type": "principle",
+            "text": "The line is simple: preparing topic ideas and vocabulary is good; memorising whole answers is bad. Walk in with tools and material you can shape to any question, not speeches you will try to force onto whatever you are asked."
+          },
+          {
+            "id": "s28_b0035",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "A natural, simple answer is almost always stronger than an impressive memorised one. The examiner would rather hear you think, hesitate slightly, and build a real answer than hear a flawless speech that clearly is not yours. Authenticity scores; recitation does not. Prepare to speak, not to perform.",
+            "bn": "স্বাভাবিক সহজ উত্তর প্রায় সবসময় মুখস্থ চমকপ্রদ উত্তরের চেয়ে ভালো। পরীক্ষক বরং শুনতে চান আপনি ভাবছেন, একটু থামছেন, আর সত্যিকারের উত্তর গড়ছেন, নিখুঁত কিন্তু স্পষ্টতই আপনার-নয় এমন বক্তৃতা নয়। সত্যতা নম্বর পায়, মুখস্থ নয়।"
+          },
+          {
+            "id": "s28_b0036",
+            "type": "heading",
+            "level": 2,
+            "text": "PRACTICE"
+          },
+          {
+            "id": "s28_b0037",
+            "type": "paragraph",
+            "text": "Reasoning keys follow."
+          },
+          {
+            "id": "s28_b0038_h",
+            "type": "heading",
+            "level": 4,
+            "text": "Drill 28.1 (Level 2): Recover naturally"
+          },
+          {
+            "id": "s28_b0038",
+            "type": "practice_drill",
+            "label": "Drill 28.1 (Level 2): Recover naturally",
+            "prompt": "What is the best recovery in each case? 1. You cannot remember the word “microwave” mid-sentence. 2. You did not understand the examiner’s Part 3 question. 3. You made a small verb-tense slip two words ago.",
+            "answer": "1. Paraphrase around it: “the, you know, the thing you use to heat food quickly in the kitchen.” This keeps you talking and actually shows lexical skill. Freezing or falling silent is the only wrong choice. 2. Ask for clarification: “Sorry, could you rephrase that?” Answering the wrong question hurts more than a polite request to repeat. 3. Carry on. A tiny tense slip two words back is not worth stopping for; examiners expect occasional errors, and interrupting your flow to fix it costs more than the slip."
+          },
+          {
+            "id": "s28_b0039_h",
+            "type": "heading",
+            "level": 4,
+            "text": "Drill 28.2 (Level 1): Pronunciation priorities"
+          },
+          {
+            "id": "s28_b0039",
+            "type": "practice_drill",
+            "label": "Drill 28.2 (Level 1): Pronunciation priorities",
+            "prompt": "A candidate is worried about their accent. What should they focus on instead, and why?",
+            "answer": "Focus on clarity, correct stress, and lively intonation, especially not being monotone. The accent is not assessed and cannot be changed quickly, so effort spent erasing it is wasted. Being easy to understand and sounding natural is what the Pronunciation criterion rewards, and those are trainable."
+          },
+          {
+            "id": "s28_b0040_h",
+            "type": "heading",
+            "level": 4,
+            "text": "Drill 28.3 (Level 2): Spot the memorisation trap"
+          },
+          {
+            "id": "s28_b0040",
+            "type": "practice_drill",
+            "label": "Drill 28.3 (Level 2): Spot the memorisation trap",
+            "prompt": "A candidate answers “Describe a book you enjoyed” with a fluent, polished two-minute speech full of rare idioms, delivered without a single pause, that only loosely relates to the book. What is likely happening, and how will it affect the score?",
+            "answer": "This is almost certainly a memorised answer. The polish, the rare idioms, the lack of any natural pause, and the loose fit to the actual card are the classic signs. The effect: the examiner is trained to recognise it and will discount it, lowering Fluency (it is not spontaneous), Lexical Resource (the idioms are forced), and Coherence (it does not quite answer the card). A simpler, genuine answer that actually described the book would score higher."
+          },
+          {
+            "id": "s28_b0041",
+            "type": "paragraph",
+            "text": "The lesson across all three: recover smoothly and keep talking, work on clarity and intonation rather than accent, and prepare flexible tools rather than memorised speeches. In every case, the natural, adaptable approach beats the rigid, rehearsed one."
+          },
+          {
+            "id": "s28_b0042",
+            "type": "paragraph",
+            "variant": "footer",
+            "text": "Zero to Band 9: The Complete IELTS Tips & Tricks Field Guide. Module 4, Speaking. File 28: Recovery Strategies, Pronunciation Strategy, and Memorisation Traps. Next: File 29, Speaking Insider Tips, Practice, and the close of Module 4."
+          }
+        ]
+      }
+    },
+    {
+      "id": "27ab5abe-9f14-4cf6-a475-e0d56fbc69ec",
+      "module_id": "9a76c78b-1b90-4b04-986f-33c32eeaa41a",
+      "slug": "file-29-speaking-insider-tips-practice-and-module-4-close",
+      "title": "File 29: Speaking Insider Tips, Practice, and Module 4 Close",
+      "position": 6,
+      "estimated_min": 25,
+      "summary": "Consolidated insider tips, a full spoken practice programme, an examiner-style self-assessment rubric, and the Module 4 wrap-up.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "s29_b0001",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 13"
+          },
+          {
+            "id": "s29_b0002",
+            "type": "heading",
+            "level": 2,
+            "text": "SPEAKING INSIDER TIPS"
+          },
+          {
+            "id": "s29_b0003",
+            "type": "paragraph",
+            "text": "These are not secret tricks; they are the honest observations a tutor makes after watching hundreds of candidates succeed and stumble. Each is a habit that separates a natural, high-scoring speaker from an anxious one."
+          },
+          {
+            "id": "s29_b0004",
+            "type": "list",
+            "items": [
+              "Answer the actual question. Listen to what was really asked and respond to that, not to a nearby topic you prepared. Answering a slightly different question hurts Coherence even when the English is good.",
+              "Do not turn Part 1 into a speech. Part 1 wants short, natural answers, two to four sentences. A one-minute monologue there is out of place. Match the size of your answer to the size of the question.",
+              "Do not stop after one sentence. The opposite failure. A bare one-line answer starves the examiner of language to score. Extend with a reason or an example, then stop naturally.",
+              "Do not panic over small mistakes. Everyone slips. Keep the flow going; a smoothly passed error costs almost nothing, while stopping to fix it breaks the fluency that is actually scored.",
+              "Do not restart every sentence. Constantly abandoning and rebuilding sentences (“I think that, no, what I mean is, actually…”) wrecks fluency. Commit to a sentence and finish it, even imperfectly.",
+              "Do not force idioms. A well-placed natural idiom is good; a forced one, dropped in to impress, sounds worse than plain speech and lowers Lexical Resource. Use idioms only when they come naturally.",
+              "Do not speak unnaturally slowly. Over-slow speech sounds hesitant and robotic and suggests you are struggling. Aim for a comfortable conversational pace.",
+              "Do not speak unnaturally fast. Racing blurs your words, causes errors, and hurts pronunciation. A steady pace sounds more fluent than a fast one.",
+              "Do not memorise entire cue-card answers. Examiners detect recited text and discount it. Prepare flexible ideas and frameworks, not scripts.",
+              "A natural simple answer beats an impressive memorised one. The examiner would rather hear you genuinely think and build an answer than deliver a flawless speech that clearly is not yours.",
+              "In Part 3, always say why. Reasoning is what Part 3 rewards. An opinion explained and illustrated beats several opinions merely stated.",
+              "Treat it as a conversation. Engage, react, and let a little personality show. Natural communication scores higher than stiff performance.",
+              "Remember there are no wrong opinions or stories. You can say anything and invent anything. This freedom should remove most of your fear.",
+              "Keep talking; the examiner cannot score silence. When in doubt, add another sentence using the extension toolkit or a rescue move. Words on the table can be scored; silence cannot.",
+              "Ask for repetition if you are unsure. A polite “could you say that again?” is far better than confidently answering the wrong question."
+            ]
+          },
+          {
+            "id": "s29_b0005",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "If you internalise only one thing from this module, make it this: relax and talk. Almost every Speaking problem, the freezing, the memorised speeches, the racing, the one-word answers, comes from fear. A candidate who treats the test as a real conversation, answers honestly, extends naturally, and shrugs off small mistakes will usually score close to their true level. Fear, not weak English, is what holds most people below it.",
+            "bn": "এই মডিউল থেকে যদি একটাই জিনিস মনে রাখেন, সেটা হোক: শান্ত থাকুন আর কথা বলুন। প্রায় সব Speaking সমস্যা, জমে যাওয়া, মুখস্থ বক্তৃতা, দ্রুত বলা, এক-শব্দের উত্তর, আসে ভয় থেকে। যে প্রতিযোগিতাটাকে সত্যিকারের কথোপকথনের মতো আচরণ করে, সে সাধারণত তার আসল স্তরের কাছাকাছি নম্বর পায়। ভয়ই বেশিরভাগ মানুষকে আটকে রাখে, দুর্বল ইংরেজি নয়।"
+          },
+          {
+            "id": "s29_b0006",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 14"
+          },
+          {
+            "id": "s29_b0007",
+            "type": "heading",
+            "level": 2,
+            "text": "SPEAKING PRACTICE"
+          },
+          {
+            "id": "s29_b0008",
+            "type": "paragraph",
+            "text": "Practise across all the skills of the module. Speaking practice needs to be spoken, so do these aloud, ideally recording yourself or working with a partner who can play the examiner."
+          },
+          {
+            "id": "s29_b0009",
+            "type": "heading",
+            "level": 3,
+            "text": "The drills"
+          },
+          {
+            "id": "s29_b0010",
+            "type": "paragraph",
+            "text": "Part 1 drills (Answer, Reason, Detail). Answer these aloud in two to three sentences each: Do you work or study? What do you do in your free time? Do you enjoy cooking? Where are you from? Do you use public transport?"
+          },
+          {
+            "id": "s29_b0011",
+            "type": "paragraph",
+            "text": "Extension drills. Take each bare answer and extend it with one tool: “Yes, I like sport.” “No, I do not travel much.” “I usually get up early.” “My favourite season is winter.”"
+          },
+          {
+            "id": "s29_b0012",
+            "type": "paragraph",
+            "text": "Cue-card and one-minute-prep drills. Give yourself exactly one minute of keyword notes, then speak for one to two minutes on: Describe a person who has influenced you. Describe a place you would like to visit. Describe a skill you would like to learn. Describe a memorable meal."
+          },
+          {
+            "id": "s29_b0013",
+            "type": "paragraph",
+            "text": "Part 3 reasoning drills (Answer, Explain, Example, Consequence). Discuss aloud: Why do people move to cities? How has technology changed the way we work? Do you think people are happier now than in the past? Should governments fund the arts?"
+          },
+          {
+            "id": "s29_b0014",
+            "type": "paragraph",
+            "text": "Unfamiliar-topic drills. Force yourself to answer cards on topics you have no real experience of, constructing plausible answers: Describe a piece of traditional clothing. Describe a historical event you find interesting."
+          },
+          {
+            "id": "s29_b0015",
+            "type": "paragraph",
+            "text": "Recovery drills. Practise paraphrasing around a “forgotten” word (choose a word, then describe it without naming it), and practise asking for clarification naturally."
+          },
+          {
+            "id": "s29_b0016",
+            "type": "paragraph",
+            "text": "Pronunciation drills. Read a short paragraph aloud and record it. Listen for three things only: are your words clear, do you stress the right syllables, and is your intonation lively rather than flat. Re-record, improving one at a time."
+          },
+          {
+            "id": "s29_b0017",
+            "type": "paragraph",
+            "text": "Timed mock interview. Self-administer a full test: Part 1 (four to five minutes of familiar questions), Part 2 (one cue card with a minute’s prep and up to two minutes speaking), Part 3 (four to five minutes of discussion on the same theme). Record the whole thing."
+          },
+          {
+            "id": "s29_b0018",
+            "type": "heading",
+            "level": 3,
+            "text": "Examiner-style self-assessment rubric"
+          },
+          {
+            "id": "s29_b0019",
+            "type": "paragraph",
+            "text": "After a mock, score yourself against the four criteria. These checkpoints are written in plain language to help you self-assess; they are not the official band descriptors, but they capture what each criterion rewards."
+          },
+          {
+            "id": "s29_b0020",
+            "type": "paragraph",
+            "text": "Fluency and Coherence. Did I keep talking without long, awkward pauses? Did I extend my answers rather than stopping short? Did I stay on the question? Did I connect ideas so they were easy to follow, without a pile of mechanical linkers? Did I avoid constantly restarting sentences?"
+          },
+          {
+            "id": "s29_b0021",
+            "type": "paragraph",
+            "text": "Lexical Resource. Did I use a good range of vocabulary, mostly accurately? Did I use natural word partnerships? When I did not know a word, did I paraphrase around it rather than freezing? Did I avoid forced, unnatural “advanced” words and memorised phrases?"
+          },
+          {
+            "id": "s29_b0022",
+            "type": "paragraph",
+            "text": "Grammatical Range and Accuracy. Did I use a mix of simple and more complex sentence structures? Were most of my sentences accurate, with errors that did not usually obscure meaning? (For building this, use the separate grammar book.)"
+          },
+          {
+            "id": "s29_b0023",
+            "type": "paragraph",
+            "text": "Pronunciation. Was I easy to understand throughout? Did I stress the right syllables in words and the important words in sentences? Was my intonation varied rather than monotone? Did I avoid rushing?"
+          },
+          {
+            "id": "s29_b0024",
+            "type": "paragraph",
+            "text": "Rate each criterion honestly as a rough band, note your single weakest point, and target it in your next practice. As with the Error Log elsewhere in this book, the improvement comes from knowing precisely what to fix, not from practice alone."
+          },
+          {
+            "id": "s29_b0025",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Record yourself and listen back, however uncomfortable it feels. Almost every speaker is surprised by what they hear: the long pauses they did not notice, the sentences they restarted, the flatness of their voice. You cannot fix what you cannot hear, and the recording is the fastest, cheapest examiner you will ever have.",
+            "bn": "নিজের কথা রেকর্ড করে শুনুন, অস্বস্তিকর লাগলেও। প্রায় সবাই শুনে অবাক হয়, লম্বা বিরতি, বারবার শুরু করা বাক্য, গলার একঘেয়েমি, যা তারা খেয়ালই করেনি। যা শুনতে পান না তা ঠিক করতে পারবেন না, আর রেকর্ডিং হলো সবচেয়ে দ্রুত ও সস্তা পরীক্ষক।"
+          },
+          {
+            "id": "s29_b0026",
+            "type": "heading",
+            "level": 2,
+            "text": "MODULE 4 WRAP-UP: SPEAKING IN ONE BREATH"
+          },
+          {
+            "id": "s29_b0027",
+            "type": "paragraph",
+            "text": "Compressed to its core, Speaking is this: Treat the test as a real conversation, because that is what it is. In Part 1, answer naturally and extend a little with Answer, Reason, Detail. In Part 2, use your minute for keyword notes and build a story with the universal system, spending most of your effort on the “why” and the feelings. In Part 3, answer, explain, illustrate, and add the other side, always giving your reasoning. When you need a moment, buy it like a fluent speaker, with a short pause and a natural opener, not a pile of fillers. When you slip, keep going. When you forget a word, talk around it. Speak clearly and with lively intonation, at a comfortable pace, in your own accent. And never memorise whole answers, because a natural, thinking speaker always beats a reciting one."
+          },
+          {
+            "id": "s29_b0028",
+            "type": "paragraph",
+            "text": "That is the whole module. Not “speak well,” but a precise set of habits for answering, extending, recovering, and staying calm, that you can now run in any interview. When you can do it without thinking, the examiner stops being frightening and becomes what they always were: a person having a conversation with you."
+          },
+          {
+            "id": "s29_b0029",
+            "type": "paragraph",
+            "text": "You should now be able to say, of any Speaking question in any part: “I know how to think, extend, and recover while speaking.”"
+          },
+          {
+            "id": "s29_b0030",
+            "type": "paragraph",
+            "text": "Four modules down. You have now worked through Listening, Reading, Writing, and Speaking as four complete strategy books. One thing remains: the Master Playbook, which distils all four into a single emergency reference for the days before your test."
+          },
+          {
+            "id": "s29_b0031",
+            "type": "paragraph",
+            "variant": "footer",
+            "text": "Zero to Band 9: The Complete IELTS Tips & Tricks Field Guide. Module 4, Speaking. File 29: Speaking Insider Tips, Practice, and Module 4 Close. MODULE 4 COMPLETE. Next: File 30, THE IELTS MASTER PLAYBOOK."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -273,6 +273,7 @@ async function seedTips() {
   const files = [
     'writing-module-3.json',
     'reading-module-2.json',
+    'speaking-module-4.json',
   ];
 
   for (const filename of files) {
@@ -350,3 +351,4 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+  

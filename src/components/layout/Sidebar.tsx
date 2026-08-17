@@ -112,9 +112,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLo
       title: 'Practice Tests',
       icon: PenTool,
       items: [
-        { id: 'writing', label: 'Writing Practice', icon: PenTool },
-        { id: 'reading', label: 'Reading Practice', icon: BookOpen },
         { id: 'listening', label: 'Listening Practice', icon: Headphones },
+        { id: 'reading', label: 'Reading Practice', icon: BookOpen },
+        { id: 'writing', label: 'Writing Practice', icon: PenTool },
         { id: 'speaking', label: 'Speaking Practice', icon: Mic },
         { id: 'mock-tests', label: 'Full Mock Tests', icon: FileCheck },
       ],
@@ -126,15 +126,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLo
       items: [
         { id: 'lms-grammar', label: 'Grammar Masterclass', icon: GraduationCap },
         { id: 'lms-vocab', label: 'IELTS Vocabulary', icon: BookOpen },
-      ],
-    },
-    {
-      key: 'tutor',
-      title: 'AI Tutor & Examiner',
-      icon: Bot,
-      items: [
-        { id: 'tutor-ai', label: 'Personal AI Tutor', icon: Bot },
-        { id: 'tutor-examiner', label: 'Examiner Diagnostic', icon: Sparkles },
       ],
     },
   ];

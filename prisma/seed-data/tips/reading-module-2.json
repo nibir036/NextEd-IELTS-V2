@@ -189,9 +189,11 @@
             "text": "Drill 8.1 (Level 1): Gist"
           },
           {
-            "id": "r_b0032",
-            "type": "paragraph",
-            "text": "In one phrase, what is this passage mainly about? (This is what a skim should leave you with.)"
+            "id": "r_b0031_drill",
+            "type": "practice_drill",
+            "label": "Drill 8.1 (Level 1): Gist",
+            "prompt": "In one phrase, what is this passage mainly about? (This is what a skim should leave you with.)",
+            "answer": "Something like: “the tuatara, a rare, ancient New Zealand reptile with unusual biology and its conservation.” A good skim leaves you with the topic and shape, not the details. If you came away trying to remember the incubation figure, you skimmed too slowly; the figures are what you return for when a question asks."
           },
           {
             "id": "r_b0033",
@@ -200,9 +202,11 @@
             "text": "Drill 8.2 (Level 2): Locate"
           },
           {
-            "id": "r_b0034",
-            "type": "paragraph",
-            "text": "For each question, write the first word or phrase you would scan for to find the answer’s region. Do not answer yet, just name your search target. 1. How long can a tuatara live? 2. Where do conservation efforts take place? 3. How often do females lay eggs?"
+            "id": "r_b0033_drill",
+            "type": "practice_drill",
+            "label": "Drill 8.2 (Level 2): Locate",
+            "prompt": "For each question, write the first word or phrase you would scan for to find the answer’s region. Do not answer yet, just name your search target. 1. How long can a tuatara live? 2. Where do conservation efforts take place? 3. How often do females lay eggs?",
+            "answer": "1. Scan for live / century / years (a lifespan). The word “century” is a strong, unusual anchor. 2. Scan for conservation / islands. “Predator-free islands” is distinctive. 3. Scan for eggs / lay / every few years. “Lay eggs” is the target. The lesson: you locate by choosing a distinctive target and hunting only for it, ignoring the rest of the text. You are scanning, not reading."
           },
           {
             "id": "r_b0035",
@@ -211,20 +215,11 @@
             "text": "Drill 8.3 (Level 2): Locate, identify, verify, answer"
           },
           {
-            "id": "r_b0036",
-            "type": "paragraph",
-            "text": "Answer these, and for each, name the sentence you verified against. 1. The tuatara is found in more than one country. (True / False / Not Given) 2. The tuatara’s eggs hatch quickly. (True / False / Not Given) 3. The tuatara can stay active in cold conditions. (True / False / Not Given)"
-          },
-          {
-            "id": "r_b0037",
-            "type": "heading",
-            "level": 2,
-            "text": "ANSWER KEY AND REASONING"
-          },
-          {
-            "id": "r_b0038",
-            "type": "paragraph",
-            "text": "Drill 8.1 Something like: “the tuatara, a rare, ancient New Zealand reptile with unusual biology and its conservation.” A good skim leaves you with the topic and shape, not the details. If you came away trying to remember the incubation figure, you skimmed too slowly; the figures are what you return for when a question asks. Drill 8.2 1. Scan for live / century / years (a lifespan). The word “century” is a strong, unusual anchor. 2. Scan for conservation / islands. “Predator-free islands” is distinctive. 3. Scan for eggs / lay / every few years. “Lay eggs” is the target. The lesson: you locate by choosing a distinctive target and hunting only for it, ignoring the rest of the text. You are scanning, not reading. Drill 8.3 1. False. Verify against: “found only in New Zealand.” The word “only” contradicts “more than one country.” This is a contradiction, not an absence, so False rather than Not Given. (The full logic is the TFNG masterclass in File 12.) 2. False. Verify against: “the eggs take over a year to hatch, one of the longest incubation periods.” “Quickly” is contradicted by “over a year” and “longest.” A word from the question, “hatch,” appears in the passage, but the meaning is the opposite. This is exactly why verification matters. 3. True. Verify against: “remains active at low temperatures that would leave most reptiles sluggish.” “Low temperatures” paraphrases “cold conditions,” and “remains active” matches “stay active.” The lesson across all three: never answer on a matching word alone. In question 2, the word “hatch” matched but the meaning reversed. You located the region, then you verified the meaning, and the verification is what saved you. This four-step loop, run on every question, is the whole of Reading."
+            "id": "r_b0035_drill",
+            "type": "practice_drill",
+            "label": "Drill 8.3 (Level 2): Locate, identify, verify, answer",
+            "prompt": "Answer these, and for each, name the sentence you verified against. 1. The tuatara is found in more than one country. (True / False / Not Given) 2. The tuatara’s eggs hatch quickly. (True / False / Not Given) 3. The tuatara can stay active in cold conditions. (True / False / Not Given)",
+            "answer": "1. False. Verify against: “found only in New Zealand.” The word “only” contradicts “more than one country.” This is a contradiction, not an absence, so False rather than Not Given. (The full logic is the TFNG masterclass in File 12.) 2. False. Verify against: “the eggs take over a year to hatch, one of the longest incubation periods.” “Quickly” is contradicted by “over a year” and “longest.” A word from the question, “hatch,” appears in the passage, but the meaning is the opposite. This is exactly why verification matters. 3. True. Verify against: “remains active at low temperatures that would leave most reptiles sluggish.” “Low temperatures” paraphrases “cold conditions,” and “remains active” matches “stay active.” The lesson across all three: never answer on a matching word alone. In question 2, the word “hatch” matched but the meaning reversed. You located the region, then you verified the meaning, and the verification is what saved you. This four-step loop, run on every question, is the whole of Reading."
           },
           {
             "id": "r_b0039",
@@ -387,9 +382,11 @@
             "text": "Drill 9.1 (Level 1): Skim for structure"
           },
           {
-            "id": "r_b0027",
-            "type": "paragraph",
-            "text": "Skim the longitude passage in about thirty seconds. Then write, in three or four words each, the job of the passage overall and what the final sentences add."
+            "id": "r_b0026_drill",
+            "type": "practice_drill",
+            "label": "Drill 9.1 (Level 1): Skim for structure",
+            "prompt": "Skim the longitude passage in about thirty seconds. Then write, in three or four words each, the job of the passage overall and what the final sentences add.",
+            "answer": "Overall job: “explains how longitude was solved,” or “a historical problem and its unexpected solver.” The final sentences add: “the solver was an outsider and was underpaid / struggled for the reward.” A good skim gives you this arc without the detail. If you came away reciting “1714” but unsure of the overall story, you scanned when you should have skimmed."
           },
           {
             "id": "r_b0028",
@@ -398,9 +395,11 @@
             "text": "Drill 9.2 (Level 2): Scan for anchors"
           },
           {
-            "id": "r_b0029",
-            "type": "paragraph",
-            "text": "Find each as fast as you can and write it: 1. The year the prize was offered. 2. The name of the person who solved it. 3. What his profession had been."
+            "id": "r_b0028_drill",
+            "type": "practice_drill",
+            "label": "Drill 9.2 (Level 2): Scan for anchors",
+            "prompt": "Find each as fast as you can and write it: 1. The year the prize was offered. 2. The name of the person who solved it. 3. What his profession had been.",
+            "answer": "1. 1714 (scan for digits). 2. John Harrison (scan for a capitalised name). 3. A (self-taught) carpenter (scan near the name). Each was found by hunting a distinctive target, not by reading."
           },
           {
             "id": "r_b0030",
@@ -409,9 +408,11 @@
             "text": "Drill 9.3 (Level 2): First sentence or deeper?"
           },
           {
-            "id": "r_b0031",
-            "type": "paragraph",
-            "text": "Look at the opening of the longitude passage: “For centuries, the position of a ship at sea could be found north to south by measuring the stars…” Is this first clause the main idea of the passage, or a lead-in? What tells you, and where is the real subject introduced?"
+            "id": "r_b0030_drill",
+            "type": "practice_drill",
+            "label": "Drill 9.3 (Level 2): First sentence or deeper?",
+            "prompt": "Look at the opening of the longitude passage: “For centuries, the position of a ship at sea could be found north to south by measuring the stars…” Is this first clause the main idea of the passage, or a lead-in? What tells you, and where is the real subject introduced?",
+            "answer": "It is a lead-in, not the main idea. The first clause is about the north-south position, which is the easy, already-solved part, used as a contrast to set up the real topic. The tell is the structure: “could be found north to south by the stars, but its east-west position, or longitude, defeated the finest minds.” The word “but” turns the sentence, and the real subject, longitude, arrives after it. This is exactly the case where reading only the first few words misleads you; you must read to the “but.” It illustrates the principle that opening lines show direction but are not always the main idea."
           },
           {
             "id": "r_b0032",
@@ -420,25 +421,11 @@
             "text": "Drill 9.4 (Level 3): The full switch"
           },
           {
-            "id": "r_b0033",
-            "type": "paragraph",
-            "text": "Answer using skim, then scan, then close read. Name the sentence you verified against. 1. What was the real nature of the longitude problem? 2. Where did most experts expect the solution to come from?"
-          },
-          {
-            "id": "r_b0034",
-            "type": "heading",
-            "level": 2,
-            "text": "ANSWER KEY AND REASONING"
-          },
-          {
-            "id": "r_b0035",
-            "type": "paragraph",
-            "text": "Drill 9.1"
-          },
-          {
-            "id": "r_b0036",
-            "type": "paragraph",
-            "text": "Overall job: “explains how longitude was solved,” or “a historical problem and its unexpected solver.” The final sentences add: “the solver was an outsider and was underpaid / struggled for the reward.” A good skim gives you this arc without the detail. If you came away reciting “1714” but unsure of the overall story, you scanned when you should have skimmed. Drill 9.2 1. 1714 (scan for digits). 2. John Harrison (scan for a capitalised name). 3. A (self-taught) carpenter (scan near the name). Each was found by hunting a distinctive target, not by reading. Drill 9.3 It is a lead-in, not the main idea. The first clause is about the north-south position, which is the easy, already-solved part, used as a contrast to set up the real topic. The tell is the structure: “could be found north to south by the stars, but its east-west position, or longitude, defeated the finest minds.” The word “but” turns the sentence, and the real subject, longitude, arrives after it. This is exactly the case where reading only the first few words misleads you; you must read to the “but.” It illustrates the principle that opening lines show direction but are not always the main idea. Drill 9.4 1. The longitude problem was really a problem of time / keeping accurate time at sea. Verify against: “The problem was really one of time… no clock of the era could keep accurate time on a rolling, damp, temperature-changing ship.” You scanned to the second sentence (the region about the nature of the problem) and close-read it to verify. 2. Astronomy / the stars. Verify against: “Most experts expected it to come from astronomy.” A quick scan for “experts” or “expected” locates it; close reading confirms astronomy, and the “instead” that follows confirms the solution came from elsewhere. The lesson: every answer came from the same rhythm. Skim once for the map, scan to the region, close-read the few lines to verify. You read perhaps a third of the passage and answered everything asked. That efficiency, not reading speed, is what finishes the test on time."
+            "id": "r_b0032_drill",
+            "type": "practice_drill",
+            "label": "Drill 9.4 (Level 3): The full switch",
+            "prompt": "Answer using skim, then scan, then close read. Name the sentence you verified against. 1. What was the real nature of the longitude problem? 2. Where did most experts expect the solution to come from?",
+            "answer": "1. The longitude problem was really a problem of time / keeping accurate time at sea. Verify against: “The problem was really one of time… no clock of the era could keep accurate time on a rolling, damp, temperature-changing ship.” You scanned to the second sentence (the region about the nature of the problem) and close-read it to verify. 2. Astronomy / the stars. Verify against: “Most experts expected it to come from astronomy.” A quick scan for “experts” or “expected” locates it; close reading confirms astronomy, and the “instead” that follows confirms the solution came from elsewhere. The lesson: every answer came from the same rhythm. Skim once for the map, scan to the region, close-read the few lines to verify. You read perhaps a third of the passage and answered everything asked. That efficiency, not reading speed, is what finishes the test on time."
           },
           {
             "id": "r_b0037",
@@ -585,9 +572,11 @@
             "text": "Drill 10.1 (Level 2): Sort the keyword"
           },
           {
-            "id": "r_b0024",
-            "type": "paragraph",
-            "text": "For each question keyword, write A if it is an anchor to scan for, or C if it is a concept to match by meaning. 1. 1714 2. difficult 3. Harrison 4. benefit 5. Portugal 6. decline"
+            "id": "r_b0023_drill",
+            "type": "practice_drill",
+            "label": "Drill 10.1 (Level 2): Sort the keyword",
+            "prompt": "For each question keyword, write A if it is an anchor to scan for, or C if it is a concept to match by meaning. 1. 1714 2. difficult 3. Harrison 4. benefit 5. Portugal 6. decline",
+            "answer": "1. A (a date, scan for it). 2. C (concept, will be reworded as “hard,” “defeated,” “no clock could”). 3. A (a name). 4. C (concept, “gain,” “help,” “advantage”). 5. A (a place name). 6. C (concept, “fall,” “drop,” “decrease”). Lesson: anchors you hunt for by shape; concepts you hunt for by meaning. Knowing which before you scan saves the time wasted hunting for a word that was always going to be paraphrased."
           },
           {
             "id": "r_b0025",
@@ -596,9 +585,11 @@
             "text": "Drill 10.2 (Level 2): Predict the paraphrase"
           },
           {
-            "id": "r_b0026",
-            "type": "paragraph",
-            "text": "Write two rewordings the passage might use for each. 1. invented 2. rare 3. sustainable 4. lives a long time"
+            "id": "r_b0025_drill",
+            "type": "practice_drill",
+            "label": "Drill 10.2 (Level 2): Predict the paraphrase",
+            "prompt": "Write two rewordings the passage might use for each. 1. invented 2. rare 3. sustainable 4. lives a long time",
+            "answer": "(samples) 1. invented: “was invented,” “the invention of,” “devised,” “created.” 2. rare: “uncommon,” “seldom found,” “few remain,” “scarce.” 3. sustainable: “managed without harm,” “able to continue for centuries,” “not depleting the resource.” 4. lives a long time: “can exceed two hundred years,” “a long lifespan,” “survives for over a century.” Lesson: predicting rewordings primes your eye to recognise the concept when it appears dressed differently."
           },
           {
             "id": "r_b0027",
@@ -607,9 +598,11 @@
             "text": "Drill 10.3 (Level 3): Match question to passage sentence"
           },
           {
-            "id": "r_b0028",
-            "type": "paragraph",
-            "text": "Match each question sentence (1 to 4) to the passage sentence (A to D) with the same meaning, and name the paraphrase type. Questions: 1. The clock had to work in changing temperatures. 2. Harrison taught himself. 3. The solution surprised the experts. 4. Cork can be removed without killing the tree. Passage: A. “a self-taught carpenter” B. “stripped of its bark without being killed” C. “temperature-changing ship” D. “Most experts expected it to come from astronomy. Instead…”"
+            "id": "r_b0027_drill",
+            "type": "practice_drill",
+            "label": "Drill 10.3 (Level 3): Match question to passage sentence",
+            "prompt": "Match each question sentence (1 to 4) to the passage sentence (A to D) with the same meaning, and name the paraphrase type. Questions: 1. The clock had to work in changing temperatures. 2. Harrison taught himself. 3. The solution surprised the experts. 4. Cork can be removed without killing the tree. Passage: A. “a self-taught carpenter” B. “stripped of its bark without being killed” C. “temperature-changing ship” D. “Most experts expected it to come from astronomy. Instead…”",
+            "answer": "1 to C (word-family change: “changing temperatures” becomes “temperature-changing”). 2 to A (description/word-family: “taught himself” becomes “self-taught”). 3 to D (conceptual paraphrase: “surprised the experts” becomes “experts expected… Instead”). 4 to B (description: “removed without killing” becomes “stripped of its bark without being killed”). Lesson: in every match the meaning is identical while the words differ. Naming the paraphrase type trains you to expect that type next time."
           },
           {
             "id": "r_b0029",
@@ -618,25 +611,11 @@
             "text": "Drill 10.4 (Level 4): Comparative paraphrase"
           },
           {
-            "id": "r_b0030",
-            "type": "paragraph",
-            "text": "Decide whether each question means the SAME as the passage sentence, the OPPOSITE, or MORE than the passage supports. Passage: “The cork oak produces around half of the world’s cork, more than any other single country’s output.” 1. “No country produces more cork than the region described.” (same / opposite / more) 2. “The cork oak’s region is the world’s largest single producer of cork.” (same / opposite / more) 3. “Other countries together produce less than the cork oak region.” (same / opposite / more)"
-          },
-          {
-            "id": "r_b0031",
-            "type": "heading",
-            "level": 2,
-            "text": "ANSWER KEY AND REASONING"
-          },
-          {
-            "id": "r_b0032",
-            "type": "paragraph",
-            "text": "Drill 10.1 1. A (a date, scan for it). 2. C (concept, will be reworded as “hard,” “defeated,” “no clock could”). 3. A (a name). 4. C (concept, “gain,” “help,” “advantage”). 5. A (a place name). 6. C (concept, “fall,” “drop,” “decrease”). Lesson: anchors you hunt for by shape; concepts you hunt for by meaning. Knowing which before you scan saves the time wasted hunting for a word that was always going to be paraphrased. Drill 10.2 (samples) 1. invented: “was invented,” “the invention of,” “devised,” “created.” 2. rare: “uncommon,” “seldom found,” “few remain,” “scarce.” 3. sustainable: “managed without harm,” “able to continue for centuries,” “not depleting the resource.” 4. lives a long time: “can exceed two hundred years,” “a long lifespan,” “survives for over a century.” Lesson: predicting rewordings primes your eye to recognise the concept when it appears dressed differently. Drill 10.3"
-          },
-          {
-            "id": "r_b0033",
-            "type": "paragraph",
-            "text": "1 to C (word-family change: “changing temperatures” becomes “temperature-changing”). 2 to A (description/word-family: “taught himself” becomes “self-taught”). 3 to D (conceptual paraphrase: “surprised the experts” becomes “experts expected… Instead”). 4 to B (description: “removed without killing” becomes “stripped of its bark without being killed”). Lesson: in every match the meaning is identical while the words differ. Naming the paraphrase type trains you to expect that type next time. Drill 10.4 1. Same. “No country produces more” equals “more than any other single country.” Same comparison, reversed direction with a reversed word (Move A). True. 2. Same. “Largest single producer” equals “more than any other single country’s output,” i.e. the biggest single one. This matches, because the passage did claim it beats every other single country. Same. 3. More than supported. The passage compares the cork oak region to each other single country, not to all others combined. “Other countries together” is a new, bigger claim the passage never makes. This is the comparative-to-superlative overreach (Move C). The passage does not support it, so a True/False/Not Given item here would be Not Given. Lesson: comparisons turn on which items are compared and how strong the claim is. Number 3 looks like a fair restatement but quietly changes “any other single country” into “all others combined,” which the text never addresses. Read every comparison for direction and strength before you commit."
+            "id": "r_b0029_drill",
+            "type": "practice_drill",
+            "label": "Drill 10.4 (Level 4): Comparative paraphrase",
+            "prompt": "Decide whether each question means the SAME as the passage sentence, the OPPOSITE, or MORE than the passage supports. Passage: “The cork oak produces around half of the world’s cork, more than any other single country’s output.” 1. “No country produces more cork than the region described.” (same / opposite / more) 2. “The cork oak’s region is the world’s largest single producer of cork.” (same / opposite / more) 3. “Other countries together produce less than the cork oak region.” (same / opposite / more)",
+            "answer": "1. Same. “No country produces more” equals “more than any other single country.” Same comparison, reversed direction with a reversed word (Move A). True. 2. Same. “Largest single producer” equals “more than any other single country’s output,” i.e. the biggest single one. This matches, because the passage did claim it beats every other single country. Same. 3. More than supported. The passage compares the cork oak region to each other single country, not to all others combined. “Other countries together” is a new, bigger claim the passage never makes. This is the comparative-to-superlative overreach (Move C). The passage does not support it, so a True/False/Not Given item here would be Not Given. Lesson: comparisons turn on which items are compared and how strong the claim is. Number 3 looks like a fair restatement but quietly changes “any other single country” into “all others combined,” which the text never addresses. Read every comparison for direction and strength before you commit."
           },
           {
             "id": "r_b0034",
@@ -786,9 +765,11 @@
             "text": "Drill 11.1 (Level 3): Matching Features"
           },
           {
-            "id": "r_b0024",
-            "type": "paragraph",
-            "text": "Match each view to a researcher (A = Feldman, B = Osei, C = Nakamura). 1. Migration is mainly about finding food. 2. Migration has no single cause. 3. Migration is driven by the need to breed safely."
+            "id": "r_b0023_drill",
+            "type": "practice_drill",
+            "label": "Drill 11.1 (Level 3): Matching Features",
+            "prompt": "Match each view to a researcher (A = Feldman, B = Osei, C = Nakamura). 1. Migration is mainly about finding food. 2. Migration has no single cause. 3. Migration is driven by the need to breed safely.",
+            "answer": "1. A, Feldman. “Migration is driven mainly by food.” Direct attribution. 2. C, Nakamura. “Sceptical of single explanations… several pressures acting together.” Match the view to the named sceptic, not to whoever is nearest. 3. B, Osei. “Breeding is the true driver… to reach safe, predator-poor sites to raise their young.” Lesson: each view is tied to its researcher by the sentence that names them. You matched by attribution, not proximity. Note Nakamura sits last but her view is not “food” or “breeding”; a proximity guesser might mismatch."
           },
           {
             "id": "r_b0025",
@@ -797,9 +778,11 @@
             "text": "Drill 11.2 (Level 3): Matching Information"
           },
           {
-            "id": "r_b0026",
-            "type": "paragraph",
-            "text": "Which sentence of the passage contains: 1. a point all three researchers accept? 2. a warning against simple explanations?"
+            "id": "r_b0025_drill",
+            "type": "practice_drill",
+            "label": "Drill 11.2 (Level 3): Matching Information",
+            "prompt": "Which sentence of the passage contains: 1. a point all three researchers accept? 2. a warning against simple explanations?",
+            "answer": "1. The final sentence: “What the three agree on is that migration is costly and dangerous,"
           },
           {
             "id": "r_b0027",
@@ -808,9 +791,11 @@
             "text": "Drill 11.3 (Level 3): Multiple choice"
           },
           {
-            "id": "r_b0028",
-            "type": "paragraph",
-            "text": "Which statement is best supported by the passage? A) The researchers agree on the main cause of migration. B) The researchers disagree on the cause but agree migration is risky. C) Migration has now been fully explained."
+            "id": "r_b0027_drill",
+            "type": "practice_drill",
+            "label": "Drill 11.3 (Level 3): Multiple choice",
+            "prompt": "Which statement is best supported by the passage? A) The researchers agree on the main cause of migration. B) The researchers disagree on the cause but agree migration is risky. C) Migration has now been fully explained.",
+            "answer": ""
           },
           {
             "id": "r_b0029",
@@ -819,20 +804,11 @@
             "text": "Drill 11.4 (Level 4): Matching sentence endings"
           },
           {
-            "id": "r_b0030",
-            "type": "paragraph",
-            "text": "Complete: “Professor Osei believes birds may migrate to breeding sites…” Endings: i) …because food is always better there. ii) …even when food is no better there. iii) …only when no predators exist anywhere."
-          },
-          {
-            "id": "r_b0031",
-            "type": "heading",
-            "level": 2,
-            "text": "ANSWER KEY AND REASONING"
-          },
-          {
-            "id": "r_b0032",
-            "type": "paragraph",
-            "text": "Drill 11.1 1. A, Feldman. “Migration is driven mainly by food.” Direct attribution. 2. C, Nakamura. “Sceptical of single explanations… several pressures acting together.” Match the view to the named sceptic, not to whoever is nearest. 3. B, Osei. “Breeding is the true driver… to reach safe, predator-poor sites to raise their young.” Lesson: each view is tied to its researcher by the sentence that names them. You matched by attribution, not proximity. Note Nakamura sits last but her view is not “food” or “breeding”; a proximity guesser might mismatch. Drill 11.2 1. The final sentence: “What the three agree on is that migration is costly and dangerous,"
+            "id": "r_b0029_drill",
+            "type": "practice_drill",
+            "label": "Drill 11.4 (Level 4): Matching sentence endings",
+            "prompt": "Complete: “Professor Osei believes birds may migrate to breeding sites…” Endings: i) …because food is always better there. ii) …even when food is no better there. iii) …only when no predators exist anywhere.",
+            "answer": ""
           }
         ]
       }
@@ -1012,9 +988,11 @@
             "text": "Drill 12.1 (Level 2): Sentence completion"
           },
           {
-            "id": "r_b0031",
-            "type": "paragraph",
-            "text": "Sentence: “The tuatara belongs to an order that flourished over ____ years ago.” (from the passage) (tuatara passage: “an older order that flourished over two hundred million years ago”)"
+            "id": "r_b0030_drill",
+            "type": "practice_drill",
+            "label": "Drill 12.1 (Level 2): Sentence completion",
+            "prompt": "Sentence: “The tuatara belongs to an order that flourished over ____ years ago.” (from the passage) (tuatara passage: “an older order that flourished over two hundred million years ago”)",
+            "answer": "two hundred million (from “over two hundred million years ago”), trimmed to fit before “years ago.” Take the passage’s exact figure; do not write “200,000,000” unless the limit and instructions favour it, and do not paraphrase to “a very long time.”"
           },
           {
             "id": "r_b0032",
@@ -1023,9 +1001,11 @@
             "text": "Drill 12.2 (Level 3): Table completion"
           },
           {
-            "id": "r_b0033",
-            "type": "paragraph",
-            "text": "Table row “Longitude problem”: Prize offered in ____; solved by ____; his profession ____. (longitude passage)"
+            "id": "r_b0032_drill",
+            "type": "practice_drill",
+            "label": "Drill 12.2 (Level 3): Table completion",
+            "prompt": "Table row “Longitude problem”: Prize offered in ____; solved by ____; his profession ____. (longitude passage)",
+            "answer": "Prize offered in 1714; solved by (John) Harrison; profession (a) carpenter. Each is a passage word placed in its cell. The table headings predicted the shapes: a year, a name, a job."
           },
           {
             "id": "r_b0034",
@@ -1034,9 +1014,11 @@
             "text": "Drill 12.3 (Level 3): Summary completion with a word bank"
           },
           {
-            "id": "r_b0035",
-            "type": "paragraph",
-            "text": "Summary: “Longitude was hard to find because no ____ of the time could stay accurate at sea; the answer came not from astronomy but from a self-taught ____.” Bank: clock / star / sailor / carpenter / map."
+            "id": "r_b0034_drill",
+            "type": "practice_drill",
+            "label": "Drill 12.3 (Level 3): Summary completion with a word bank",
+            "prompt": "Summary: “Longitude was hard to find because no ____ of the time could stay accurate at sea; the answer came not from astronomy but from a self-taught ____.” Bank: clock / star / sailor / carpenter / map.",
+            "answer": "“no clock of the time could stay accurate at sea; … a self-taught carpenter.” Both are supported by the passage. “Star,” “sailor,” and “map” are distractors: they fit some grammar but not the meaning. Note “clock” and “carpenter” here happen to be passage words, but in a bank task always confirm by meaning, not by spotting the word."
           },
           {
             "id": "r_b0036",
@@ -1045,25 +1027,11 @@
             "text": "Drill 12.4 (Level 4): Short answer with a trap"
           },
           {
-            "id": "r_b0037",
-            "type": "paragraph",
-            "text": "Q: “For how long can a tuatara remain active that would leave other reptiles sluggish?” Read carefully. What does this question actually ask, and what is the answer? (tuatara passage)"
-          },
-          {
-            "id": "r_b0038",
-            "type": "heading",
-            "level": 2,
-            "text": "ANSWER KEY AND REASONING"
-          },
-          {
-            "id": "r_b0039",
-            "type": "paragraph",
-            "text": "Drill 12.1 two hundred million (from “over two hundred million years ago”), trimmed to fit before “years ago.” Take the passage’s exact figure; do not write “200,000,000” unless the limit and instructions favour it, and do not paraphrase to “a very long time.” Drill 12.2 Prize offered in 1714; solved by (John) Harrison; profession (a) carpenter. Each is a passage word placed in its cell. The table headings predicted the shapes: a year, a name, a job. Drill 12.3 “no clock of the time could stay accurate at sea; … a self-taught carpenter.” Both are supported by the passage. “Star,” “sailor,” and “map” are distractors: they fit some grammar but"
-          },
-          {
-            "id": "r_b0040",
-            "type": "paragraph",
-            "text": "not the meaning. Note “clock” and “carpenter” here happen to be passage words, but in a bank task always confirm by meaning, not by spotting the word. Drill 12.4 This question has a trap in its wording. It seems to ask “for how long can a tuatara remain active,” inviting a time answer, but the passage does not give a duration for cold-activity; it says the tuatara “remains active at low temperatures that would leave most reptiles sluggish.” The real, answerable fact is about conditions (low temperatures), not a length of time. If a short- answer item genuinely asked “at what temperatures does the tuatara stay active,” the answer is low temperatures. If it insisted on a duration, that information is not given. The lesson: read the question word precisely, and do not manufacture an answer of a shape the passage never provides. This vigilance is the bridge to the True/False/Not Given masterclass next."
+            "id": "r_b0036_drill",
+            "type": "practice_drill",
+            "label": "Drill 12.4 (Level 4): Short answer with a trap",
+            "prompt": "Q: “For how long can a tuatara remain active that would leave other reptiles sluggish?” Read carefully. What does this question actually ask, and what is the answer? (tuatara passage)",
+            "answer": "This question has a trap in its wording. It seems to ask “for how long can a tuatara remain active,” inviting a time answer, but the passage does not give a duration for cold-activity; it says the tuatara “remains active at low temperatures that would leave most reptiles sluggish.” The real, answerable fact is about conditions (low temperatures), not a length of time. If a short- answer item genuinely asked “at what temperatures does the tuatara stay active,” the answer is low temperatures. If it insisted on a duration, that information is not given. The lesson: read the question word precisely, and do not manufacture an answer of a shape the passage never provides. This vigilance is the bridge to the True/False/Not Given masterclass next."
           },
           {
             "id": "r_b0041",
@@ -1179,50 +1147,11 @@
             "text": "PRACTICE: 27 ORIGINAL QUESTIONS"
           },
           {
-            "id": "r_b0018",
-            "type": "paragraph",
-            "text": "Three original passages. Apply claim, evidence, relationship to every statement, then check the reasoning. Do not just mark right or wrong; confirm you named the correct relationship."
-          },
-          {
-            "id": "r_b0019",
-            "type": "paragraph",
-            "text": "PASSAGE A (for questions 1 to 10) Honeybees share the location of food through a behaviour known as the waggle dance. A returning forager runs in a figure-of-eight on the vertical honeycomb, waggling her abdomen during the straight central run. The angle of that run relative to vertical encodes the direction of the food relative to the sun, while the duration of the waggle indicates the distance: a longer waggle means a more distant source. The dance was first decoded by Karl von Frisch in the mid-twentieth century, work for which he later received a Nobel Prize. Other bees follow the dancer closely, and many fly out to the described location, though some ignore the dance entirely and forage where they please. The dance is less precise for very close food sources, for which bees use a simpler round dance instead. True / False / Not Given: 1. The waggle dance tells other bees where food can be found. 2. The direction of the food is shown by how long the bee waggles. 3. Karl von Frisch received a Nobel Prize for work on the dance. 4. Von Frisch decoded the dance in the nineteenth century. 5. Every bee that watches the dance flies to the food. 6. The round dance is used for food sources that are very far away. 7. The waggle dance is performed on a horizontal surface. 8. Von Frisch’s findings were initially rejected by other scientists. 9. Bees can also communicate the quality of a food source through the dance. 10. The dance is more precise for distant sources than for very close ones."
-          },
-          {
-            "id": "r_b0020",
-            "type": "paragraph",
-            "text": "PASSAGE B (for questions 11 to 20) Recovered in 1901 from an ancient shipwreck off the Greek island of Antikythera, the corroded bronze device now known as the Antikythera mechanism has puzzled researchers for over a century. Roughly the size of a shoebox, it originally held at least thirty interlocking gears. Modern imaging has revealed that it modelled the movements of the sun and moon and could predict eclipses, functioning as a kind of astronomical calculator. Most scholars date its construction to the second century BCE. Nothing of comparable mechanical complexity is known from the following thousand years, which has led some to call it the first analogue computer. The identity of its maker remains unknown, though its sophistication suggests a long tradition of"
-          },
-          {
-            "id": "r_b0021",
-            "type": "paragraph",
-            "text": "similar instruments that have not survived. Replicas built from the imaging data confirm that the surviving gear ratios reproduce genuine astronomical cycles. True / False / Not Given: 11. The mechanism was found in the twentieth century. 12. The device contained fewer than twenty gears. 13. The mechanism could be used to predict eclipses. 14. The mechanism was considerably larger than a shoebox. 15. Most scholars agree on the identity of the mechanism’s maker. 16. Devices of similar complexity were common in the centuries that followed. 17. The mechanism was made of iron. 18. Replicas have shown that the gears reproduce real astronomical cycles. 19. Other astronomical instruments were found in the same shipwreck. 20. The mechanism took several years to construct."
-          },
-          {
-            "id": "r_b0022",
-            "type": "paragraph",
-            "text": "PASSAGE C (for questions 21 to 27) Some argue that teaching handwriting is a waste of classroom time in an age of keyboards. I find this view short-sighted. The research I have seen suggests that forming letters by hand supports early reading and memory in ways typing does not, and to abandon it would be to trade a proven benefit for mere convenience. Of course, children must also learn to type; no one sensible disputes that. But the two are not in competition, and framing them as either-or is a false choice. What worries me is not that schools teach typing, but that some now teach nothing else. Handwriting need not dominate the timetable; a few minutes a day would preserve its benefits. The claim that handwriting harms children by slowing them down strikes me as unpersuasive. Yes / No / Not Given (the writer’s views): 21. The writer believes teaching handwriting wastes classroom time. 22. The writer thinks children should not learn to type. 23. The writer regards handwriting and typing as opposed alternatives. 24. The writer is concerned that some schools now teach only typing. 25. The writer believes handwriting improves children’s creativity. 26. The writer thinks handwriting should take up most of the timetable. 27. The writer finds the argument that handwriting slows children down convincing."
-          },
-          {
-            "id": "r_b0023",
-            "type": "heading",
-            "level": 2,
-            "text": "ANSWER KEY AND REASONING"
-          },
-          {
-            "id": "r_b0024",
-            "type": "paragraph",
-            "text": "Passage A 1. TRUE. Claim: the dance communicates food location. Evidence: “share the location of food through… the waggle dance.” Relationship: confirmed, paraphrased (“tells where food can be found” equals “share the location”)."
-          },
-          {
-            "id": "r_b0025",
-            "type": "paragraph",
-            "text": "2. FALSE. Claim: direction is shown by waggle duration. Evidence: angle encodes direction; duration indicates distance. Relationship: contradiction. Direction and distance are swapped. 3. TRUE. Evidence: “work for which he later received a Nobel Prize.” Confirmed. 4. FALSE. Claim: nineteenth century. Evidence: “mid-twentieth century.” Contradiction (wrong century). 5. FALSE. Claim: every watching bee flies to the food. Evidence: “some ignore the dance entirely.” Contradiction via quantifier: “every” versus “some ignore.” 6. FALSE. Claim: round dance for very far food. Evidence: round dance is for “very close food sources.” Contradiction. 7. FALSE. Claim: horizontal surface. Evidence: “vertical honeycomb.” Contradiction. 8. NOT GIVEN. Claim: findings were initially rejected. Evidence: the passage covers the decoding and the prize but says nothing about how other scientists received the work. Absence, so Not Given, not False. 9. NOT GIVEN. Claim: bees communicate food quality. Evidence: the passage covers location, direction, and distance, but never quality. Absence. Note the topic (what the dance communicates) is present, yet this specific claim is not, which is the classic Not Given shape. 10. TRUE. Claim: more precise for distant than very close sources. Evidence: “less precise for very close food sources.” Relationship: confirmed by necessary meaning. If it is less precise for very close sources, it is more precise for the rest, including distant ones. This is allowed paraphrase, not a leap. Passage B 11. TRUE. Evidence: “Recovered in 1901.” 1901 is the twentieth century. Confirmed. 12. FALSE. Claim: fewer than twenty gears. Evidence: “at least thirty interlocking gears.” Contradiction (number clash). 13. TRUE. Evidence: “could predict eclipses.” Confirmed. 14. FALSE. Claim: considerably larger than a shoebox. Evidence: “roughly the size of a shoebox.” Contradiction. “Larger than” conflicts with “roughly the size of.” 15. FALSE. Claim: scholars agree on the maker’s identity. Evidence: “the identity of its maker remains unknown.” Contradiction. 16. FALSE. Claim: similar devices were common afterwards. Evidence: “nothing of comparable mechanical complexity is known from the following thousand years.” Contradiction. 17. FALSE. Claim: made of iron. Evidence: “bronze device.” Contradiction."
-          },
-          {
-            "id": "r_b0026",
-            "type": "paragraph",
-            "text": "18. TRUE. Evidence: “Replicas… confirm that the surviving gear ratios reproduce genuine astronomical cycles.” Confirmed. 19. NOT GIVEN. Claim: other astronomical instruments in the same wreck. Evidence: the passage mentions the shipwreck but says nothing about other instruments in it. Absence. 20. NOT GIVEN. Claim: it took several years to build. Evidence: the passage never states the construction time. Absence. Plausible, but not stated, so Not Given, not True. Passage C (Yes / No / Not Given) 21. NO. The writer reports that “some argue” this, then says “I find this view short-sighted.” The writer’s own view is the opposite of the statement. 22. NO. Evidence: “children must also learn to type; no one sensible disputes that.” The writer supports typing, contradicting the claim that children should not learn it. 23. NO. Evidence: “the two are not in competition, and framing them as either-or is a false choice.” The writer rejects the opposed-alternatives view. 24. YES. Evidence: “What worries me is… that some now teach nothing else.” The writer does hold this concern. 25. NOT GIVEN. The writer credits handwriting with supporting “early reading and memory,” but says nothing about creativity. Absence, even though related benefits are discussed. 26. NO. Evidence: “Handwriting need not dominate the timetable.” The writer’s view is the opposite of the claim. 27. NO. Evidence: the slowing-down argument “strikes me as unpersuasive.” The writer does not find it convincing. The pattern to take away: every False came with a sentence you could point to that said the opposite. Every Not Given came from the passage being silent on the exact claim, even when the surrounding topic was present. No verdict rested on what seems reasonable. Claim, evidence, relationship, every time."
+            "id": "r_b0023_drill",
+            "type": "practice_drill",
+            "label": "PRACTICE: 27 ORIGINAL QUESTIONS",
+            "prompt": "Three original passages. Apply claim, evidence, relationship to every statement, then check the reasoning. Do not just mark right or wrong; confirm you named the correct relationship.\n\nPASSAGE A (for questions 1 to 10) Honeybees share the location of food through a behaviour known as the waggle dance. A returning forager runs in a figure-of-eight on the vertical honeycomb, waggling her abdomen during the straight central run. The angle of that run relative to vertical encodes the direction of the food relative to the sun, while the duration of the waggle indicates the distance: a longer waggle means a more distant source. The dance was first decoded by Karl von Frisch in the mid-twentieth century, work for which he later received a Nobel Prize. Other bees follow the dancer closely, and many fly out to the described location, though some ignore the dance entirely and forage where they please. The dance is less precise for very close food sources, for which bees use a simpler round dance instead. True / False / Not Given: 1. The waggle dance tells other bees where food can be found. 2. The direction of the food is shown by how long the bee waggles. 3. Karl von Frisch received a Nobel Prize for work on the dance. 4. Von Frisch decoded the dance in the nineteenth century. 5. Every bee that watches the dance flies to the food. 6. The round dance is used for food sources that are very far away. 7. The waggle dance is performed on a horizontal surface. 8. Von Frisch’s findings were initially rejected by other scientists. 9. Bees can also communicate the quality of a food source through the dance. 10. The dance is more precise for distant sources than for very close ones.\n\nPASSAGE B (for questions 11 to 20) Recovered in 1901 from an ancient shipwreck off the Greek island of Antikythera, the corroded bronze device now known as the Antikythera mechanism has puzzled researchers for over a century. Roughly the size of a shoebox, it originally held at least thirty interlocking gears. Modern imaging has revealed that it modelled the movements of the sun and moon and could predict eclipses, functioning as a kind of astronomical calculator. Most scholars date its construction to the second century BCE. Nothing of comparable mechanical complexity is known from the following thousand years, which has led some to call it the first analogue computer. The identity of its maker remains unknown, though its sophistication suggests a long tradition of\n\nsimilar instruments that have not survived. Replicas built from the imaging data confirm that the surviving gear ratios reproduce genuine astronomical cycles. True / False / Not Given: 11. The mechanism was found in the twentieth century. 12. The device contained fewer than twenty gears. 13. The mechanism could be used to predict eclipses. 14. The mechanism was considerably larger than a shoebox. 15. Most scholars agree on the identity of the mechanism’s maker. 16. Devices of similar complexity were common in the centuries that followed. 17. The mechanism was made of iron. 18. Replicas have shown that the gears reproduce real astronomical cycles. 19. Other astronomical instruments were found in the same shipwreck. 20. The mechanism took several years to construct.\n\nPASSAGE C (for questions 21 to 27) Some argue that teaching handwriting is a waste of classroom time in an age of keyboards. I find this view short-sighted. The research I have seen suggests that forming letters by hand supports early reading and memory in ways typing does not, and to abandon it would be to trade a proven benefit for mere convenience. Of course, children must also learn to type; no one sensible disputes that. But the two are not in competition, and framing them as either-or is a false choice. What worries me is not that schools teach typing, but that some now teach nothing else. Handwriting need not dominate the timetable; a few minutes a day would preserve its benefits. The claim that handwriting harms children by slowing them down strikes me as unpersuasive. Yes / No / Not Given (the writer’s views): 21. The writer believes teaching handwriting wastes classroom time. 22. The writer thinks children should not learn to type. 23. The writer regards handwriting and typing as opposed alternatives. 24. The writer is concerned that some schools now teach only typing. 25. The writer believes handwriting improves children’s creativity. 26. The writer thinks handwriting should take up most of the timetable. 27. The writer finds the argument that handwriting slows children down convincing.",
+            "answer": "Passage A 1. TRUE. Claim: the dance communicates food location. Evidence: “share the location of food through… the waggle dance.” Relationship: confirmed, paraphrased (“tells where food can be found” equals “share the location”). 2. FALSE. Claim: direction is shown by waggle duration. Evidence: angle encodes direction; duration indicates distance. Relationship: contradiction. Direction and distance are swapped. 3. TRUE. Evidence: “work for which he later received a Nobel Prize.” Confirmed. 4. FALSE. Claim: nineteenth century. Evidence: “mid-twentieth century.” Contradiction (wrong century). 5. FALSE. Claim: every watching bee flies to the food. Evidence: “some ignore the dance entirely.” Contradiction via quantifier: “every” versus “some ignore.” 6. FALSE. Claim: round dance for very far food. Evidence: round dance is for “very close food sources.” Contradiction. 7. FALSE. Claim: horizontal surface. Evidence: “vertical honeycomb.” Contradiction. 8. NOT GIVEN. Claim: findings were initially rejected. Evidence: the passage covers the decoding and the prize but says nothing about how other scientists received the work. Absence, so Not Given, not False. 9. NOT GIVEN. Claim: bees communicate food quality. Evidence: the passage covers location, direction, and distance, but never quality. Absence. Note the topic (what the dance communicates) is present, yet this specific claim is not, which is the classic Not Given shape. 10. TRUE. Claim: more precise for distant than very close sources. Evidence: “less precise for very close food sources.” Relationship: confirmed by necessary meaning. If it is less precise for very close sources, it is more precise for the rest, including distant ones. This is allowed paraphrase, not a leap. Passage B 11. TRUE. Evidence: “Recovered in 1901.” 1901 is the twentieth century. Confirmed. 12. FALSE. Claim: fewer than twenty gears. Evidence: “at least thirty interlocking gears.” Contradiction (number clash). 13. TRUE. Evidence: “could predict eclipses.” Confirmed. 14. FALSE. Claim: considerably larger than a shoebox. Evidence: “roughly the size of a shoebox.” Contradiction. “Larger than” conflicts with “roughly the size of.” 15. FALSE. Claim: scholars agree on the maker’s identity. Evidence: “the identity of its maker remains unknown.” Contradiction. 16. FALSE. Claim: similar devices were common afterwards. Evidence: “nothing of comparable mechanical complexity is known from the following thousand years.” Contradiction. 17. FALSE. Claim: made of iron. Evidence: “bronze device.” Contradiction. 18. TRUE. Evidence: “Replicas… confirm that the surviving gear ratios reproduce genuine astronomical cycles.” Confirmed. 19. NOT GIVEN. Claim: other astronomical instruments in the same wreck. Evidence: the passage mentions the shipwreck but says nothing about other instruments in it. Absence. 20. NOT GIVEN. Claim: it took several years to build. Evidence: the passage never states the construction time. Absence. Plausible, but not stated, so Not Given, not True. Passage C (Yes / No / Not Given) 21. NO. The writer reports that “some argue” this, then says “I find this view short-sighted.” The writer’s own view is the opposite of the statement. 22. NO. Evidence: “children must also learn to type; no one sensible disputes that.” The writer supports typing, contradicting the claim that children should not learn it. 23. NO. Evidence: “the two are not in competition, and framing them as either-or is a false choice.” The writer rejects the opposed-alternatives view. 24. YES. Evidence: “What worries me is… that some now teach nothing else.” The writer does hold this concern. 25. NOT GIVEN. The writer credits handwriting with supporting “early reading and memory,” but says nothing about creativity. Absence, even though related benefits are discussed. 26. NO. Evidence: “Handwriting need not dominate the timetable.” The writer’s view is the opposite of the claim. 27. NO. Evidence: the slowing-down argument “strikes me as unpersuasive.” The writer does not find it convincing. The pattern to take away: every False came with a sentence you could point to that said the opposite. Every Not Given came from the passage being silent on the exact claim, even when the surrounding topic was present. No verdict rested on what seems reasonable. Claim, evidence, relationship, every time."
           },
           {
             "id": "r_b0027",
@@ -1395,25 +1324,11 @@
             "text": "PRACTICE: TRAP SPOTTING"
           },
           {
-            "id": "r_b0030",
-            "type": "paragraph",
-            "text": "For each item, give the verdict and name the trap it is built on. Use the urban trees passage above. Reasoning keys follow. 1. (TFNG) “Road salt is the main reason city trees die.” 2. (TFNG) “City trees never reach the lifespan they would in a forest.” 3. (TFNG) “Well-shaded streets can be cooler than bare streets in hot weather.” 4. (TFNG) “Trees improve residents’ mental health more than they reduce flooding.” 5. (Heading) A student matches Paragraph C to the heading “The problem of compacted soil.” Which trap is this?"
-          },
-          {
-            "id": "r_b0031",
-            "type": "heading",
-            "level": 2,
-            "text": "ANSWER KEY AND REASONING"
-          },
-          {
-            "id": "r_b0032",
-            "type": "paragraph",
-            "text": "1. NOT GIVEN. Trap: examples mistaken for main ideas (and extreme wording). The passage lists road salt as one of several threats (“compacted soil… road salt… construction”), never as “the main reason.” Treating one example as the whole point, plus the unsupported “main,” makes this unsupported. Not Given. 2. NOT GIVEN. Trap: extreme wording. The passage says a city tree “often survives only a fraction” of its forest lifespan, and “many die within a decade.” “Often” and “many” are not “never.” The absolute “never reach” goes beyond what the passage supports. (It is not False, because the passage does not say they do reach it either; it is simply not the claim made.) 3. TRUE. Verify against: “well-shaded streets can be several degrees cooler than bare ones during heatwaves.” Confirmed, paraphrased (“hot weather” for “heatwaves”). No trap; a straight match. Included so you do not start seeing traps everywhere; some statements are simply True. 4. NOT GIVEN. Trap: comparison / inference. The passage says trees are “linked to lower stress” and that they “absorb rainfall,” but it never compares the size of these two benefits. The comparison “more than” is invented. Not Given. 5. Trap: right information, wrong paragraph (and example-as-main-idea). Compacted soil is mentioned, but in Paragraph B (the threats), not Paragraph C. Paragraph C’s main idea is better planting methods. The student matched a detail from the wrong paragraph. The correct heading for C is “New ways of planting for longer life.”"
-          },
-          {
-            "id": "r_b0033",
-            "type": "paragraph",
-            "text": "The lesson of the whole library: nearly every Reading trap is a version of one mistake, matching a word, a part, or a topic instead of the whole, exact meaning. Verify meaning, check every part, confirm the location, and watch the small words, and the traps stop working."
+            "id": "r_b0031_drill",
+            "type": "practice_drill",
+            "label": "PRACTICE: TRAP SPOTTING",
+            "prompt": "For each item, give the verdict and name the trap it is built on. Use the urban trees passage above. Reasoning keys follow. 1. (TFNG) “Road salt is the main reason city trees die.” 2. (TFNG) “City trees never reach the lifespan they would in a forest.” 3. (TFNG) “Well-shaded streets can be cooler than bare streets in hot weather.” 4. (TFNG) “Trees improve residents’ mental health more than they reduce flooding.” 5. (Heading) A student matches Paragraph C to the heading “The problem of compacted soil.” Which trap is this?",
+            "answer": "1. NOT GIVEN. Trap: examples mistaken for main ideas (and extreme wording). The passage lists road salt as one of several threats (“compacted soil… road salt… construction”), never as “the main reason.” Treating one example as the whole point, plus the unsupported “main,” makes this unsupported. Not Given. 2. NOT GIVEN. Trap: extreme wording. The passage says a city tree “often survives only a fraction” of its forest lifespan, and “many die within a decade.” “Often” and “many” are not “never.” The absolute “never reach” goes beyond what the passage supports. (It is not False, because the passage does not say they do reach it either; it is simply not the claim made.) 3. TRUE. Verify against: “well-shaded streets can be several degrees cooler than bare ones during heatwaves.” Confirmed, paraphrased (“hot weather” for “heatwaves”). No trap; a straight match. Included so you do not start seeing traps everywhere; some statements are simply True. 4. NOT GIVEN. Trap: comparison / inference. The passage says trees are “linked to lower stress” and that they “absorb rainfall,” but it never compares the size of these two benefits. The comparison “more than” is invented. Not Given. 5. Trap: right information, wrong paragraph (and example-as-main-idea). Compacted soil is mentioned, but in Paragraph B (the threats), not Paragraph C. Paragraph C’s main idea is better planting methods. The student matched a detail from the wrong paragraph. The correct heading for C is “New ways of planting for longer life.” The lesson of the whole library: nearly every Reading trap is a version of one mistake, matching a word, a part, or a topic instead of the whole, exact meaning. Verify meaning, check every part, confirm the location, and watch the small words, and the traps stop working."
           },
           {
             "id": "r_b0034",
@@ -1515,35 +1430,11 @@
             "text": "PART 13"
           },
           {
-            "id": "r_b0016",
-            "type": "paragraph",
-            "text": "READING PRACTICE The whole module has drilled skills in isolation. Now assemble them. Below is a timed capstone: one passage with a mixed question set, exactly as a real passage mixes types. Give yourself twenty minutes. Skim first, then run the battle plan. For a full test, use three passages of real audio-free official material back to back in sixty minutes, because stamina across three passages is itself a skill. This single passage builds the machinery; the full test rehearses the endurance. Passage (practice, original): Few animals disguise themselves as completely as the octopus. In under a second it can change the colour, pattern, and even the texture of its skin to melt into a reef or a patch of sand. This ability serves two ends at once: hiding from predators, and communicating with other octopuses. The mechanism is layered. Just beneath the surface sit thousands of tiny sacs of pigment called chromatophores, each ringed by muscles; when the muscles pull, the sac spreads and its colour shows. Below these lie reflecting cells that scatter and bounce light, adding blues, greens, and silvers that the pigments alone cannot make. The skin can also raise small bumps, known as papillae, to imitate the rough texture of rock or coral. A puzzle remains at the heart of this skill. Octopuses appear to be colourblind: their eyes contain only one kind of light-detecting cell, which should make distinguishing colours impossible. Yet they match the colours of their surroundings with startling accuracy. One leading hypothesis is that the skin itself senses light, using the same light-sensitive proteins found in eyes, allowing the animal to “see” colour through its body. Beyond"
-          },
-          {
-            "id": "r_b0017",
-            "type": "paragraph",
-            "text": "camouflage, researchers study these displays for other reasons. The same skin is used in courtship and threat, flashing patterns that other octopuses read as signals. Engineers, meanwhile, look to octopus skin as a model for soft, colour-changing materials, hoping to build surfaces that adapt the way living skin does."
-          },
-          {
-            "id": "r_b0018",
-            "type": "paragraph",
-            "text": "Questions Matching Headings. Choose a heading for paragraphs 2 and 3 from: i. A contradiction scientists cannot yet explain ii. How the colour change is produced iii. The dangers octopuses face iv. Why octopuses live alone 1. Paragraph 2 2. Paragraph 3 True / False / Not Given. 3. The octopus can change its skin texture as well as its colour. 4. Octopuses have several types of light-detecting cell in their eyes. 5. Octopuses use camouflage mainly to catch prey. Summary completion (ONE WORD from the passage). 6. Colour is produced by pigment sacs called ____, each surrounded by muscles. 7. To copy rough surfaces, the skin raises small bumps called ____. Multiple choice. 8. According to the passage, the reflecting cells beneath the chromatophores: A) produce the pigments, B) add colours the pigments cannot make, C) control the muscles. 9. The “puzzle” the passage describes is that octopuses: A) cannot change colour quickly, B) match colours despite appearing colourblind, C) have no predators. Matching Information. 10. Which paragraph mentions a possible use of octopus skin in engineering?"
-          },
-          {
-            "id": "r_b0019",
-            "type": "heading",
-            "level": 2,
-            "text": "ANSWER KEY AND REASONING"
-          },
-          {
-            "id": "r_b0020",
-            "type": "paragraph",
-            "text": "1. ii. Paragraph 2’s main idea is how the colour change works (chromatophores, reflecting cells, papillae). Not a detail; the whole paragraph explains the mechanism. 2. i. Paragraph 3 presents the contradiction: colourblind eyes yet accurate colour- matching, with a hypothesis but no settled answer. “A contradiction scientists cannot yet explain” captures the purpose. Heading iii and iv match single ideas or nothing; they are distractors. 3. TRUE. Evidence: “change the colour, pattern, and even the texture.” Confirmed. 4. FALSE. Claim: several types of light-detecting cell. Evidence: “only one kind of light- detecting cell.” Contradiction (number clash). 5. NOT GIVEN. Claim: camouflage is used mainly to catch prey. Evidence: the passage says camouflage serves “hiding from predators, and communicating,” and later mentions hunting-related signalling, but never ranks catching prey as the main purpose. The “mainly” is unsupported. Absence plus extreme wording, so Not Given, not True or False."
-          },
-          {
-            "id": "r_b0021",
-            "type": "paragraph",
-            "text": "6. chromatophores. Words-from-passage: “sacs of pigment called chromatophores, each ringed by muscles.” 7. papillae. “raise small bumps, known as papillae.” 8. B. Evidence: reflecting cells “add blues, greens, and silvers that the pigments alone cannot make.” A and C are contradicted or unsupported. 9. B. Evidence: “appear to be colourblind… Yet they match the colours… with startling accuracy.” The puzzle is exactly this contradiction. 10. Paragraph 4. “Engineers… look to octopus skin as a model for soft, colour-changing materials.” Matching Information wants the specific detail’s location, which is the final paragraph. Score yourself, then log. If you missed 5, note it as the classic partial-truth plus extreme- wording trap (the word “mainly”). If you missed a heading, you likely matched a detail rather than the paragraph’s whole purpose. Whatever you missed, write the reason code, not just the mark."
+            "id": "r_b0019_drill",
+            "type": "practice_drill",
+            "label": "PART 13",
+            "prompt": "READING PRACTICE The whole module has drilled skills in isolation. Now assemble them. Below is a timed capstone: one passage with a mixed question set, exactly as a real passage mixes types. Give yourself twenty minutes. Skim first, then run the battle plan. For a full test, use three passages of real audio-free official material back to back in sixty minutes, because stamina across three passages is itself a skill. This single passage builds the machinery; the full test rehearses the endurance. Passage (practice, original): Few animals disguise themselves as completely as the octopus. In under a second it can change the colour, pattern, and even the texture of its skin to melt into a reef or a patch of sand. This ability serves two ends at once: hiding from predators, and communicating with other octopuses. The mechanism is layered. Just beneath the surface sit thousands of tiny sacs of pigment called chromatophores, each ringed by muscles; when the muscles pull, the sac spreads and its colour shows. Below these lie reflecting cells that scatter and bounce light, adding blues, greens, and silvers that the pigments alone cannot make. The skin can also raise small bumps, known as papillae, to imitate the rough texture of rock or coral. A puzzle remains at the heart of this skill. Octopuses appear to be colourblind: their eyes contain only one kind of light-detecting cell, which should make distinguishing colours impossible. Yet they match the colours of their surroundings with startling accuracy. One leading hypothesis is that the skin itself senses light, using the same light-sensitive proteins found in eyes, allowing the animal to “see” colour through its body. Beyond\n\ncamouflage, researchers study these displays for other reasons. The same skin is used in courtship and threat, flashing patterns that other octopuses read as signals. Engineers, meanwhile, look to octopus skin as a model for soft, colour-changing materials, hoping to build surfaces that adapt the way living skin does.\n\nQuestions Matching Headings. Choose a heading for paragraphs 2 and 3 from: i. A contradiction scientists cannot yet explain ii. How the colour change is produced iii. The dangers octopuses face iv. Why octopuses live alone 1. Paragraph 2 2. Paragraph 3 True / False / Not Given. 3. The octopus can change its skin texture as well as its colour. 4. Octopuses have several types of light-detecting cell in their eyes. 5. Octopuses use camouflage mainly to catch prey. Summary completion (ONE WORD from the passage). 6. Colour is produced by pigment sacs called ____, each surrounded by muscles. 7. To copy rough surfaces, the skin raises small bumps called ____. Multiple choice. 8. According to the passage, the reflecting cells beneath the chromatophores: A) produce the pigments, B) add colours the pigments cannot make, C) control the muscles. 9. The “puzzle” the passage describes is that octopuses: A) cannot change colour quickly, B) match colours despite appearing colourblind, C) have no predators. Matching Information. 10. Which paragraph mentions a possible use of octopus skin in engineering?",
+            "answer": "1. ii. Paragraph 2’s main idea is how the colour change works (chromatophores, reflecting cells, papillae). Not a detail; the whole paragraph explains the mechanism. 2. i. Paragraph 3 presents the contradiction: colourblind eyes yet accurate colour- matching, with a hypothesis but no settled answer. “A contradiction scientists cannot yet explain” captures the purpose. Heading iii and iv match single ideas or nothing; they are distractors. 3. TRUE. Evidence: “change the colour, pattern, and even the texture.” Confirmed. 4. FALSE. Claim: several types of light-detecting cell. Evidence: “only one kind of light- detecting cell.” Contradiction (number clash). 5. NOT GIVEN. Claim: camouflage is used mainly to catch prey. Evidence: the passage says camouflage serves “hiding from predators, and communicating,” and later mentions hunting-related signalling, but never ranks catching prey as the main purpose. The “mainly” is unsupported. Absence plus extreme wording, so Not Given, not True or False. 6. chromatophores. Words-from-passage: “sacs of pigment called chromatophores, each ringed by muscles.” 7. papillae. “raise small bumps, known as papillae.” 8. B. Evidence: reflecting cells “add blues, greens, and silvers that the pigments alone cannot make.” A and C are contradicted or unsupported. 9. B. Evidence: “appear to be colourblind… Yet they match the colours… with startling accuracy.” The puzzle is exactly this contradiction. 10. Paragraph 4. “Engineers… look to octopus skin as a model for soft, colour-changing materials.” Matching Information wants the specific detail’s location, which is the final paragraph. Score yourself, then log. If you missed 5, note it as the classic partial-truth plus extreme- wording trap (the word “mainly”). If you missed a heading, you likely matched a detail rather than the paragraph’s whole purpose. Whatever you missed, write the reason code, not just the mark."
           },
           {
             "id": "r_b0022",

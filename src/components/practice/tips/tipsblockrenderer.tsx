@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TipsFigure, TipsFigureBlock } from './TipsFigure';
+import { TipsFigure, TipsFigureBlock } from './tipsfigure';
 
 export type TipsBlock =
   | { id: string; type: 'heading'; level: 1 | 2 | 3 | 4; text: string }

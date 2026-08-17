@@ -270,21 +270,42 @@ async function upsertTipsChapter(ch: SeedTipsChapter) {
 }
 
 async function seedTips() {
-  const file = join(__dirname, 'seed-data', 'tips', 'writing-module-3.json');
-  if (!existsSync(file)) {
-    console.log('No tips seed file at', file, '- skipping.');
-    return;
-  }
-  const data = JSON.parse(readFileSync(file, 'utf8')) as AllTipsSeed;
-  console.log(`Seeding tips modules=${data.modules.length} chapters=${data.chapters.length}`);
-  for (const m of data.modules) {
-    await upsertTipsModule(m);
-    console.log('  tips module', m.slug);
-  }
-  for (const ch of data.chapters) {
-    await upsertTipsChapter(ch);
-    const n = (ch.content as { blocks?: unknown[] })?.blocks?.length ?? 0;
-    console.log('  tips chapter', ch.slug, `(${n} blocks)`);
+  const files = [
+    'writing-module-3.json',
+    'reading-module-2.json',
+  ];
+
+  for (const filename of files) {
+    const file = join(__dirname, 'seed-data', 'tips', filename);
+
+    if (!existsSync(file)) {
+      console.log('No tips seed file at', file, '- skipping.');
+      continue;
+    }
+
+    const data = JSON.parse(readFileSync(file, 'utf8')) as AllTipsSeed;
+
+    console.log(
+      `Seeding tips file=${filename} modules=${data.modules.length} chapters=${data.chapters.length}`,
+    );
+
+    for (const m of data.modules) {
+      await upsertTipsModule(m);
+      console.log('  tips module', m.slug);
+    }
+
+    for (const ch of data.chapters) {
+      await upsertTipsChapter(ch);
+
+      const n =
+        (ch.content as { blocks?: unknown[] })?.blocks?.length ?? 0;
+
+      console.log(
+        '  tips chapter',
+        ch.slug,
+        `(${n} blocks)`,
+      );
+    }
   }
 }
 
@@ -329,4 +350,3 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
-  

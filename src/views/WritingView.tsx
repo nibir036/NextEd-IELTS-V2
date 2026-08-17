@@ -3,8 +3,8 @@ import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import { TestSelector } from '../components/practice/TestSelector';
-import { WritingTipsChapterList } from '../components/practice/tips/WritingTipsChapterList';
-import { WritingTipsReader } from '../components/practice/tips/WritingTipsReader';
+import { WritingTipsChapterList } from '../components/practice/tips/writingtipschapterlist';
+import { WritingTipsReader } from '../components/practice/tips/writingtipsreader';
 import {
   PenTool, Sparkles, Send, CheckCircle2, RefreshCw, Trophy, BookOpen,
   ArrowRight,

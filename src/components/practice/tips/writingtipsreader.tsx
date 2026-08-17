@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { GlassPanel } from '../../ui/GlassPanel';
 import { Button } from '../../ui/Button';
 import { ChevronLeft, ChevronRight, Clock } from '../../ui/icons';
-import { TipsBlockRenderer, TipsBlock } from './TipsBlockRenderer';
+import { TipsBlockRenderer, TipsBlock } from './tipsblockrenderer';
 
 interface ChapterPayload {
   id: string;

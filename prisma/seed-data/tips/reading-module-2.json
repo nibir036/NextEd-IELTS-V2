@@ -1,0 +1,1568 @@
+{
+  "modules": [
+    {
+      "id": "b3000002-0002-4000-8000-000000000001",
+      "slug": "reading-module-2-tips-and-tricks",
+      "skill": "reading",
+      "title": "Module 2: IELTS Reading — Tips & Tricks",
+      "subtitle": "The Reading mindset, skimming and scanning, keywords, question types, traps, and the 60-minute battle plan",
+      "description": "The full Reading module from the Zero to Band 9 field guide, preserved in the PDF sequence and organized by Files 08–15.",
+      "position": 2
+    }
+  ],
+  "chapters": [
+    {
+      "id": "b3000002-0002-4000-8000-000000000001",
+      "module_id": "b3000002-0002-4000-8000-000000000001",
+      "slug": "file-08-understanding-ielts-reading-and-the-reading-mindset",
+      "title": "File 08: Understanding IELTS Reading and the Reading Mindset",
+      "position": 1,
+      "estimated_min": 30,
+      "summary": "The IELTS Reading test, the Reading mindset, the LOCATE-IDENTIFY-VERIFY-ANSWER loop, and the three reading gears.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "r_b0001",
+            "type": "heading",
+            "level": 2,
+            "text": "IELTS READING"
+          },
+          {
+            "id": "r_b0002",
+            "type": "paragraph",
+            "text": "Tips & Tricks Reading looks easier than Listening, because the text sits still and waits for you. That is exactly the trap. In Listening the recording controls the clock; in Reading, you do, and most candidates spend their sixty minutes badly, reading every word of the first passage in loving detail and then racing the last one in a panic. This module retrains that instinct completely. IELTS Reading is not a test of whether you can read English. It is a test of whether you can find specific information fast, check that it truly answers the question, and move on before the clock beats you. Those are different skills from ordinary reading, and they can be learned precisely. That is what the next chapters do. We begin, as always, by understanding how the test is actually built."
+          },
+          {
+            "id": "r_b0003",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 1"
+          },
+          {
+            "id": "r_b0004",
+            "type": "paragraph",
+            "text": "UNDERSTANDING IELTS READING The shape of the test Three passages. Forty questions. Sixty minutes. That is the whole test, and every strategy in this module bends to those three numbers. The passages get harder as you go. Passage 1 is the most approachable, Passage 3 the densest. The questions do not get points for difficulty: a hard question in Passage 3 is worth exactly one mark, the same as an easy question in Passage 1. Hold that thought, because it governs how you should spend your time."
+          },
+          {
+            "id": "r_b0005",
+            "type": "paragraph",
+            "text": "The sixty-minute limitation, and why it is the real test Here is the single most important fact about IELTS Reading, and the one most books underplay."
+          },
+          {
+            "id": "r_b0006",
+            "type": "principle",
+            "text": "There is no extra time to transfer or tidy your answers. The sixty minutes is everything. When it ends, your paper ends. Reading is not a reading test with a time limit; it is a time-management test that happens to use reading. Do the arithmetic. Three passages of roughly seven hundred to nine hundred words each, plus forty questions to locate, verify, and answer, all in sixty minutes. That is about twenty minutes per passage including its questions. Within twenty minutes you cannot read nine hundred words slowly, understand every sentence, and then answer thirteen questions carefully. It is"
+          },
+          {
+            "id": "r_b0007",
+            "type": "paragraph",
+            "text": "not possible, and the test knows it is not possible. The test is designed to punish the candidate who tries to read everything. This is why every high scorer reads selectively. Not because careful reading is bad, but because there is no time for it, and spending your minutes on words that hold no answer is how you lose the passage you never reach."
+          },
+          {
+            "id": "r_b0008",
+            "type": "paragraph",
+            "text": "The passages In the Academic test, the three passages are taken from books, journals, magazines, and newspapers, written for a general educated audience. The topics are academic in flavour but never require specialist knowledge; everything you need to answer is in the text. You are never expected to bring outside facts, and doing so is a trap we will name later. If you are sitting the General Training test, your reading uses more everyday texts, notices, advertisements, handbooks, and workplace documents, and they start easier. The good news is that every strategy in this module works identically on both. The techniques do not change; only the texts do."
+          },
+          {
+            "id": "r_b0009",
+            "type": "paragraph",
+            "text": "How you answer On the computer-delivered test, which is now the standard, you type answers or click options directly on screen as you work, and you can highlight text and make notes as you go. Spelling counts in every written answer, exactly as in Listening. There is no separate answer sheet to copy onto and no reward for neatness, only for being right and being finished."
+          },
+          {
+            "id": "r_b0010",
+            "type": "paragraph",
+            "text": "Passage difficulty and what it means for you Because difficulty rises across the three passages, the marks are not evenly easy. Passage 1 usually offers the quickest marks in the test. Passage 3 usually offers the slowest. A candidate who spends thirty minutes perfecting Passage 3 and leaves Passage 1 half-done has traded cheap marks for expensive ones. The battle plan in File 14 turns this into an exact time strategy for each band, but plant the principle now: secure the cheap marks first."
+          },
+          {
+            "id": "r_b0011",
+            "type": "paragraph",
+            "text": "Why reading every word is inefficient Ordinary reading is linear: you start at the top and absorb everything in order. IELTS Reading rewards the opposite. Most questions ask about one specific place in the passage, and the other eighty per cent of the text is irrelevant to that question. Reading it all in advance means reading most of it for no reason, then reading the relevant part again when the question sends you back. The efficient candidate does not read the passage to understand it. They read the passage to build a rough map of where things are, then let each question send them to the exact spot that answers it. Understanding is not the goal. Locating is the goal. This is the reframe the whole module is built on, and Part 2 develops it fully."
+          },
+          {
+            "id": "r_b0012",
+            "type": "paragraph",
+            "text": "How the raw score becomes a band Forty questions, one mark each, no penalty for wrong answers, so you never leave a blank. The raw score converts to the nine-band scale. The table below is indicative for Academic Reading and shifts slightly between versions."
+          },
+          {
+            "id": "r_b0013",
+            "type": "paragraph",
+            "text": "Raw score (out of 40) Band (Academic) 39 to 40 9.0 37 to 38 8.5 35 to 36 8.0 33 to 34 7.5 30 to 32 7.0 27 to 29 6.5 23 to 26 6.0 19 to 22 5.5 15 to 18 5.0"
+          },
+          {
+            "id": "r_b0014",
+            "type": "paragraph",
+            "text": "General Training is marked on a stricter scale, because its texts are easier, so you need more correct answers for the same band. Read your own scale strategically: to reach Band 7 in Academic you can miss eight to ten questions. That means one genuinely hard question is never worth sacrificing three easy ones for."
+          },
+          {
+            "id": "r_b0015",
+            "type": "paragraph",
+            "text": "The question types you will meet Each gets a full chapter later. Recognise the family now: • Multiple choice • True / False / Not Given • Yes / No / Not Given • Matching Headings • Matching Information • Matching Features • Matching Sentence Endings • Sentence Completion • Summary Completion • Note Completion • Table Completion • Flow-chart Completion • Diagram Labelling • Short Answer"
+          },
+          {
+            "id": "r_b0016",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "The most dangerous passage is not Passage 3. It is Passage 1, because that is where over-confident candidates read too slowly and too fully, feeling relaxed, and quietly"
+          },
+          {
+            "id": "r_b0017",
+            "type": "paragraph",
+            "text": "spend the minutes that Passage 3 will later beg for. Guard your clock hardest when the reading feels easy.",
+            "bn": "সবচেয়ে বিপজ্জনক প্যাসেজ ৩ নয়, বরং প্যাসেজ ১, কারণ সহজ মনে হওয়ায় শিক্ষার্থীরা ধীরে ধীরে পুরোটা পড়ে সময় নষ্ট করে, আর সেই সময়টাই পরে প্যাসেজ ৩-এ দরকার হয়।"
+          },
+          {
+            "id": "r_b0018",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 2"
+          },
+          {
+            "id": "r_b0019",
+            "type": "paragraph",
+            "text": "THE READING MINDSET If you take one idea from this whole module, take this one."
+          },
+          {
+            "id": "r_b0020",
+            "type": "principle",
+            "text": "IELTS Reading is not a reading comprehension exercise. It is a location and verification task. You are not trying to understand the passage. You are trying to find the one place that answers each question, confirm it really does, and record the answer. A candidate who reads to understand runs out of time and still gets caught by traps, because understanding the general gist does not tell you whether a specific statement is True, False, or Not Given. A candidate who reads to locate and verify finishes on time and defeats the traps, because they check the exact evidence for every answer."
+          },
+          {
+            "id": "r_b0021",
+            "type": "paragraph",
+            "text": "The four-step loop: LOCATE, IDENTIFY, VERIFY, ANSWER Every Reading question, of every type, is answered by the same four moves. Make this loop automatic. LOCATE. Find the region of the passage the question points to. You do this by scanning for the question’s anchors (names, numbers, dates, distinctive words) or for the paraphrase of its keywords. You are not reading yet; you are hunting for the right neighbourhood. IDENTIFY. Within that region, find the exact sentence or two that address the question. Now you slow down and read closely, but only these lines, not the whole passage. VERIFY. Check that these lines genuinely support your answer. This is the step beginners skip, and skipping it is why they fall for traps. A word matching is not enough; the meaning must match. Ask: does this sentence actually say what the question claims, or something subtly different? ANSWER. Commit, in the exact form required, respecting any word limit and spelling. Locate, identify, verify, answer. Fast, then slow, then careful, then done. When you feel lost on a question, name which of the four steps you are stuck on, and the fix becomes obvious: cannot locate means scan wider; cannot verify means read the surrounding sentences more carefully."
+          },
+          {
+            "id": "r_b0022",
+            "type": "paragraph",
+            "text": "Strategic reading versus passive reading Passive reading takes the passage on its own terms, start to finish, absorbing whatever comes. Strategic reading takes the passage on your terms, driven by the questions, visiting only the parts that pay."
+          },
+          {
+            "id": "r_b0023",
+            "type": "paragraph",
+            "text": "The strategic reader does read the passage, but lightly and with purpose: a quick pass to learn the shape (what each paragraph is broadly about), so that when a question arrives they already know roughly which paragraph to visit. They never read a paragraph in full until a question sends them there. Everything is question-led."
+          },
+          {
+            "id": "r_b0024",
+            "type": "paragraph",
+            "text": "The three gears Strategic reading uses three gears, and knowing when to shift between them is the core skill of Files 09. Skimming is your fast gear: eyes moving quickly to grasp the general idea and the shape of the text. Used to build the map. Scanning is your search gear: eyes hunting for a specific target, a name, a date, a word, ignoring everything else. Used to locate. Close reading is your slow gear: careful reading of a small patch to identify and verify the answer. Used only on the few lines that matter. The beginner has only one gear, close reading, and drives the whole test in it, and runs out of road. The expert shifts constantly: skim to map, scan to locate, close-read to verify, then back to scan for the next question."
+          },
+          {
+            "id": "r_b0025",
+            "type": "paragraph",
+            "text": "Time is the opponent, not the text In Listening, the recording was your opponent. In Reading, the clock is. The text will never speed up or slow down; only your minutes drain. This changes your emotional posture. You must be willing to leave a question, to guess and flag, to abandon a paragraph that is not paying, and above all to refuse to fall in love with a difficult question that is eating your time."
+          },
+          {
+            "id": "r_b0026",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Never spend more than a fixed budget on any single question. If you have located the region and still cannot verify the answer after a reasonable look, mark your best guess, flag it, and move on. One question is one mark. The three questions you did not reach because you were stuck on it are also marks, and you gave them away.",
+            "bn": "কোনো একটি প্রশ্নে নির্দিষ্ট সময়ের বেশি ব্যয় করবেন না। region খুঁজে পাওয়ার পরও উত্তর নিশ্চিত করতে না পারলে, সেরা অনুমানটা দিয়ে চিহ্ন দিয়ে এগিয়ে যান। একটি প্রশ্ন একটি নম্বর; আটকে থেকে তিনটি হারাবেন না।"
+          },
+          {
+            "id": "r_b0027",
+            "type": "paragraph",
+            "text": "EXPERT THINKING: the first ninety seconds with a passage A candidate turns to a new passage of thirteen questions. WHAT A BEGINNER THINKS “I should understand this passage before I answer anything.” Reads all nine hundred words slowly, top to bottom, twice for the hard parts. Twelve minutes gone, zero questions answered, and now rushing. WHAT AN EXPERIENCED STUDENT THINKS “Let me skim first.” Skims in three minutes, gets the gist, then starts the questions, locating each one. Solid, and usually finishes, though sometimes tight on Passage 3."
+          },
+          {
+            "id": "r_b0028",
+            "type": "paragraph",
+            "text": "WHAT AN EXPERT CANDIDATE NOTICES Before reading a word of the body, they glance at the question types. Seeing Matching Headings, they know they need each paragraph’s main idea, so their skim targets topic sentences. Seeing True/False/Not Given, they know those follow passage order and will send them to specific lines, so they do not over-skim. They spend ninety seconds building a paragraph map, then let the questions drive, shifting gears with each one, and finish with time to check. Their reading was shaped by the questions before it began. The difference is not reading speed. It is that the expert reads for the questions, and the beginner reads for understanding the test never asked them to demonstrate."
+          },
+          {
+            "id": "r_b0029",
+            "type": "heading",
+            "level": 2,
+            "text": "PRACTICE"
+          },
+          {
+            "id": "r_b0030",
+            "type": "paragraph",
+            "text": "These opening drills train the loop and the gears without a full passage. Later files build to timed passages. Reasoning keys follow. Read this short original passage once, quickly, as a skim (aim for twenty seconds), then answer. Passage (practice): The tuatara, a reptile found only in New Zealand, is often called a living fossil. Though it resembles a lizard, it belongs to an older order that flourished over two hundred million years ago and has changed little since. Unusually, the tuatara remains active at low temperatures that would leave most reptiles sluggish, and it can live for more than a century. Females lay eggs only once every few years, and the eggs take over a year to hatch, one of the longest incubation periods of any reptile. Conservation efforts on predator-free islands have helped stabilise its numbers after mainland populations vanished."
+          },
+          {
+            "id": "r_b0031",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 8.1 (Level 1): Gist"
+          },
+          {
+            "id": "r_b0032",
+            "type": "paragraph",
+            "text": "In one phrase, what is this passage mainly about? (This is what a skim should leave you with.)"
+          },
+          {
+            "id": "r_b0033",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 8.2 (Level 2): Locate"
+          },
+          {
+            "id": "r_b0034",
+            "type": "paragraph",
+            "text": "For each question, write the first word or phrase you would scan for to find the answer’s region. Do not answer yet, just name your search target. 1. How long can a tuatara live? 2. Where do conservation efforts take place? 3. How often do females lay eggs?"
+          },
+          {
+            "id": "r_b0035",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 8.3 (Level 2): Locate, identify, verify, answer"
+          },
+          {
+            "id": "r_b0036",
+            "type": "paragraph",
+            "text": "Answer these, and for each, name the sentence you verified against. 1. The tuatara is found in more than one country. (True / False / Not Given) 2. The tuatara’s eggs hatch quickly. (True / False / Not Given) 3. The tuatara can stay active in cold conditions. (True / False / Not Given)"
+          },
+          {
+            "id": "r_b0037",
+            "type": "heading",
+            "level": 2,
+            "text": "ANSWER KEY AND REASONING"
+          },
+          {
+            "id": "r_b0038",
+            "type": "paragraph",
+            "text": "Drill 8.1 Something like: “the tuatara, a rare, ancient New Zealand reptile with unusual biology and its conservation.” A good skim leaves you with the topic and shape, not the details. If you came away trying to remember the incubation figure, you skimmed too slowly; the figures are what you return for when a question asks. Drill 8.2 1. Scan for live / century / years (a lifespan). The word “century” is a strong, unusual anchor. 2. Scan for conservation / islands. “Predator-free islands” is distinctive. 3. Scan for eggs / lay / every few years. “Lay eggs” is the target. The lesson: you locate by choosing a distinctive target and hunting only for it, ignoring the rest of the text. You are scanning, not reading. Drill 8.3 1. False. Verify against: “found only in New Zealand.” The word “only” contradicts “more than one country.” This is a contradiction, not an absence, so False rather than Not Given. (The full logic is the TFNG masterclass in File 12.) 2. False. Verify against: “the eggs take over a year to hatch, one of the longest incubation periods.” “Quickly” is contradicted by “over a year” and “longest.” A word from the question, “hatch,” appears in the passage, but the meaning is the opposite. This is exactly why verification matters. 3. True. Verify against: “remains active at low temperatures that would leave most reptiles sluggish.” “Low temperatures” paraphrases “cold conditions,” and “remains active” matches “stay active.” The lesson across all three: never answer on a matching word alone. In question 2, the word “hatch” matched but the meaning reversed. You located the region, then you verified the meaning, and the verification is what saved you. This four-step loop, run on every question, is the whole of Reading."
+          },
+          {
+            "id": "r_b0039",
+            "type": "paragraph",
+            "text": "Understanding IELTS Reading and the Reading Mindset. Next: File 09, the Skimming and Scanning Masterclass and the skim-scan-read switch."
+          }
+        ]
+      }
+    },
+    {
+      "id": "b3000002-0002-4000-8000-000000000002",
+      "module_id": "b3000002-0002-4000-8000-000000000001",
+      "slug": "file-09-skimming-scanning-and-the-skim-scan-read-switch",
+      "title": "File 09: Skimming, Scanning, and the Skim-Scan-Read Switch",
+      "position": 2,
+      "estimated_min": 30,
+      "summary": "How to skim, scan, and switch to close reading at exactly the right moment.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "r_b0001",
+            "type": "paragraph",
+            "text": "The Reading Mindset gave you three gears: skim to map, scan to locate, close-read to verify. This file is the driving lesson. It teaches exactly what your eyes do in each gear and, crucially, the precise moments you shift between them. Vague advice like “skim the passage” is useless. By the end of this file you will know what to read, what to ignore, how long to spend, and when to stop."
+          },
+          {
+            "id": "r_b0002",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 3"
+          },
+          {
+            "id": "r_b0003",
+            "type": "paragraph",
+            "text": "THE SKIMMING MASTERCLASS What skimming actually is Skimming is not reading fast. Reading fast still means reading every word, only quicker, and it still fails, because your eyes cannot absorb nine hundred words at speed and hold them. Skimming is selective sampling: you deliberately read a small fraction of the text, chosen because it carries the most meaning, and you deliberately ignore the rest. The purpose of a skim is not to understand the passage. It is to build a paragraph map: a rough sense of what each paragraph is about and how the passage is shaped. With that map, when a question arrives, you already know which paragraph to visit. That is all a skim is for. If you finish a skim able to say “paragraph 2 is about causes, paragraph 3 is about one scientist’s objection, paragraph 4 is about the modern view,” your skim succeeded, even if you could not recall a single statistic."
+          },
+          {
+            "id": "r_b0004",
+            "type": "paragraph",
+            "text": "Exactly what your eyes read during a skim Here is the granular routine. Follow it in order. The title. Always read it, fully. It names the topic in a few words and primes everything else. Free information; never skip it. Any subheadings or section labels. If the passage has them, read every one. They hand you the structure for nothing. The first paragraph, more fully than the rest. The introduction frames the whole passage: the topic, often the writer’s angle, sometimes a preview of what is coming. Read most of it, not just the first line. Each body paragraph’s first sentence. The topic sentence usually announces what the paragraph is about, so read it. This is where most of your skim’s value comes from. The second sentence, when the first one does not deliver. Here is the nuance almost no book teaches:"
+          },
+          {
+            "id": "r_b0005",
+            "type": "principle",
+            "text": "The opening line of a paragraph reveals its direction, but it is not automatically the complete main idea. Sometimes the first sentence is a hook, a question, an example, or a piece of background, and the real point arrives in the second sentence, or at the end. So if a paragraph opens with “Consider the humble bee,” or “In 1850, few would have predicted this,” or a rhetorical question, that is a lead-in, not the main idea. When the first sentence does not tell you what the paragraph is about, read the second sentence, and if needed glance at the last. The last sentence, when a paragraph turns or concludes. Some paragraphs save their point for the end, or reverse direction late with “however” or “yet.” A quick look at the final sentence catches these. What you skip. Examples, lists, long descriptions, statistics, quotations, and supporting detail. You do not read these during a skim. You note only that they are there and roughly where, so you can return if a question needs them."
+          },
+          {
+            "id": "r_b0006",
+            "type": "paragraph",
+            "text": "What your eyes snag on while skimming Even as you sample topic sentences, let certain things catch your eye and register their location (not their content). These become your scanning anchors later: • Names of people, places, organisations (capital letters make them pop) • Dates and numbers • Technical or unusual terms, often the passage’s key concepts • Words repeated across paragraphs (a repeated word signals a central theme) • Contrast words (however, but, although, in contrast) that mark a turn in the argument You are not reading these; you are photographing where they sit, so that when a question mentions “1850” or “Professor Adeyemi,” your eye already knows which region to jump to."
+          },
+          {
+            "id": "r_b0007",
+            "type": "paragraph",
+            "text": "How long, and when to stop A skim of one passage should take roughly two to three minutes, no more. The moment you have a paragraph map, stop. Skimming past that point is just slow reading in disguise, and it burns the minutes the questions need. You stop skimming when you can describe the shape of the passage in a sentence, or when you simply run out of your time budget for it, whichever comes first."
+          },
+          {
+            "id": "r_b0008",
+            "type": "paragraph",
+            "text": "Beginner mistakes and the expert approach Beginner: reads every word at slightly higher speed, calls it skimming, finishes exhausted with no map and no time saved. Expert: reads title, subheads, first paragraph, and topic sentences, drops to the second or last sentence only when the first fails, ignores all detail, and emerges in two minutes with a clear map and their anchors located."
+          },
+          {
+            "id": "r_b0009",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "After a good skim you should be able to answer, for each paragraph, “what job does this paragraph do?” in three or four words: gives background, introduces a problem, offers a solution, raises an objection, gives an example. If you cannot, you skimmed for facts instead of for structure. Structure is what the map needs.",
+            "bn": "ভালো স্কিমের পর প্রতিটি প্যারাগ্রাফ সম্পর্কে বলতে পারা উচিত, “এই প্যারার কাজ কী?” (পটভূ মি দেয়, সমস্যা তোলে, সমাধান দেয়, আপত্তি জানায়)। না পারলে আপনি তথ্য খুঁজেছেন, কাঠামো নয়।"
+          },
+          {
+            "id": "r_b0010",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 4"
+          },
+          {
+            "id": "r_b0011",
+            "type": "paragraph",
+            "text": "THE SCANNING MASTERCLASS What scanning is Scanning is the opposite of skimming. In skimming you sample for general shape; in scanning you hunt for one specific target and ignore everything else, including meaning. Your eyes become a search tool set to a single pattern. When you scan a page for a phone number, you do not read the page; you let the shape of digits pop out. That is exactly the skill, applied to IELTS."
+          },
+          {
+            "id": "r_b0012",
+            "type": "paragraph",
+            "text": "How to scan, physically Do not read line by line. Let your eyes move down and across the text in a loose sweep, holding your target in mind, waiting for it to jump out. Do not say the words in your head; subvocalising slows you to reading speed and defeats the purpose. You are pattern-matching, not reading. When the target appears, then you stop and slow down."
+          },
+          {
+            "id": "r_b0013",
+            "type": "paragraph",
+            "text": "When to use scanning You scan after skimming, to perform the LOCATE step of the loop. Each question gives you something to hunt for; you scan the passage (guided by your map to the likely region) until you find it, then switch gears to close reading."
+          },
+          {
+            "id": "r_b0014",
+            "type": "paragraph",
+            "text": "What to scan for: choose the easiest target Some targets are far easier to spot than others. Always choose the most distinctive thing the question gives you. Easiest to scan for (spot these first): • Names of people, places, organisations (capital letters) • Numbers, dates, percentages, measurements • Capitalised or italicised technical terms • Unusual or distinctive words unlikely to repeat • Specific locations"
+          },
+          {
+            "id": "r_b0015",
+            "type": "paragraph",
+            "text": "These are the anchors from File 02, and the same principle carries into Reading: names, numbers, and dates are rarely paraphrased, so when a question contains one, scan for it and you will land almost on top of the answer. Harder to scan for (when there is no anchor): Some questions offer only common words, “the writer suggests that children benefit from routine.” There is no capital letter or number to hunt. Now you must scan for the paraphrase of the concept, “children” might appear as “the young,” “benefit” as “gain” or “thrive,” “routine” as “regular structure.” This is slower and needs the paraphrase skill from File 02. When a question has no hard anchor, slow your scan and hunt for meaning, not a word."
+          },
+          {
+            "id": "r_b0016",
+            "type": "paragraph",
+            "text": "Worked scanning example Passage (practice): The cork oak is an evergreen tree native to the western Mediterranean, especially Portugal, which today produces around half of the world’s cork. Unlike most trees, the cork oak can be stripped of its bark without being killed, because it regenerates a fresh layer from a living tissue called the cork cambium. A tree is first harvested at about twenty-five years old, and thereafter only once every nine years, so a single oak may be stripped a dozen times across a lifespan that can exceed two hundred years. The resulting landscapes, known in Portugal as montado, support rich wildlife and have been managed sustainably for centuries. Question: “At what age is a cork oak first harvested?” Scan for the number, not the meaning. Your eyes sweep for digits and land on “twenty-five years old.” The answer, twenty-five (years), sits right there. You did not read the passage; you hunted a number and found it in seconds. That is scanning."
+          },
+          {
+            "id": "r_b0017",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "When a question contains a number, a name, or a date, do not read towards the answer. Scan for that exact anchor and let it pull your eye to the spot. Reading from the top wastes the gift the question just handed you.",
+            "bn": "প্রশ্নে সংখ্যা, নাম বা তারিখ থাকলে উপর থেকে পড়া শুরু করবেন না। ঠিক সেই anchor খুঁজে scan করুন, চোখ নিজেই জায়গায় পৌঁছে যাবে।"
+          },
+          {
+            "id": "r_b0018",
+            "type": "heading",
+            "level": 2,
+            "text": "THE SWITCH: SKIM, THEN SCAN, THEN READ DEEPLY"
+          },
+          {
+            "id": "r_b0019",
+            "type": "paragraph",
+            "text": "Knowing the three gears is not enough. Bands are won by shifting between them at the right moments. Here is the exact sequence for a passage, with the trigger for each shift. Gear 1, skim (about two to three minutes). Trigger to start: you turn to a new passage. Trigger to stop: you have a paragraph map. Then shift down. Gear 2, scan (seconds per question). Trigger to start: you read a question and pick its anchor or concept. You scan the likely region for it. Trigger to stop: you find the region. Then shift down again."
+          },
+          {
+            "id": "r_b0020",
+            "type": "paragraph",
+            "text": "Gear 3, close read (a small patch only). Trigger to start: you have located the region. Now read the two or three relevant sentences carefully to identify the exact answer and verify it. Trigger to stop: you have a verified answer. Then shift back up to Gear 2 for the next question. The rhythm of a whole passage is therefore: one skim, then for each question a scan-and-read, with your eyes constantly changing speed. The beginner drives the entire passage in Gear 3 and stalls. The expert is always shifting."
+          },
+          {
+            "id": "r_b0021",
+            "type": "paragraph",
+            "text": "A full walkthrough Using the cork oak passage above, watch the gears shift across two questions. First, the skim (twenty seconds): title-less here, so read the first sentence, “cork oak, Mediterranean, Portugal, half the world’s cork,” and note the shape: what it is and where, then how it is harvested, then the landscape. Map built. Anchors snagged: Portugal, twenty-five years, nine years, two hundred years, cork cambium, montado. Question A: “What proportion of the world’s cork does Portugal produce?” • Scan for a proportion or number near “Portugal.” Eyes jump to “around half of the world’s cork.” • Close read that clause to verify it is Portugal (yes) and a proportion (half). Answer: half / around half. Verified, done. Question B: “The cork oak survives having its bark removed because of a special ____.” • Scan for the region about bark removal. “Stripped of its bark without being killed” is the spot. • Close read: “because it regenerates a fresh layer from a living tissue called the cork cambium.” The gap needs the reason it survives, a special tissue. Answer: (cork) cambium, or “living tissue,” trimmed to the word limit. Verified against the exact clause. Notice you never read the montado sentence or the lifespan detail, because no question sent you there. That is strategic reading: you visited only what paid."
+          },
+          {
+            "id": "r_b0022",
+            "type": "paragraph",
+            "text": "EXPERT THINKING: choosing the gear A question reads: “In which year did cork production become industrialised?” but the passage never gives such a year. WHAT A BEGINNER THINKS Reads the whole passage again slowly looking for the year, twice, finding nothing, losing three minutes. WHAT AN EXPERIENCED STUDENT THINKS Scans for a date, finds only “twenty- five,” “nine,” “two hundred,” none about industrialisation, and starts to suspect the answer is not there. WHAT AN EXPERT CANDIDATE NOTICES Scans for a date in seconds, sees none fits industrialisation, and immediately concludes the information is absent, which for a True/False/Not Given item points straight to Not Given, and for a completion item"
+          },
+          {
+            "id": "r_b0023",
+            "type": "paragraph",
+            "text": "means the anchor is wrong and the question is about a different region. Either way they spend fifteen seconds, not three minutes. Knowing the gear tells them how long to look before deciding the target is not there. The lesson: scanning does not only find answers. A fast scan that finds nothing is itself information, and the expert reads that silence correctly instead of re-reading in a panic."
+          },
+          {
+            "id": "r_b0024",
+            "type": "heading",
+            "level": 2,
+            "text": "PRACTICE"
+          },
+          {
+            "id": "r_b0025",
+            "type": "paragraph",
+            "text": "Reasoning keys follow. Use the cork oak and tuatara passages, plus this new one. Passage (practice, for skim and switch drills): For centuries, the position of a ship at sea could be found north to south by measuring the stars, but its east-west position, or longitude, defeated the finest minds in Europe. The problem was really one of time: to know your longitude, you needed to compare local time with the time at a fixed reference point, and no clock of the era could keep accurate time on a rolling, damp, temperature-changing ship. In 1714, the British government offered a vast prize for a solution. Most experts expected it to come from astronomy. Instead it came from a self- taught carpenter, John Harrison, who spent decades building a series of remarkable sea clocks. His fourth design finally proved accurate enough, though he struggled for years to be paid the reward he was owed."
+          },
+          {
+            "id": "r_b0026",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 9.1 (Level 1): Skim for structure"
+          },
+          {
+            "id": "r_b0027",
+            "type": "paragraph",
+            "text": "Skim the longitude passage in about thirty seconds. Then write, in three or four words each, the job of the passage overall and what the final sentences add."
+          },
+          {
+            "id": "r_b0028",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 9.2 (Level 2): Scan for anchors"
+          },
+          {
+            "id": "r_b0029",
+            "type": "paragraph",
+            "text": "Find each as fast as you can and write it: 1. The year the prize was offered. 2. The name of the person who solved it. 3. What his profession had been."
+          },
+          {
+            "id": "r_b0030",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 9.3 (Level 2): First sentence or deeper?"
+          },
+          {
+            "id": "r_b0031",
+            "type": "paragraph",
+            "text": "Look at the opening of the longitude passage: “For centuries, the position of a ship at sea could be found north to south by measuring the stars…” Is this first clause the main idea of the passage, or a lead-in? What tells you, and where is the real subject introduced?"
+          },
+          {
+            "id": "r_b0032",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 9.4 (Level 3): The full switch"
+          },
+          {
+            "id": "r_b0033",
+            "type": "paragraph",
+            "text": "Answer using skim, then scan, then close read. Name the sentence you verified against. 1. What was the real nature of the longitude problem? 2. Where did most experts expect the solution to come from?"
+          },
+          {
+            "id": "r_b0034",
+            "type": "heading",
+            "level": 2,
+            "text": "ANSWER KEY AND REASONING"
+          },
+          {
+            "id": "r_b0035",
+            "type": "paragraph",
+            "text": "Drill 9.1"
+          },
+          {
+            "id": "r_b0036",
+            "type": "paragraph",
+            "text": "Overall job: “explains how longitude was solved,” or “a historical problem and its unexpected solver.” The final sentences add: “the solver was an outsider and was underpaid / struggled for the reward.” A good skim gives you this arc without the detail. If you came away reciting “1714” but unsure of the overall story, you scanned when you should have skimmed. Drill 9.2 1. 1714 (scan for digits). 2. John Harrison (scan for a capitalised name). 3. A (self-taught) carpenter (scan near the name). Each was found by hunting a distinctive target, not by reading. Drill 9.3 It is a lead-in, not the main idea. The first clause is about the north-south position, which is the easy, already-solved part, used as a contrast to set up the real topic. The tell is the structure: “could be found north to south by the stars, but its east-west position, or longitude, defeated the finest minds.” The word “but” turns the sentence, and the real subject, longitude, arrives after it. This is exactly the case where reading only the first few words misleads you; you must read to the “but.” It illustrates the principle that opening lines show direction but are not always the main idea. Drill 9.4 1. The longitude problem was really a problem of time / keeping accurate time at sea. Verify against: “The problem was really one of time… no clock of the era could keep accurate time on a rolling, damp, temperature-changing ship.” You scanned to the second sentence (the region about the nature of the problem) and close-read it to verify. 2. Astronomy / the stars. Verify against: “Most experts expected it to come from astronomy.” A quick scan for “experts” or “expected” locates it; close reading confirms astronomy, and the “instead” that follows confirms the solution came from elsewhere. The lesson: every answer came from the same rhythm. Skim once for the map, scan to the region, close-read the few lines to verify. You read perhaps a third of the passage and answered everything asked. That efficiency, not reading speed, is what finishes the test on time."
+          },
+          {
+            "id": "r_b0037",
+            "type": "paragraph",
+            "text": "Skimming, Scanning, and the Skim-Scan-Read Switch. Next: File 10, Keyword Strategy and Paraphrase Recognition in Reading."
+          }
+        ]
+      }
+    },
+    {
+      "id": "b3000002-0002-4000-8000-000000000003",
+      "module_id": "b3000002-0002-4000-8000-000000000001",
+      "slug": "file-10-keyword-strategy-and-paraphrase-recognition",
+      "title": "File 10: Keyword Strategy and Paraphrase Recognition in Reading",
+      "position": 3,
+      "estimated_min": 30,
+      "summary": "Keyword selection, anchors, paraphrase recognition, and the traps created by matching words without matching meaning.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "r_b0001",
+            "type": "paragraph",
+            "text": "You met keywords and paraphrase in Listening. They matter just as much in Reading, but they behave differently, and the differences decide marks. Two changes are central. First, the text stays still, so you can re-read, which removes any excuse for answering on a hunch: if you cannot point to the exact sentence that proves your answer, you have not finished. Second, and more importantly:"
+          },
+          {
+            "id": "r_b0002",
+            "type": "principle",
+            "text": "The passage almost never uses the same words as the question. Finding a question’s word sitting in the passage is usually a trap, not a discovery. The real answer is written in different language nearby. Keyword strategy tells you what to hunt for. Paraphrase recognition tells you what it will look like when you find it. Together they are how you locate and verify. Let us make each precise."
+          },
+          {
+            "id": "r_b0003",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 5"
+          },
+          {
+            "id": "r_b0004",
+            "type": "paragraph",
+            "text": "KEYWORD STRATEGY IN READING The two jobs a keyword does Every question keyword does one of two jobs, and you must know which. Job one: the anchor you scan for. If a keyword is a name, number, date, or distinctive term, it will appear in the passage almost unchanged, so you scan for it to locate the region. These are your fast, reliable keywords. Job two: the concept you match by meaning. If a keyword is an ordinary content word (benefit, decline, cause, difficult), it will be paraphrased in the passage, so you cannot scan for the word itself. Instead you hold its meaning and hunt for that meaning in different words. These keywords are slower and require the paraphrase skill. Before you scan, sort your keyword: is this an anchor I can hunt for directly, or a concept I must match by meaning? Choosing wrong wastes time. Scanning for the word “important” is useless, because it will not be there; scanning for “1714” or “Harrison” lands you on the spot."
+          },
+          {
+            "id": "r_b0005",
+            "type": "paragraph",
+            "text": "Selecting strong keywords, avoiding generic ones In each question, mark the one or two words that carry its specific meaning, and ignore the rest. Prefer the distinctive over the common. Strong keywords are specific and content-rich: a particular noun, a precise verb, a named thing. They point somewhere."
+          },
+          {
+            "id": "r_b0006",
+            "type": "paragraph",
+            "text": "Generic keywords are broad and appear everywhere: problem, change, people, information, important, area, time, way. They point nowhere, because the whole passage is full of them. Never build your search on a generic word. Given the question “What problem did early clockmakers face at sea?”, the word “problem” is generic and useless to scan for. The strong keywords are “clockmakers” and “at sea,” and the concept is the difficulty itself, which the passage may word as “defeated the finest minds” or “no clock could keep accurate time.” Mark the strong words, hold the concept."
+          },
+          {
+            "id": "r_b0007",
+            "type": "paragraph",
+            "text": "The word-match trap, named and developed This is the most common Reading error, so we name it plainly."
+          },
+          {
+            "id": "r_b0008",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Finding the same word in the passage does not mean you have found the answer. The exam deliberately plants a question’s word in the wrong place, or in a sentence that means something different, precisely because tired candidates grab the first word- match and stop. Match the meaning, never just the word.",
+            "bn": "প্যাসেজে প্রশ্নের একই শব্দ পাওয়া মানেই উত্তর পাওয়া নয়। পরীক্ষা ইচ্ছে করে সেই শব্দটা ভু ল জায়গায় বসিয়ে রাখে। শব্দ নয়, অর্থ মেলান। The passage might use the word “expensive” in paragraph two while discussing something irrelevant to your question, and use the idea of expense, worded as “beyond the reach of ordinary families,” in paragraph four where your answer actually lives. The candidate who scanned for “expensive” answers from the wrong paragraph. The candidate who held the concept finds the right one."
+          },
+          {
+            "id": "r_b0009",
+            "type": "paragraph",
+            "text": "Predicting synonyms before you scan For a concept keyword, spend a moment before scanning to predict how the passage might reword it, exactly as in Listening. If the keyword is “decline,” prepare: fall, drop, decrease, dwindle, shrink, go down. Now your eye recognises any of them. This turns a slow meaning- scan into a faster one, because you have given your eye a small set of shapes to watch for instead of a vague idea."
+          },
+          {
+            "id": "r_b0010",
+            "type": "paragraph",
+            "text": "Reading around the keyword Here is a subtlety that wins marks. When you locate a keyword, the answer is usually not the keyword itself but the words around it. So do not read only the keyword; read the whole sentence it sits in, and often the sentence before and after. Question: “Why was Harrison not paid promptly?” You scan to “Harrison” and “reward.” The keyword region is: “he struggled for years to be paid the reward he was owed.” The answer to “why” is in the surrounding idea, that he had to struggle and was owed it, implying resistance or dispute. The keyword located the region; the neighbouring words held the answer. The beginner reads the keyword and its half-sentence and stops. The expert reads the whole local neighbourhood, because answers hide in the sentences next to the keyword as often as in the keyword’s own clause."
+          },
+          {
+            "id": "r_b0011",
+            "type": "paragraph",
+            "text": "Verifying evidence The final discipline: an answer is not finished until you can point to the specific sentence that proves it. If someone asked “how do you know?” you should be able to put your finger on the line. If you cannot, you have guessed, not verified. In Reading, unlike Listening, the evidence is right there on the page, so there is no excuse for an unverified answer, only impatience."
+          },
+          {
+            "id": "r_b0012",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 6"
+          },
+          {
+            "id": "r_b0013",
+            "type": "paragraph",
+            "text": "PARAPHRASE RECOGNITION IN READING This is a major chapter, because paraphrase is the engine of the whole Reading test. Every answer is a match between the meaning of a question and the meaning of a sentence written in different words. Learn the forms paraphrase takes and you learn to see through the disguise."
+          },
+          {
+            "id": "r_b0014",
+            "type": "principle",
+            "text": "Same meaning, different language. Your job on every question is to recognise that the passage sentence and the question say the same thing in different words, or to recognise that they do not quite."
+          },
+          {
+            "id": "r_b0015",
+            "type": "paragraph",
+            "text": "The forms of paraphrase in Reading 1. Synonym. One word swapped for a close equivalent. - Question “expensive” becomes passage “costly,” “dear,” “beyond most budgets.” 2. Word-family change (grammatical transformation). The idea keeps, the part of speech changes. Reading loves this. - “industrialise” (verb) becomes “industrialisation” (noun) becomes “industrial” (adjective) - Question “the decline of the industry” becomes passage “as the industry declined” - Question “scientists disagreed” becomes passage “there was disagreement among scientists” 3. Active and passive. The same fact from the other side. - Question “the government funded the project” becomes passage “the project was funded by the government.” 4. Noun and verb swaps. A specific and frequent case of word-family change. - Question “the invention of the clock” becomes passage “when the clock was invented.” 5. Description or definition. A single word is replaced by its meaning spelled out. Very common in Reading, and easy to miss. - Question “longitude” becomes passage “a ship’s east- west position” - Question “nocturnal” becomes passage “active at night” 6. Numerical paraphrase. Numbers reworded as words, fractions, multiples, or proportions. - Question “half” becomes passage “fifty per cent,” “one in two,” “around 50%” - Question “doubled” becomes passage “rose to twice its former level” 7. Comparative paraphrase. Treated in full below, because it is the biggest single source of True/False/Not Given errors."
+          },
+          {
+            "id": "r_b0016",
+            "type": "paragraph",
+            "text": "8. Conceptual paraphrase. The whole idea rebuilt with no shared words at all. - Question “the solution came from an unexpected source” becomes passage “instead it came from a self-taught carpenter.”"
+          },
+          {
+            "id": "r_b0017",
+            "type": "paragraph",
+            "text": "Comparative paraphrase: read this section twice Comparisons are reworded constantly, and small changes flip the meaning. Master three moves. Move A: the same comparison from the other direction. These pairs mean the same thing: - “A is more common than B” equals “B is less common than A” - “prices rose faster than wages” equals “wages rose more slowly than prices” - “the tuatara lives longer than most reptiles” equals “most reptiles live shorter lives than the tuatara” If a question reverses the direction but also reverses the comparison word, the meaning is unchanged, and the answer is True. Move B: the direction that is NOT reversed. Danger. These do not mean the same: - “prices rose faster than wages” is the opposite of “wages rose faster than prices” If the question keeps the same comparison word but swaps which thing is greater, the meaning flips, and the answer is usually False. Read comparisons slowly and check which item is the larger one. Move C: comparative versus superlative. A comparison is not a claim of being the most. - “A is more common than B” does NOT mean “A is the most common of all.” The passage supporting the first does not support the second. Claiming the superlative from a mere comparative is a classic overreach, and the answer is often Not Given, because the passage never said A was the most common overall."
+          },
+          {
+            "id": "r_b0018",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "On any comparison, ask two questions: which item is being claimed as greater, and how strong is the claim (more than one thing, or more than everything). Reverse the wrong item and the meaning flips; upgrade “more than some” into “more than all” and you have invented a claim the passage never made. Both are favourite traps.",
+            "bn": "যেকোনো তুলনায় দুটো প্রশ্ন করুন: কোনটা বড় বলা হচ্ছে, আর দাবিটা কতটা শক্ত (একটার চেয়ে বেশি, নাকি সবার চেয়ে বেশি)। ভু ল জিনিসটাকে বড় বানালে অর্থ উল্টে যায়; “কিছু র চেয়ে বেশি”-কে “সবার চেয়ে বেশি” বানালে নতুন দাবি তৈরি হয়।"
+          },
+          {
+            "id": "r_b0019",
+            "type": "paragraph",
+            "text": "The near-paraphrase that shifts meaning Not every reworded sentence is a true paraphrase. The exam’s sharpest trap is the near paraphrase: a sentence that looks like a match but changes the meaning by a degree. “Many scientists believed” is not “all scientists believed.” “The plan might succeed” is not “the plan will succeed.” “It contributed to the problem” is not “it caused the problem.” These small shifts, some, many, all, might, will, contributed, caused, are where True quietly becomes False or Not Given. We build the full trap library in File 13, but start watching these words now: they are the hinge on which meaning turns."
+          },
+          {
+            "id": "r_b0020",
+            "type": "paragraph",
+            "text": "EXPERT THINKING: word-match versus meaning-match Question: “The cork oak is found across the whole Mediterranean.” The passage says: “native to the western Mediterranean, especially Portugal.” WHAT A BEGINNER THINKS Sees “Mediterranean” in both, matches the word, answers True. Trapped. WHAT AN EXPERIENCED STUDENT THINKS Notices “whole” versus “western,” hesitates, reads again, and gets it, but slowly. WHAT AN EXPERT CANDIDATE NOTICES Reads for meaning from the start. The question claims the whole Mediterranean; the passage says only the western part. That is a narrower area, so the question’s broader claim is contradicted. Answer: False. The shared word “Mediterranean” was the bait; the words “whole” and “western” carried the real meaning. The lesson repeats: match the meaning, not the word, and watch the small words that quietly change the size of a claim."
+          },
+          {
+            "id": "r_b0021",
+            "type": "heading",
+            "level": 2,
+            "text": "PRACTICE"
+          },
+          {
+            "id": "r_b0022",
+            "type": "paragraph",
+            "text": "Reasoning keys follow. Use the cork oak, longitude, and tuatara passages from File 09 where referenced."
+          },
+          {
+            "id": "r_b0023",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 10.1 (Level 2): Sort the keyword"
+          },
+          {
+            "id": "r_b0024",
+            "type": "paragraph",
+            "text": "For each question keyword, write A if it is an anchor to scan for, or C if it is a concept to match by meaning. 1. 1714 2. difficult 3. Harrison 4. benefit 5. Portugal 6. decline"
+          },
+          {
+            "id": "r_b0025",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 10.2 (Level 2): Predict the paraphrase"
+          },
+          {
+            "id": "r_b0026",
+            "type": "paragraph",
+            "text": "Write two rewordings the passage might use for each. 1. invented 2. rare 3. sustainable 4. lives a long time"
+          },
+          {
+            "id": "r_b0027",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 10.3 (Level 3): Match question to passage sentence"
+          },
+          {
+            "id": "r_b0028",
+            "type": "paragraph",
+            "text": "Match each question sentence (1 to 4) to the passage sentence (A to D) with the same meaning, and name the paraphrase type. Questions: 1. The clock had to work in changing temperatures. 2. Harrison taught himself. 3. The solution surprised the experts. 4. Cork can be removed without killing the tree. Passage: A. “a self-taught carpenter” B. “stripped of its bark without being killed” C. “temperature-changing ship” D. “Most experts expected it to come from astronomy. Instead…”"
+          },
+          {
+            "id": "r_b0029",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 10.4 (Level 4): Comparative paraphrase"
+          },
+          {
+            "id": "r_b0030",
+            "type": "paragraph",
+            "text": "Decide whether each question means the SAME as the passage sentence, the OPPOSITE, or MORE than the passage supports. Passage: “The cork oak produces around half of the world’s cork, more than any other single country’s output.” 1. “No country produces more cork than the region described.” (same / opposite / more) 2. “The cork oak’s region is the world’s largest single producer of cork.” (same / opposite / more) 3. “Other countries together produce less than the cork oak region.” (same / opposite / more)"
+          },
+          {
+            "id": "r_b0031",
+            "type": "heading",
+            "level": 2,
+            "text": "ANSWER KEY AND REASONING"
+          },
+          {
+            "id": "r_b0032",
+            "type": "paragraph",
+            "text": "Drill 10.1 1. A (a date, scan for it). 2. C (concept, will be reworded as “hard,” “defeated,” “no clock could”). 3. A (a name). 4. C (concept, “gain,” “help,” “advantage”). 5. A (a place name). 6. C (concept, “fall,” “drop,” “decrease”). Lesson: anchors you hunt for by shape; concepts you hunt for by meaning. Knowing which before you scan saves the time wasted hunting for a word that was always going to be paraphrased. Drill 10.2 (samples) 1. invented: “was invented,” “the invention of,” “devised,” “created.” 2. rare: “uncommon,” “seldom found,” “few remain,” “scarce.” 3. sustainable: “managed without harm,” “able to continue for centuries,” “not depleting the resource.” 4. lives a long time: “can exceed two hundred years,” “a long lifespan,” “survives for over a century.” Lesson: predicting rewordings primes your eye to recognise the concept when it appears dressed differently. Drill 10.3"
+          },
+          {
+            "id": "r_b0033",
+            "type": "paragraph",
+            "text": "1 to C (word-family change: “changing temperatures” becomes “temperature-changing”). 2 to A (description/word-family: “taught himself” becomes “self-taught”). 3 to D (conceptual paraphrase: “surprised the experts” becomes “experts expected… Instead”). 4 to B (description: “removed without killing” becomes “stripped of its bark without being killed”). Lesson: in every match the meaning is identical while the words differ. Naming the paraphrase type trains you to expect that type next time. Drill 10.4 1. Same. “No country produces more” equals “more than any other single country.” Same comparison, reversed direction with a reversed word (Move A). True. 2. Same. “Largest single producer” equals “more than any other single country’s output,” i.e. the biggest single one. This matches, because the passage did claim it beats every other single country. Same. 3. More than supported. The passage compares the cork oak region to each other single country, not to all others combined. “Other countries together” is a new, bigger claim the passage never makes. This is the comparative-to-superlative overreach (Move C). The passage does not support it, so a True/False/Not Given item here would be Not Given. Lesson: comparisons turn on which items are compared and how strong the claim is. Number 3 looks like a fair restatement but quietly changes “any other single country” into “all others combined,” which the text never addresses. Read every comparison for direction and strength before you commit."
+          },
+          {
+            "id": "r_b0034",
+            "type": "paragraph",
+            "text": "Strategy and Paraphrase Recognition in Reading. Next: File 11, Question Order and Reading Question Types, Part One."
+          }
+        ]
+      }
+    },
+    {
+      "id": "b3000002-0002-4000-8000-000000000004",
+      "module_id": "b3000002-0002-4000-8000-000000000001",
+      "slug": "file-11-question-order-and-reading-question-types-part-one",
+      "title": "File 11: Question Order and Reading Question Types, Part One",
+      "position": 4,
+      "estimated_min": 35,
+      "summary": "Question order and the first family of IELTS Reading question types.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "r_b0001",
+            "type": "paragraph",
+            "text": "Before we open the question types one by one, you need to understand question order, because it changes how you hunt for every answer. Then we begin the type-by-type masterclasses with the four types where order matters most: multiple choice and the three matching types."
+          },
+          {
+            "id": "r_b0002",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 7"
+          },
+          {
+            "id": "r_b0003",
+            "type": "paragraph",
+            "text": "QUESTION ORDER The general rule, and why it helps For many Reading question types, the questions follow the order of the passage. The answer to question 3 appears in the text before the answer to question 4, which appears before question 5, and so on. This is enormously useful, because it means you do not search the whole passage for every question. Once you have found the answer to question 3 at, say, paragraph two, you know question 4’s answer is after that point. Your search shrinks with every answer you place. Used well, order turns the passage into a one-way street: you move forward through it as you move down the questions, never re-scanning ground you have already covered."
+          },
+          {
+            "id": "r_b0004",
+            "type": "paragraph",
+            "text": "Which types follow order, and which do not Generally follow passage order: • True / False / Not Given and Yes / No / Not Given • Sentence completion • Summary completion (when drawn from one section) • Note, table, and flow-chart completion • Short answer • Multiple choice (usually) • Matching sentence endings For these, work top to bottom and let each answer narrow the search for the next. Do NOT reliably follow order: • Matching Headings (you consider the whole passage, paragraph by paragraph) • Matching Information, the “which paragraph contains…” type (the detail can sit anywhere) • Matching Features (the items are scattered across the passage) For these, order is no help, and assuming it will mislead you. They need a different approach, taught below."
+          },
+          {
+            "id": "r_b0005",
+            "type": "paragraph",
+            "text": "The nuance: do not oversimplify Weak books say “the answers are always in order.” That is not quite true, and trusting it blindly causes errors. Three cautions. Order applies within a question set, not across different sets. A passage often has two or three sets of questions of different types. Each set may start again from the top of the passage. So question 8 (a new set) can point earlier in the text than question 7 (the previous set). Do not carry the order across a set boundary. Order is a hint, not a guarantee. Within a set, the order holds almost always, but your safeguard is verification, not faith. Use order to decide where to look first, then confirm the answer from the actual evidence. Never write an answer only because “it should be around here.” Locate by order, but commit only on evidence. Some sets reset or interleave. When you finish one set and start the next, reset your eyes to the top and read the new instructions, because the type and the ordering behaviour may both change."
+          },
+          {
+            "id": "r_b0006",
+            "type": "paragraph",
+            "text": "How to recognise when order is unreliable The instruction tells you. When you see “which paragraph contains,” “choose from the list of headings,” “match each statement to a researcher,” or a note that “you may use any letter more than once,” you are in a non-ordered type. Treat the whole passage as the search space, and switch to the type-specific method rather than marching top to bottom."
+          },
+          {
+            "id": "r_b0007",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "The best use of question order is not finding answers, it is skipping. When a type follows order and you are sure question 5 sat in paragraph three, you can ignore paragraphs one and two entirely for question 6. Half of Reading speed comes from knowing which text you are allowed to stop looking at.",
+            "bn": "প্রশ্নের ক্রমের সবচেয়ে বড় লাভ উত্তর খোঁজা নয়, বরং বাদ দেওয়া। প্রশ্ন ৫ যদি প্যারা ৩-এ থাকে, প্রশ্ন ৬-এর জন্য প্যারা ১-২ পুরো বাদ। পড়া বন্ধ কোথায় করবেন, সেটাই অর্ধেক গতি।"
+          },
+          {
+            "id": "r_b0008",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 8 (PART ONE)"
+          },
+          {
+            "id": "r_b0009",
+            "type": "paragraph",
+            "text": "READING QUESTION TYPES Each type below follows the same structure: how to recognise it, what it tests, whether it follows order, what to do before you search, keyword and location strategy, how to use evidence, how to eliminate wrong options, the traps, the beginner mistake against the expert approach, and a worked example."
+          },
+          {
+            "id": "r_b0010",
+            "type": "heading",
+            "level": 2,
+            "text": "1. MULTIPLE CHOICE"
+          },
+          {
+            "id": "r_b0011",
+            "type": "paragraph",
+            "text": "Recognise it: a question or stem with three or four options, from which you pick one (occasionally more). What it tests: detailed understanding of a specific part of the passage. Order: usually follows passage order. Before you search: read the stem and understand what it asks, then read the options and note how they differ. The differences between options are what the passage will decide between. Keyword and location: take an anchor from the stem (a name, term, or distinctive word) and scan to its region. Do not scan for the options’ words; scan for the stem’s subject, then read to decide between options. Evidence and elimination: the correct option is the one the passage supports in full. Eliminate options that are half-supported, unsupported, or contradicted. A common design: three options are each partly true or true-but-not-stated, and only one is fully supported by the text. Traps: an option may repeat words from the passage while distorting the meaning (the word- match trap). An option may be true in the real world but not stated in the passage (the outside- knowledge trap). An option may be true of the wrong part of the passage. Beginner mistake: picks the option whose words appear in the passage. Expert approach: picks the option whose meaning the passage fully supports, and can point to the sentence that proves it while ruling out the others. Worked example: Stem: “According to the passage, the main reason clocks failed at sea was…” Options: A) they were too expensive, B) they could not handle changing conditions, C) sailors misused them. The passage: “no clock of the era could keep accurate time on a rolling, damp, temperature-changing ship.” Answer: B. The passage gives changing conditions (rolling, damp, temperature-changing) as the cause. A and C are never stated, however plausible they sound. Evidence is the “no clock could keep accurate time” sentence."
+          },
+          {
+            "id": "r_b0012",
+            "type": "paragraph",
+            "text": "2. MATCHING INFORMATION (which paragraph contains…) Recognise it: a list of pieces of information, each to be matched to the paragraph (A, B, C…) that contains it. Often noted “you may use any letter more than once.” What it tests: locating specific detail anywhere in the passage. It is pure scanning across the whole text. Order: does NOT follow order. The details are scattered, so never march top to bottom."
+          },
+          {
+            "id": "r_b0013",
+            "type": "paragraph",
+            "text": "Before you search: understand each piece of information precisely. Note that it asks for specific information, a detail, an example, a reason, not the paragraph’s main idea. Keyword and location: for each item, take its most distinctive concept and scan every paragraph for a match. Because this type is slow, most experts do it last, after the other questions have already made them familiar with where things are. Evidence and elimination: the matching paragraph must actually contain that information, not merely touch the topic. Confirm the detail is really there. Traps: the same topic may appear in two paragraphs, but only one contains the specific detail asked. A paragraph’s main idea may tempt you when the question wants a small buried detail elsewhere. Beginner mistake: matches by topic (“this paragraph is about clocks, so the clock detail goes here”) rather than by the specific information. Expert approach: hunts the exact detail, and having done the other questions first, often already knows which paragraph holds it. Worked example: Item: “a reference to how long a species can live.” Scanning the tuatara passage, paragraph content about lifespan: “it can live for more than a century.” The item matches whichever paragraph holds that clause. You matched a specific detail, not a general topic."
+          },
+          {
+            "id": "r_b0014",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Do Matching Information last. It asks you to search the entire passage, which is painfully slow if done cold, but quick once the other questions have already walked you through most of the text. Order your question types by cost, and pay the expensive ones when you are richest in knowledge of the passage.",
+            "bn": "Matching Information সবার শেষে করুন। এটি পুরো প্যাসেজ খুঁজতে বলে, ঠান্ডা মাথায় করলে ধীর; কিন্তু বাকি প্রশ্ন করার পর প্যাসেজ চেনা হয়ে গেলে দ্রুত হয়।"
+          },
+          {
+            "id": "r_b0015",
+            "type": "heading",
+            "level": 2,
+            "text": "3. MATCHING FEATURES"
+          },
+          {
+            "id": "r_b0016",
+            "type": "paragraph",
+            "text": "Recognise it: a list of statements to be matched to a set of features, usually named people, things, theories, or categories (labelled A, B, C). What it tests: connecting claims to their source or category, tracking who said or did what. Order: roughly follows the order of the statements, but the features themselves are scattered, so treat it as semi-ordered. Before you search: read the list of features first. These named items are strong anchors, because names rarely change."
+          },
+          {
+            "id": "r_b0017",
+            "type": "paragraph",
+            "text": "Keyword and location: two workable routes. Either scan for each feature (name) and read what the passage attributes to it, or take each statement and find which feature the passage links it to. When there are few features and many statements, scanning by feature is usually faster. Evidence and elimination: the passage must actually attribute the statement to that feature. Watch for features that are used more than once, or not at all, if the instructions allow it. Traps: a distractor feature is mentioned near the wrong statement to tempt a mismatch. A view held by one person may be contrasted with another’s, and you must attach it to the right one, exactly like Part 3 opinion-tracking in Listening. Beginner mistake: matches a statement to the nearest named person rather than the one the passage actually credits. Expert approach: confirms the attribution by reading the sentence that links feature and claim, and does not rely on proximity. Worked example: see the migration passage in Practice below, where three researchers hold different views."
+          },
+          {
+            "id": "r_b0018",
+            "type": "heading",
+            "level": 2,
+            "text": "4. MATCHING SENTENCE ENDINGS"
+          },
+          {
+            "id": "r_b0019",
+            "type": "paragraph",
+            "text": "Recognise it: a set of sentence beginnings to be completed by choosing from a list of endings, with more endings than beginnings. What it tests: understanding relationships and completing an idea accurately, with both meaning and grammar fitting. Order: follows passage order (the beginnings track the text). Before you search: read each sentence beginning and treat it as a mini-question. Locate the beginning’s subject in the passage. Keyword and location: take an anchor from the beginning, scan to its region, and read what the passage says. Then choose the ending whose meaning matches the passage, not merely whose grammar fits. Evidence and elimination: there are extra endings on purpose. Several will fit grammatically; only one fits the meaning the passage supports. Eliminate endings that fit the grammar but say something the passage does not. Traps: an ending that is grammatically smooth and generally true, but not what the passage states about this subject. An ending that matches a different part of the passage. Beginner mistake: chooses the ending that reads well as a sentence, ignoring whether the passage supports it. Expert approach: matches the ending to the passage evidence first, and only then checks the grammar is clean."
+          },
+          {
+            "id": "r_b0020",
+            "type": "paragraph",
+            "text": "Worked example: Beginning: “The prize for solving longitude was eventually…” Passage: “he struggled for years to be paid the reward he was owed.” Correct ending (from a list): “…paid only after a long struggle.” A grammatically valid but wrong ending like “…never awarded to anyone” contradicts the passage. Match the meaning."
+          },
+          {
+            "id": "r_b0021",
+            "type": "heading",
+            "level": 2,
+            "text": "PRACTICE"
+          },
+          {
+            "id": "r_b0022",
+            "type": "paragraph",
+            "text": "Read this original passage, then answer. Reasoning keys follow. Passage (practice): Why do birds migrate thousands of kilometres each year? Researchers have long disagreed. Dr Feldman argues that migration is driven mainly by food: birds follow the seasons to wherever insects and seeds are most abundant, and everything else is secondary. Professor Osei takes a different view, proposing that breeding is the true driver, since many species travel to reach safe, predator-poor sites to raise their young, even where food is no better. A third researcher, Dr Nakamura, is sceptical of single explanations altogether, suggesting that migration usually results from several pressures acting together, and warns against tidy theories. What the three agree on is that migration is costly and dangerous, and that only strong survival advantages could sustain it."
+          },
+          {
+            "id": "r_b0023",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 11.1 (Level 3): Matching Features"
+          },
+          {
+            "id": "r_b0024",
+            "type": "paragraph",
+            "text": "Match each view to a researcher (A = Feldman, B = Osei, C = Nakamura). 1. Migration is mainly about finding food. 2. Migration has no single cause. 3. Migration is driven by the need to breed safely."
+          },
+          {
+            "id": "r_b0025",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 11.2 (Level 3): Matching Information"
+          },
+          {
+            "id": "r_b0026",
+            "type": "paragraph",
+            "text": "Which sentence of the passage contains: 1. a point all three researchers accept? 2. a warning against simple explanations?"
+          },
+          {
+            "id": "r_b0027",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 11.3 (Level 3): Multiple choice"
+          },
+          {
+            "id": "r_b0028",
+            "type": "paragraph",
+            "text": "Which statement is best supported by the passage? A) The researchers agree on the main cause of migration. B) The researchers disagree on the cause but agree migration is risky. C) Migration has now been fully explained."
+          },
+          {
+            "id": "r_b0029",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 11.4 (Level 4): Matching sentence endings"
+          },
+          {
+            "id": "r_b0030",
+            "type": "paragraph",
+            "text": "Complete: “Professor Osei believes birds may migrate to breeding sites…” Endings: i) …because food is always better there. ii) …even when food is no better there. iii) …only when no predators exist anywhere."
+          },
+          {
+            "id": "r_b0031",
+            "type": "heading",
+            "level": 2,
+            "text": "ANSWER KEY AND REASONING"
+          },
+          {
+            "id": "r_b0032",
+            "type": "paragraph",
+            "text": "Drill 11.1 1. A, Feldman. “Migration is driven mainly by food.” Direct attribution. 2. C, Nakamura. “Sceptical of single explanations… several pressures acting together.” Match the view to the named sceptic, not to whoever is nearest. 3. B, Osei. “Breeding is the true driver… to reach safe, predator-poor sites to raise their young.” Lesson: each view is tied to its researcher by the sentence that names them. You matched by attribution, not proximity. Note Nakamura sits last but her view is not “food” or “breeding”; a proximity guesser might mismatch. Drill 11.2 1. The final sentence: “What the three agree on is that migration is costly and dangerous,"
+          }
+        ]
+      }
+    },
+    {
+      "id": "b3000002-0002-4000-8000-000000000005",
+      "module_id": "b3000002-0002-4000-8000-000000000001",
+      "slug": "file-12-reading-question-types-part-two",
+      "title": "File 12: Reading Question Types, Part Two: Completion, Diagrams, and Short Answer",
+      "position": 5,
+      "estimated_min": 35,
+      "summary": "Completion questions, diagram labelling, and short-answer questions.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "r_b0001",
+            "type": "paragraph",
+            "text": "and that only strong survival advantages could sustain it.” This contains the agreed point. 2. Nakamura’s sentence: “warns against tidy theories.” This contains the warning. Lesson: Matching Information wants the sentence that contains the specific detail. You scanned for the concept (agreement; warning) and found the exact line, ignoring paragraph topic. Drill 11.3 B. The passage shows disagreement on the cause (three different views) but explicit agreement that migration is “costly and dangerous.” A is wrong (they disagree on cause). C is wrong (the passage never claims it is fully explained; Nakamura resists tidy answers). Evidence: the three contrasting views plus the final “agree on” sentence. Lesson: the fully-supported option wins. C is an outside-knowledge or overreach trap; A distorts the agreement. Only B is provable from the text. Drill 11.4 ii, even when food is no better there. Verify against: “even where food is no better.” Ending i contradicts the passage (it says food is not the driver here). Ending iii (“only when no predators exist anywhere”) overstates “predator-poor” into “no predators anywhere,” a strength-of-claim overreach. Only ii matches both meaning and grammar. Lesson: several endings fit grammatically; only one fits the evidence. You chose on meaning first, then confirmed the grammar, and you rejected the overreaching ending, the same small- word vigilance from File 10."
+          },
+          {
+            "id": "r_b0002",
+            "type": "paragraph",
+            "text": "Order and Reading Question Types, Part One. Next: File 12, Reading Question Types, Part Two (the completion family, diagram labelling, and short answer)."
+          },
+          {
+            "id": "r_b0003",
+            "type": "paragraph",
+            "text": "File 12: Reading Question Types, Part Two: Completion, Diagrams, and Short Answer This file covers the completion family in Reading (sentence, summary, note, table, and flow- chart completion), plus diagram labelling and short answer. As in Listening, these share one engine, so we build it once and then show what changes for each type."
+          },
+          {
+            "id": "r_b0004",
+            "type": "heading",
+            "level": 2,
+            "text": "THE READING COMPLETION ENGINE"
+          },
+          {
+            "id": "r_b0005",
+            "type": "paragraph",
+            "text": "Every Reading completion task is won by one routine. The crucial fact that shapes all of them:"
+          },
+          {
+            "id": "r_b0006",
+            "type": "principle",
+            "text": "In Reading completion, the answer is almost always a word or words taken directly from the passage, and you must usually copy it exactly as it appears, in the same form and spelling. You are not composing an answer; you are selecting the right words from the text. There are two flavours of completion, and you must know which you face. Words-from-passage. You supply the missing words yourself by taking them from the text. Copy them exactly, and obey the word limit. This is the common case. Word bank (a box of options). You choose from a supplied list, which has more options than gaps. Here the box words are often paraphrases, not the passage’s exact words, so the skill shifts to matching the box word’s meaning to the passage. The extra options are deliberate distractors."
+          },
+          {
+            "id": "r_b0007",
+            "type": "paragraph",
+            "text": "The routine 1. Predict the gap’s grammar. Read around the gap. Noun, verb, adjective, number? Singular or plural? The words on both sides of the gap fix this. 2. Locate the region. These types usually follow passage order, so move forward through the text. Scan for the gap’s anchor or the paraphrase of its surrounding words. 3. Read around the gap in the passage. The answer lives in the sentence the region points to. Read the whole sentence, and its neighbours if needed. 4. Pick the exact word(s). Choose words that fit both the meaning and the grammar of the gap. 5. Obey the limit and spelling. Trim to the word limit, copy spelling exactly."
+          },
+          {
+            "id": "r_b0008",
+            "type": "paragraph",
+            "text": "The universal traps • Grammar fits, meaning does not. A word may slot in neatly yet say the wrong thing. Meaning first, grammar second. • A word from the wrong sentence. The right-looking word sits in a nearby sentence that does not answer the gap."
+          },
+          {
+            "id": "r_b0009",
+            "type": "paragraph",
+            "text": "• Changing the word’s form. You wrote “decision” but the passage says “decide” and the gap needs the passage’s exact word. In words-from-passage tasks, do not alter the form unless the gap’s grammar forces it and the instructions allow it. • Word limit and spelling. The same discipline as always. Too many words, or a misspelling, is a wrong answer."
+          },
+          {
+            "id": "r_b0010",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "In words-from-passage completion, if your answer is a word that never appears in the passage, you are very likely wrong. These tasks pull the answer straight from the text. When you find yourself inventing a synonym, stop and look again for the actual word the passage used.",
+            "bn": "Words-from-passage completion-এ যদি আপনার উত্তরটা প্যাসেজে না-ই থাকে, তাহলে প্রায় নিশ্চিত ভু ল। উত্তর সরাসরি টেক্সট থেকে আসে। নিজের সমার্থক শব্দ বসাচ্ছেন মনে হলে থামুন, প্যাসেজের আসল শব্দটা খুঁজুন। Now the types."
+          },
+          {
+            "id": "r_b0011",
+            "type": "heading",
+            "level": 2,
+            "text": "1. SENTENCE COMPLETION"
+          },
+          {
+            "id": "r_b0012",
+            "type": "paragraph",
+            "text": "Recognise it: standalone sentences each with a gap, filled with words from the passage. What it tests: catching a specific detail that completes a single idea. Order: follows passage order. Before you search: read each sentence and predict the gap’s shape. The non-gap part of the sentence is your keyword cluster, and it will appear in the passage, usually paraphrased, just before the answer. Locate and evidence: scan for the sentence’s subject, read the passage sentence, and take the exact words that complete the meaning. Traps: the passage paraphrases the sentence heavily, so listening for exact question words fails; find the meaning. Word-limit overreach is common because the passage phrase is longer than the limit. Beginner vs expert: the beginner copies a whole passage phrase and breaks the word limit; the expert takes only the exact words the gap needs. Worked example: Sentence: “Harrison’s fourth clock was finally accurate enough to solve the problem of ____.” Passage: “His fourth design finally proved accurate enough” and the topic is longitude. Answer: longitude (one word, from the passage). The sentence paraphrases “design” as “clock”; the answer word is taken exactly."
+          },
+          {
+            "id": "r_b0013",
+            "type": "heading",
+            "level": 2,
+            "text": "2. SUMMARY COMPLETION"
+          },
+          {
+            "id": "r_b0014",
+            "type": "paragraph",
+            "text": "Recognise it: a paragraph that summarises a section of the passage, with gaps. Either words- from-passage or a word bank. What it tests: understanding a section’s meaning and fitting words into coherent connected prose. Order: follows the order of the section it summarises, not necessarily the whole passage. Identify which part of the passage the summary covers first. Before you search: read the whole summary for sense, then predict each gap. Connected prose gives strong grammatical clues (an article before a gap signals a noun, and so on). If there is a word bank, read all options and note that several are distractors. Locate and evidence: find the section the summary covers, then work gap by gap. For words- from-passage, take the exact word. For a word bank, match the box word’s meaning to the passage, since the box word may be a synonym rather than the passage’s own word. Traps: with a bank, an option fits the grammar of a gap but not the meaning. Without a bank, the word-limit and exact-form traps apply. Beginner vs expert: the beginner picks a bank word that fits the grammar; the expert confirms the passage actually supports that meaning before choosing. Worked example (word bank): Summary: “The cork oak is valuable because its bark can be harvested ____ without harming the tree.” Bank: repeatedly / permanently / accidentally / cheaply. Passage: “stripped of its bark without being killed… only once every nine years… a dozen times across a lifespan.” Answer: repeatedly. The passage supports repeated harvesting (a dozen times). “Permanently” and the others fit the grammar but not the meaning. The bank word is a paraphrase of “a dozen times,” not a passage word."
+          },
+          {
+            "id": "r_b0015",
+            "type": "heading",
+            "level": 2,
+            "text": "3. NOTE COMPLETION"
+          },
+          {
+            "id": "r_b0016",
+            "type": "paragraph",
+            "text": "Recognise it: notes under headings or bullets, with gaps, words from the passage. What it tests: pulling key points from a section into a structured note. Order: follows passage order, guided by the headings. Before you search: use the headings as your map; they mirror the passage’s structure and show where each answer sits. Predict each gap’s shape. Locate and evidence: move through the section the notes cover, taking exact words for each gap. Traps: the surrounding detail tempts you to write more than the gap needs; take only the key word."
+          },
+          {
+            "id": "r_b0017",
+            "type": "paragraph",
+            "text": "Worked example: Note: “Tuatara incubation: eggs take over ____ to hatch.” Passage: “the eggs take over a year to hatch.” Answer: a year (from the passage, within the limit)."
+          },
+          {
+            "id": "r_b0018",
+            "type": "heading",
+            "level": 2,
+            "text": "4. TABLE COMPLETION"
+          },
+          {
+            "id": "r_b0019",
+            "type": "paragraph",
+            "text": "Recognise it: a grid with row and column headings and blank cells, filled from the passage. What it tests: slotting details into the right cell across two dimensions. Order: follows the passage, often row by row. Before you search: read the headings; they tell you exactly what each blank cell needs, doing your prediction for you. Locate and evidence: anchor on the row’s subject, find the passage region, take the detail the column asks for. Traps: writing a detail in the wrong cell; two similar values inviting confusion. Worked example: Table: Tree | First harvest age | Harvest interval. Row “Cork oak”: First harvest = ____, Interval = ____. Passage: “first harvested at about twenty-five years old, and thereafter only once every nine years.” Answers: twenty-five (years) and (every) nine years, each taken from the passage into its cell."
+          },
+          {
+            "id": "r_b0020",
+            "type": "heading",
+            "level": 2,
+            "text": "5. FLOW-CHART COMPLETION"
+          },
+          {
+            "id": "r_b0021",
+            "type": "paragraph",
+            "text": "Recognise it: boxes joined by arrows showing a process, with gaps, filled from the passage. What it tests: following a sequence and catching each stage. Order: follows the logical order of the process, which usually but not always matches the passage order. Watch for a passage that describes steps out of sequence. Before you search: read the filled boxes to understand the process, and predict each gap (often a verb or a noun for an action or material). Locate and evidence: find the passage description of the process and map each described step onto the correct box by meaning, using the arrows as the sequence. Traps: the passage may present steps in a different order than the chart, so match by logic, not by order of mention. Worked example:"
+          },
+          {
+            "id": "r_b0022",
+            "type": "paragraph",
+            "text": "Chart: Bark regenerates from ____ -> tree stripped again after nine years. Passage: “it regenerates a fresh layer from a living tissue called the cork cambium.” Answer: (the) cork cambium (from the passage)."
+          },
+          {
+            "id": "r_b0023",
+            "type": "heading",
+            "level": 2,
+            "text": "6. DIAGRAM LABELLING"
+          },
+          {
+            "id": "r_b0024",
+            "type": "paragraph",
+            "text": "Recognise it: a picture of an object or process with parts to label, filled from the passage. What it tests: matching the passage’s description of positions and functions to parts of an image. Order: follows the passage’s description of the object, which may run in a spatial order (top to bottom) rather than the passage’s overall order. Before you search: study the diagram and understand the object. Note the labels and their positions, and predict the kind of word each needs (usually a noun for a part or material). Locate and evidence: find the passage that describes the object, and use its position and function language (“at the base,” “the layer that,” “which surrounds”) to place each label. Traps: the passage may describe a part by function rather than name; technical words may be unfamiliar. Use position and function to place a part even when the term is new. Worked example: Diagram of a cork oak trunk cross-section, label the regenerating layer. Passage: “regenerates a fresh layer from a living tissue called the cork cambium.” Answer: cork cambium, placed at the layer the passage says regenerates the bark."
+          },
+          {
+            "id": "r_b0025",
+            "type": "heading",
+            "level": 2,
+            "text": "7. SHORT ANSWER"
+          },
+          {
+            "id": "r_b0026",
+            "type": "paragraph",
+            "text": "Recognise it: direct questions answered in a few words from the passage, within a word limit. What it tests: catching a specific fact and reporting it concisely. Order: follows passage order. Before you search: the question word (what, where, how many, who) tells you the answer’s shape directly. Predict it, then note the word limit. Locate and evidence: scan for the question’s anchor, read the passage sentence, take the exact words that answer the question word. Traps: answering a related detail rather than the exact question; breaking the word limit by copying a whole phrase; a question that asks for two things. Worked example:"
+          },
+          {
+            "id": "r_b0027",
+            "type": "paragraph",
+            "text": "Q: “Which country produces about half the world’s cork?” (ONE WORD) Passage: “native to the western Mediterranean, especially Portugal, which today produces around half of the world’s cork.” Answer: Portugal. The question word “which country” wants a country name; take it exactly, one word."
+          },
+          {
+            "id": "r_b0028",
+            "type": "heading",
+            "level": 2,
+            "text": "PRACTICE"
+          },
+          {
+            "id": "r_b0029",
+            "type": "paragraph",
+            "text": "Reasoning keys follow. Use the passages from Files 08 and 09."
+          },
+          {
+            "id": "r_b0030",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 12.1 (Level 2): Sentence completion"
+          },
+          {
+            "id": "r_b0031",
+            "type": "paragraph",
+            "text": "Sentence: “The tuatara belongs to an order that flourished over ____ years ago.” (from the passage) (tuatara passage: “an older order that flourished over two hundred million years ago”)"
+          },
+          {
+            "id": "r_b0032",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 12.2 (Level 3): Table completion"
+          },
+          {
+            "id": "r_b0033",
+            "type": "paragraph",
+            "text": "Table row “Longitude problem”: Prize offered in ____; solved by ____; his profession ____. (longitude passage)"
+          },
+          {
+            "id": "r_b0034",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 12.3 (Level 3): Summary completion with a word bank"
+          },
+          {
+            "id": "r_b0035",
+            "type": "paragraph",
+            "text": "Summary: “Longitude was hard to find because no ____ of the time could stay accurate at sea; the answer came not from astronomy but from a self-taught ____.” Bank: clock / star / sailor / carpenter / map."
+          },
+          {
+            "id": "r_b0036",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill 12.4 (Level 4): Short answer with a trap"
+          },
+          {
+            "id": "r_b0037",
+            "type": "paragraph",
+            "text": "Q: “For how long can a tuatara remain active that would leave other reptiles sluggish?” Read carefully. What does this question actually ask, and what is the answer? (tuatara passage)"
+          },
+          {
+            "id": "r_b0038",
+            "type": "heading",
+            "level": 2,
+            "text": "ANSWER KEY AND REASONING"
+          },
+          {
+            "id": "r_b0039",
+            "type": "paragraph",
+            "text": "Drill 12.1 two hundred million (from “over two hundred million years ago”), trimmed to fit before “years ago.” Take the passage’s exact figure; do not write “200,000,000” unless the limit and instructions favour it, and do not paraphrase to “a very long time.” Drill 12.2 Prize offered in 1714; solved by (John) Harrison; profession (a) carpenter. Each is a passage word placed in its cell. The table headings predicted the shapes: a year, a name, a job. Drill 12.3 “no clock of the time could stay accurate at sea; … a self-taught carpenter.” Both are supported by the passage. “Star,” “sailor,” and “map” are distractors: they fit some grammar but"
+          },
+          {
+            "id": "r_b0040",
+            "type": "paragraph",
+            "text": "not the meaning. Note “clock” and “carpenter” here happen to be passage words, but in a bank task always confirm by meaning, not by spotting the word. Drill 12.4 This question has a trap in its wording. It seems to ask “for how long can a tuatara remain active,” inviting a time answer, but the passage does not give a duration for cold-activity; it says the tuatara “remains active at low temperatures that would leave most reptiles sluggish.” The real, answerable fact is about conditions (low temperatures), not a length of time. If a short- answer item genuinely asked “at what temperatures does the tuatara stay active,” the answer is low temperatures. If it insisted on a duration, that information is not given. The lesson: read the question word precisely, and do not manufacture an answer of a shape the passage never provides. This vigilance is the bridge to the True/False/Not Given masterclass next."
+          },
+          {
+            "id": "r_b0041",
+            "type": "paragraph",
+            "text": "Question Types, Part Two. Next: File 13, the True/False/Not Given and Yes/No/Not Given Masterclass."
+          }
+        ]
+      }
+    },
+    {
+      "id": "b3000002-0002-4000-8000-000000000006",
+      "module_id": "b3000002-0002-4000-8000-000000000001",
+      "slug": "file-13-true-false-not-given-and-yes-no-not-given-masterclass",
+      "title": "File 13: The True/False/Not Given and Yes/No/Not Given Masterclass",
+      "position": 6,
+      "estimated_min": 35,
+      "summary": "The logic, evidence, and verification method for True/False/Not Given and Yes/No/Not Given.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "r_b0001",
+            "type": "paragraph",
+            "text": "No question type frightens candidates more than this one, and the fear has a single source: Not Given. True and False feel manageable. Not Given feels like guessing. It is not. Not Given is a precise verdict with precise rules, and by the end of this masterclass you will reach it with the same confidence as the other two. The secret is that this is not really a reading task. It is a logic task. You are comparing a claim against evidence and naming the relationship between them. Master the logic and the type becomes one of the most reliable in the test."
+          },
+          {
+            "id": "r_b0002",
+            "type": "heading",
+            "level": 2,
+            "text": "THE THREE VERDICTS"
+          },
+          {
+            "id": "r_b0003",
+            "type": "paragraph",
+            "text": "Fix these definitions exactly. Most errors come from blurring them. TRUE. The passage confirms the statement. It states the same thing, or says it in different words with the same meaning. FALSE. The passage contradicts the statement. It says the opposite, or something that cannot both be true with the statement. NOT GIVEN. The passage neither confirms nor contradicts the statement. The information is absent or insufficient. The topic may even appear, but this specific claim is not settled by the text."
+          },
+          {
+            "id": "r_b0004",
+            "type": "principle",
+            "text": "False means the passage says the opposite. Not Given means the passage does not say. These are completely different. Confusing “the passage disagrees” with “the passage is silent” is the deepest TFNG error, and it costs marks in both directions."
+          },
+          {
+            "id": "r_b0005",
+            "type": "heading",
+            "level": 2,
+            "text": "THE METHOD: CLAIM, EVIDENCE, RELATIONSHIP"
+          },
+          {
+            "id": "r_b0006",
+            "type": "paragraph",
+            "text": "Run these three steps on every statement, in order. Step 1: CLAIM. Read the statement and pin down exactly what it asserts. Break it into parts. What is the subject? What is being claimed about it? Are there any quantifiers (all, some, most), comparisons (more than, the largest), or qualifiers (only, always, sometimes)? Underline the precise words that carry the claim, because those exact words are what the evidence must match, contradict, or leave alone. Step 2: EVIDENCE. Locate the passage lines on the same subject. TFNG follows passage order, so move forward through the text. Read the relevant sentence and its neighbours carefully. This is close reading, not scanning."
+          },
+          {
+            "id": "r_b0007",
+            "type": "paragraph",
+            "text": "Step 3: RELATIONSHIP. Decide how the evidence relates to the claim: - The evidence confirms the claim, in the same or paraphrased words: TRUE. - The evidence contradicts the claim: FALSE. - The evidence does not address the exact claim, or addresses only part of it: NOT GIVEN. Claim, evidence, relationship. Never skip to a verdict without naming the relationship. The verdict is the name of the relationship, nothing more."
+          },
+          {
+            "id": "r_b0008",
+            "type": "heading",
+            "level": 2,
+            "text": "THE DISTINCTIONS THAT DECIDE THE HARD ONES"
+          },
+          {
+            "id": "r_b0009",
+            "type": "paragraph",
+            "text": "The difficult items all turn on telling these five relationships apart. Contradiction (False). The passage states the opposite. This includes an opposite fact, a different number or date, a clashing quantifier (statement says “all,” passage says “some”), or a reversed comparison (statement says A beats B, passage says B beats A). Absence (Not Given). The passage simply does not address the claim. The topic may be present, but this specific point is never made either way. Absence is Not Given, never False. Partial information (usually Not Given). The statement makes a compound claim, and the passage supports only part of it. For a statement to be True, every part must be supported. If one part is confirmed but another is never addressed, the whole statement is Not Given. If one part is contradicted, the whole statement is False. Inference and assumption (danger). You may accept a clear paraphrase or a meaning the passage necessarily carries. You may not accept something that is merely plausible, likely, or a reasonable guess. If you have to assume a fact the passage does not state in order to call the statement True, the honest verdict is Not Given. The line is: necessary meaning is allowed; probable-in-the-real-world is not. Outside knowledge (trap). Judge only by the passage, never by what you know about the world. A statement can be factually true in reality and still be Not Given, because the passage did not say it. Delete your own knowledge for this task."
+          },
+          {
+            "id": "r_b0010",
+            "type": "heading",
+            "level": 2,
+            "text": "PRACTICAL DECISION RULES"
+          },
+          {
+            "id": "r_b0011",
+            "type": "paragraph",
+            "text": "Carry these into the exam. • If the statement is stronger or more specific than the passage, it is usually False or Not Given. False if the passage contradicts it, Not Given if the passage simply never goes that far. • Extreme words (all, only, never, always, none, every) deserve suspicion. Passages rarely support absolutes, so a statement with an extreme word is often False or Not Given. Check whether the passage really makes the absolute claim. • Absence is Not Given, not False. If you cannot find the claim addressed at all, that is Not Given. Do not mark False just because you cannot confirm it."
+          },
+          {
+            "id": "r_b0012",
+            "type": "paragraph",
+            "text": "• False needs a real contradiction. Before writing False, find the sentence that says the opposite. If you cannot point to it, you are probably looking at Not Given."
+          },
+          {
+            "id": "r_b0013",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "When you feel yourself thinking “well, that’s probably true” or “that would make sense,” stop. Probably and would-make-sense are the exact feelings that signal Not Given. True is for what the passage confirms, not for what seems reasonable. Your own agreement with a statement is not evidence.",
+            "bn": "যখন মনে হয় “এটা তো সম্ভবত সত্যি” বা “এটা যুক্তিসঙ্গত”, তখনই থামুন। “সম্ভবত” আর “যুক্তিসঙ্গত” অনুভূ তিটাই Not Given-এর ইঙ্গিত। প্যাসেজ নিশ্চিত করলে True, আপনার মনে হলে নয়।"
+          },
+          {
+            "id": "r_b0014",
+            "type": "heading",
+            "level": 2,
+            "text": "YES / NO / NOT GIVEN"
+          },
+          {
+            "id": "r_b0015",
+            "type": "paragraph",
+            "text": "Yes/No/Not Given uses the identical logic, with one change of target. TFNG tests facts and information. YNNG tests the writer’s views, claims, and opinions. • YES. The writer holds or asserts this view. • NO. The writer holds or asserts the opposite view. • NOT GIVEN. The writer’s view on this is not given. The extra skill is spotting where the writer’s opinion lives. Look for opinion language: argues, believes, suggests, claims, contends, clearly, surely, unfortunately, worryingly, rightly, it is a mistake to. Neutral fact-reporting is not the writer’s opinion; a sentence that simply states what happened tells you nothing about what the writer thinks. In YNNG, you are tracking the writer’s stance, so read for judgement words, not just facts."
+          },
+          {
+            "id": "r_b0016",
+            "type": "paragraph",
+            "text": "EXPERT THINKING: a Not Given that looks True Statement: “The waggle dance took von Frisch many years to decode.” Passage: “The dance was first decoded by Karl von Frisch in the mid-twentieth century, work for which he later received a Nobel Prize.” WHAT A BEGINNER THINKS “Decoding something that complex must have taken years. That sounds right. True.” WHAT AN EXPERIENCED STUDENT THINKS “The passage talks about the decoding and von Frisch, so the answer is probably here. Leans True but feels unsure.” WHAT AN EXPERT CANDIDATE NOTICES The claim is specifically about how long it took. The passage says who decoded it and when, and that he won a prize, but says nothing about the duration of the work. The topic is present; this exact claim is absent. To call it True, you would have to assume the timescale, which is inference, not evidence. Verdict: Not Given. The plausibility was the trap. The lesson: a statement about a detail the passage never gives is Not Given, no matter how reasonable it sounds and no matter how much of its topic appears in the text."
+          },
+          {
+            "id": "r_b0017",
+            "type": "heading",
+            "level": 2,
+            "text": "PRACTICE: 27 ORIGINAL QUESTIONS"
+          },
+          {
+            "id": "r_b0018",
+            "type": "paragraph",
+            "text": "Three original passages. Apply claim, evidence, relationship to every statement, then check the reasoning. Do not just mark right or wrong; confirm you named the correct relationship."
+          },
+          {
+            "id": "r_b0019",
+            "type": "paragraph",
+            "text": "PASSAGE A (for questions 1 to 10) Honeybees share the location of food through a behaviour known as the waggle dance. A returning forager runs in a figure-of-eight on the vertical honeycomb, waggling her abdomen during the straight central run. The angle of that run relative to vertical encodes the direction of the food relative to the sun, while the duration of the waggle indicates the distance: a longer waggle means a more distant source. The dance was first decoded by Karl von Frisch in the mid-twentieth century, work for which he later received a Nobel Prize. Other bees follow the dancer closely, and many fly out to the described location, though some ignore the dance entirely and forage where they please. The dance is less precise for very close food sources, for which bees use a simpler round dance instead. True / False / Not Given: 1. The waggle dance tells other bees where food can be found. 2. The direction of the food is shown by how long the bee waggles. 3. Karl von Frisch received a Nobel Prize for work on the dance. 4. Von Frisch decoded the dance in the nineteenth century. 5. Every bee that watches the dance flies to the food. 6. The round dance is used for food sources that are very far away. 7. The waggle dance is performed on a horizontal surface. 8. Von Frisch’s findings were initially rejected by other scientists. 9. Bees can also communicate the quality of a food source through the dance. 10. The dance is more precise for distant sources than for very close ones."
+          },
+          {
+            "id": "r_b0020",
+            "type": "paragraph",
+            "text": "PASSAGE B (for questions 11 to 20) Recovered in 1901 from an ancient shipwreck off the Greek island of Antikythera, the corroded bronze device now known as the Antikythera mechanism has puzzled researchers for over a century. Roughly the size of a shoebox, it originally held at least thirty interlocking gears. Modern imaging has revealed that it modelled the movements of the sun and moon and could predict eclipses, functioning as a kind of astronomical calculator. Most scholars date its construction to the second century BCE. Nothing of comparable mechanical complexity is known from the following thousand years, which has led some to call it the first analogue computer. The identity of its maker remains unknown, though its sophistication suggests a long tradition of"
+          },
+          {
+            "id": "r_b0021",
+            "type": "paragraph",
+            "text": "similar instruments that have not survived. Replicas built from the imaging data confirm that the surviving gear ratios reproduce genuine astronomical cycles. True / False / Not Given: 11. The mechanism was found in the twentieth century. 12. The device contained fewer than twenty gears. 13. The mechanism could be used to predict eclipses. 14. The mechanism was considerably larger than a shoebox. 15. Most scholars agree on the identity of the mechanism’s maker. 16. Devices of similar complexity were common in the centuries that followed. 17. The mechanism was made of iron. 18. Replicas have shown that the gears reproduce real astronomical cycles. 19. Other astronomical instruments were found in the same shipwreck. 20. The mechanism took several years to construct."
+          },
+          {
+            "id": "r_b0022",
+            "type": "paragraph",
+            "text": "PASSAGE C (for questions 21 to 27) Some argue that teaching handwriting is a waste of classroom time in an age of keyboards. I find this view short-sighted. The research I have seen suggests that forming letters by hand supports early reading and memory in ways typing does not, and to abandon it would be to trade a proven benefit for mere convenience. Of course, children must also learn to type; no one sensible disputes that. But the two are not in competition, and framing them as either-or is a false choice. What worries me is not that schools teach typing, but that some now teach nothing else. Handwriting need not dominate the timetable; a few minutes a day would preserve its benefits. The claim that handwriting harms children by slowing them down strikes me as unpersuasive. Yes / No / Not Given (the writer’s views): 21. The writer believes teaching handwriting wastes classroom time. 22. The writer thinks children should not learn to type. 23. The writer regards handwriting and typing as opposed alternatives. 24. The writer is concerned that some schools now teach only typing. 25. The writer believes handwriting improves children’s creativity. 26. The writer thinks handwriting should take up most of the timetable. 27. The writer finds the argument that handwriting slows children down convincing."
+          },
+          {
+            "id": "r_b0023",
+            "type": "heading",
+            "level": 2,
+            "text": "ANSWER KEY AND REASONING"
+          },
+          {
+            "id": "r_b0024",
+            "type": "paragraph",
+            "text": "Passage A 1. TRUE. Claim: the dance communicates food location. Evidence: “share the location of food through… the waggle dance.” Relationship: confirmed, paraphrased (“tells where food can be found” equals “share the location”)."
+          },
+          {
+            "id": "r_b0025",
+            "type": "paragraph",
+            "text": "2. FALSE. Claim: direction is shown by waggle duration. Evidence: angle encodes direction; duration indicates distance. Relationship: contradiction. Direction and distance are swapped. 3. TRUE. Evidence: “work for which he later received a Nobel Prize.” Confirmed. 4. FALSE. Claim: nineteenth century. Evidence: “mid-twentieth century.” Contradiction (wrong century). 5. FALSE. Claim: every watching bee flies to the food. Evidence: “some ignore the dance entirely.” Contradiction via quantifier: “every” versus “some ignore.” 6. FALSE. Claim: round dance for very far food. Evidence: round dance is for “very close food sources.” Contradiction. 7. FALSE. Claim: horizontal surface. Evidence: “vertical honeycomb.” Contradiction. 8. NOT GIVEN. Claim: findings were initially rejected. Evidence: the passage covers the decoding and the prize but says nothing about how other scientists received the work. Absence, so Not Given, not False. 9. NOT GIVEN. Claim: bees communicate food quality. Evidence: the passage covers location, direction, and distance, but never quality. Absence. Note the topic (what the dance communicates) is present, yet this specific claim is not, which is the classic Not Given shape. 10. TRUE. Claim: more precise for distant than very close sources. Evidence: “less precise for very close food sources.” Relationship: confirmed by necessary meaning. If it is less precise for very close sources, it is more precise for the rest, including distant ones. This is allowed paraphrase, not a leap. Passage B 11. TRUE. Evidence: “Recovered in 1901.” 1901 is the twentieth century. Confirmed. 12. FALSE. Claim: fewer than twenty gears. Evidence: “at least thirty interlocking gears.” Contradiction (number clash). 13. TRUE. Evidence: “could predict eclipses.” Confirmed. 14. FALSE. Claim: considerably larger than a shoebox. Evidence: “roughly the size of a shoebox.” Contradiction. “Larger than” conflicts with “roughly the size of.” 15. FALSE. Claim: scholars agree on the maker’s identity. Evidence: “the identity of its maker remains unknown.” Contradiction. 16. FALSE. Claim: similar devices were common afterwards. Evidence: “nothing of comparable mechanical complexity is known from the following thousand years.” Contradiction. 17. FALSE. Claim: made of iron. Evidence: “bronze device.” Contradiction."
+          },
+          {
+            "id": "r_b0026",
+            "type": "paragraph",
+            "text": "18. TRUE. Evidence: “Replicas… confirm that the surviving gear ratios reproduce genuine astronomical cycles.” Confirmed. 19. NOT GIVEN. Claim: other astronomical instruments in the same wreck. Evidence: the passage mentions the shipwreck but says nothing about other instruments in it. Absence. 20. NOT GIVEN. Claim: it took several years to build. Evidence: the passage never states the construction time. Absence. Plausible, but not stated, so Not Given, not True. Passage C (Yes / No / Not Given) 21. NO. The writer reports that “some argue” this, then says “I find this view short-sighted.” The writer’s own view is the opposite of the statement. 22. NO. Evidence: “children must also learn to type; no one sensible disputes that.” The writer supports typing, contradicting the claim that children should not learn it. 23. NO. Evidence: “the two are not in competition, and framing them as either-or is a false choice.” The writer rejects the opposed-alternatives view. 24. YES. Evidence: “What worries me is… that some now teach nothing else.” The writer does hold this concern. 25. NOT GIVEN. The writer credits handwriting with supporting “early reading and memory,” but says nothing about creativity. Absence, even though related benefits are discussed. 26. NO. Evidence: “Handwriting need not dominate the timetable.” The writer’s view is the opposite of the claim. 27. NO. Evidence: the slowing-down argument “strikes me as unpersuasive.” The writer does not find it convincing. The pattern to take away: every False came with a sentence you could point to that said the opposite. Every Not Given came from the passage being silent on the exact claim, even when the surrounding topic was present. No verdict rested on what seems reasonable. Claim, evidence, relationship, every time."
+          },
+          {
+            "id": "r_b0027",
+            "type": "paragraph",
+            "text": "True/False/Not Given and Yes/No/Not Given Masterclass. Next: File 14, the Matching Headings Masterclass and the Reading Trap Library."
+          }
+        ]
+      }
+    },
+    {
+      "id": "b3000002-0002-4000-8000-000000000007",
+      "module_id": "b3000002-0002-4000-8000-000000000001",
+      "slug": "file-14-matching-headings-masterclass-and-reading-trap-library",
+      "title": "File 14: The Matching Headings Masterclass and the Reading Trap Library",
+      "position": 7,
+      "estimated_min": 35,
+      "summary": "Matching Headings and the Reading trap library.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "r_b0001",
+            "type": "paragraph",
+            "text": "Two things in one file. First, Matching Headings, the type that most rewards reading for main idea rather than detail. Then the Reading Trap Library, a single reference gathering every trap in the module, so you can revise them in one place before the exam."
+          },
+          {
+            "id": "r_b0002",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 10"
+          },
+          {
+            "id": "r_b0003",
+            "type": "paragraph",
+            "text": "THE MATCHING HEADINGS MASTERCLASS What it is and what it tests You are given a list of headings and asked to choose the correct heading for each paragraph or section. There are always more headings than paragraphs, so some headings are distractors that fit nothing."
+          },
+          {
+            "id": "r_b0004",
+            "type": "principle",
+            "text": "Matching Headings tests one thing: can you identify the main idea, or the purpose, of a whole paragraph. It does not test details. A heading must capture what the entire paragraph is about, not one fact inside it. This is why the type feels different from the others. Everywhere else you hunt for a specific detail. Here you must step back and see the paragraph as a whole."
+          },
+          {
+            "id": "r_b0005",
+            "type": "paragraph",
+            "text": "Why matching one keyword is never enough The commonest failure is to spot a heading’s word inside a paragraph and match on that. It fails for two reasons. First, a heading’s keyword may appear in a paragraph that is mainly about something else, so the word is there but the main idea is not. Second, the paragraph’s real point may be expressed in completely different words from the heading, because headings are paraphrases. Matching a single word ignores both problems. The correct unit of matching is the whole idea of the paragraph against the whole idea of the heading. One word is never the main idea."
+          },
+          {
+            "id": "r_b0006",
+            "type": "paragraph",
+            "text": "How to find a paragraph’s main idea Ask one question of the paragraph: “What is this paragraph mainly doing, or mainly about?” Answer it in a few words, in your own words, before you look at the headings. Where the main idea sits varies: • Often in the first sentence (the topic sentence). • Sometimes in the last sentence, if the paragraph builds to its point. • Sometimes nowhere explicit, so you synthesise it from the whole paragraph."
+          },
+          {
+            "id": "r_b0007",
+            "type": "paragraph",
+            "text": "Remember the principle from File 09: the first sentence shows the paragraph’s direction but is not always its full main idea. If the first sentence is a hook, an example, or background, read on to find the real point. Crucially, separate the main idea from the supporting material. A paragraph may contain an example, a statistic, a contrast, or a minor detail, and none of these is the main idea; they serve it. The heading must match the point the paragraph is making, not the example it uses to make it."
+          },
+          {
+            "id": "r_b0008",
+            "type": "paragraph",
+            "text": "Name the paragraph’s purpose It helps to name what job the paragraph does. Common purposes: • giving background or context • presenting a problem • offering a solution • describing a cause • describing an effect or result • giving an example • making an argument or a claim • reporting a research finding • drawing a contrast • summarising or concluding When you can say “this paragraph presents a problem” or “this paragraph reports a finding,” the right heading usually becomes obvious, because good headings often describe exactly these purposes."
+          },
+          {
+            "id": "r_b0009",
+            "type": "paragraph",
+            "text": "The method, step by step 1. Read the paragraph, leaning on the topic sentence but checking the arc of the whole. 2. In your own words, state its main idea or purpose in a few words. Do this before reading the headings, so the headings cannot bias you. 3. Find the heading that matches your summary. 4. Check that no other paragraph fits that heading better, since each heading is used once. 5. Cross off used headings, and remember the leftover headings are distractors that were never meant to fit. Do the paragraphs you are confident about first, and cross off their headings, which narrows the choices for the harder paragraphs. If an example paragraph comes already matched in the instructions, use it: it removes one heading and shows you the level of paraphrase to expect."
+          },
+          {
+            "id": "r_b0010",
+            "type": "paragraph",
+            "text": "Heading-specific traps • A heading that matches a detail or example in the paragraph rather than its main idea. • Two similar headings that differ by one important word; only one fits, so read both fully."
+          },
+          {
+            "id": "r_b0011",
+            "type": "paragraph",
+            "text": "• A heading that matches the first sentence when that sentence was only a lead-in, not the paragraph’s point."
+          },
+          {
+            "id": "r_b0012",
+            "type": "paragraph",
+            "text": "Beginner versus expert Beginner: reads the headings first, then hunts each heading’s keyword in the paragraphs, matching on words. Expert: reads each paragraph first, summarises its main idea in their own words, then finds the heading that fits the summary, immune to keyword bait."
+          },
+          {
+            "id": "r_b0013",
+            "type": "paragraph",
+            "text": "Worked example Passage (practice): Paragraph A. Trees in cities do far more than decorate. They cool streets by casting shade and releasing water vapour, filter pollutants from the air, absorb rainfall that would otherwise flood drains, and have been linked to lower stress in residents. A single mature street tree can provide benefits worth many times the cost of planting it. Paragraph B. Yet urban trees lead hard lives. Compacted soil starves their roots of air and water, road salt poisons them, and construction severs roots without warning. A newly planted city tree often survives only a fraction of the lifespan it would reach in a forest, and many die within a decade. Paragraph C. Cities are now rethinking how they plant. Rather than squeezing trees into narrow pits, some use large shared soil trenches beneath the pavement, giving roots room to spread. Choosing species suited to local conditions, and watering them through their first summers, dramatically improves survival. Paragraph D. Recent studies add urgency. Researchers tracking city temperatures found that well-shaded streets can be several degrees cooler than bare ones during heatwaves, a gap expected to widen as the climate warms. Today’s saplings are tomorrow’s cooling infrastructure. Headings: i. The many benefits trees bring to cities ii. Why city trees struggle to survive iii. New ways of planting for longer life iv. Evidence that trees help cities cope with heat v. The cost of removing mature trees vi. How trees are planted in forests vii. The benefits of trees in the countryside Summaries in your own words: A is “the good things trees do for cities,” B is “why city trees die,” C is “better ways to plant them,” D is “research showing trees cool cities.” Matches: A to i, B to ii, C to iii, D to iv. The distractors teach the traps. Heading vii (“benefits… in the countryside”) is a similar- heading trap for i: same idea of benefits, wrong location, since paragraph A is about cities. Heading v (removing trees) and vi (forests) match single words that appear in the passage (“mature,” “forest”) but not any paragraph’s main idea. A keyword-matcher is pulled towards them; a main-idea reader is not."
+          },
+          {
+            "id": "r_b0014",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Summarise each paragraph in your own words before you look at the headings. If you read the headings first, your eye starts hunting their words in the paragraph, and you match on words instead of meaning. Decide what the paragraph says, then go shopping for the heading that fits.",
+            "bn": "হেডিং দেখার আগে প্রতিটি প্যারাগ্রাফ নিজের ভাষায় সংক্ষেপে"
+          },
+          {
+            "id": "r_b0015",
+            "type": "paragraph",
+            "text": "বলুন। আগে হেডিং পড় লে চোখ ওই শব্দগুলো প্যারায় খুঁজতে থাকে, অর্থ নয় শব্দ মেলে। আগে ঠিক করুন প্যারা কী বলছে, পরে মানানসই হেডিং খুঁজুন।"
+          },
+          {
+            "id": "r_b0016",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 11"
+          },
+          {
+            "id": "r_b0017",
+            "type": "paragraph",
+            "text": "THE READING TRAP LIBRARY Here, in one place, are the traps that cost the most marks in Reading. Several appeared in earlier files; this is your consolidated revision reference. For each: what it looks like, why students fall, how to recognise it, how to avoid it, and an example."
+          },
+          {
+            "id": "r_b0018",
+            "type": "paragraph",
+            "text": "Trap 1: Identical words, wrong meaning Looks like: a question and a passage sentence share a distinctive word, but the sentences mean different things. Why students fall: a matching word feels like a found answer, so they stop reading. Recognise it: you chose an answer mainly because a word matched. Avoid it: match meaning, not words; read the whole sentence around the shared word. Example: the question mentions “Mediterranean” and so does the passage, but the passage says “western Mediterranean” while the question says “whole Mediterranean.” (Fuller treatment: File 10.)"
+          },
+          {
+            "id": "r_b0019",
+            "type": "paragraph",
+            "text": "Trap 2: Right information, wrong paragraph Looks like: the correct-sounding information appears, but in a paragraph that does not answer this question. Why students fall: they grab the first place the topic appears. Recognise it: you answered from a different region than the question points to. Avoid it: use question order and the question’s exact subject to confirm you are in the right paragraph. Example: a detail about cost appears in paragraph two, but the question’s cost claim is settled in paragraph four."
+          },
+          {
+            "id": "r_b0020",
+            "type": "paragraph",
+            "text": "Trap 3: Partial truth Looks like: part of a statement is supported, part is not, or part is contradicted. Why students fall: they see the supported part and stop, marking True. Recognise it: the statement has two or more parts joined together. Avoid it: require every part to be supported for True. One unsupported part means Not Given; one contradicted part means False. Example: “The device had thirty gears and was made of iron.” Thirty gears is supported; iron is contradicted (bronze). The whole is False. (See File 13.)"
+          },
+          {
+            "id": "r_b0021",
+            "type": "paragraph",
+            "text": "Trap 4: Extreme wording Looks like: a statement uses an absolute (all, only, never, always, none) that the passage does not support. Why students fall: they match the topic and ignore the strength of the claim. Recognise it: the statement contains an absolute word. Avoid it: check whether the passage really makes the absolute claim; it usually does not, making the statement False or Not Given. Example: “Every bee that watches the dance flies to the food,” when the passage says some ignore it. False. (See File 13.)"
+          },
+          {
+            "id": "r_b0022",
+            "type": "paragraph",
+            "text": "Trap 5: Examples mistaken for main ideas Looks like: a heading or answer matches an example the paragraph uses, not the point the paragraph makes. Why students fall: the example is concrete and memorable, more so than the abstract main idea. Recognise it: the thing you matched is introduced by “for example,” “such as,” “for instance,” or is one item among several. Avoid it: separate the main idea from its supporting examples; match the main idea. Example: a paragraph arguing that city trees face many threats uses “road salt” as one example; a heading about road salt would be a trap. (See Part 10 above.)"
+          },
+          {
+            "id": "r_b0023",
+            "type": "paragraph",
+            "text": "Trap 6: Inference Looks like: a statement that is not stated but seems to follow from the passage. Why students fall: they reason one step beyond the text and call it True. Recognise it: you had to add a thought the passage did not state. Avoid it: accept necessary meaning and clear paraphrase, but not probable-sounding conclusions. If you inferred it, it is Not Given. Example: “Decoding the dance took von Frisch years,” when the passage never gives the duration. Not Given. (See File 13.)"
+          },
+          {
+            "id": "r_b0024",
+            "type": "paragraph",
+            "text": "Trap 7: Outside knowledge Looks like: a statement that is true in the real world but not stated in the passage. Why students fall: they answer from what they know rather than what they read. Recognise it: you know it is true but cannot find it in the text. Avoid it: judge only by the passage; delete your own knowledge for this task. Example: “Bees are important pollinators” is true in life, but if the passage does not say it, the verdict is Not Given."
+          },
+          {
+            "id": "r_b0025",
+            "type": "paragraph",
+            "text": "Trap 8: Similar headings Looks like: two headings that are almost the same, differing by one important word. Why students fall: they pick the first that looks close and move on. Recognise it: two headings share most of their words. Avoid it: read both fully and find the word that distinguishes them, then match that word to the paragraph’s actual point. Example: “benefits of trees in cities” versus “benefits of trees in the countryside.” (See Part 10 above.)"
+          },
+          {
+            "id": "r_b0026",
+            "type": "paragraph",
+            "text": "Trap 9: Numerical traps Looks like: a number in the statement differs from, or is reworded from, the passage figure. Why students fall: they match the presence of a number without checking its value or what it refers to. Recognise it: the statement contains a figure, fraction, or proportion. Avoid it: check the exact value and what it counts. “At least thirty” contradicts “fewer than twenty”; “half” equals “fifty per cent.” Example: “The device had fewer than twenty gears,” when the passage says at least thirty. False. (See File 13.)"
+          },
+          {
+            "id": "r_b0027",
+            "type": "paragraph",
+            "text": "Trap 10: Comparison traps Looks like: a comparison is reversed, or a mere comparison is inflated into a superlative. Why students fall: they check that a comparison exists without checking its direction or strength. Recognise it: the statement contains “more than,” “less than,” “the most,” “the largest,” “faster than.” Avoid it: confirm which item is greater, and whether the claim is “more than some” or"
+          },
+          {
+            "id": "r_b0028",
+            "type": "paragraph",
+            "text": "“more than all.” Reversed direction means False; comparative inflated to superlative usually means Not Given. Example: “The region produces more cork than all other countries combined,” when the passage says only “more than any other single country.” Not Given. (Full treatment: File 10.)"
+          },
+          {
+            "id": "r_b0029",
+            "type": "heading",
+            "level": 2,
+            "text": "PRACTICE: TRAP SPOTTING"
+          },
+          {
+            "id": "r_b0030",
+            "type": "paragraph",
+            "text": "For each item, give the verdict and name the trap it is built on. Use the urban trees passage above. Reasoning keys follow. 1. (TFNG) “Road salt is the main reason city trees die.” 2. (TFNG) “City trees never reach the lifespan they would in a forest.” 3. (TFNG) “Well-shaded streets can be cooler than bare streets in hot weather.” 4. (TFNG) “Trees improve residents’ mental health more than they reduce flooding.” 5. (Heading) A student matches Paragraph C to the heading “The problem of compacted soil.” Which trap is this?"
+          },
+          {
+            "id": "r_b0031",
+            "type": "heading",
+            "level": 2,
+            "text": "ANSWER KEY AND REASONING"
+          },
+          {
+            "id": "r_b0032",
+            "type": "paragraph",
+            "text": "1. NOT GIVEN. Trap: examples mistaken for main ideas (and extreme wording). The passage lists road salt as one of several threats (“compacted soil… road salt… construction”), never as “the main reason.” Treating one example as the whole point, plus the unsupported “main,” makes this unsupported. Not Given. 2. NOT GIVEN. Trap: extreme wording. The passage says a city tree “often survives only a fraction” of its forest lifespan, and “many die within a decade.” “Often” and “many” are not “never.” The absolute “never reach” goes beyond what the passage supports. (It is not False, because the passage does not say they do reach it either; it is simply not the claim made.) 3. TRUE. Verify against: “well-shaded streets can be several degrees cooler than bare ones during heatwaves.” Confirmed, paraphrased (“hot weather” for “heatwaves”). No trap; a straight match. Included so you do not start seeing traps everywhere; some statements are simply True. 4. NOT GIVEN. Trap: comparison / inference. The passage says trees are “linked to lower stress” and that they “absorb rainfall,” but it never compares the size of these two benefits. The comparison “more than” is invented. Not Given. 5. Trap: right information, wrong paragraph (and example-as-main-idea). Compacted soil is mentioned, but in Paragraph B (the threats), not Paragraph C. Paragraph C’s main idea is better planting methods. The student matched a detail from the wrong paragraph. The correct heading for C is “New ways of planting for longer life.”"
+          },
+          {
+            "id": "r_b0033",
+            "type": "paragraph",
+            "text": "The lesson of the whole library: nearly every Reading trap is a version of one mistake, matching a word, a part, or a topic instead of the whole, exact meaning. Verify meaning, check every part, confirm the location, and watch the small words, and the traps stop working."
+          },
+          {
+            "id": "r_b0034",
+            "type": "paragraph",
+            "text": "Matching Headings Masterclass and the Reading Trap Library. Next: File 15, the 60-Minute Reading Battle Plan and the close of Module 2."
+          }
+        ]
+      }
+    },
+    {
+      "id": "b3000002-0002-4000-8000-000000000008",
+      "module_id": "b3000002-0002-4000-8000-000000000001",
+      "slug": "file-15-the-60-minute-reading-battle-plan-and-the-close-of-module-2",
+      "title": "File 15: The 60-Minute Reading Battle Plan and the Close of Module 2",
+      "position": 8,
+      "estimated_min": 30,
+      "summary": "The 60-minute Reading battle plan, band-targeted strategy, final drills, and close of Module 2.",
+      "content": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "r_b0001",
+            "type": "paragraph",
+            "text": "You now have every reading skill and every question type. This final file turns them into a plan for the sixty minutes themselves, tuned to your target band, and then gives you a timed capstone to run it on."
+          },
+          {
+            "id": "r_b0002",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 12"
+          },
+          {
+            "id": "r_b0003",
+            "type": "paragraph",
+            "text": "THE 60-MINUTE READING BATTLE PLAN Three passages, forty questions, sixty minutes, no extra time. That is roughly twenty minutes per passage including its questions. The plan below wins that fight."
+          },
+          {
+            "id": "r_b0004",
+            "type": "paragraph",
+            "text": "The universal rules (every band obeys these) 1. Never read the whole passage first. Skim to build a paragraph map (two to three minutes), then let the questions drive. Reading everything is the single biggest time sink. 2. Secure the cheap marks first. Passage 1 is easiest and its marks are worth exactly as much as Passage 3’s. Get them before the clock tightens. 3. Keep a per-question budget. If a question resists after a fair look, mark your best guess, flag it, and move on. One question is one mark; three unreached questions are three marks. 4. Never leave a blank. No penalty for wrong answers, so every blank is a wasted chance. Fill all gaps before time ends, even with a guess. 5. Verify, do not agonise. Back each answer with evidence, then move. Confidence comes from evidence, not from re-reading."
+          },
+          {
+            "id": "r_b0005",
+            "type": "paragraph",
+            "text": "The default time split, and how to bend it A clean default is twenty minutes per passage. Because difficulty rises, many candidates use a graduated split instead:"
+          },
+          {
+            "id": "r_b0006",
+            "type": "paragraph",
+            "text": "Passage Time Why Passage 1 about 17 minutes easiest, so bank time here Passage 2 about 20 minutes medium Passage 3 about 20 minutes hardest, but capped so it cannot swallow the test Check about 3 minutes fill blanks, review flags"
+          },
+          {
+            "id": "r_b0007",
+            "type": "paragraph",
+            "text": "The cap on Passage 3 is the point. A hard passage will happily eat forty minutes if you let it. Give it its share and no more."
+          },
+          {
+            "id": "r_b0008",
+            "type": "paragraph",
+            "text": "Band-specific plans Targeting Band 5 (roughly 23 to 26 correct). Do not try to answer everything perfectly. Your marks live in Passage 1 and in the easier question types across all three passages: completion, short answer, and factual True/False. Do those thoroughly. Give the hardest types (some Matching Headings, Matching Information) a quick attempt, then guess and flag rather than grinding. Spend a little longer on Passages 1 and 2 where marks are reachable, and accept that some Passage 3 marks will be guesses. Goal: harvest every cheap mark, lose only the expensive ones. Targeting Band 6 (roughly 27 to 29). Do Passages 1 and 2 solidly, then give Passage 3 the time that remains. Attempt every question, but never get stuck: within a passage, skip a hard question and return after the easier ones. Use question order to move forward. Guarantee no blanks. Your lost marks should be a handful of genuine traps, not questions you never reached. Targeting Band 7 (roughly 30 to 32). Run a tight 17/20/20 split with a 3-minute check. Skim efficiently, get every easy and medium question right, and on Passage 3 lean on question order, elimination, and evidence. The marks you are fighting for now are traps and Not Givens, so verify every answer you are unsure of. Leave time to revisit flagged questions once. Targeting Band 8 and above (35 or more). You are fighting for near-perfection, and the entire battle is traps, Not Givens, and fine distinctions. Budget about 17/19/21 with a firm 3- minute check. You can afford to miss around five, so do not let one or two genuinely impossible items rattle you. Every answer must be evidence-backed; the difference between Band 7 and Band 8 is ruthless verification and never falling for the partial-truth or comparison traps."
+          },
+          {
+            "id": "r_b0009",
+            "type": "paragraph",
+            "text": "Skipping and returning Flag any question you cannot settle within its budget. Do not carry its weight into the next question; a clean mind answers better than an anxious one. Return to flagged questions only after finishing the passage, and to the hardest ones only in the final check. Skipping is not failure; it is how you protect the marks you can still earn."
+          },
+          {
+            "id": "r_b0010",
+            "type": "paragraph",
+            "text": "Prioritisation: order of attack within a passage 1. Do the ordered types top to bottom (TFNG, completion, sentence completion), letting each answer narrow the search. 2. Do Matching Information and Matching Headings after these, when you already know the passage. 3. Within any set, do the questions you can locate quickly first, and flag the stubborn ones for a second pass."
+          },
+          {
+            "id": "r_b0011",
+            "type": "paragraph",
+            "text": "Difficult questions When a question resists: eliminate the options you can, then guess from what remains. For a stuck True/False/Not Given item, remember that if you cannot find a confirming or"
+          },
+          {
+            "id": "r_b0012",
+            "type": "paragraph",
+            "text": "contradicting sentence, the answer is probably Not Given. Do not spend a fourth minute; a reasoned guess plus a flag is the correct trade."
+          },
+          {
+            "id": "r_b0013",
+            "type": "paragraph",
+            "text": "Final checking (the last 3 minutes) • Fill every blank with your best guess. • Revisit flagged questions once, briefly. • On completion answers, check the word limit and spelling. • Do NOT second-guess answers you backed with evidence. Changing an evidence-based answer under time pressure usually makes it worse. Trust the verification you already did."
+          },
+          {
+            "id": "r_b0014",
+            "type": "callout",
+            "variant": "tutor_tip",
+            "title": "TUTOR INSIDER TIP",
+            "text": "Most candidates lose Reading marks not to hard questions but to the clock, by over- reading Passage 1 and starving Passage 3. If you fix only one thing, fix your pacing: set a hard limit for each passage and obey it even mid-question. A flagged guess in Passage 3 beats a perfect Passage 1 you spent twenty-eight minutes on.",
+            "bn": "বেশিরভাগ শিক্ষার্থী কঠিন প্রশ্নে নয়, ঘড়ি র কাছে নম্বর হারায়, প্যাসেজ ১ বেশি পড়ে প্যাসেজ ৩ শেষ করতে পারে না। শুধু একটা জিনিস ঠিক করলে, গতি ঠিক করুন: প্রতিটি প্যাসেজের জন্য নির্দিষ্ট সময় বেঁধে দিন, প্রশ্নের মাঝখানেও সেটা মানুন।"
+          },
+          {
+            "id": "r_b0015",
+            "type": "heading",
+            "level": 1,
+            "text": "PART 13"
+          },
+          {
+            "id": "r_b0016",
+            "type": "paragraph",
+            "text": "READING PRACTICE The whole module has drilled skills in isolation. Now assemble them. Below is a timed capstone: one passage with a mixed question set, exactly as a real passage mixes types. Give yourself twenty minutes. Skim first, then run the battle plan. For a full test, use three passages of real audio-free official material back to back in sixty minutes, because stamina across three passages is itself a skill. This single passage builds the machinery; the full test rehearses the endurance. Passage (practice, original): Few animals disguise themselves as completely as the octopus. In under a second it can change the colour, pattern, and even the texture of its skin to melt into a reef or a patch of sand. This ability serves two ends at once: hiding from predators, and communicating with other octopuses. The mechanism is layered. Just beneath the surface sit thousands of tiny sacs of pigment called chromatophores, each ringed by muscles; when the muscles pull, the sac spreads and its colour shows. Below these lie reflecting cells that scatter and bounce light, adding blues, greens, and silvers that the pigments alone cannot make. The skin can also raise small bumps, known as papillae, to imitate the rough texture of rock or coral. A puzzle remains at the heart of this skill. Octopuses appear to be colourblind: their eyes contain only one kind of light-detecting cell, which should make distinguishing colours impossible. Yet they match the colours of their surroundings with startling accuracy. One leading hypothesis is that the skin itself senses light, using the same light-sensitive proteins found in eyes, allowing the animal to “see” colour through its body. Beyond"
+          },
+          {
+            "id": "r_b0017",
+            "type": "paragraph",
+            "text": "camouflage, researchers study these displays for other reasons. The same skin is used in courtship and threat, flashing patterns that other octopuses read as signals. Engineers, meanwhile, look to octopus skin as a model for soft, colour-changing materials, hoping to build surfaces that adapt the way living skin does."
+          },
+          {
+            "id": "r_b0018",
+            "type": "paragraph",
+            "text": "Questions Matching Headings. Choose a heading for paragraphs 2 and 3 from: i. A contradiction scientists cannot yet explain ii. How the colour change is produced iii. The dangers octopuses face iv. Why octopuses live alone 1. Paragraph 2 2. Paragraph 3 True / False / Not Given. 3. The octopus can change its skin texture as well as its colour. 4. Octopuses have several types of light-detecting cell in their eyes. 5. Octopuses use camouflage mainly to catch prey. Summary completion (ONE WORD from the passage). 6. Colour is produced by pigment sacs called ____, each surrounded by muscles. 7. To copy rough surfaces, the skin raises small bumps called ____. Multiple choice. 8. According to the passage, the reflecting cells beneath the chromatophores: A) produce the pigments, B) add colours the pigments cannot make, C) control the muscles. 9. The “puzzle” the passage describes is that octopuses: A) cannot change colour quickly, B) match colours despite appearing colourblind, C) have no predators. Matching Information. 10. Which paragraph mentions a possible use of octopus skin in engineering?"
+          },
+          {
+            "id": "r_b0019",
+            "type": "heading",
+            "level": 2,
+            "text": "ANSWER KEY AND REASONING"
+          },
+          {
+            "id": "r_b0020",
+            "type": "paragraph",
+            "text": "1. ii. Paragraph 2’s main idea is how the colour change works (chromatophores, reflecting cells, papillae). Not a detail; the whole paragraph explains the mechanism. 2. i. Paragraph 3 presents the contradiction: colourblind eyes yet accurate colour- matching, with a hypothesis but no settled answer. “A contradiction scientists cannot yet explain” captures the purpose. Heading iii and iv match single ideas or nothing; they are distractors. 3. TRUE. Evidence: “change the colour, pattern, and even the texture.” Confirmed. 4. FALSE. Claim: several types of light-detecting cell. Evidence: “only one kind of light- detecting cell.” Contradiction (number clash). 5. NOT GIVEN. Claim: camouflage is used mainly to catch prey. Evidence: the passage says camouflage serves “hiding from predators, and communicating,” and later mentions hunting-related signalling, but never ranks catching prey as the main purpose. The “mainly” is unsupported. Absence plus extreme wording, so Not Given, not True or False."
+          },
+          {
+            "id": "r_b0021",
+            "type": "paragraph",
+            "text": "6. chromatophores. Words-from-passage: “sacs of pigment called chromatophores, each ringed by muscles.” 7. papillae. “raise small bumps, known as papillae.” 8. B. Evidence: reflecting cells “add blues, greens, and silvers that the pigments alone cannot make.” A and C are contradicted or unsupported. 9. B. Evidence: “appear to be colourblind… Yet they match the colours… with startling accuracy.” The puzzle is exactly this contradiction. 10. Paragraph 4. “Engineers… look to octopus skin as a model for soft, colour-changing materials.” Matching Information wants the specific detail’s location, which is the final paragraph. Score yourself, then log. If you missed 5, note it as the classic partial-truth plus extreme- wording trap (the word “mainly”). If you missed a heading, you likely matched a detail rather than the paragraph’s whole purpose. Whatever you missed, write the reason code, not just the mark."
+          },
+          {
+            "id": "r_b0022",
+            "type": "heading",
+            "level": 2,
+            "text": "MODULE 2 WRAP-UP: READING IN ONE BREATH"
+          },
+          {
+            "id": "r_b0023",
+            "type": "paragraph",
+            "text": "Compressed to its core, Reading is this: Skim each passage in two to three minutes to build a paragraph map, never reading it all. Let the questions drive: for each, locate the region by scanning for anchors or paraphrased concepts, then close-read the few lines to identify and verify the answer. Match meaning, never a bare word. On True/False/Not Given, name the relationship between claim and evidence, and remember that silence is Not Given, not False. Watch the small words: all, only, might, more than. Guard your clock ferociously, secure the cheap marks first, skip and flag the stubborn ones, never leave a blank, and in the final check trust the answers you backed with evidence. That is the whole module. Not “read carefully,” but a precise sequence of locating, verifying, and deciding, run against the clock. When you can do it without thinking, the passage stops being a wall of text and becomes what it always was: a place where every answer is hidden in plain sight, waiting for a reader who knows exactly where to look. You should now be able to say, of any passage and any question type: “I know where to look and how to verify.” Two modules down. Turn next to Module 3, Writing, where the task changes completely: now you are not finding the answer, you are building it."
+          },
+          {
+            "id": "r_b0024",
+            "type": "paragraph",
+            "text": "Minute Reading Battle Plan and Module 2 Close. MODULE 2 COMPLETE. Next: Module 3, Writing, File 16, How IELTS Writing Really Works and Task Analysis."
+          }
+        ]
+      }
+    }
+  ]
+}

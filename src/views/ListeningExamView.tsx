@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
 import { TestSelector } from '../components/practice/TestSelector';
-import { SkillTips } from '../components/practice/SkillTips';
+// import { SkillTips } from '../components/practice/SkillTips';
+import { ListeningTipsChapterList } from '../components/practice/tips/listeningtipschapterlist';
+import { ListeningTipsReader } from '../components/practice/tips/listeningtipsreader';
 import { PlayOnceAudio } from '../components/practice/PlayOnceAudio';
 import { db, type ListeningTest, type ListeningResult } from '../lib/db';
 import { Sparkles, Send, RefreshCw, Trophy, CheckCircle2, X, Clock } from '../components/ui/icons';
@@ -27,6 +29,8 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id }) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [test, setTest] = useState<ListeningTest | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [browseTab, setBrowseTab] = useState<'tests' | 'tips'>('tests');
+  const [selectedTipsSlug, setSelectedTipsSlug] = useState<string | null>(null);
 
   const [answers, setAnswers] = useState<Record<string, AnswerValue>>({});
   const [submitting, setSubmitting] = useState(false);
@@ -128,18 +132,69 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id }) => {
     return (
       <div id={id} className="space-y-6">
         <GlassPanel className="p-6">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono mb-2">
-            <Sparkles size={14} /> <span>Listening Practice</span>
+          <div className="flex items-start justify-between gap-4 flex-wrap">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono mb-2">
+                <Sparkles size={14} /> <span>Listening Practice</span>
+              </div>
+              <h2 className="font-display text-2xl font-bold text-[var(--text)]">Listening Practice</h2>
+              <p className="text-xs text-[var(--text-dim)] mt-1">
+                {browseTab === 'tests'
+                  ? 'Timed audio tests, auto-scored the moment you finish or the clock runs out.'
+                  : 'Learn the Listening strategies, question types, traps, and recovery techniques needed to reach Band 9.'}
+              </p>
+            </div>
+
+            <div className="inline-flex items-center rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] p-1 shrink-0">
+              <button
+                onClick={() => {
+                  setBrowseTab('tests');
+                  setSelectedTipsSlug(null);
+                }}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                  browseTab === 'tests'
+                    ? 'bg-[image:var(--accent-gradient)] text-white shadow'
+                    : 'text-[var(--text-dim)] hover:text-[var(--text)]'
+                }`}
+              >
+                Tests
+              </button>
+
+              <button
+                onClick={() => setBrowseTab('tips')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                  browseTab === 'tips'
+                    ? 'bg-[image:var(--accent-gradient)] text-white shadow'
+                    : 'text-[var(--text-dim)] hover:text-[var(--text)]'
+                }`}
+              >
+                Tips &amp; Tricks
+              </button>
+            </div>
           </div>
-          <h2 className="font-display text-2xl font-bold text-[var(--text)]">Listening Practice</h2>
-          <p className="text-xs text-[var(--text-dim)] mt-1">Timed audio tests, auto-scored the moment you finish or the clock runs out.</p>
         </GlassPanel>
 
-        <TestSelector
-          skill="listening"
-          onSelect={(tid) => setSelectedId(tid)}
-          emptyDescription="Listening tests are being prepared. In the meantime, review the tips below to get ready."
-        />
+        {browseTab === 'tests' ? (
+          <>
+            <TestSelector
+              skill="listening"
+              onSelect={(tid) => setSelectedId(tid)}
+              emptyDescription="Listening tests are being prepared. In the meantime, review the tips below to get ready."
+            />
+
+            {/* <SkillTips skill="listening" /> */}
+          </>
+        ) : selectedTipsSlug ? (
+          <ListeningTipsReader
+            slug={selectedTipsSlug}
+            onNavigate={(slug) => setSelectedTipsSlug(slug)}
+            onBack={() => setSelectedTipsSlug(null)}
+          />
+        ) : (
+          <ListeningTipsChapterList
+            onSelectChapter={(slug) => setSelectedTipsSlug(slug)}
+          />
+        )}
       </div>
     );
   }

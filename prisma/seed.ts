@@ -271,6 +271,7 @@ async function upsertTipsChapter(ch: SeedTipsChapter) {
 
 async function seedTips() {
   const files = [
+    'listening-module-1.json',
     'writing-module-3.json',
     'reading-module-2.json',
     'speaking-module-4.json',

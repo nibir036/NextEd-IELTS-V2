@@ -286,89 +286,98 @@ export const WritingView: React.FC<WritingViewProps> = ({ id }) => {
       {loadError && <GlassPanel className="p-6 text-sm text-[var(--danger)]">{loadError}</GlassPanel>}
       {!test && !loadError && <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)]">Loading test…</GlassPanel>}
 
-      {test && (
+      {test && step === 'task1' && (
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div className="lg:col-span-6 space-y-3">
+            <GlassPanel className="p-5 space-y-3 h-full">
+              <span className="text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">Task 1 (min 150 words)</span>
+              <p className="text-xs text-[var(--text)] leading-relaxed bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-3">
+                {test.task1.prompt}
+              </p>
+              {test.task1.imageUrl && (
+                <div className="rounded-xl overflow-hidden border border-[var(--border)] bg-white">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={test.task1.imageUrl} alt="Task 1 visual" className="w-full h-auto" />
+                </div>
+              )}
+            </GlassPanel>
+          </div>
+
+          <div className="lg:col-span-6 space-y-3">
+            <GlassPanel className="p-5 space-y-3 h-full flex flex-col">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-semibold text-[var(--text)] flex items-center gap-1.5">
+                  <PenTool size={15} className="text-[var(--accent-a)]" /> Your Task 1 Response
+                </span>
+                <span className={`text-xs font-mono ${task1Words >= 150 ? 'text-[var(--success)] font-bold' : 'text-[var(--text-dim)]'}`}>
+                  {task1Words} words <span className="text-[var(--text-faint)]">/ 150+</span>
+                </span>
+              </div>
+              <textarea
+                value={task1Text}
+                onChange={(e) => setTask1Text(e.target.value)}
+                placeholder="Describe the visual: give an overview, then report the key features with comparisons..."
+                rows={18}
+                className="w-full flex-1 bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-3 text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] leading-relaxed resize-none"
+              />
+              <ProgressBar value={(task1Words / 150) * 100} showPercent={false} size="sm" />
+              <div className="flex justify-end pt-1">
+                <Button variant="primary" size="md" icon={<ArrowRight size={16} />} onClick={() => setStep('task2')}>
+                  Next: Task 2
+                </Button>
+              </div>
+            </GlassPanel>
+          </div>
+        </div>
+      )}
+
+      {test && step === 'task2' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-7 space-y-4">
-            {step === 'task1' ? (
-              <GlassPanel className="p-5 space-y-3">
-                <span className="text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">Task 1 (min 150 words)</span>
-                <p className="text-xs text-[var(--text)] leading-relaxed bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-3">
-                  {test.task1.prompt}
-                </p>
-                {test.task1.imageUrl && (
-                  <div className="rounded-xl overflow-hidden border border-[var(--border)] bg-white">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={test.task1.imageUrl} alt="Task 1 visual" className="w-full h-auto" />
-                  </div>
-                )}
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono font-semibold text-[var(--text)] flex items-center gap-1.5">
-                    <PenTool size={15} className="text-[var(--accent-a)]" /> Your Task 1 Response
-                  </span>
-                  <span className={`text-xs font-mono ${task1Words >= 150 ? 'text-[var(--success)] font-bold' : 'text-[var(--text-dim)]'}`}>
-                    {task1Words} words <span className="text-[var(--text-faint)]">/ 150+</span>
-                  </span>
-                </div>
-                <textarea
-                  value={task1Text}
-                  onChange={(e) => setTask1Text(e.target.value)}
-                  placeholder="Describe the visual: give an overview, then report the key features with comparisons..."
-                  rows={12}
-                  className="w-full bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-3 text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] leading-relaxed resize-none"
-                />
-                <ProgressBar value={(task1Words / 150) * 100} showPercent={false} size="sm" />
-                <div className="flex justify-end pt-1">
-                  <Button variant="primary" size="md" icon={<ArrowRight size={16} />} onClick={() => setStep('task2')}>
-                    Next: Task 2
-                  </Button>
-                </div>
-              </GlassPanel>
-            ) : (
-              <GlassPanel className="p-5 space-y-3">
-                <span className="text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">Task 2 (min 250 words)</span>
-                <p className="text-xs text-[var(--text)] leading-relaxed bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-3">
-                  {test.task2.prompt}
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono font-semibold text-[var(--text)] flex items-center gap-1.5">
-                    <PenTool size={15} className="text-[var(--accent-a)]" /> Your Task 2 Response
-                  </span>
-                  <span className={`text-xs font-mono ${task2Words >= 250 ? 'text-[var(--success)] font-bold' : 'text-[var(--text-dim)]'}`}>
-                    {task2Words} words <span className="text-[var(--text-faint)]">/ 250+</span>
-                  </span>
-                </div>
-                <textarea
-                  value={task2Text}
-                  onChange={(e) => setTask2Text(e.target.value)}
-                  placeholder="Write your full essay response here..."
-                  rows={16}
-                  className="w-full bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-3 text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] leading-relaxed resize-none"
-                />
-                <ProgressBar value={(task2Words / 250) * 100} showPercent={false} size="sm" />
+            <GlassPanel className="p-5 space-y-3">
+              <span className="text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">Task 2 (min 250 words)</span>
+              <p className="text-xs text-[var(--text)] leading-relaxed bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-3">
+                {test.task2.prompt}
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-semibold text-[var(--text)] flex items-center gap-1.5">
+                  <PenTool size={15} className="text-[var(--accent-a)]" /> Your Task 2 Response
+                </span>
+                <span className={`text-xs font-mono ${task2Words >= 250 ? 'text-[var(--success)] font-bold' : 'text-[var(--text-dim)]'}`}>
+                  {task2Words} words <span className="text-[var(--text-faint)]">/ 250+</span>
+                </span>
+              </div>
+              <textarea
+                value={task2Text}
+                onChange={(e) => setTask2Text(e.target.value)}
+                placeholder="Write your full essay response here..."
+                rows={16}
+                className="w-full bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-3 text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] leading-relaxed resize-none"
+              />
+              <ProgressBar value={(task2Words / 250) * 100} showPercent={false} size="sm" />
 
-                {errorMessage && (
-                  <div className="text-xs text-[var(--danger)] bg-[var(--danger)]/10 border border-[var(--danger)]/20 p-2.5 rounded-xl">{errorMessage}</div>
-                )}
-                {noticeMessage && (
-                  <div className="text-xs text-[var(--warning)] bg-[var(--warning)]/10 border border-[var(--warning)]/20 p-2.5 rounded-xl">{noticeMessage}</div>
-                )}
+              {errorMessage && (
+                <div className="text-xs text-[var(--danger)] bg-[var(--danger)]/10 border border-[var(--danger)]/20 p-2.5 rounded-xl">{errorMessage}</div>
+              )}
+              {noticeMessage && (
+                <div className="text-xs text-[var(--warning)] bg-[var(--warning)]/10 border border-[var(--warning)]/20 p-2.5 rounded-xl">{noticeMessage}</div>
+              )}
 
-                <div className="flex items-center justify-between pt-1">
-                  <Button variant="secondary" size="md" onClick={() => setStep('task1')}>
-                    ← Back to Task 1
-                  </Button>
-                  <Button
-                    variant="primary"
-                    size="md"
-                    icon={isEvaluating ? <RefreshCw size={16} className="animate-spin" /> : <Send size={16} />}
-                    disabled={isEvaluating || task1Words < 20 || task2Words < 20}
-                    onClick={handleEvaluate}
-                  >
-                    {isEvaluating ? 'Evaluating both tasks...' : 'Submit Full Test'}
-                  </Button>
-                </div>
-              </GlassPanel>
-            )}
+              <div className="flex items-center justify-between pt-1">
+                <Button variant="secondary" size="md" onClick={() => setStep('task1')}>
+                  ← Back to Task 1
+                </Button>
+                <Button
+                  variant="primary"
+                  size="md"
+                  icon={isEvaluating ? <RefreshCw size={16} className="animate-spin" /> : <Send size={16} />}
+                  disabled={isEvaluating || task1Words < 20 || task2Words < 20}
+                  onClick={handleEvaluate}
+                >
+                  {isEvaluating ? 'Evaluating both tasks...' : 'Submit Full Test'}
+                </Button>
+              </div>
+            </GlassPanel>
           </div>
 
           <div className="lg:col-span-5 space-y-4">

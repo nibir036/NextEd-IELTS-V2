@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenAI, Type } from '@google/genai';
 import { prisma } from '../../../../lib/prisma';
 import { getSessionUserId } from '../../../../lib/session';
+import { ieltsOverall } from '../../../../lib/scoring';
 
 function getGenAIClient() {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -33,7 +34,7 @@ function isRetryableStatus(status: unknown): boolean {
 async function generateContentWithRetry(
   ai: ReturnType<typeof getGenAIClient>,
   params: Parameters<ReturnType<typeof getGenAIClient>['models']['generateContent']>[0],
-  maxAttempts = 4,
+  maxAttempts = 2,
 ) {
   let lastErr: unknown;
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
@@ -51,6 +52,32 @@ async function generateContentWithRetry(
         `Gemini request failed with status ${status} (attempt ${attempt}/${maxAttempts}), retrying in ${Math.round(delayMs)}ms…`,
       );
       await sleep(delayMs);
+    }
+  }
+  throw lastErr;
+}
+
+// Newer models (e.g. gemini-3.6-flash) can have free-tier capacity that runs
+// well below its advertised quota right after launch — Google's own docs
+// note listed rate limits "are not guaranteed." Rather than hammering the
+// same overloaded model, fall back to an older, more established model once
+// retries on the primary are exhausted.
+const MODEL_FALLBACK_CHAIN = ['gemini-3.6-flash', 'gemini-2.5-flash'] as const;
+
+async function generateContentResilient(
+  ai: ReturnType<typeof getGenAIClient>,
+  baseParams: Omit<Parameters<ReturnType<typeof getGenAIClient>['models']['generateContent']>[0], 'model'>,
+) {
+  let lastErr: unknown;
+  for (const model of MODEL_FALLBACK_CHAIN) {
+    try {
+      return await generateContentWithRetry(ai, { ...baseParams, model });
+    } catch (err: unknown) {
+      lastErr = err;
+      const status = (err as { status?: number; code?: number })?.status
+        ?? (err as { code?: number })?.code;
+      if (!isRetryableStatus(status)) throw err; // not a capacity issue — no point trying another model
+      console.warn(`Model "${model}" unavailable after retries, falling back to the next model…`);
     }
   }
   throw lastErr;
@@ -202,8 +229,7 @@ export async function POST(req: NextRequest) {
       text: 'Now transcribe each provided part and mark this candidate\'s overall Speaking performance against the official band descriptors. Be strict and specific.',
     });
 
-    const response = await generateContentWithRetry(ai, {
-      model: 'gemini-3.6-flash',
+    const response = await generateContentResilient(ai, {
       contents: [{ role: 'user', parts: contentParts as never }],
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
@@ -254,6 +280,39 @@ export async function POST(req: NextRequest) {
           select: { id: true },
         });
         submissionId = created.id;
+
+        // Update the user's speaking skill band to their BEST band so far,
+        // then recompute the overall band from all known skill bands —
+        // mirrors the pattern in listening/submit/route.ts so the dashboard
+        // (which reads from user_skill_bands, not submissions directly)
+        // picks up the new speaking score.
+        const existing = await prisma.user_skill_bands.findUnique({
+          where: { user_id_skill: { user_id: userId, skill: 'speaking' } },
+          select: { band: true },
+        });
+        const prevBest = existing?.band !== null && existing?.band !== undefined
+          ? Number(existing.band)
+          : null;
+        const bestBand = prevBest === null ? overallBand : Math.max(prevBest, overallBand);
+
+        if (bestBand !== prevBest) {
+          await prisma.user_skill_bands.upsert({
+            where: { user_id_skill: { user_id: userId, skill: 'speaking' } },
+            create: { user_id: userId, skill: 'speaking', band: bestBand },
+            update: { band: bestBand, updated_at: new Date() },
+          });
+        }
+
+        const allBands = await prisma.user_skill_bands.findMany({
+          where: { user_id: userId },
+          select: { band: true },
+        });
+        const overall = ieltsOverall(
+          allBands.map((b) => (b.band !== null ? Number(b.band) : NaN)).filter((n) => !Number.isNaN(n)),
+        );
+        if (overall !== null) {
+          await prisma.users.update({ where: { id: userId }, data: { overall_band: overall } });
+        }
       } catch (saveErr) {
         console.error('Speaking submission save failed:', saveErr);
       }

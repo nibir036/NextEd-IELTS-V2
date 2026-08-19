@@ -1,0 +1,562 @@
+[
+  {
+    "num": 1,
+    "r2_key": "writing-tests/writing-test-01.jpg",
+    "local_file": "final_assets/writing-test-01.jpg",
+    "task1": "The graph below shows the average daily percentage of household energy consumed by three different appliance types in a European country between 2005 and 2025 (including projected figures for 2025). Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many nations around the world, governments are shifting financial resources away from traditional academic university programs toward vocational and technical training initiatives. To what extent do you agree or disagree with this policy? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Opinion (To what extent do you agree or disagree)"
+  },
+  {
+    "num": 2,
+    "r2_key": "writing-tests/writing-test-02.jpg",
+    "local_file": "final_assets/writing-test-02.jpg",
+    "task1": "The diagrams below show the layout of a public library building in 2010 and the redesigned layout of the same building in 2024. Summarize the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Some people believe that international sports events foster peace and mutual understanding between countries. Others argue that these competitions create artificial national rivalries and lead to geopolitical tension. Discuss both views and give your opinion. Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Discuss Both Views (+ Opinion)"
+  },
+  {
+    "num": 3,
+    "r2_key": "writing-tests/writing-test-03.jpg",
+    "local_file": "final_assets/writing-test-03.jpg",
+    "task1": "The table and pie chart below provide information about international tourist arrivals and their primary purpose of visit to a European city in 2023. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many urban areas, historic buildings are being demolished to make way for modern high-density housing developments and commercial infrastructure. What are the primary causes of this trend, and what effects does it have on local communities? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Cause & Effect"
+  },
+  {
+    "num": 4,
+    "r2_key": "writing-tests/writing-test-04.jpg",
+    "local_file": "final_assets/writing-test-04.jpg",
+    "task1": "The diagram below illustrates the linear process of recycling plastic bottles and transforming them into synthetic textiles. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "As artificial intelligence systems become increasingly capable of performing complex analytical and creative tasks, some people predict that human employment will suffer severely. What problems are likely to result from this development, and what measures can governments take to address them? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Problem & Solution"
+  },
+  {
+    "num": 5,
+    "r2_key": "writing-tests/writing-test-05.png",
+    "local_file": "final_assets/writing-test-05.png",
+    "task1": "The bar chart below shows the proportion of young adults aged 18-24 in five different European countries who were living with their parents in 2010 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many societies today, people are choosing to have children later in life than previous generations did. Why is this happening? Is this a positive or negative development for society as a whole? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Two-Part Question"
+  },
+  {
+    "num": 6,
+    "r2_key": "writing-tests/writing-test-06.jpg",
+    "local_file": "final_assets/writing-test-06.jpg",
+    "task1": "The map comparison below shows the village of Feltham in 1990 and after major redevelopment in 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Some educational experts advocate that secondary school students should be required to study financial literacy and money management alongside core subjects like mathematics and science. To what extent do you agree or disagree with this statement? Give reasons for your answer and include any relevant examples from your own knowledge or experience.​",
+    "question_type": null
+  },
+  {
+    "num": 7,
+    "r2_key": "writing-tests/writing-test-07.jpg",
+    "local_file": "final_assets/writing-test-07.jpg",
+    "task1": "The table below shows the amount of coffee produced (in metric tonnes) by five leading coffee-exporting nations in 2012, 2017, and 2022. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many countries, an increasing number of people are buying consumer goods on credit or through deferred payment plans rather than saving money in advance. Is this a positive or negative development? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Opinion (Positive or Negative Development)"
+  },
+  {
+    "num": 8,
+    "r2_key": "writing-tests/writing-test-08.jpg",
+    "local_file": "final_assets/writing-test-08.jpg",
+    "task1": "The pie charts below show the distribution of energy sources used for electricity generation in a South American nation in 2000 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Some people believe that scientists and researchers should be free to conduct any research they choose, while others argue that government control and ethical regulations are necessary to restrict scientific inquiry. Discuss both views and give your opinion. Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Discuss Both Views (+ Opinion)"
+  },
+  {
+    "num": 9,
+    "r2_key": "writing-tests/writing-test-09.jpg",
+    "local_file": "final_assets/writing-test-09.jpg",
+    "task1": "The diagram below illustrates the natural hydrologic cycle (water cycle). Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "The rapid expansion of major metropolitan cities has led to severe traffic congestion and deteriorating air quality. What are the primary causes of these urban environmental problems, and what practical solutions can municipal authorities implement? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Problem & Solution"
+  },
+  {
+    "num": 10,
+    "r2_key": "writing-tests/writing-test-10.jpg",
+    "local_file": "final_assets/writing-test-10.jpg",
+    "task1": "The bar chart and table below show information about international university students studying in Australia in 2021. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many countries, working hours are increasing, leaving people with less time for personal leisure and family obligations. What factors have led to this situation? What effects does this work-life imbalance have on individuals and society? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Two-Part Question"
+  },
+  {
+    "num": 11,
+    "r2_key": "writing-tests/writing-test-11.jpg",
+    "local_file": "final_assets/writing-test-11.jpg",
+    "task1": "The line graph below shows the changes in the average global price of three agricultural commodities (wheat, corn, and sugar) per metric tonne between 2010 and 2022. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "With the rapid rise of digital books, online news outlets, and streaming media, physical public libraries have become an unnecessary government expenditure. To what extent do you agree or disagree with this statement? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Opinion (To what extent do you agree or disagree)"
+  },
+  {
+    "num": 12,
+    "r2_key": "writing-tests/writing-test-12.jpg",
+    "local_file": "final_assets/writing-test-12.jpg",
+    "task1": "The process diagram below shows how commercial olive oil is extracted and processed from raw olives. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Some people believe that the best way to reduce juvenile crime is to hold parents legally and financially responsible for the actions of their underage children. Others argue that teenagers should be held individually accountable for their own illegal behavior. Discuss both views and give your opinion. Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": null
+  },
+  {
+    "num": 13,
+    "r2_key": "writing-tests/writing-test-13.jpg",
+    "local_file": "final_assets/writing-test-13.jpg",
+    "task1": "The table and bar chart below show the proportion of commuters using four different transport modes in a European city, as well as the average travel times recorded in 2005 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many countries, traditional arts such as folk music, classical theater, and handicraft painting are losing popularity among younger generations. What are the main reasons for this decline? What measures can be taken to revive young people's interest in traditional arts? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Problem & Solution"
+  },
+  {
+    "num": 14,
+    "r2_key": "writing-tests/writing-test-14.jpg",
+    "local_file": "final_assets/writing-test-14.jpg",
+    "task1": "The maps below show a coastal peninsula in 1985 and its transformation into a tourist resort destination by 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Fast food consumption has increased dramatically worldwide, leading to higher rates of lifestyle-related health conditions such as obesity and diabetes. Why has fast food become so popular in recent years? Is the widespread adoption of fast-food diets a positive or negative development overall? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Two-Part Question"
+  },
+  {
+    "num": 15,
+    "r2_key": "writing-tests/writing-test-15.jpg",
+    "local_file": "final_assets/writing-test-15.jpg",
+    "task1": "The pie charts below show the percentage distribution of water usage across domestic, agricultural, and industrial sectors in three regions of the world (North America, Sub-Saharan Africa, and East Asia). Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Many multinational companies now require job applicants to take personality assessments and psychological profiling tests before extending employment offers. What are the primary factors driving this hiring trend? What impact does this practice have on job seekers? Give reasons for your answer and include any relevant examples from your own knowledge or experience.​",
+    "question_type": null
+  },
+  {
+    "num": 16,
+    "r2_key": "writing-tests/writing-test-16.jpg",
+    "local_file": "final_assets/writing-test-16.jpg",
+    "task1": "The bar chart below shows the total number of hours worked per week by male and female employees in five different industrial sectors in a South European country in 2022. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Some people believe that governments should provide a guaranteed basic income (UBI) to every citizen, regardless of their employment status or wealth. Others argue that this would reduce work motivation and drain public finances. Discuss both views and give your opinion. Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Discuss Both Views (+ Opinion)"
+  },
+  {
+    "num": 17,
+    "r2_key": "writing-tests/writing-test-17.jpg",
+    "local_file": "final_assets/writing-test-17.jpg",
+    "task1": "The diagrams below illustrate the life cycle of the salmon, a species of migratory fish. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In recent years, an increasing number of people are moving from small rural villages to mega-cities, leading to the rapid depopulation of countryside areas. What are the main causes of rural depopulation? What consequences does this demographic shift have for rural communities? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Cause & Effect"
+  },
+  {
+    "num": 18,
+    "r2_key": "writing-tests/writing-test-18.jpg",
+    "local_file": "final_assets/writing-test-18.jpg",
+    "task1": "The table and line graph below give information about internet access rates and online shopping expenditures in three South-East Asian nations between 2015 and 2023. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many professional industries, working remotely from home using internet technologies has become the norm rather than commuting to a central office building. To what extent do you agree or disagree that the benefits of remote work outweigh its disadvantages for workers and employers? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Opinion (To what extent do you agree or disagree)"
+  },
+  {
+    "num": 19,
+    "r2_key": "writing-tests/writing-test-19.jpg",
+    "local_file": "final_assets/writing-test-19.jpg",
+    "task1": "The maps below show the town of Norbury as it was in 1970 and the proposed redevelopment plans for 2030. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Excessive plastic packaging in supermarket goods has led to severe global environmental pollution. What are the primary reasons why manufacturers continue to use plastic packaging, and what effective measures can be taken to reduce its use? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Problem & Solution"
+  },
+  {
+    "num": 20,
+    "r2_key": "writing-tests/writing-test-20.jpg",
+    "local_file": "final_assets/writing-test-20.jpg",
+    "task1": "The pie chart below illustrates the proportion of global freshwater used across different human activities, and the bar chart shows the breakdown of agricultural water use by crop type. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many parts of the world, people are relying more on private healthcare services rather than national public health systems. Why is this shift occurring? Is this a positive or negative development for society? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Two-Part Question"
+  },
+  {
+    "num": 21,
+    "r2_key": "writing-tests/writing-test-21.jpg",
+    "local_file": "final_assets/writing-test-21.jpg",
+    "task1": "The line graph below shows the average household spend on three categories of consumer goods (clothing, books, and electronics) in a North American nation between 2000 and 2024. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Some universities now offer all their degree programs entirely online, allowing students to study from home without attending campus lectures. Do the advantages of pursuing an entirely online university degree outweigh the disadvantages? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Opinion (Advantages vs. Disadvantages)"
+  },
+  {
+    "num": 22,
+    "r2_key": "writing-tests/writing-test-22.jpg",
+    "local_file": "final_assets/writing-test-22.jpg",
+    "task1": "The process diagram below shows the industrial stages involved in desalination, transforming seawater into drinkable fresh water. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Some people claim that famous celebrities and media personalities exercise far too much influence over the lifestyle choices and opinions of young people. Others argue that celebrities provide positive role models that inspire youth. Discuss both views and give your opinion. Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": null
+  },
+  {
+    "num": 23,
+    "r2_key": "writing-tests/writing-test-23.jpg",
+    "local_file": "final_assets/writing-test-23.jpg",
+    "task1": "The table and pie chart below provide detailed information on the global production of paper products in 2022, categorized by product type and primary exporting regions. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "The widespread adoption of automated self-checkout counters and AI-driven services in retail stores has led to significant job losses for entry-level workers. What problems does this trend create for individuals and society, and what practical solutions can governments and corporations implement to address them? Give reasons for your answer and include any relevant examples from your own knowledge or experience.​",
+    "question_type": null
+  },
+  {
+    "num": 24,
+    "r2_key": "writing-tests/writing-test-24.jpg",
+    "local_file": "final_assets/writing-test-24.jpg",
+    "task1": "The maps below show an island town named Portville as it appeared in 1995 and the planned redevelopment scheme for 2028. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many countries today, younger generations are choosing to rent homes long-term rather than buying property. Why is this shift in homeownership occurring? What long-term economic effects will this trend have on society? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Cause & Effect"
+  },
+  {
+    "num": 25,
+    "r2_key": "writing-tests/writing-test-25.jpg",
+    "local_file": "final_assets/writing-test-25.jpg",
+    "task1": "The bar chart below shows the percentage of workers in four age brackets who worked remotely or from home in an East Asian country in 2015 and 2023. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Governments should allocate more funding to public transport infrastructure, such as high-speed railways and buses, rather than expanding highways and roads for private vehicles. To what extent do you agree or disagree with this view? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Opinion (To what extent do you agree or disagree)"
+  },
+  {
+    "num": 26,
+    "r2_key": "writing-tests/writing-test-26.jpg",
+    "local_file": "final_assets/writing-test-26.jpg",
+    "task1": "The process diagram below shows the industrial process of paper recycling and pulp production. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many countries, government arts funding has decreased, with critics arguing that tax dollars should be spent on essential public services like healthcare and education rather than visual and performing arts. What problems are caused by reducing public funding for the arts, and what alternative solutions exist to support cultural institutions?Give reasons for your answer and include any relevant examples from your own knowledge or experience.​",
+    "question_type": null
+  },
+  {
+    "num": 27,
+    "r2_key": "writing-tests/writing-test-27.jpg",
+    "local_file": "final_assets/writing-test-27.jpg",
+    "task1": "The line graph below shows the average daily time (in minutes) spent using social media platforms by three age groups between 2012 and 2024. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Some people believe that international tourism brings vital economic benefits and cultural exchange to host destinations. Others argue that mass tourism leads to environmental degradation and the loss of local traditional identity. Discuss both views and give your opinion. Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Discuss Both Views (+ Opinion)"
+  },
+  {
+    "num": 28,
+    "r2_key": "writing-tests/writing-test-28.jpg",
+    "local_file": "final_assets/writing-test-28.jpg",
+    "task1": "The pie chart and table below show the distribution of global meat consumption in 2022 and projected per capita growth across selected world regions by 2032. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many parts of the world, employers are increasingly offering flexible four-day workweeks without reducing worker salaries. Why are businesses adopting this scheduling model? Is this a positive or negative development overall? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Two-Part Question"
+  },
+  {
+    "num": 29,
+    "r2_key": "writing-tests/writing-test-29.jpg",
+    "local_file": "final_assets/writing-test-29.jpg",
+    "task1": "The map comparison below shows the changes to a university campus site between 2000 and 2024. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "With the rapid rise of internet delivery services and online shopping, physical brick-and-mortar retail stores will soon cease to exist entirely. To what extent do you agree or disagree with this prediction? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": null
+  },
+  {
+    "num": 30,
+    "r2_key": "writing-tests/writing-test-30.jpg",
+    "local_file": "final_assets/writing-test-30.jpg",
+    "task1": "The bar chart below shows the percentage of household waste recycled across six European cities in 2010 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many urban societies, an increasing proportion of adults are choosing to live alone in single-person households. What social and economic factors are driving this trend? What effects does this demographic shift have on society? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Cause & Effect"
+  },
+  {
+    "num": 31,
+    "r2_key": "writing-tests/writing-test-31.jpg",
+    "local_file": "final_assets/writing-test-31.jpg",
+    "task1": "The line graph below shows the average price of residential property per square meter across four major metropolitan cities between 2012 and 2024. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Some people believe that space exploration is a waste of government resources and that money should be spent on solving immediate problems on Earth, such as poverty and environmental degradation. Others argue that space research leads to vital technological advancements that benefit all humanity. Discuss both views and give your opinion. Give reasons for your answer and include any relevant examples from your own knowledge or experience.​",
+    "question_type": null
+  },
+  {
+    "num": 32,
+    "r2_key": "writing-tests/writing-test-32.jpg",
+    "local_file": "final_assets/writing-test-32.jpg",
+    "task1": "The diagram below illustrates how hydroelectric power is generated in a dam system. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many countries, governments are imposing higher taxes on sugary drinks and processed fast foods to encourage healthier eating habits. To what extent do you agree or disagree with using tax policy to influence dietary choices? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Opinion (To what extent do you agree or disagree)"
+  },
+  {
+    "num": 33,
+    "r2_key": "writing-tests/writing-test-33.jpg",
+    "local_file": "final_assets/writing-test-33.jpg",
+    "task1": "The table and pie chart below provide information on international freight transport, showing the total volume moved by five transit modes in 2023 and the distribution of carbon dioxide emissions caused by these modes. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In recent years, higher education institutions have seen a sharp increase in the popularity of vocational degrees over traditional liberal arts programs (such as philosophy, literature, and history). What has caused this preference for vocational training? What impact will the decline of liberal arts education have on society? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": null
+  },
+  {
+    "num": 34,
+    "r2_key": "writing-tests/writing-test-34.jpg",
+    "local_file": "final_assets/writing-test-34.jpg",
+    "task1": "The maps below show the town of Fairview as it was in 1980 and after urban renewal project in 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Many consumer products, from smartphones to home appliances, are now manufactured with short lifespans and are difficult or expensive to repair, leading to a culture of replacement. What problems does this \"throwaway culture\" cause, and what solutions can be implemented to address it? Give reasons for your answer and include any relevant examples from your own knowledge or experience.​",
+    "question_type": null
+  },
+  {
+    "num": 35,
+    "r2_key": "writing-tests/writing-test-35.jpg",
+    "local_file": "final_assets/writing-test-35.jpg",
+    "task1": "The bar chart below shows the percentage of workers who took paid annual leave days in four different corporate sectors across three years (2012, 2017, and 2022). Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many countries around the world, populations are aging rapidly as life expectancy increases and birth rates decline. What challenges does an aging demographic present for national economies? Is this trend entirely negative, or are there positive aspects for society? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Two-Part Question"
+  },
+  {
+    "num": 36,
+    "r2_key": "writing-tests/writing-test-36.jpg",
+    "local_file": "final_assets/writing-test-36.jpg",
+    "task1": "The line graph below shows the average annual consumption of four distinct types of meat (beef, pork, chicken, and lamb) per person in a European country from 1980 to 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Some people believe that secondary schools should group students into different classes according to their academic abilities. Others argue that students of all ability levels should be taught together in the same classroom. Discuss both views and give your opinion. Give reasons for your answer and include any relevant examples from your own knowledge or experience.​",
+    "question_type": null
+  },
+  {
+    "num": 37,
+    "r2_key": "writing-tests/writing-test-37.jpg",
+    "local_file": "final_assets/writing-test-37.jpg",
+    "task1": "The process diagram below shows how geothermal energy is harnessed to generate electricity. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many countries, government policies now heavily subsidize electric vehicles (EVs) to encourage citizens to move away from petrol and diesel cars. To what extent do you agree or disagree that subsidizing electric vehicles is the most effective way to cut transport emissions? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Opinion (To what extent do you agree or disagree)"
+  },
+  {
+    "num": 38,
+    "r2_key": "writing-tests/writing-test-38.jpg",
+    "local_file": "final_assets/writing-test-38.jpg",
+    "task1": "The table and bar chart below show the global market share of smartphone operating systems in 2013 and 2023, along with average handset selling prices. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many nations, traditional physical news outlets such as print newspapers and magazines are experiencing steep declines in readership as digital media takes over. What factors have caused the decline of print media? What impact does the shift to online news consumption have on public discourse? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Cause & Effect"
+  },
+  {
+    "num": 39,
+    "r2_key": "writing-tests/writing-test-39.jpg",
+    "local_file": "final_assets/writing-test-39.jpg",
+    "task1": "The maps below show the town of Brookfield in 1990 and the town after extensive developments in 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Many major metropolitan areas suffer from extreme light pollution caused by artificial illumination from streetlights, commercial advertising, and office buildings. What negative problems arise from excessive light pollution, and what steps can cities take to reduce its impact? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Problem & Solution"
+  },
+  {
+    "num": 40,
+    "r2_key": "writing-tests/writing-test-40.jpg",
+    "local_file": "final_assets/writing-test-40.jpg",
+    "task1": "The pie charts below show the distribution of household expenditure across five key categories in an East Asian nation in 1975 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many parts of the world, people are choosing to move to foreign countries for work or study, leaving their families behind. Why is this international migration trend growing? Is this a positive or negative development overall for families and sending communities? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Two-Part Question"
+  },
+  {
+    "num": 41,
+    "r2_key": "writing-tests/writing-test-41.png",
+    "local_file": "final_assets/writing-test-41.png",
+    "task1": "The line graph below shows the percentage of total electricity generated from renewable energy sources in four different countries between 2000 and 2024. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Some educational policymakers argue that all university students should be required to take science and technology courses regardless of their chosen degree field. To what extent do you agree or disagree with this view? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Opinion (To what extent do you agree or disagree)"
+  },
+  {
+    "num": 42,
+    "r2_key": "writing-tests/writing-test-42.png",
+    "local_file": "final_assets/writing-test-42.png",
+    "task1": "The process diagram below shows the stages involved in the production of canned fruit for commercial sale. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many nations, public museums and historical sites are charging higher admission fees to international tourists than to local residents. Discuss both views and give your opinion. Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Discuss Both Views (+ Opinion)"
+  },
+  {
+    "num": 43,
+    "r2_key": "writing-tests/writing-test-43.png",
+    "local_file": "final_assets/writing-test-43.png",
+    "task1": "The table and pie chart below provide details about public transportation usage in a major North American city in 2023. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "The widespread adoption of social media platforms has transformed human interaction, leading to concerns about diminishing face-to-face communication skills. What problems are caused by over-reliance on digital communication, and what solutions can individuals and educational institutions implement to encourage real-world interaction? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Problem & Solution"
+  },
+  {
+    "num": 44,
+    "r2_key": "writing-tests/writing-test-44.png",
+    "local_file": "final_assets/writing-test-44.png",
+    "task1": "The maps below show the island of Saint Helena as it was in 2005 and following the construction of an international airport and tourist facilities in 2022. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many countries, an increasing number of people are continuing to work past the traditional retirement age of 65. What factors have contributed to this trend? Is this a positive or negative development for the labor market and society as a whole? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Two-Part Question"
+  },
+  {
+    "num": 45,
+    "r2_key": "writing-tests/writing-test-45.png",
+    "local_file": "final_assets/writing-test-45.png",
+    "task1": "The bar chart below shows the percentage of total household waste that was landfilled, incinerated, or recycled in five different countries in 2022. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "As international travel becomes more affordable, many cultural traditions around the world are becoming homogenized to cater to global tourists. What are the primary causes of cultural homogenization? What consequences does this have for indigenous cultures? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Cause & Effect"
+  },
+  {
+    "num": 46,
+    "r2_key": "writing-tests/writing-test-46.png",
+    "local_file": "final_assets/writing-test-46.png",
+    "task1": "The line graph below shows the percentage of households with access to three different communication technologies in a developing nation between 1995 and 2025 (including projected figures for 2025). Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "To reduce the crime rate, some politicians argue that prison sentences should be significantly longer. Others, however, believe that alternative methods, such as rehabilitation, education, and community service, are more effective. To what extent do you agree or disagree with these approaches? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Opinion (To what extent do you agree or disagree)"
+  },
+  {
+    "num": 47,
+    "r2_key": "writing-tests/writing-test-47.png",
+    "local_file": "final_assets/writing-test-47.png",
+    "task1": "The maps below show the layout of a civic park in 2010 and the changes made to the park after its renovation in 2024. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Some educational experts believe that schools should focus exclusively on academic subjects (like math, science, and history) to prepare students for university. Others argue that schools should emphasize practical skills (such as cooking, personal finance, and woodworking) for everyday life. Discuss both views and give your opinion. Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Discuss Both Views (+ Opinion)"
+  },
+  {
+    "num": 48,
+    "r2_key": "writing-tests/writing-test-48.png",
+    "local_file": "final_assets/writing-test-48.png",
+    "task1": "The table below shows the employment rates across four different economic sectors in five countries in 2023. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In recent years, an unprecedented number of plant and animal species have become endangered or extinct due to human activity. What are the main causes of this loss of biodiversity? What effects will this have on the natural environment and human populations? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Cause & Effect"
+  },
+  {
+    "num": 49,
+    "r2_key": "writing-tests/writing-test-49.png",
+    "local_file": "final_assets/writing-test-49.png",
+    "task1": "The pie chart below shows the sources of funding for a national university in 2022, and the bar chart shows how this budget was allocated across different university departments. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Many major cities around the world are currently experiencing a severe shortage of affordable housing for middle- and lower-income residents. What problems are caused by a lack of affordable housing, and what measures can local and national governments take to solve this crisis? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Problem & Solution"
+  },
+  {
+    "num": 50,
+    "r2_key": "writing-tests/writing-test-50.png",
+    "local_file": "final_assets/writing-test-50.png",
+    "task1": "The diagram below illustrates the traditional process of silk production and the manufacturing of silk cloth. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "The rapid advancement of artificial intelligence (AI) and automation technology means that machines can now perform many tasks previously done by human workers. Why is this technological shift happening across so many industries? Do you think this is a positive or negative development for the future of work? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Two-Part Question"
+  },
+  {
+    "num": 51,
+    "r2_key": "writing-tests/writing-test-51.png",
+    "local_file": "final_assets/writing-test-51.png",
+    "task1": "The line graph below shows the average daily time spent on social media platforms by age group in a European country between 2012 and 2024. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Some people believe that the government should provide free public transport for all citizens in major urban areas. Others argue that passengers should pay for their public transport services so that funds can be used to improve infrastructure. Discuss both views and give your opinion. Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Discuss Both Views (+ Opinion)"
+  },
+  {
+    "num": 52,
+    "r2_key": "writing-tests/writing-test-52.png",
+    "local_file": "final_assets/writing-test-52.png",
+    "task1": "The process diagram below shows the stages involved in recycling plastic bottles into new synthetic fiber products. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many countries, governments are implementing steep taxes on sugary foods and drinks to discourage unhealthy eating habits and lower obesity rates. To what extent do you agree or disagree that taxing unhealthy foods is an effective solution to public health issues? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Opinion (To what extent do you agree or disagree)"
+  },
+  {
+    "num": 53,
+    "r2_key": "writing-tests/writing-test-53.png",
+    "local_file": "final_assets/writing-test-53.png",
+    "task1": "The table and bar chart below show international student enrollment in higher education across four major host countries in 2015 and 2023, along with total tuition revenue generated. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In today's fast-paced corporate environment, many employees are working remotely from home full-time, while others continue to work in physical office environments. What are the primary reasons for the shift toward remote work? What impact does this movement have on employee productivity and mental well-being? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Cause & Effect"
+  },
+  {
+    "num": 54,
+    "r2_key": "writing-tests/writing-test-54.png",
+    "local_file": "final_assets/writing-test-54.png",
+    "task1": "The maps below show an airport terminal building in 2008 and the expansion plans implemented in 2022. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Rapid urbanization has led to severe traffic congestion in urban centers worldwide, causing massive productivity losses and air pollution. What factors contribute to severe urban congestion, and what effective measures can city planners take to resolve traffic problems? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Problem & Solution"
+  },
+  {
+    "num": 55,
+    "r2_key": "writing-tests/writing-test-55.png",
+    "local_file": "final_assets/writing-test-55.png",
+    "task1": "The pie charts below show the sources of global carbon dioxide (CO2) emissions by sector in 1990 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many countries, young people are increasingly moving away from rural villages to settle in large cities. Why is this rural-to-urban migration occurring among youth? Do you consider this a positive or negative movement for rural communities? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Two-Part Question"
+  },
+  {
+    "num": 56,
+    "r2_key": "writing-tests/writing-test-56.png",
+    "local_file": "final_assets/writing-test-56.png",
+    "task1": "The line graph below shows the average daily screen time spent on smartphones, computers, and televisions by individuals in a European country between 2010 and 2024. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Some people believe that artificial intelligence will replace most human jobs in the future, leading to widespread unemployment. Others argue that AI will create new, higher-value job opportunities and boost economic growth. Discuss both views and give your opinion. Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Discuss Both Views (+ Opinion)"
+  },
+  {
+    "num": 57,
+    "r2_key": "writing-tests/writing-test-57.png",
+    "local_file": "final_assets/writing-test-57.png",
+    "task1": "The diagram below shows the process of desalination used to turn seawater into drinkable fresh water. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Many governments are spending significant amounts of money on space exploration programs. Some people argue that these funds should instead be used to address pressing social and environmental problems on Earth. To what extent do you agree or disagree with this statement? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Opinion (To what extent do you agree or disagree)"
+  },
+  {
+    "num": 58,
+    "r2_key": "writing-tests/writing-test-58.png",
+    "local_file": "final_assets/writing-test-58.png",
+    "task1": "The table and bar chart below show international tourism arrivals and total tourism receipts across five global regions in 2019 and 2023. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many countries, children spend hours every day playing video games and using digital entertainment devices. What problems are caused by excessive screen time among children, and what effective measures can parents and schools take to manage this issue? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Problem & Solution"
+  },
+  {
+    "num": 59,
+    "r2_key": "writing-tests/writing-test-59.png",
+    "local_file": "final_assets/writing-test-59.png",
+    "task1": "The maps below show the university campus of Greenfield in 2000 and after structural expansion in 2024. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "The rise of global fast-fashion brands has made stylish clothing affordable, but it has also led to massive environmental waste and unsustainable consumption habits. What factors have caused the growth of the fast-fashion industry? What impact does fast fashion have on global resources and local communities? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Cause & Effect"
+  },
+  {
+    "num": 60,
+    "r2_key": "writing-tests/writing-test-60.png",
+    "local_file": "final_assets/writing-test-60.png",
+    "task1": "The pie charts below show the primary energy consumption by fuel source in a South American nation in 2000 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many parts of the world, consumer shopping habits have shifted rapidly from traditional brick-and-mortar retail stores to online e-commerce platforms. Why is this shift to online shopping occurring? Is this a positive or negative development for consumers and city centers overall? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Two-Part Question"
+  },
+  {
+    "num": 61,
+    "r2_key": "writing-tests/writing-test-61.png",
+    "local_file": "final_assets/writing-test-61.png",
+    "task1": "The line graph below shows the percentage of commuters using three different modes of transport (private cars, public transit, and bicycles) in a European capital city between 2000 and 2024. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Some educators argue that university courses should focus primarily on practical career skills to prepare graduates for the workforce. Others believe universities should focus on academic theoretical knowledge and critical thinking. To what extent do you agree or disagree with the view that practical skills should take priority? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Opinion (To what extent do you agree or disagree)"
+  },
+  {
+    "num": 62,
+    "r2_key": "writing-tests/writing-test-62.png",
+    "local_file": "final_assets/writing-test-62.png",
+    "task1": "The process diagram below shows the key stages involved in recycling paper to manufacture new paper products. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Some people choose to pursue higher education abroad in a foreign country, while others prefer to study at a university in their home nation. Discuss both views and give your opinion. Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Discuss Both Views (+ Opinion)"
+  },
+  {
+    "num": 63,
+    "r2_key": "writing-tests/writing-test-63.png",
+    "local_file": "final_assets/writing-test-63.png",
+    "task1": "The table and bar chart below show renewable energy capacity and annual clean energy investment across five global regions in 2022. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Many developing nations are experiencing a severe \"brain drain\" as high numbers of skilled medical professionals, engineers, and researchers emigrate to wealthier countries. What problems are caused by the departure of skilled professionals from developing nations, and what measures can governments implement to mitigate this issue? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Problem & Solution"
+  },
+  {
+    "num": 64,
+    "r2_key": "writing-tests/writing-test-64.png",
+    "local_file": "final_assets/writing-test-64.png",
+    "task1": "The maps below show the commercial city center of Northwood in 2010 and following a major pedestrianization project in 2024. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many countries, society is moving rapidly toward a cashless economy, where digital payments and mobile wallets are replacing physical banknotes and coins. Why is this transition toward cashless transactions taking place? Is this a positive or negative development overall for society? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Two-Part Question"
+  },
+  {
+    "num": 65,
+    "r2_key": "writing-tests/writing-test-65.png",
+    "local_file": "final_assets/writing-test-65.png",
+    "task1": "The pie charts below show the percentage breakdown of household expenditure in a developed nation in 1985 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Due to global media, rapid urbanization, and international commerce, many regional dialects and minority languages around the world are dying out. What factors have caused the decline of regional languages and dialects? What consequences does this linguistic loss have on global cultural diversity? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": null
+  },
+  {
+    "num": 66,
+    "r2_key": "writing-tests/writing-test-66.png",
+    "local_file": "final_assets/writing-test-66.png",
+    "task1": "The line graph below shows the average daily consumption of fresh water per capita across four different sectors (agriculture, industrial, residential, and commercial) in a European nation from 1990 to 2022. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Some people believe that international sports events, such as the Olympic Games and the World Cup, promote peace and unity between nations. Others argue that these competitions create hostility, intense nationalistic rivalry, and financial burdens. Discuss both views and give your opinion. Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Discuss Both Views (+ Opinion)"
+  },
+  {
+    "num": 67,
+    "r2_key": "writing-tests/writing-test-67.png",
+    "local_file": "final_assets/writing-test-67.png",
+    "task1": "The process diagram below shows the steps involved in the production of olive oil from harvesting to final packaging. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "Many governments are now investing heavily in high-speed rail networks to connect major cities. Some people argue that this is the best use of public transport funds, while others believe that improving local city bus and subway networks should take priority. To what extent do you agree or disagree with the prioritization of high-speed intercity trains over local urban transit? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Opinion (To what extent do you agree or disagree)"
+  },
+  {
+    "num": 68,
+    "r2_key": "writing-tests/writing-test-68.png",
+    "local_file": "final_assets/writing-test-68.png",
+    "task1": "The table and bar chart below show the global production volume and average wholesale market prices of major commercial grains (wheat, rice, corn, and barley) in 2018 and 2023. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many urban centers, historic buildings are being demolished to make way for modern high-rise office blocks and luxury residential apartments. What problems are caused by the destruction of historic architecture, and what steps can local authorities take to preserve heritage buildings while allowing urban development? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Problem & Solution"
+  },
+  {
+    "num": 69,
+    "r2_key": "writing-tests/writing-test-69.png",
+    "local_file": "final_assets/writing-test-69.png",
+    "task1": "The maps below show the coastal village of Seaville in 1980 and the extensive developments made by 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In recent years, the consumption of fast food and processed meals has increased dramatically worldwide, replacing traditional home-cooked meals. What factors have led to this shift in eating habits? What impact does this trend have on public health and family relationships? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Cause & Effect"
+  },
+  {
+    "num": 70,
+    "r2_key": "writing-tests/writing-test-70.png",
+    "local_file": "final_assets/writing-test-70.png",
+    "task1": "The pie charts below show the primary sources of household electricity generation in a Scandinavian country in 2000 and 2022. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+    "task2": "In many countries, workers are moving away from traditional 9-to-5 full-time employment to enter the \"gig economy,\" working as independent freelancers and contract workers. Why is the gig economy expanding so rapidly? Do you consider this a positive or negative structural change for the workforce overall? Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "question_type": "Two-Part Question"
+  }
+]

@@ -146,6 +146,14 @@ export interface ListeningResult {
   review: Record<string, { correct: boolean; accepted: string[]; your: unknown }>;
 }
 
+// Reading shares the exact same section/question/result shape as
+// Listening (both are structured, auto-scored tests) — just aliased for
+// clarity at call sites.
+export type ReadingQuestion = ListeningQuestion;
+export type ReadingSection = ListeningSection;
+export type ReadingTest = ListeningTest;
+export type ReadingResult = ListeningResult;
+
 export interface SubmissionSummary {
   id: string;
   origin: 'submission' | 'attempt';
@@ -353,6 +361,25 @@ export const db = {
     answers: Record<string, unknown>,
   ): Promise<ListeningResult> {
     return api<ListeningResult>('/api/listening/submit', {
+      method: 'POST',
+      body: JSON.stringify({ testId, answers }),
+    });
+  },
+
+  // Fetch a reading test (no answer key) by id, or the first published one.
+  async getReadingTest(id?: string): Promise<ReadingTest> {
+    const { test } = await api<{ test: ReadingTest }>(
+      id ? `/api/reading/test?id=${id}` : '/api/reading/test',
+    );
+    return test;
+  },
+
+  // Submit answers, get auto-scored band + per-question review.
+  async submitReading(
+    testId: string,
+    answers: Record<string, unknown>,
+  ): Promise<ReadingResult> {
+    return api<ReadingResult>('/api/reading/submit', {
       method: 'POST',
       body: JSON.stringify({ testId, answers }),
     });

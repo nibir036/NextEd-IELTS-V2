@@ -8,7 +8,7 @@ import { LoginView } from './views/LoginView';
 import { SignupView } from './views/SignupView';
 import { DashboardView } from './views/DashboardView';
 import { WritingView } from './views/WritingView';
-import { ReadingView } from './views/ReadingView';
+import { ReadingExamView } from './views/ReadingExamView';
 import { SpeakingView } from './views/SpeakingView';
 import { ListeningView } from './views/ListeningView';
 import { ListeningExamView } from './views/ListeningExamView';
@@ -105,7 +105,7 @@ export default function App() {
       case 'writing':
         return <WritingView />;
       case 'reading':
-        return <ReadingView />;
+        return <ReadingExamView />;
       case 'speaking':
         return <SpeakingView />;
       case 'listening':

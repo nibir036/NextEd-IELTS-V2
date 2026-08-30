@@ -14,6 +14,8 @@ $files = @(
     "0011_writing_tips_engine.sql",
     "0012_remove_dummy_writing_test.sql",
     "0013_seed_writing_test_bank.sql",
+    "0014_remove_dummy_reading_test.sql",
+    "0015_seed_reading_test_bank.sql",
     "seed_grammar_module_1_ch1.sql",
     "seed_grammar_ch2.sql",
     "seed_grammar_ch3.sql",

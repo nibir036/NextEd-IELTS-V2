@@ -6,8 +6,8 @@ import { TestSelector } from '../components/practice/TestSelector';
 import { SpeakingTipsChapterList } from '../components/practice/tips/speakingtipschapterlist';
 import { SpeakingTipsReader } from '../components/practice/tips/speakingtipsreader';
 import {
-  Sparkles, Mic, Square, ArrowRight, Clock, MessageCircle, Users, RotateCcw,
-  Send, RefreshCw, Trophy, CheckCircle2, BookOpen,
+  Sparkles, Mic, Square, ArrowRight, Clock, MessageCircle, Users,
+  Send, RefreshCw, Trophy, CheckCircle2, BookOpen, ChevronRight,
 } from '../components/ui/icons';
 
 interface SpeakingViewProps {
@@ -29,8 +29,6 @@ interface SpeakingTest {
   part3: { topics: SpeakingTopic[] };
 }
 
-type SpeakingPart = 'part1' | 'part2' | 'part3';
-
 interface SpeakingResult {
   overallBand: number;
   fluencyScore: number;
@@ -43,43 +41,140 @@ interface SpeakingResult {
   pronunciationFeedback: string;
   generalSummary: string;
   keyImprovements: string[];
-  transcript: { part1: string; part2: string; part3: string };
   saved?: boolean;
 }
 
-const PREP_SECONDS = 60;
+// ---------- Segment model ----------
+// Each Part 1/3 sub-question and the Part 2 long turn is now its own
+// separately-recorded segment, rather than one audio clip covering an
+// entire part. This keeps each recording focused on one question (so the
+// LLM doesn't have to guess which sentence answers which question) and
+// keeps individual audio files short (faster/more reliable through
+// VAD + pronunciation scoring on the backend).
 
-function buildPart1Context(test: SpeakingTest): string {
-  const topics = test.part1.topics.map((t) => `${t.topic}: ${t.questions.join(' ')}`).join('\n');
-  return `${test.part1.intro}\n\n${topics}`;
-}
-function buildPart2Context(test: SpeakingTest): string {
-  return `${test.part2.cueCardTitle}\nYou should say: ${test.part2.points.join('; ')}`;
-}
-function buildPart3Context(test: SpeakingTest): string {
-  return test.part3.topics.map((t) => `${t.topic}: ${t.questions.join(' ')}`).join('\n');
+type SegmentKind = 'intro' | 'topic' | 'part2';
+
+interface RecordableSegment {
+  kind: SegmentKind;
+  id: string;
+  partNumber: 1 | 2 | 3;
+  partLabel: string;
+  heading: string;
+  questionText: string;
+  displayQuestions?: string[]; // for bullet rendering when available
+  durationSec: number;
+  autoStart: boolean;
+  advanceMode: 'auto' | 'manual-continue';
+  prepSec?: number; // part2 only
 }
 
-const PartTabs: React.FC<{ part: SpeakingPart; onChange: (p: SpeakingPart) => void; recorded: Record<SpeakingPart, boolean> }> = ({
-  part, onChange, recorded,
-}) => (
-  <div className="flex items-center gap-1 bg-[var(--bg-elevated)] p-1.5 rounded-xl border border-[var(--border)]">
-    {(['part1', 'part2', 'part3'] as SpeakingPart[]).map((p) => (
-      <button
-        key={p}
-        onClick={() => onChange(p)}
-        className={`relative px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${
-          part === p ? 'bg-[image:var(--accent-gradient)] text-white' : 'text-[var(--text-dim)] hover:text-[var(--text)]'
-        }`}
-      >
-        {p === 'part1' ? 'Part 1' : p === 'part2' ? 'Part 2' : 'Part 3'}
-        {recorded[p] && (
-          <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-[var(--success)] border border-[var(--bg)]" />
-        )}
-      </button>
-    ))}
-  </div>
-);
+interface InstructionSegment {
+  kind: 'instruction';
+  id: string;
+  partLabel: string;
+  heading: string;
+  body: string;
+}
+
+type Segment = RecordableSegment | InstructionSegment;
+
+function buildSegments(test: SpeakingTest): Segment[] {
+  const segments: Segment[] = [];
+
+  segments.push({
+    kind: 'intro',
+    id: 'p1_intro',
+    partNumber: 1,
+    partLabel: 'Part 1',
+    heading: 'Introduction',
+    questionText: test.part1.intro,
+    durationSec: 30,
+    autoStart: false,
+    advanceMode: 'manual-continue',
+  });
+
+  segments.push({
+    kind: 'instruction',
+    id: 'p1_instructions',
+    partLabel: 'Part 1',
+    heading: 'Before you continue',
+    body:
+      'In the upcoming 3 cards you will see 1 question with multiple sub-questions each. ' +
+      'You will have 1 minute to answer all. After 1 minute the cards will swipe to the next one. ' +
+      'The timer and recorder will start running the moment the questions are shown.',
+  });
+
+  test.part1.topics.forEach((t, i) => {
+    segments.push({
+      kind: 'topic',
+      id: `p1_topic${i + 1}`,
+      partNumber: 1,
+      partLabel: 'Part 1',
+      heading: t.topic,
+      questionText: `${t.topic}: ${t.questions.join(' ')}`,
+      displayQuestions: t.questions,
+      durationSec: 60,
+      autoStart: true,
+      advanceMode: 'auto',
+    });
+  });
+
+  segments.push({
+    kind: 'instruction',
+    id: 'p2_instructions',
+    partLabel: 'Part 2',
+    heading: 'Before you continue',
+    body:
+      'You will have 1 minute to prepare, followed by up to 2 minutes to speak. ' +
+      'Preparation time starts automatically as soon as you continue, and recording will ' +
+      'begin automatically the moment preparation ends.',
+  });
+
+  segments.push({
+    kind: 'part2',
+    id: 'p2_main',
+    partNumber: 2,
+    partLabel: 'Part 2',
+    heading: test.part2.cueCardTitle,
+    questionText: `${test.part2.cueCardTitle}\nYou should say: ${test.part2.points.join('; ')}`,
+    displayQuestions: test.part2.points,
+    durationSec: 120,
+    prepSec: 60,
+    autoStart: true,
+    advanceMode: 'manual-continue',
+  });
+
+  segments.push({
+    kind: 'instruction',
+    id: 'p3_instructions',
+    partLabel: 'Part 3',
+    heading: 'Before you continue',
+    body:
+      'You will now discuss 2 broader topics related to Part 2. Each card gives you 1.5 minutes ' +
+      'to answer. The timer and recorder will start the moment each card is shown.',
+  });
+
+  test.part3.topics.forEach((t, i) => {
+    segments.push({
+      kind: 'topic',
+      id: `p3_topic${i + 1}`,
+      partNumber: 3,
+      partLabel: 'Part 3',
+      heading: t.topic,
+      questionText: `${t.topic}: ${t.questions.join(' ')}`,
+      displayQuestions: t.questions,
+      durationSec: 90,
+      autoStart: true,
+      advanceMode: 'auto',
+    });
+  });
+
+  return segments;
+}
+
+function isRecordable(s: Segment): s is RecordableSegment {
+  return s.kind !== 'instruction';
+}
 
 // Prefer opus/webm, fall back to whatever the browser actually supports (e.g. Safari's mp4/aac).
 function pickMimeType(): string {
@@ -91,15 +186,38 @@ function pickMimeType(): string {
   return '';
 }
 
-interface AudioRecorderProps {
-  label: string;
-  onChange: (dataUrl: string | null) => void;
-  maxSeconds?: number;
+function fmtClock(totalSec: number): string {
+  const s = Math.max(0, Math.round(totalSec));
+  const mm = String(Math.floor(s / 60)).padStart(2, '0');
+  const ss = String(s % 60).padStart(2, '0');
+  return `${mm}:${ss}`;
 }
 
-const AudioRecorder: React.FC<AudioRecorderProps> = ({ label, onChange, maxSeconds = 180 }) => {
+const CriterionCard: React.FC<{ label: string; score: number; feedback: string }> = ({ label, score, feedback }) => (
+  <div className="p-2.5 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)]">
+    <div className="flex justify-between items-center mb-1">
+      <span className="text-[11px] font-mono text-[var(--text-faint)]">{label}</span>
+      <span className="font-display font-bold text-xs text-[var(--text)]">{score.toFixed(1)}</span>
+    </div>
+    <p className="text-[11px] text-[var(--text-dim)] leading-tight">{feedback}</p>
+  </div>
+);
+
+// ---------- Recorder ----------
+// Handles mic capture for exactly one segment: idle (only when !autoStart) ->
+// recording (countdown from durationSec, auto-stops at 0 or on manual
+// finish) -> either immediately reports done (advanceMode 'auto') or shows
+// a review player + Continue button (advanceMode 'manual-continue').
+
+interface RecorderCardProps {
+  segment: RecordableSegment;
+  onRecorded: (dataUrl: string) => void;
+  onAdvance: () => void;
+}
+
+const RecorderCard: React.FC<RecorderCardProps> = ({ segment, onRecorded, onAdvance }) => {
   const [status, setStatus] = useState<'idle' | 'recording' | 'recorded' | 'error'>('idle');
-  const [elapsed, setElapsed] = useState(0);
+  const [remaining, setRemaining] = useState(segment.durationSec);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -107,18 +225,27 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ label, onChange, maxSecon
   const streamRef = useRef<MediaStream | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const tickRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const startedRef = useRef(false);
 
   const cleanupStream = () => {
     streamRef.current?.getTracks().forEach((t) => t.stop());
     streamRef.current = null;
   };
 
-  useEffect(() => () => {
-    if (tickRef.current) clearInterval(tickRef.current);
-    cleanupStream();
-    if (audioUrl) URL.revokeObjectURL(audioUrl);
+  useEffect(
+    () => () => {
+      if (tickRef.current) clearInterval(tickRef.current);
+      cleanupStream();
+      if (audioUrl) URL.revokeObjectURL(audioUrl);
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    [],
+  );
+
+  const finishRecording = (recorder: MediaRecorder) => {
+    if (tickRef.current) clearInterval(tickRef.current);
+    if (recorder.state !== 'inactive') recorder.stop();
+  };
 
   const startRecording = async () => {
     setError(null);
@@ -140,28 +267,33 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ label, onChange, maxSecon
       recorder.onstop = () => {
         const blob = new Blob(chunksRef.current, { type: recorder.mimeType || 'audio/webm' });
         const url = URL.createObjectURL(blob);
-        setAudioUrl(url);
-        setStatus('recorded');
+        cleanupStream();
+
         const reader = new FileReader();
         reader.onloadend = () => {
-          if (typeof reader.result === 'string') onChange(reader.result);
+          if (typeof reader.result !== 'string') return;
+          onRecorded(reader.result);
+          if (segment.advanceMode === 'auto') {
+            onAdvance();
+          } else {
+            setAudioUrl(url);
+            setStatus('recorded');
+          }
         };
         reader.readAsDataURL(blob);
-        cleanupStream();
       };
 
       recorderRef.current = recorder;
       recorder.start();
       setStatus('recording');
-      setElapsed(0);
+      setRemaining(segment.durationSec);
       tickRef.current = setInterval(() => {
-        setElapsed((s) => {
-          if (s + 1 >= maxSeconds) {
-            recorder.stop();
-            if (tickRef.current) clearInterval(tickRef.current);
-            return maxSeconds;
+        setRemaining((s) => {
+          if (s <= 1) {
+            finishRecording(recorder);
+            return 0;
           }
-          return s + 1;
+          return s - 1;
         });
       }, 1000);
     } catch {
@@ -170,29 +302,26 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ label, onChange, maxSecon
     }
   };
 
-  const stopRecording = () => {
-    if (tickRef.current) clearInterval(tickRef.current);
-    recorderRef.current?.stop();
-  };
+  // Auto-start the moment this card mounts, for topic/part2 segments.
+  useEffect(() => {
+    if (segment.autoStart && !startedRef.current) {
+      startedRef.current = true;
+      startRecording();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const reRecord = () => {
-    if (audioUrl) URL.revokeObjectURL(audioUrl);
-    setAudioUrl(null);
-    setStatus('idle');
-    setElapsed(0);
-    onChange(null);
+  const manualFinish = () => {
+    if (recorderRef.current) finishRecording(recorderRef.current);
   };
-
-  const mm = String(Math.floor(elapsed / 60)).padStart(2, '0');
-  const ss = String(elapsed % 60).padStart(2, '0');
 
   return (
     <div className="p-4 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] space-y-3">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-mono font-semibold uppercase text-[var(--text-faint)]">{label}</span>
+        <span className="text-xs font-mono font-semibold uppercase text-[var(--text-faint)]">Your response</span>
         {status === 'recording' && (
-          <span className="text-xs font-mono font-bold text-[var(--danger)] flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[var(--danger)] animate-pulse" /> {mm}:{ss}
+          <span className="text-sm font-mono font-bold text-[var(--danger)] flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[var(--danger)] animate-pulse" /> {fmtClock(remaining)}
           </span>
         )}
       </div>
@@ -204,17 +333,17 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ label, onChange, maxSecon
       )}
 
       {status === 'recording' && (
-        <Button variant="secondary" size="sm" icon={<Square size={13} />} onClick={stopRecording}>
-          Stop
+        <Button variant="secondary" size="sm" icon={<Square size={13} />} onClick={manualFinish}>
+          {segment.advanceMode === 'auto' ? "I'm finished — Next" : 'Stop'}
         </Button>
       )}
 
       {status === 'recorded' && audioUrl && (
-        <div className="space-y-2">
+        <div className="space-y-3">
           {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
           <audio src={audioUrl} controls className="w-full h-9" />
-          <Button variant="ghost" size="sm" icon={<RotateCcw size={13} />} onClick={reRecord}>
-            Re-record
+          <Button variant="primary" size="md" icon={<ArrowRight size={16} />} onClick={onAdvance}>
+            Continue
           </Button>
         </div>
       )}
@@ -231,14 +360,74 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ label, onChange, maxSecon
   );
 };
 
-const CriterionCard: React.FC<{ label: string; score: number; feedback: string }> = ({ label, score, feedback }) => (
-  <div className="p-2.5 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)]">
-    <div className="flex justify-between items-center mb-1">
-      <span className="text-[11px] font-mono text-[var(--text-faint)]">{label}</span>
-      <span className="font-display font-bold text-xs text-[var(--text)]">{score.toFixed(1)}</span>
+// ---------- Part 2: prep countdown, then hands off to RecorderCard ----------
+
+const Part2Card: React.FC<{
+  segment: RecordableSegment;
+  onRecorded: (dataUrl: string) => void;
+  onAdvance: () => void;
+}> = ({ segment, onRecorded, onAdvance }) => {
+  const prepSec = segment.prepSec ?? 60;
+  const [phase, setPhase] = useState<'prep' | 'record'>('prep');
+  const [prepLeft, setPrepLeft] = useState(prepSec);
+  const tickRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    tickRef.current = setInterval(() => {
+      setPrepLeft((s) => {
+        if (s <= 1) {
+          if (tickRef.current) clearInterval(tickRef.current);
+          setPhase('record');
+          return 0;
+        }
+        return s - 1;
+      });
+    }, 1000);
+    return () => {
+      if (tickRef.current) clearInterval(tickRef.current);
+    };
+  }, []);
+
+  if (phase === 'prep') {
+    const isFinalStretch = prepLeft <= 5;
+    return (
+      <div className="p-8 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] flex flex-col items-center justify-center gap-3 text-center">
+        <span className="text-xs font-mono font-semibold uppercase text-[var(--text-faint)]">Preparation time</span>
+        <span
+          className={
+            isFinalStretch
+              ? 'font-display font-extrabold text-8xl text-[var(--danger)] animate-pulse tabular-nums'
+              : 'font-display font-extrabold text-5xl text-[var(--text)] tabular-nums'
+          }
+        >
+          {isFinalStretch ? prepLeft : fmtClock(prepLeft)}
+        </span>
+        <p className="text-xs text-[var(--text-dim)] max-w-xs">
+          Recording will start automatically when preparation ends.
+        </p>
+      </div>
+    );
+  }
+
+  return <RecorderCard segment={segment} onRecorded={onRecorded} onAdvance={onAdvance} />;
+};
+
+// ---------- Instruction interstitial ----------
+
+const InstructionCard: React.FC<{ segment: InstructionSegment; onContinue: () => void }> = ({ segment, onContinue }) => (
+  <GlassPanel className="p-6 space-y-5">
+    <div className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">
+      <Sparkles size={14} /> {segment.partLabel}
     </div>
-    <p className="text-[11px] text-[var(--text-dim)] leading-tight">{feedback}</p>
-  </div>
+    <p className="text-base text-[var(--text)] leading-relaxed bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-5">
+      {segment.body}
+    </p>
+    <div className="flex justify-end">
+      <Button variant="primary" size="md" icon={<ChevronRight size={16} />} onClick={onContinue}>
+        Continue
+      </Button>
+    </div>
+  </GlassPanel>
 );
 
 export const SpeakingView: React.FC<SpeakingViewProps> = ({ id }) => {
@@ -248,29 +437,15 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id }) => {
   const [selectedTestId, setSelectedTestId] = useState<string | null>(null);
   const [test, setTest] = useState<SpeakingTest | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
-  const [part, setPart] = useState<SpeakingPart>('part1');
 
-  // Part 2 prep timer
-  const [prepSecondsLeft, setPrepSecondsLeft] = useState(PREP_SECONDS);
-  const [prepRunning, setPrepRunning] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  // Recordings (data URLs) per part
-  const [recordings, setRecordings] = useState<Record<SpeakingPart, string | null>>({
-    part1: null, part2: null, part3: null,
-  });
+  const [segments, setSegments] = useState<Segment[]>([]);
+  const [stepIndex, setStepIndex] = useState(0);
+  const [recordings, setRecordings] = useState<Record<string, string | null>>({});
 
   const [isEvaluating, setIsEvaluating] = useState(false);
   const [result, setResult] = useState<SpeakingResult | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [noticeMessage, setNoticeMessage] = useState<string | null>(null);
-
-  const recordedMap: Record<SpeakingPart, boolean> = {
-    part1: !!recordings.part1,
-    part2: !!recordings.part2,
-    part3: !!recordings.part3,
-  };
-  const anyRecorded = recordedMap.part1 || recordedMap.part2 || recordedMap.part3;
 
   useEffect(() => {
     if (!selectedTestId) return;
@@ -281,7 +456,12 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id }) => {
       .then(async (r) => {
         const data = await r.json();
         if (!r.ok) throw new Error(data.error || 'Could not load the speaking test.');
-        if (!cancelled) setTest(data.test);
+        if (!cancelled) {
+          setTest(data.test);
+          setSegments(buildSegments(data.test));
+          setStepIndex(0);
+          setRecordings({});
+        }
       })
       .catch((err) => {
         if (!cancelled) setLoadError(err instanceof Error ? err.message : 'Could not load the speaking test.');
@@ -291,39 +471,23 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id }) => {
     };
   }, [selectedTestId]);
 
-  useEffect(() => {
-    if (!prepRunning) return;
-    timerRef.current = setInterval(() => {
-      setPrepSecondsLeft((s) => {
-        if (s <= 1) {
-          setPrepRunning(false);
-          if (timerRef.current) clearInterval(timerRef.current);
-          return 0;
-        }
-        return s - 1;
-      });
-    }, 1000);
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [prepRunning]);
-
-  const resetPrep = () => {
-    setPrepRunning(false);
-    setPrepSecondsLeft(PREP_SECONDS);
-  };
-
   const backToTests = () => {
     setSelectedTestId(null);
     setTest(null);
     setLoadError(null);
-    setPart('part1');
-    resetPrep();
-    setRecordings({ part1: null, part2: null, part3: null });
+    setSegments([]);
+    setStepIndex(0);
+    setRecordings({});
     setResult(null);
     setErrorMessage(null);
     setNoticeMessage(null);
   };
+
+  const recordableSegments = segments.filter(isRecordable);
+  const anyRecorded = recordableSegments.some((s) => !!recordings[s.id]);
+  const onLastStep = stepIndex >= segments.length; // true once we're past the final segment -> submit screen
+
+  const advance = () => setStepIndex((i) => i + 1);
 
   const handleEvaluate = async () => {
     if (!test || !anyRecorded) return;
@@ -331,26 +495,22 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id }) => {
     setErrorMessage(null);
     setNoticeMessage(null);
 
-    const payload = {
-      testId: test.id,
-      testTitle: test.title,
-      part1: recordings.part1
-        ? { audio: { base64: recordings.part1 }, contextText: buildPart1Context(test) }
-        : undefined,
-      part2: recordings.part2
-        ? { audio: { base64: recordings.part2 }, contextText: buildPart2Context(test) }
-        : undefined,
-      part3: recordings.part3
-        ? { audio: { base64: recordings.part3 }, contextText: buildPart3Context(test) }
-        : undefined,
-    };
+    const payloadSegments = recordableSegments
+      .filter((s) => !!recordings[s.id])
+      .map((s) => ({
+        id: s.id,
+        partNumber: s.partNumber,
+        label: s.heading,
+        questionText: s.questionText,
+        audio: { base64: recordings[s.id] as string },
+      }));
 
     try {
       const res = await fetch('/api/speaking/evaluate', {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ testId: test.id, testTitle: test.title, segments: payloadSegments }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Server evaluation error');
@@ -363,14 +523,16 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id }) => {
       console.error('Speaking evaluation failed:', err);
       const message = err instanceof Error ? err.message : 'Evaluation failed. Please try again.';
       setErrorMessage(
-        message.includes('GEMINI_API_KEY')
+        /not configured|missing/i.test(message) && /key/i.test(message)
           ? 'AI scoring is not configured on this server yet.'
-          : message,
+          : `Something went wrong scoring your test: ${message}`,
       );
     } finally {
       setIsEvaluating(false);
     }
   };
+
+  const currentSegment = segments[stepIndex];
 
   // ---------- TAKE MODE ----------
   if (selectedTestId) {
@@ -389,101 +551,46 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id }) => {
                 {test ? test.title : 'IELTS Speaking Test'}
               </h2>
               <p className="text-sm text-[var(--text-dim)] mt-1 max-w-xl">
-                {test?.instructions || 'Work through all three parts, recording your answer for each. Submit whenever you\'re ready for AI band feedback.'}
+                {test?.instructions
+                  || 'Each question is timed and recorded individually. Once a card\'s timer starts, keep speaking until it advances automatically.'}
               </p>
             </div>
-            {test && <PartTabs part={part} onChange={setPart} recorded={recordedMap} />}
+            {currentSegment && !onLastStep && (
+              <span className="text-xs font-mono font-semibold uppercase text-[var(--accent-a)] bg-[var(--accent-a)]/10 border border-[var(--accent-a)]/20 px-3 py-1.5 rounded-lg">
+                {currentSegment.partLabel}
+              </span>
+            )}
           </div>
         </GlassPanel>
 
         {loadError && <GlassPanel className="p-6 text-sm text-[var(--danger)]">{loadError}</GlassPanel>}
         {!test && !loadError && <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)]">Loading test…</GlassPanel>}
 
-        {test && (
+        {test && segments.length > 0 && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div className="lg:col-span-7 space-y-4">
-              {part === 'part1' && (
-                <GlassPanel className="p-5 space-y-4">
-                  <div className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">
-                    <Users size={14} /> Part 1 — Introduction &amp; Interview
-                  </div>
-                  <p className="text-base text-[var(--text)] leading-relaxed bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-4 italic">
-                    {test.part1.intro}
-                  </p>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {test.part1.topics.map((t, i) => (
-                      <div key={i} className="p-4 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)] space-y-2.5">
-                        <div className="text-sm font-mono font-semibold text-[var(--text)]">{t.topic}</div>
-                        <ul className="space-y-2">
-                          {t.questions.map((q, qi) => (
-                            <li key={qi} className="text-sm text-[var(--text-dim)] leading-relaxed flex gap-2">
-                              <span className="text-[var(--accent-a)]">•</span>
-                              <span>{q}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-
-                  <AudioRecorder
-                    label="Your Part 1 response"
-                    onChange={(dataUrl) => setRecordings((r) => ({ ...r, part1: dataUrl }))}
-                    maxSeconds={240}
-                  />
-
-                  <div className="flex justify-end pt-1">
-                    <Button variant="primary" size="md" icon={<ArrowRight size={16} />} onClick={() => setPart('part2')}>
-                      Next: Part 2
-                    </Button>
-                  </div>
-                </GlassPanel>
+              {!onLastStep && currentSegment.kind === 'instruction' && (
+                <InstructionCard segment={currentSegment} onContinue={advance} />
               )}
 
-              {part === 'part2' && (
+              {!onLastStep && currentSegment.kind !== 'instruction' && (
                 <GlassPanel className="p-5 space-y-4">
-                  <div className="flex items-center justify-between flex-wrap gap-3">
-                    <div className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">
-                      <Mic size={14} /> Part 2 — Individual Long Turn
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className={`font-mono text-sm font-bold ${prepSecondsLeft === 0 ? 'text-[var(--success)]' : 'text-[var(--text)]'}`}>
-                        <Clock size={13} className="inline mr-1 -mt-0.5" />
-                        {String(Math.floor(prepSecondsLeft / 60)).padStart(2, '0')}:{String(prepSecondsLeft % 60).padStart(2, '0')}
-                      </span>
-                      <Button variant="secondary" size="sm" onClick={() => setPrepRunning((r) => !r)} disabled={prepSecondsLeft === 0}>
-                        {prepRunning ? 'Pause' : 'Start 1-min prep'}
-                      </Button>
-                      <Button variant="ghost" size="sm" icon={<RotateCcw size={13} />} onClick={resetPrep}>
-                        Reset
-                      </Button>
-                    </div>
+                  <div className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">
+                    {currentSegment.partNumber === 1 ? <Users size={14} /> : currentSegment.partNumber === 2 ? <Mic size={14} /> : <MessageCircle size={14} />}
+                    {currentSegment.partLabel} — {currentSegment.heading}
                   </div>
 
-                  <div className="bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-5 space-y-4">
-                    <p className="text-lg font-semibold text-[var(--text)] leading-relaxed">{test.part2.cueCardTitle}</p>
-                    <div>
-                      <span className="text-xs font-mono font-semibold text-[var(--text-faint)] uppercase tracking-wide">You should say:</span>
-                      <ul className="mt-2 space-y-2">
-                        {test.part2.points.map((p, i) => (
-                          <li key={i} className="text-base text-[var(--text-dim)] leading-relaxed flex gap-2">
-                            <span className="text-[var(--accent-a)]">•</span>
-                            <span>{p}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                  <p className="text-sm text-[var(--text-faint)] italic">
-                    You will have to talk about the topic for one to two minutes. You have one minute to think about what you are going to say.
-                  </p>
+                  {currentSegment.kind === 'intro' && (
+                    <p className="text-base text-[var(--text)] leading-relaxed bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-4 italic">
+                      {currentSegment.questionText}
+                    </p>
+                  )}
 
-                  {test.part2.roundingOff.length > 0 && (
+                  {(currentSegment.kind === 'topic' || currentSegment.kind === 'part2') && currentSegment.displayQuestions && (
                     <div className="p-4 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)]">
-                      <span className="text-xs font-mono font-semibold text-[var(--text-faint)] uppercase tracking-wide">Rounding-off questions</span>
-                      <ul className="mt-2 space-y-1.5">
-                        {test.part2.roundingOff.map((q, i) => (
-                          <li key={i} className="text-sm text-[var(--text-dim)] leading-relaxed flex gap-2">
+                      <ul className="space-y-2">
+                        {currentSegment.displayQuestions.map((q, qi) => (
+                          <li key={qi} className="text-base text-[var(--text-dim)] leading-relaxed flex gap-2">
                             <span className="text-[var(--accent-a)]">•</span>
                             <span>{q}</span>
                           </li>
@@ -492,49 +599,32 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id }) => {
                     </div>
                   )}
 
-                  <AudioRecorder
-                    label="Your Part 2 long turn"
-                    onChange={(dataUrl) => setRecordings((r) => ({ ...r, part2: dataUrl }))}
-                    maxSeconds={150}
-                  />
-
-                  <div className="flex items-center justify-between pt-1">
-                    <Button variant="secondary" size="md" onClick={() => setPart('part1')}>
-                      ← Back to Part 1
-                    </Button>
-                    <Button variant="primary" size="md" icon={<ArrowRight size={16} />} onClick={() => setPart('part3')}>
-                      Next: Part 3
-                    </Button>
-                  </div>
+                  {currentSegment.kind === 'part2' ? (
+                    <Part2Card
+                      key={currentSegment.id}
+                      segment={currentSegment}
+                      onRecorded={(dataUrl) => setRecordings((r) => ({ ...r, [currentSegment.id]: dataUrl }))}
+                      onAdvance={advance}
+                    />
+                  ) : (
+                    <RecorderCard
+                      key={currentSegment.id}
+                      segment={currentSegment}
+                      onRecorded={(dataUrl) => setRecordings((r) => ({ ...r, [currentSegment.id]: dataUrl }))}
+                      onAdvance={advance}
+                    />
+                  )}
                 </GlassPanel>
               )}
 
-              {part === 'part3' && (
+              {onLastStep && (
                 <GlassPanel className="p-5 space-y-4">
                   <div className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">
-                    <MessageCircle size={14} /> Part 3 — Two-Way Discussion
+                    <Trophy size={14} /> Ready to submit
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {test.part3.topics.map((t, i) => (
-                      <div key={i} className="p-4 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)] space-y-2.5">
-                        <div className="text-sm font-mono font-semibold text-[var(--text)]">{t.topic}</div>
-                        <ul className="space-y-2">
-                          {t.questions.map((q, qi) => (
-                            <li key={qi} className="text-sm text-[var(--text-dim)] leading-relaxed flex gap-2">
-                              <span className="text-[var(--accent-a)]">•</span>
-                              <span>{q}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-
-                  <AudioRecorder
-                    label="Your Part 3 discussion"
-                    onChange={(dataUrl) => setRecordings((r) => ({ ...r, part3: dataUrl }))}
-                    maxSeconds={240}
-                  />
+                  <p className="text-sm text-[var(--text-dim)]">
+                    You've reached the end of the test. Review what was recorded below, then submit for AI scoring.
+                  </p>
 
                   {errorMessage && (
                     <div className="text-xs text-[var(--danger)] bg-[var(--danger)]/10 border border-[var(--danger)]/20 p-2.5 rounded-xl">{errorMessage}</div>
@@ -543,10 +633,7 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id }) => {
                     <div className="text-xs text-[var(--warning)] bg-[var(--warning)]/10 border border-[var(--warning)]/20 p-2.5 rounded-xl">{noticeMessage}</div>
                   )}
 
-                  <div className="flex items-center justify-between pt-1">
-                    <Button variant="secondary" size="md" onClick={() => setPart('part2')}>
-                      ← Back to Part 2
-                    </Button>
+                  <div className="flex justify-end pt-1">
                     <Button
                       variant="primary"
                       size="md"
@@ -554,14 +641,14 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id }) => {
                       disabled={isEvaluating || !anyRecorded}
                       onClick={handleEvaluate}
                     >
-                      {isEvaluating ? 'Evaluating…' : 'Submit for AI Scoring'}
+                      {isEvaluating ? 'Evaluating… this can take a few minutes' : 'Submit for AI Scoring'}
                     </Button>
                   </div>
                 </GlassPanel>
               )}
 
               <ProgressBar
-                value={part === 'part1' ? 33 : part === 'part2' ? 66 : 100}
+                value={(Math.min(stepIndex, segments.length) / segments.length) * 100}
                 showPercent={false}
                 size="sm"
                 label="Test progress"
@@ -607,29 +694,37 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id }) => {
                 <GlassPanel className="p-6 space-y-4">
                   <h3 className="font-display text-lg font-bold text-[var(--text)]">Your recordings</h3>
                   <div className="space-y-2">
-                    {(['part1', 'part2', 'part3'] as SpeakingPart[]).map((p) => (
-                      <div key={p} className="flex items-center justify-between p-2.5 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)]">
-                        <span className="text-xs font-mono text-[var(--text)]">
-                          {p === 'part1' ? 'Part 1' : p === 'part2' ? 'Part 2' : 'Part 3'}
-                        </span>
-                        {recordedMap[p] ? (
+                    {recordableSegments.map((s) => (
+                      <div key={s.id} className="flex items-center justify-between p-2.5 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)]">
+                        <span className="text-xs font-mono text-[var(--text)]">{s.partLabel} — {s.heading}</span>
+                        {recordings[s.id] ? (
                           <span className="text-[11px] font-mono text-[var(--success)] flex items-center gap-1">
                             <CheckCircle2 size={13} /> Recorded
                           </span>
                         ) : (
-                          <span className="text-[11px] font-mono text-[var(--text-faint)]">Not recorded</span>
+                          <span className="text-[11px] font-mono text-[var(--text-faint)]">Not yet</span>
                         )}
                       </div>
                     ))}
                   </div>
-                  <div className="p-8 text-center flex flex-col items-center justify-center">
-                    <div className="w-14 h-14 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)] flex items-center justify-center text-[var(--accent-a)] mb-4">
-                      <BookOpen size={28} />
+                  {isEvaluating && (
+                    <div className="p-4 rounded-xl bg-[var(--accent-a)]/10 border border-[var(--accent-a)]/20 text-center">
+                      <RefreshCw size={20} className="animate-spin mx-auto mb-2 text-[var(--accent-a)]" />
+                      <p className="text-xs text-[var(--text-dim)] leading-relaxed">
+                        Scoring your test — checking pronunciation, fluency and grammar. This can take a few minutes, please don't close this page.
+                      </p>
                     </div>
-                    <p className="text-xs text-[var(--text-dim)] max-w-xs leading-relaxed">
-                      Record at least one part, then submit from Part 3 to get an AI band score across Fluency, Lexical Resource, Grammar and Pronunciation.
-                    </p>
-                  </div>
+                  )}
+                  {!isEvaluating && (
+                    <div className="p-8 text-center flex flex-col items-center justify-center">
+                      <div className="w-14 h-14 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)] flex items-center justify-center text-[var(--accent-a)] mb-4">
+                        <BookOpen size={28} />
+                      </div>
+                      <p className="text-xs text-[var(--text-dim)] max-w-xs leading-relaxed">
+                        Work through each card — timers and recording run automatically for most questions. Submit at the end for an AI band score across Fluency, Lexical Resource, Grammar and Pronunciation.
+                      </p>
+                    </div>
+                  )}
                 </GlassPanel>
               )}
             </div>

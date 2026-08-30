@@ -1,143 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenAI, Type } from '@google/genai';
 import { prisma } from '../../../../lib/prisma';
 import { getSessionUserId } from '../../../../lib/session';
 import { ieltsOverall } from '../../../../lib/scoring';
-
-function getGenAIClient() {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    throw new Error('GEMINI_API_KEY environment variable is missing.');
-  }
-  return new GoogleGenAI({
-    apiKey,
-    httpOptions: { headers: { 'User-Agent': 'aistudio-build' } },
-  });
-}
+import {
+  submitAndAwaitReport,
+  SpeakingApiError,
+  type SpeakingReport,
+  type SpeakingSessionStatus,
+  type SubmitSegmentInput,
+} from '../../../../lib/speakingApiClient';
 
 // Round to nearest 0.5, clamp to 0..9.
 function toHalfBand(n: number): number {
   if (Number.isNaN(n)) return 0;
   return Math.round(Math.max(0, Math.min(9, n)) * 2) / 2;
 }
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-// Gemini occasionally returns 503 UNAVAILABLE / 429 RESOURCE_EXHAUSTED during
-// capacity spikes — these are transient and worth a few retries with backoff.
-// Anything else (400 bad request, 401/403 auth, etc.) is not retried since
-// retrying won't change the outcome.
-function isRetryableStatus(status: unknown): boolean {
-  return status === 503 || status === 429;
-}
-
-async function generateContentWithRetry(
-  ai: ReturnType<typeof getGenAIClient>,
-  params: Parameters<ReturnType<typeof getGenAIClient>['models']['generateContent']>[0],
-  maxAttempts = 2,
-) {
-  let lastErr: unknown;
-  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-    try {
-      return await ai.models.generateContent(params);
-    } catch (err: unknown) {
-      lastErr = err;
-      const status = (err as { status?: number; code?: number })?.status
-        ?? (err as { code?: number })?.code;
-      const retryable = isRetryableStatus(status);
-      if (!retryable || attempt === maxAttempts) throw err;
-      // Exponential backoff with jitter: ~1s, ~2s, ~4s (capped).
-      const delayMs = Math.min(1000 * 2 ** (attempt - 1), 8000) + Math.random() * 300;
-      console.warn(
-        `Gemini request failed with status ${status} (attempt ${attempt}/${maxAttempts}), retrying in ${Math.round(delayMs)}ms…`,
-      );
-      await sleep(delayMs);
-    }
-  }
-  throw lastErr;
-}
-
-// Newer models (e.g. gemini-3.6-flash) can have free-tier capacity that runs
-// well below its advertised quota right after launch — Google's own docs
-// note listed rate limits "are not guaranteed." Rather than hammering the
-// same overloaded model, fall back to an older, more established model once
-// retries on the primary are exhausted.
-const MODEL_FALLBACK_CHAIN = ['gemini-3.6-flash', 'gemini-2.5-flash'] as const;
-
-async function generateContentResilient(
-  ai: ReturnType<typeof getGenAIClient>,
-  baseParams: Omit<Parameters<ReturnType<typeof getGenAIClient>['models']['generateContent']>[0], 'model'>,
-) {
-  let lastErr: unknown;
-  for (const model of MODEL_FALLBACK_CHAIN) {
-    try {
-      return await generateContentWithRetry(ai, { ...baseParams, model });
-    } catch (err: unknown) {
-      lastErr = err;
-      const status = (err as { status?: number; code?: number })?.status
-        ?? (err as { code?: number })?.code;
-      if (!isRetryableStatus(status)) throw err; // not a capacity issue — no point trying another model
-      console.warn(`Model "${model}" unavailable after retries, falling back to the next model…`);
-    }
-  }
-  throw lastErr;
-}
-
-const SYSTEM_INSTRUCTION = `You are a certified senior IELTS Speaking Examiner. You mark strictly and consistently against the official public IELTS Speaking band descriptors, exactly as a real examiner would after a live interview. You are calibrated and NOT lenient — you do not inflate scores to be encouraging. A mediocre performance receives a mediocre band.
-
-You will receive up to three audio clips: the candidate's recorded answers for Part 1 (Introduction & Interview), Part 2 (Individual Long Turn / cue card), and Part 3 (Two-Way Discussion), each preceded by the exact questions/cue card that was asked. Some parts may be missing — grade holistically on whatever is provided, and say in generalSummary which parts you could not assess.
-
-Mark on the four official criteria, each 0-9 in whole or half bands:
-1. Fluency & Coherence: speech rate and continuity, hesitation, self-correction, logical development and linking of ideas, appropriate use of discourse markers.
-2. Lexical Resource: range and precision of vocabulary, paraphrase ability, idiomatic and topic-specific language, natural collocation.
-3. Grammatical Range & Accuracy: range of simple and complex structures attempted, frequency and impact of errors.
-4. Pronunciation: individual sounds, word and sentence stress, intonation, rhythm, and overall intelligibility to a listener (infer this from the audio itself, not the transcript).
-
-CALIBRATION ANCHORS (apply honestly):
-- Band 5: keeps going but with noticeable hesitation and repetition; limited range of structures/vocabulary with frequent errors; pronunciation causes some listener strain.
-- Band 6: willing to speak at length but coherence sometimes breaks down; mix of simple and complex structures with some errors; some mispronunciations that rarely impede understanding.
-- Band 7: speaks at length without noticeable effort, some hesitation over language rather than ideas; flexible vocabulary; a range of complex structures with some errors; generally clear pronunciation, some L1 influence.
-- Band 8: fluent with only occasional repetition/self-correction, minimal hesitation; wide, natural, idiomatic vocabulary; wide range of structures with rare errors; wide range of pronunciation features used effectively.
-- Band 9: fully natural, effortless, native-like fluency, precision and pronunciation.
-
-RULES:
-- Penalise short, underdeveloped answers, memorised/scripted-sounding responses, and answers that don't actually address the question asked.
-- If a clip is silent, empty, off-topic, unintelligible, or not English speech, mark that part at or below Band 3 and say so plainly in generalSummary — do not guess content that isn't there.
-- overallBand MUST equal the average of the four criterion scores, rounded to nearest 0.5.
-- All five band numbers MUST be in 0.5 increments.
-- Feedback must be specific to what was actually said — reference real words/phrases the candidate used. No generic praise.
-- Transcribe each provided part as accurately as possible (best-effort orthographic transcript, fillers like "um"/"uh" included) into the transcript object; use an empty string for any part that was not provided.`;
-
-const RESPONSE_SCHEMA = {
-  type: Type.OBJECT,
-  properties: {
-    overallBand: { type: Type.NUMBER },
-    fluencyScore: { type: Type.NUMBER },
-    lexicalScore: { type: Type.NUMBER },
-    grammarScore: { type: Type.NUMBER },
-    pronunciationScore: { type: Type.NUMBER },
-    fluencyFeedback: { type: Type.STRING },
-    lexicalFeedback: { type: Type.STRING },
-    grammarFeedback: { type: Type.STRING },
-    pronunciationFeedback: { type: Type.STRING },
-    generalSummary: { type: Type.STRING },
-    keyImprovements: { type: Type.ARRAY, items: { type: Type.STRING } },
-    transcript: {
-      type: Type.OBJECT,
-      properties: {
-        part1: { type: Type.STRING },
-        part2: { type: Type.STRING },
-        part3: { type: Type.STRING },
-      },
-      required: ['part1', 'part2', 'part3'],
-    },
-  },
-  required: [
-    'overallBand', 'fluencyScore', 'lexicalScore', 'grammarScore', 'pronunciationScore',
-    'fluencyFeedback', 'lexicalFeedback', 'grammarFeedback', 'pronunciationFeedback',
-    'generalSummary', 'keyImprovements', 'transcript',
-  ],
-};
 
 interface SpeakingEval {
   overallBand: number;
@@ -151,112 +28,89 @@ interface SpeakingEval {
   pronunciationFeedback: string;
   generalSummary: string;
   keyImprovements: string[];
-  transcript: { part1: string; part2: string; part3: string };
+  [key: string]: unknown; // satisfies Prisma's InputJsonValue for the `feedback` Json column
 }
 
-interface AudioClip {
-  // data URL ("data:audio/webm;base64,...") or raw base64 — both accepted.
-  base64: string;
-  mimeType?: string;
+interface IncomingSegment {
+  id: string;
+  partNumber: 1 | 2 | 3;
+  label: string;
+  questionText: string;
+  audio: { base64: string; mimeType?: string };
 }
 
-interface PartInput {
-  audio?: AudioClip | null;
-  contextText: string; // the questions / cue card the candidate was answering
+// Maps the FastAPI service's session + report shape onto the SpeakingEval
+// contract the frontend (SpeakingView.tsx) already expects, so no frontend
+// changes are needed for this swap.
+function mapReportToSpeakingEval(report: SpeakingReport): SpeakingEval {
+  const fluencyScore = toHalfBand(Number(report.scores.fluency));
+  const lexicalScore = toHalfBand(Number(report.scores.lexical));
+  const grammarScore = toHalfBand(Number(report.scores.grammar));
+  const pronunciationScore = toHalfBand(Number(report.scores.pronunciation));
+  const overallBand = toHalfBand((fluencyScore + lexicalScore + grammarScore + pronunciationScore) / 4);
+
+  const perPart = report.evidence.per_part_feedback || [];
+  const generalSummary = report.evidence.generalSummary
+    || perPart.join(' ')
+    || 'Evaluation completed.';
+
+  return {
+    overallBand,
+    fluencyScore,
+    lexicalScore,
+    grammarScore,
+    pronunciationScore,
+    fluencyFeedback: report.evidence.fluency || '',
+    lexicalFeedback: report.evidence.lexical || '',
+    grammarFeedback: report.evidence.grammar || '',
+    pronunciationFeedback: report.evidence.pronunciation || '',
+    generalSummary,
+    keyImprovements: report.evidence.keyImprovements || [],
+  };
 }
 
-function toInlineAudioPart(clip: AudioClip) {
-  let base64 = clip.base64;
-  let mimeType = clip.mimeType || 'audio/webm';
-
-  // Handles any number of ";param=value" segments before ";base64," —
-  // e.g. "data:audio/webm;codecs=opus;base64,XXXX" (MediaRecorder's actual
-  // mime type includes a codecs parameter, which a naive single-";" regex
-  // does not expect, so a broader match on the first comma is needed).
-  if (base64.startsWith('data:')) {
-    const commaIdx = base64.indexOf(',');
-    if (commaIdx !== -1) {
-      const header = base64.slice('data:'.length, commaIdx);
-      const [mt] = header.split(';');
-      if (mt) mimeType = mt;
-      base64 = base64.slice(commaIdx + 1);
-    }
+// Builds a per-segment transcript summary keyed by label, for storing
+// alongside the submission (not shown to the user inline, but useful for
+// support/debugging and any future "review your transcript" feature).
+function buildTranscriptSummary(session: SpeakingSessionStatus): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const p of session.parts) {
+    out[p.label || p.segment_id] = p.transcript || '';
   }
-
-  // Strip any leftover codec parameters — Gemini expects a bare mime type.
-  mimeType = mimeType.split(';')[0].trim();
-
-  return { inlineData: { mimeType, data: base64 } };
+  return out;
 }
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { testId, testTitle, part1, part2, part3 } = body as {
+    const { testId, testTitle, segments } = body as {
       testId?: string;
       testTitle?: string;
-      part1?: PartInput;
-      part2?: PartInput;
-      part3?: PartInput;
+      segments?: IncomingSegment[];
     };
 
-    const parts: { label: 'Part 1' | 'Part 2' | 'Part 3'; input?: PartInput }[] = [
-      { label: 'Part 1', input: part1 },
-      { label: 'Part 2', input: part2 },
-      { label: 'Part 3', input: part3 },
-    ];
-
-    const recorded = parts.filter((p) => p.input?.audio?.base64);
+    const recorded = (segments || []).filter((s) => s?.audio?.base64);
     if (recorded.length === 0) {
       return NextResponse.json(
-        { error: 'Record at least one part before submitting for evaluation.' },
+        { error: 'Record at least one segment before submitting for evaluation.' },
         { status: 400 },
       );
     }
 
-    const ai = getGenAIClient();
     const userId = await getSessionUserId();
 
-    const contentParts: unknown[] = [];
-    for (const p of parts) {
-      if (!p.input?.audio?.base64) continue;
-      contentParts.push({
-        text: `${p.label} — the candidate was asked:\n"""\n${p.input.contextText || '(no prompt text provided)'}\n"""\nHere is the candidate's recorded audio response for ${p.label}:`,
-      });
-      contentParts.push(toInlineAudioPart(p.input.audio));
-    }
-    contentParts.push({
-      text: 'Now transcribe each provided part and mark this candidate\'s overall Speaking performance against the official band descriptors. Be strict and specific.',
-    });
+    const submitSegments: SubmitSegmentInput[] = recorded.map((s) => ({
+      id: s.id,
+      partNumber: s.partNumber,
+      label: s.label,
+      questionText: s.questionText,
+      audio: s.audio,
+    }));
 
-    const response = await generateContentResilient(ai, {
-      contents: [{ role: 'user', parts: contentParts as never }],
-      config: {
-        systemInstruction: SYSTEM_INSTRUCTION,
-        responseMimeType: 'application/json',
-        responseSchema: RESPONSE_SCHEMA,
-      },
-    });
+    const { session, report } = await submitAndAwaitReport({ userId, segments: submitSegments });
 
-    if (!response.text) throw new Error('No evaluation returned from AI.');
-    const raw = JSON.parse(response.text.trim());
-
-    const fluencyScore = toHalfBand(Number(raw.fluencyScore));
-    const lexicalScore = toHalfBand(Number(raw.lexicalScore));
-    const grammarScore = toHalfBand(Number(raw.grammarScore));
-    const pronunciationScore = toHalfBand(Number(raw.pronunciationScore));
-    const overallBand = toHalfBand(
-      (fluencyScore + lexicalScore + grammarScore + pronunciationScore) / 4,
-    );
-
-    const evalResult: SpeakingEval = {
-      ...raw,
-      fluencyScore,
-      lexicalScore,
-      grammarScore,
-      pronunciationScore,
-      overallBand,
-    };
+    const evalResult = mapReportToSpeakingEval(report);
+    const overallBand = evalResult.overallBand;
 
     let submissionId: string | null = null;
     if (userId) {
@@ -272,8 +126,8 @@ export async function POST(req: NextRequest) {
             feedback: evalResult,
             answers: {
               testTitle: testTitle || null,
-              partsRecorded: recorded.map((p) => p.label),
-              transcript: evalResult.transcript,
+              segmentsRecorded: recorded.map((s) => s.label),
+              transcript: buildTranscriptSummary(session),
             },
             scored_at: new Date(),
           },
@@ -321,11 +175,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ...evalResult, submissionId, saved: submissionId !== null });
   } catch (err: unknown) {
     console.error('Speaking evaluation error:', err);
-    const errorObj = err as Error & { status?: number; code?: number };
-    const status = errorObj?.status ?? errorObj?.code;
-    const message = isRetryableStatus(status)
-      ? 'The AI service is experiencing high demand right now. This is temporary and unrelated to your recording — please try submitting again in a minute.'
-      : (errorObj.message || 'Speaking evaluation failed.');
-    return NextResponse.json({ error: message }, { status: 500 });
+    const status = err instanceof SpeakingApiError && err.status ? 502 : 500;
+    const message = err instanceof Error ? err.message : 'Speaking evaluation failed.';
+    return NextResponse.json({ error: message }, { status });
   }
 }

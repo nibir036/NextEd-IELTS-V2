@@ -1,0 +1,385 @@
+diff --git a/src/components/lms/CollapsibleItemCard.tsx b/src/components/lms/CollapsibleItemCard.tsx
+new file mode 100644
+index 0000000..f97c8e8
+--- /dev/null
++++ b/src/components/lms/CollapsibleItemCard.tsx
+@@ -0,0 +1,65 @@
++'use client';
++
++import { useState } from 'react';
++import { ChevronDown } from '../ui/icons';
++
++/**
++ * Shared shell for "list of N similar items" lesson content (vocab words,
++ * error corrections, etc). Was previously duplicated per block type as a
++ * fully-expanded card showing everything at once -- with 20-40 items per
++ * chapter that reads as a wall of near-identical boxes. This version:
++ *   - shows only a compact one-line summary by default
++ *   - expands in place on click (no page navigation, keeps position)
++ *   - has one consistent spacing/border/radius rhythm everywhere it's used
++ *
++ * `accentClassName` lets a specific block type tint the left edge (e.g.
++ * amber for error_matrix) without every item repeating a saturated
++ * full-box background fill.
++ */
++export function CollapsibleItemCard({
++  summary,
++  detail,
++  children,
++  accentClassName = 'border-l-[var(--border-strong)]',
++  defaultOpen = false,
++}: {
++  summary: React.ReactNode;
++  detail?: React.ReactNode;
++  children: React.ReactNode;
++  accentClassName?: string;
++  defaultOpen?: boolean;
++}) {
++  const [open, setOpen] = useState(defaultOpen);
++
++  return (
++    <div
++      className={`rounded-lg border border-[var(--border)] border-l-2 ${accentClassName} bg-[var(--panel-2)]/40 overflow-hidden transition-colors hover:bg-[var(--panel-2)]/60`}
++    >
++      <button
++        type="button"
++        onClick={() => setOpen((v) => !v)}
++        aria-expanded={open}
++        className="w-full flex items-center justify-between gap-3 px-4 py-3 text-left"
++      >
++        <div className="min-w-0 flex-1">
++          <div className="font-display font-semibold text-[var(--text)] text-sm truncate">
++            {summary}
++          </div>
++          {!open && detail && (
++            <div className="text-xs text-[var(--text-faint)] truncate mt-0.5">{detail}</div>
++          )}
++        </div>
++        <ChevronDown
++          size={16}
++          className={`shrink-0 text-[var(--text-faint)] transition-transform ${open ? 'rotate-180' : ''}`}
++        />
++      </button>
++
++      {open && (
++        <div className="px-4 pb-4 pt-1 space-y-2 border-t border-[var(--border)]/50">
++          {children}
++        </div>
++      )}
++    </div>
++  );
++}
+diff --git a/src/views/LmsView.tsx b/src/views/LmsView.tsx
+index d778f73..96fa9f0 100644
+--- a/src/views/LmsView.tsx
++++ b/src/views/LmsView.tsx
+@@ -957,12 +957,14 @@
+ import React, { useCallback, useEffect, useState } from 'react';
+ import { GlassPanel } from '../components/ui/GlassPanel';
+ import { Button } from '../components/ui/Button';
++import { CollapsibleItemCard } from '../components/lms/CollapsibleItemCard';
+ import {
+   GraduationCap,
+   BookOpen,
+   ChevronRight,
+   ChevronLeft,
+   CheckCircle2,
++  Search,
+ } from '../components/ui/icons';
+ 
+ interface LmsViewProps {
+@@ -1306,7 +1308,8 @@ function GrammarBlockRenderer({
+    ZERO TO BAND 9 BLOCK RENDERER
+    ========================================================= */
+ 
+-function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
++function ZeroBlockRenderer({ block, filterText = '' }: { block: ZeroBlock; filterText?: string }) {
++  const q = filterText.trim().toLowerCase();
+   switch (block.type) {
+     case 'intro':
+       return (
+@@ -1431,108 +1434,125 @@ function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
+         </div>
+       );
+ 
+-    case 'error_matrix':
++    case 'error_matrix': {
++      const items = (block.items ?? []).filter(
++        (item: any) => !q || (item.incorrect_sentence ?? '').toLowerCase().includes(q),
++      );
+       return (
+-        <div className="mb-8 space-y-4">
++        <div className="mb-8 space-y-3">
+           <div>
+             <h3 className="font-display text-lg font-bold text-[var(--text)]">{block.title}</h3>
+             {block.instructions && (
+               <p className="text-sm text-[var(--text-dim)] mt-1">{block.instructions}</p>
+             )}
+           </div>
+-          {(block.items ?? []).map((item: any) => (
+-            <div
+-              key={item.id}
+-              className="p-4 rounded-xl border border-amber-500/25 bg-amber-500/5 space-y-2"
+-            >
+-              <div className="font-mono text-[11px] text-amber-400 font-semibold">
+-                Error {item.number}
+-              </div>
+-              <div className="text-sm text-red-400/90">
+-                <span className="font-mono font-semibold mr-1.5">X</span>
+-                {item.incorrect_sentence}
+-              </div>
+-              {(item.band_9_corrections ?? []).map((c: string, i: number) => (
+-                <div key={i} className="text-sm text-emerald-400/90">
+-                  <span className="font-mono font-semibold mr-1.5">OK</span>
+-                  {c}
++          {items.length === 0 && q && (
++            <p className="text-xs text-[var(--text-faint)] italic">No matches for &ldquo;{filterText}&rdquo;.</p>
++          )}
++          <div className="space-y-2">
++            {items.map((item: any) => (
++              <CollapsibleItemCard
++                key={item.id}
++                accentClassName="border-l-amber-500/50"
++                summary={`Error ${item.number}`}
++                detail={item.incorrect_sentence}
++              >
++                <div className="text-sm text-red-400/90">
++                  <span className="font-mono font-semibold mr-1.5">X</span>
++                  {item.incorrect_sentence}
+                 </div>
+-              ))}
+-              {item.bangla_logic && (
+-                <p className="text-xs text-[var(--text-faint)] pt-1 border-t border-[var(--border)]/30">
+-                  <span className="font-semibold">Bangla logic:</span> {item.bangla_logic}
+-                </p>
+-              )}
+-              {item.grammar_lexical_rule && (
+-                <p className="text-xs text-[var(--text-dim)]">
+-                  <span className="font-semibold">Rule:</span> {item.grammar_lexical_rule}
+-                </p>
+-              )}
+-              {item.examiner_insight && (
+-                <p className="text-xs text-[var(--text-faint)] italic">
+-                  Examiner: {item.examiner_insight}
+-                </p>
+-              )}
+-            </div>
+-          ))}
++                {(item.band_9_corrections ?? []).map((c: string, i: number) => (
++                  <div key={i} className="text-sm text-emerald-400/90">
++                    <span className="font-mono font-semibold mr-1.5">OK</span>
++                    {c}
++                  </div>
++                ))}
++                {item.bangla_logic && (
++                  <p className="text-xs text-[var(--text-faint)] pt-1 border-t border-[var(--border)]/30">
++                    <span className="font-semibold">Bangla logic:</span> {item.bangla_logic}
++                  </p>
++                )}
++                {item.grammar_lexical_rule && (
++                  <p className="text-xs text-[var(--text-dim)]">
++                    <span className="font-semibold">Rule:</span> {item.grammar_lexical_rule}
++                  </p>
++                )}
++                {item.examiner_insight && (
++                  <p className="text-xs text-[var(--text-faint)] italic">
++                    Examiner: {item.examiner_insight}
++                  </p>
++                )}
++              </CollapsibleItemCard>
++            ))}
++          </div>
+         </div>
+       );
++    }
+ 
+-    case 'vocabulary_matrix':
++    case 'vocabulary_matrix': {
++      const items = (block.items ?? []).filter(
++        (item: any) => !q || (item.term ?? '').toLowerCase().includes(q),
++      );
+       return (
+-        <div className="mb-8 space-y-4">
++        <div className="mb-8 space-y-3">
+           <div>
+             <h3 className="font-display text-lg font-bold text-[var(--text)]">{block.title}</h3>
+             {block.instructions && (
+               <p className="text-sm text-[var(--text-dim)] mt-1">{block.instructions}</p>
+             )}
+           </div>
+-          {(block.items ?? []).map((item: any) => (
+-            <div
+-              key={item.id}
+-              className="p-4 rounded-xl border border-[var(--border)] bg-[var(--panel-2)]/50 space-y-2"
+-            >
+-              <div className="flex items-baseline gap-2 flex-wrap">
+-                <span className="font-display font-bold text-[var(--text)]">
+-                  {item.number}. {item.term}
+-                </span>
+-                {item.transliteration && (
+-                  <span className="text-xs font-mono text-[var(--text-faint)]">
+-                    {item.transliteration}
++          {items.length === 0 && q && (
++            <p className="text-xs text-[var(--text-faint)] italic">No matches for &ldquo;{filterText}&rdquo;.</p>
++          )}
++          <div className="space-y-2">
++            {items.map((item: any) => (
++              <CollapsibleItemCard
++                key={item.id}
++                summary={
++                  <span className="flex items-baseline gap-2 flex-wrap">
++                    {item.number}. {item.term}
++                    {item.transliteration && (
++                      <span className="text-xs font-mono text-[var(--text-faint)] font-normal">
++                        {item.transliteration}
++                      </span>
++                    )}
+                   </span>
+-                )}
+-              </div>
+-              {item.levels && (
+-                <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+-                  <div className="p-2 rounded-lg bg-red-500/10 border border-red-500/20">
+-                    <div className="font-mono text-[10px] uppercase text-red-400 mb-1">Band 5.5</div>
+-                    {item.levels.band_5_5}
+-                  </div>
+-                  <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/20">
+-                    <div className="font-mono text-[10px] uppercase text-amber-400 mb-1">Band 7.5</div>
+-                    {item.levels.band_7_5}
+-                  </div>
+-                  <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+-                    <div className="font-mono text-[10px] uppercase text-emerald-400 mb-1">Band 9.0</div>
+-                    {item.levels.band_9_0}
++                }
++                detail={item.levels?.band_7_5}
++              >
++                {item.levels && (
++                  <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
++                    <div className="p-2 rounded-lg bg-red-500/10 border border-red-500/20">
++                      <div className="font-mono text-[10px] uppercase text-red-400 mb-1">Band 5.5</div>
++                      {item.levels.band_5_5}
++                    </div>
++                    <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/20">
++                      <div className="font-mono text-[10px] uppercase text-amber-400 mb-1">Band 7.5</div>
++                      {item.levels.band_7_5}
++                    </div>
++                    <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
++                      <div className="font-mono text-[10px] uppercase text-emerald-400 mb-1">Band 9.0</div>
++                      {item.levels.band_9_0}
++                    </div>
+                   </div>
+-                </div>
+-              )}
+-              {item.speaking_vs_writing && (
+-                <p className="text-xs text-[var(--text-dim)]">
+-                  <span className="font-semibold">Speaking vs Writing:</span>{' '}
+-                  {item.speaking_vs_writing}
+-                </p>
+-              )}
+-              {item.bangla_nuance && (
+-                <p className="text-xs text-[var(--text-faint)]">
+-                  <span className="font-semibold">Bangla nuance:</span> {item.bangla_nuance}
+-                </p>
+-              )}
+-            </div>
+-          ))}
++                )}
++                {item.speaking_vs_writing && (
++                  <p className="text-xs text-[var(--text-dim)]">
++                    <span className="font-semibold">Speaking vs Writing:</span>{' '}
++                    {item.speaking_vs_writing}
++                  </p>
++                )}
++                {item.bangla_nuance && (
++                  <p className="text-xs text-[var(--text-faint)]">
++                    <span className="font-semibold">Bangla nuance:</span> {item.bangla_nuance}
++                  </p>
++                )}
++              </CollapsibleItemCard>
++            ))}
++          </div>
+         </div>
+       );
++    }
+ 
+     case 'verb_matrix':
+       return (
+@@ -1918,6 +1938,7 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id })
+   const [loadingZero, setLoadingZero] = useState(false);
+   const [zeroError, setZeroError] = useState<string | null>(null);
+   const [selectedZero, setSelectedZero] = useState<ZeroChapterData | null>(null);
++  const [zeroFilterText, setZeroFilterText] = useState('');
+ 
+   /* Word Bank state */
+   const [vocabSubTab, setVocabSubTab] = useState<'chapters' | 'wordbank'>('chapters');
+@@ -1941,6 +1962,7 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id })
+     setExercise(null);
+     setFeedback(null);
+     setSelectedZero(null);
++    setZeroFilterText('');
+     setVocabSubTab('chapters');
+   }, [initialTab]);
+ 
+@@ -2577,6 +2599,7 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id })
+               onClick={() => {
+                 setVocabSubTab('chapters');
+                 setSelectedZero(null);
++                setZeroFilterText('');
+               }}
+               className={`px-4 py-2 rounded-lg text-sm font-mono font-semibold transition-colors ${
+                 vocabSubTab === 'chapters'
+@@ -2619,6 +2642,7 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id })
+                     type="button"
+                     onClick={() => {
+                       setSelectedZero(null);
++                      setZeroFilterText('');
+                       scrollMainToTop();
+                     }}
+                     className="flex items-center gap-1.5 text-xs font-mono text-[var(--text-faint)] hover:text-[var(--accent-a)] transition-colors"
+@@ -2657,8 +2681,21 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id })
+                   </GlassPanel>
+ 
+                   <GlassPanel className="p-6 md:p-8 border border-[var(--border)] space-y-2">
++                    <div className="relative mb-2">
++                      <Search
++                        size={15}
++                        className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-faint)]"
++                      />
++                      <input
++                        type="text"
++                        value={zeroFilterText}
++                        onChange={(e) => setZeroFilterText(e.target.value)}
++                        placeholder="Search this chapter..."
++                        className="w-full pl-9 pr-3 py-2 rounded-lg bg-[var(--panel-2)]/60 border border-[var(--border)] text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:outline-none focus:border-[var(--accent-a)]/50"
++                      />
++                    </div>
+                     {(selectedZero.content.blocks ?? []).map((block) => (
+-                      <ZeroBlockRenderer key={block.id} block={block} />
++                      <ZeroBlockRenderer key={block.id} block={block} filterText={zeroFilterText} />
+                     ))}
+                   </GlassPanel>
+ 
+@@ -2668,6 +2705,7 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id })
+                       size="sm"
+                       onClick={() => {
+                         setSelectedZero(null);
++                        setZeroFilterText('');
+                         scrollMainToTop();
+                       }}
+                     >
+@@ -2694,6 +2732,7 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id })
+                             className="p-6 flex flex-col justify-between border border-[var(--border)] hover:border-[var(--accent-a)]/40 transition-colors cursor-pointer"
+                             onClick={() => {
+                               setSelectedZero({ meta, content });
++                              setZeroFilterText('');
+                               scrollMainToTop();
+                             }}
+                           >
+@@ -2725,6 +2764,7 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id })
+                               onClick={(e) => {
+                                 e.stopPropagation();
+                                 setSelectedZero({ meta, content });
++                                setZeroFilterText('');
+                                 scrollMainToTop();
+                               }}
+                             >

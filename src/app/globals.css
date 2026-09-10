@@ -232,8 +232,30 @@ h1, h2, h3, .font-display {
   animation: carouselSlideIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Daily Tip banner (dashboard): a slow breathing glow behind the icon
+   badge and a faint shimmer sweeping across the card, so the banner
+   reads as "worth tapping" rather than blending into the panels above
+   it. Kept subtle/slow on purpose -- this sits at the bottom of the
+   dashboard and shouldn't compete with anything above it. */
+@keyframes dailyTipPulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--glow-a); }
+  50% { box-shadow: 0 0 0 10px transparent; }
+}
+.animate-dailyTipPulse {
+  animation: dailyTipPulse 2.6s ease-in-out infinite;
+}
+
+@keyframes dailyTipShimmer {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(220%); }
+}
+.animate-dailyTipShimmer {
+  animation: dailyTipShimmer 3.5s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .animate-fadeIn, .animate-carouselShiftIn, .animate-carouselSlideIn {
+  .animate-fadeIn, .animate-carouselShiftIn, .animate-carouselSlideIn,
+  .animate-dailyTipPulse, .animate-dailyTipShimmer {
     animation: none;
   }
 }

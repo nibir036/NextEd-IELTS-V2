@@ -1,6 +1,7 @@
 import React from 'react';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
+import { DiagnosticPromptModal } from './DiagnosticPromptModal';
 
 interface AppShellProps {
   currentRoute: string;
@@ -23,6 +24,10 @@ export const AppShell: React.FC<AppShellProps> = ({
       <div className="bg-layer">
         <div className="bg-pattern" />
       </div>
+
+      {/* Global diagnostic nudge -- shows on top of whichever screen the
+          user is on, not just the dashboard. */}
+      <DiagnosticPromptModal currentRoute={currentRoute} onNavigateAction={onNavigate} />
 
       {/* Persistent Left Sidebar */}
       <Sidebar currentRoute={currentRoute} onNavigate={onNavigate} onLogout={onLogout} />

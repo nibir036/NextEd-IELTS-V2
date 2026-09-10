@@ -20,7 +20,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ id }) => {
         </h3>
       </div>
       <p className="text-xs text-[var(--text-dim)] max-w-xl">
-        Select from 4 bespoke color tokens built with CSS custom properties. All glass surfaces, gradient fills, and typography recalculate instantly without reloading.
+        Select from 2 bespoke color tokens built with CSS custom properties. All glass surfaces, gradient fills, and typography recalculate instantly without reloading.
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">

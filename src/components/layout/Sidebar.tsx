@@ -31,6 +31,12 @@ interface NavItem {
   id: string;
   label: string;
   icon: React.FC<{ size?: number; className?: string }>;
+  dropdownKind?: 'tests-tips' | 'grammar-modules' | 'vocab-chapters';
+}
+
+interface NavSubItem {
+  id: string;
+  label: string;
 }
 
 interface NavSection {
@@ -79,6 +85,17 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLo
     tutor: true,
   });
 
+  // Per-item dropdown open/closed (Reading/Listening/Writing/Speaking's
+  // Tests+Tips, and Grammar/Vocab's module/chapter lists).
+  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
+
+  // Grammar modules and vocab chapters aren't static -- fetched lazily
+  // the first time their dropdown is opened, not on every sidebar mount.
+  const [grammarModules, setGrammarModules] = useState<{ slug: string; title: string }[] | null>(null);
+  const [loadingGrammarModules, setLoadingGrammarModules] = useState(false);
+  const [vocabChapters, setVocabChapters] = useState<{ chapter: number; title: string }[] | null>(null);
+  const [loadingVocabChapters, setLoadingVocabChapters] = useState(false);
+
   const togglePin = () => {
     const nextPinned = !isPinned;
     setIsPinned(nextPinned);
@@ -94,6 +111,45 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLo
       ...prev,
       [key]: !prev[key],
     }));
+  };
+
+  const toggleItemDropdown = (item: NavItem) => {
+    const wasOpen = !!expandedItems[item.id];
+    setExpandedItems((prev) => ({ ...prev, [item.id]: !wasOpen }));
+
+    if (wasOpen) return; // only fetch when opening, not closing
+
+    if (item.dropdownKind === 'grammar-modules' && grammarModules === null && !loadingGrammarModules) {
+      setLoadingGrammarModules(true);
+      fetch('/api/grammar/modules')
+        .then((res) => res.json())
+        .then((data) => {
+          setGrammarModules(
+            (data.modules ?? []).map((m: { slug: string; title: string }) => ({
+              slug: m.slug,
+              title: m.title,
+            })),
+          );
+        })
+        .catch(() => setGrammarModules([]))
+        .finally(() => setLoadingGrammarModules(false));
+    }
+
+    if (item.dropdownKind === 'vocab-chapters' && vocabChapters === null && !loadingVocabChapters) {
+      setLoadingVocabChapters(true);
+      fetch('/api/vocab')
+        .then((res) => res.json())
+        .then((data) => {
+          setVocabChapters(
+            (data.chapters ?? []).map((c: { chapter: number; title: string }) => ({
+              chapter: c.chapter,
+              title: c.title,
+            })),
+          );
+        })
+        .catch(() => setVocabChapters([]))
+        .finally(() => setLoadingVocabChapters(false));
+    }
   };
 
   // Nav configuration with requested dropdown categories
@@ -112,10 +168,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLo
       title: 'Practice Tests',
       icon: PenTool,
       items: [
-        { id: 'listening', label: 'Listening Practice', icon: Headphones },
-        { id: 'reading', label: 'Reading Practice', icon: BookOpen },
-        { id: 'writing', label: 'Writing Practice', icon: PenTool },
-        { id: 'speaking', label: 'Speaking Practice', icon: Mic },
+        { id: 'listening', label: 'Listening Practice', icon: Headphones, dropdownKind: 'tests-tips' },
+        { id: 'reading', label: 'Reading Practice', icon: BookOpen, dropdownKind: 'tests-tips' },
+        { id: 'writing', label: 'Writing Practice', icon: PenTool, dropdownKind: 'tests-tips' },
+        { id: 'speaking', label: 'Speaking Practice', icon: Mic, dropdownKind: 'tests-tips' },
         { id: 'mock-tests', label: 'Full Mock Tests', icon: FileCheck },
       ],
     },
@@ -124,11 +180,37 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLo
       title: 'LMS Modules',
       icon: GraduationCap,
       items: [
-        { id: 'lms-grammar', label: 'Grammar Masterclass', icon: GraduationCap },
-        { id: 'lms-vocab', label: 'IELTS Vocabulary', icon: BookOpen },
+        { id: 'lms-grammar', label: 'Grammar Masterclass', icon: GraduationCap, dropdownKind: 'grammar-modules' },
+        { id: 'lms-vocab', label: 'IELTS Vocabulary', icon: BookOpen, dropdownKind: 'vocab-chapters' },
       ],
     },
   ];
+
+  // Sub-items for a given nav item, computed from whichever data source
+  // its dropdownKind points at.
+  const subItemsFor = (item: NavItem): NavSubItem[] | 'loading' => {
+    if (item.dropdownKind === 'tests-tips') {
+      return [
+        { id: `${item.id}/tests`, label: 'Tests' },
+        { id: `${item.id}/tips`, label: 'Tips & Tricks' },
+      ];
+    }
+    if (item.dropdownKind === 'grammar-modules') {
+      if (loadingGrammarModules || grammarModules === null) return 'loading';
+      return grammarModules.map((m) => ({ id: `lms-grammar/${m.slug}`, label: m.title }));
+    }
+    if (item.dropdownKind === 'vocab-chapters') {
+      if (loadingVocabChapters || vocabChapters === null) return 'loading';
+      return vocabChapters.map((c) => ({ id: `lms-vocab/${c.chapter}`, label: c.title }));
+    }
+    return [];
+  };
+
+  // currentRoute may now carry a sub-path (e.g. 'reading/tips',
+  // 'lms-grammar/module-2-complex-structures'); top-level active checks
+  // compare against the base id only, sub-item checks against the full
+  // route.
+  const baseRoute = currentRoute.split('/')[0];
 
   const isExpanded = isPinned || isHovered;
 
@@ -137,6 +219,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLo
       id={id}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      style={{ perspective: '900px' }}
       className={`hidden md:flex flex-col justify-between h-screen sticky top-0 bg-[var(--bg-elevated)]/95 backdrop-blur-2xl border-r border-[var(--border)] p-3 z-30 transition-all duration-300 group ${
         isExpanded
           ? 'w-64 shadow-2xl shadow-black/20'
@@ -150,7 +233,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLo
             onClick={() => onNavigate('landing')}
             className="flex items-center gap-3 cursor-pointer overflow-hidden min-w-0"
           >
-            <div className="w-10 h-10 rounded-xl bg-[image:var(--accent-gradient)] flex items-center justify-center text-white font-bold shadow-md shadow-[var(--glow-a)] shrink-0 hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-[image:var(--accent-gradient)] flex items-center justify-center text-white font-bold shadow-md shadow-[var(--glow-a)] shrink-0 transition-transform duration-300 [transform-style:preserve-3d] hover:[transform:perspective(400px)_rotateY(-12deg)_rotateX(6deg)_scale(1.08)]">
               <Sparkles size={20} />
             </div>
             {isExpanded && (
@@ -188,7 +271,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLo
           {sections.map((section) => {
             const SectionIcon = section.icon;
             const isOpen = openSections[section.key] !== false;
-            const hasActiveChild = section.items.some((it) => currentRoute === it.id);
+            const hasActiveChild = section.items.some((it) => baseRoute === it.id);
 
             return (
               <div key={section.key} className="space-y-1">
@@ -227,23 +310,95 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLo
                   <div className="space-y-0.5 pl-2">
                     {section.items.map((item) => {
                       const Icon = item.icon;
-                      const isActive = currentRoute === item.id;
+                      const isActive = baseRoute === item.id;
+                      const hasDropdown = !!item.dropdownKind;
+                      const isDropdownOpen = !!expandedItems[item.id];
+
+                      if (!hasDropdown) {
+                        return (
+                          <button
+                            key={item.id}
+                            onClick={() => onNavigate(item.id)}
+                            className={`w-full flex items-center gap-3 px-3 py-2 text-xs rounded-xl font-medium transition-all duration-200 cursor-pointer [transform-style:preserve-3d] ${
+                              isActive
+                                ? 'bg-[image:var(--accent-gradient)] text-white shadow-md shadow-[var(--glow-a)] font-semibold [transform:perspective(500px)_translateZ(6px)]'
+                                : 'text-[var(--text-dim)] hover:text-[var(--text)] hover:bg-[var(--panel-2)] hover:[transform:perspective(500px)_translateZ(3px)] hover:shadow-md'
+                            }`}
+                          >
+                            <Icon
+                              size={16}
+                              className={isActive ? 'text-white' : 'text-[var(--text-faint)] shrink-0'}
+                            />
+                            <span className="truncate">{item.label}</span>
+                          </button>
+                        );
+                      }
+
+                      // Items with a dropdown: label navigates to the
+                      // item's default view, a separate chevron button
+                      // reveals the sub-menu.
+                      const subItems = subItemsFor(item);
                       return (
-                        <button
-                          key={item.id}
-                          onClick={() => onNavigate(item.id)}
-                          className={`w-full flex items-center gap-3 px-3 py-2 text-xs rounded-xl font-medium transition-all duration-150 cursor-pointer ${
-                            isActive
-                              ? 'bg-[image:var(--accent-gradient)] text-white shadow-md shadow-[var(--glow-a)] font-semibold'
-                              : 'text-[var(--text-dim)] hover:text-[var(--text)] hover:bg-[var(--panel-2)]'
-                          }`}
-                        >
-                          <Icon
-                            size={16}
-                            className={isActive ? 'text-white' : 'text-[var(--text-faint)] shrink-0'}
-                          />
-                          <span className="truncate">{item.label}</span>
-                        </button>
+                        <div key={item.id}>
+                          <div
+                            className={`w-full flex items-center gap-1 rounded-xl font-medium transition-all duration-200 [transform-style:preserve-3d] ${
+                              isActive
+                                ? 'bg-[image:var(--accent-gradient)] text-white shadow-md shadow-[var(--glow-a)] font-semibold [transform:perspective(500px)_translateZ(6px)]'
+                                : 'text-[var(--text-dim)] hover:text-[var(--text)] hover:bg-[var(--panel-2)]'
+                            }`}
+                          >
+                            <button
+                              onClick={() => onNavigate(item.id)}
+                              className="flex-1 flex items-center gap-3 px-3 py-2 text-xs cursor-pointer min-w-0"
+                            >
+                              <Icon
+                                size={16}
+                                className={isActive ? 'text-white' : 'text-[var(--text-faint)] shrink-0'}
+                              />
+                              <span className="truncate">{item.label}</span>
+                            </button>
+                            <button
+                              onClick={() => toggleItemDropdown(item)}
+                              title={isDropdownOpen ? 'Collapse' : 'Expand'}
+                              className={`p-2 mr-1 rounded-lg cursor-pointer shrink-0 ${
+                                isActive ? 'text-white/80 hover:text-white' : 'text-[var(--text-faint)] hover:text-[var(--text)]'
+                              }`}
+                            >
+                              {isDropdownOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+                            </button>
+                          </div>
+
+                          {isDropdownOpen && (
+                            <div className="pl-4 mt-0.5 space-y-0.5 border-l border-[var(--border)] ml-4">
+                              {subItems === 'loading' ? (
+                                <div className="px-3 py-2 text-[11px] font-mono text-[var(--text-faint)]">
+                                  Loading...
+                                </div>
+                              ) : subItems.length === 0 ? (
+                                <div className="px-3 py-2 text-[11px] font-mono text-[var(--text-faint)]">
+                                  Nothing here yet
+                                </div>
+                              ) : (
+                                subItems.map((sub) => {
+                                  const subActive = currentRoute === sub.id;
+                                  return (
+                                    <button
+                                      key={sub.id}
+                                      onClick={() => onNavigate(sub.id)}
+                                      className={`w-full text-left px-3 py-1.5 text-[11px] rounded-lg transition-colors cursor-pointer truncate ${
+                                        subActive
+                                          ? 'text-[var(--accent-a)] font-semibold bg-[var(--accent-a)]/10'
+                                          : 'text-[var(--text-faint)] hover:text-[var(--text)] hover:bg-[var(--panel-2)]'
+                                      }`}
+                                    >
+                                      {sub.label}
+                                    </button>
+                                  );
+                                })
+                              )}
+                            </div>
+                          )}
+                        </div>
                       );
                     })}
                   </div>

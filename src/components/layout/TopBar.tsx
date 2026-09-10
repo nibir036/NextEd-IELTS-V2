@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Search, Sparkles, Settings, BookOpen, PenTool, Mic, Headphones, FileCheck, History, LayoutDashboard } from '../ui/icons';
-import { useTheme } from '../theme/ThemeProvider';
+import { Search, Sparkles, Settings, BookOpen, PenTool, Mic, Headphones, FileCheck, History, LayoutDashboard, Bell } from '../ui/icons';
 import { currentUser as fallbackUser } from '../../lib/data';
 import { db, type DbUser } from '../../lib/db';
 
@@ -11,7 +10,6 @@ interface TopBarProps {
 }
 
 export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, id }) => {
-  const { activeThemeConfig } = useTheme();
   const [user, setUser] = useState<DbUser | null>(null);
 
   useEffect(() => {
@@ -54,47 +52,47 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, id }) 
   return (
     <header
       id={id}
-      className="sticky top-0 z-10 bg-[var(--bg)]/80 backdrop-blur-xl border-b border-[var(--border)] px-4 md:px-8 py-3.5 flex items-center justify-between gap-4"
+      className="sticky top-0 z-10 bg-[var(--bg)]/80 backdrop-blur-xl border-b border-[var(--border)] px-4 md:px-8 py-3.5 grid grid-cols-[1fr_auto_1fr] items-center gap-4"
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 min-w-0">
         <div className="p-2 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-[var(--accent-a)] hidden sm:block">
           <IconComponent size={20} />
         </div>
-        <div>
-          <h1 className="font-display font-bold text-lg md:text-xl text-[var(--text)] tracking-tight">
+        <div className="min-w-0">
+          <h1 className="font-display font-bold text-lg md:text-xl text-[var(--text)] tracking-tight truncate">
             {routeInfo.title}
           </h1>
-          <p className="text-xs text-[var(--text-dim)] hidden sm:block">
+          <p className="text-xs text-[var(--text-dim)] hidden sm:block truncate">
             {routeInfo.subtitle}
           </p>
         </div>
       </div>
 
-      <div className="flex items-center gap-3">
-        {/* Quick Search Input */}
-        <div
-          onClick={() => onNavigate('search')}
-          className="hidden lg:flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-xs text-[var(--text-faint)] hover:border-[var(--border-strong)] cursor-pointer w-48 transition-colors"
-        >
-          <Search size={14} />
-          <span>Search tips & vocabulary...</span>
-        </div>
+      {/* Quick Search Input -- centered */}
+      <div
+        onClick={() => onNavigate('search')}
+        className="hidden lg:flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-xs text-[var(--text-faint)] hover:border-[var(--border-strong)] cursor-pointer w-64 justify-self-center transition-colors"
+      >
+        <Search size={14} />
+        <span>Search tips & vocabulary...</span>
+      </div>
 
-        {/* Theme Indicator Pill */}
+      <div className="flex items-center gap-3 justify-self-end">
+        {/* Notifications */}
         <button
-          onClick={() => onNavigate('settings')}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] hover:border-[var(--border-strong)] text-xs font-mono text-[var(--text-dim)] cursor-pointer transition-colors"
-          title="Click to switch theme in Settings"
+          onClick={() => onNavigate('submissions')}
+          title="Notifications"
+          className="relative w-9 h-9 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] hover:border-[var(--border-strong)] text-[var(--text-dim)] hover:text-[var(--text)] flex items-center justify-center cursor-pointer transition-colors"
         >
-          <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: activeThemeConfig.swatches[0] }} />
-          <span className="hidden sm:inline">{activeThemeConfig.name}</span>
+          <Bell size={16} />
+          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[var(--accent-a)]" />
         </button>
 
         {/* User Avatar */}
         <div
           onClick={() => onNavigate('settings')}
           title={`${activeUser.name} (${activeUser.phone})`}
-          className="w-9 h-9 rounded-xl bg-[image:var(--accent-gradient)] text-white font-bold text-xs flex items-center justify-center cursor-pointer shadow-sm hover:scale-105 transition-transform"
+          className="w-9 h-9 rounded-xl bg-[image:var(--accent-gradient)] text-white font-bold text-xs flex items-center justify-center cursor-pointer shadow-sm hover:scale-105 transition-transform shrink-0"
         >
           {activeUser.avatar}
         </div>

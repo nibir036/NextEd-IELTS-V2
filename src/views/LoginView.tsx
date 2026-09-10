@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
+import { BackLink } from '../components/ui/BackLink';
 import {
   Sparkles,
   PhoneCall,
@@ -91,9 +92,7 @@ export const LoginView: React.FC<LoginViewProps> = ({
           <span className="font-display font-bold text-lg tracking-tight">AI IELTS Pro</span>
         </div>
 
-        <Button variant="ghost" size="sm" onClick={onNavigateToLanding}>
-          ← Back to Home
-        </Button>
+        <BackLink onClick={onNavigateToLanding}>Back to Home</BackLink>
       </header>
 
       {/* Main Login Panel */}

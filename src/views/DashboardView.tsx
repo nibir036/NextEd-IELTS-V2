@@ -216,7 +216,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
                   <div className="w-12 h-12 rounded-2xl bg-[var(--accent-a)]/15 text-[var(--accent-a)] flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Icon size={24} />
                   </div>
-                  <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-[var(--panel-2)] text-[var(--text-faint)] border border-[var(--border)]">
+                  <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-[var(--panel-2)] text-[var(--text-faint)] border border-[var(--border)]">
                     {item.badge}
                   </span>
                 </div>

@@ -334,7 +334,7 @@ export const SignupView: React.FC<SignupViewProps> = ({
         </div>
       </main>
 
-      <footer className="relative z-10 py-4 text-center text-xs text-[var(--text-faint)] font-mono border-t border-[var(--border)]">
+      <footer className="font-michroma relative z-10 py-4 text-center text-xs tracking-wide text-[var(--text-faint)] border-t border-[var(--border)]">
         AI IELTS Pro • Phone Authentication • Powered by PostgreSQL
       </footer>
     </div>

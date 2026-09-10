@@ -78,7 +78,7 @@ export const WritingTipsReader: React.FC<{
           <ChevronLeft size={14} /> Back to Files
         </button>
         {chapter.estimatedMin && (
-          <div className="flex items-center gap-1 text-[10px] text-[var(--text-dim)]">
+          <div className="flex items-center gap-1 text-[11px] text-[var(--text-dim)]">
             <Clock size={11} />
             <span>{chapter.estimatedMin} min</span>
           </div>

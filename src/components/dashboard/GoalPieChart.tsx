@@ -41,7 +41,7 @@ export const GoalPieChart: React.FC<{
               cy="60"
               r={radius}
               fill="none"
-              stroke="var(--bg)"
+              stroke="var(--panel-2)"
               strokeWidth="10"
             />
             <circle
@@ -59,7 +59,7 @@ export const GoalPieChart: React.FC<{
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <span className="font-display font-extrabold text-2xl text-[var(--text)]">{pct}%</span>
-            <span className="text-[10px] font-mono text-[var(--text-faint)] uppercase">of goal</span>
+            <span className="text-[11px] font-mono text-[var(--text-faint)] uppercase">of goal</span>
           </div>
         </div>
 

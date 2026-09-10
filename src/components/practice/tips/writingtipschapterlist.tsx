@@ -84,7 +84,7 @@ export const WritingTipsChapterList: React.FC<{ onSelectChapter: (slug: string) 
                 </div>
                 {ch.summary && <p className="text-xs text-[var(--text-dim)] mt-1.5 leading-relaxed">{ch.summary}</p>}
                 {ch.estimatedMin && (
-                  <div className="flex items-center gap-1 text-[10px] text-[var(--text-dim)] mt-2">
+                  <div className="flex items-center gap-1 text-[11px] text-[var(--text-dim)] mt-2">
                     <Clock size={11} />
                     <span>{ch.estimatedMin} min</span>
                     {ch.status === 'in_progress' && <span className="ml-2 text-[var(--accent-a)]">In progress</span>}

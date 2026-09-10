@@ -28,9 +28,9 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variantClasses = {
     primary:
-      'bg-[image:var(--accent-gradient)] text-white shadow-lg shadow-[var(--glow-a)] hover:opacity-95 font-semibold border border-[rgba(255,255,255,0.2)]',
+      'bg-[image:var(--accent-gradient)] text-white shadow-lg shadow-[var(--glow-a)] hover:shadow-xl hover:shadow-[var(--glow-a)] hover:brightness-110 font-semibold border border-[rgba(255,255,255,0.2)]',
     secondary:
-      'bg-[var(--bg-elevated)] text-[var(--text)] border border-[var(--border)] hover:border-[var(--border-strong)] hover:bg-[var(--panel-2)]',
+      'bg-[var(--bg-elevated)] text-[var(--text)] border border-[var(--border)] hover:border-[var(--accent-a)]/50 hover:bg-[var(--panel-2)] hover:shadow-md hover:shadow-[var(--glow-a)]',
     ghost:
       'bg-transparent text-[var(--text-dim)] hover:text-[var(--text)] hover:bg-[var(--panel-2)]',
   };

@@ -374,7 +374,7 @@ export const StudyCalendar: React.FC<{ userEmail?: string }> = ({ userEmail }) =
                     {dayReminders.slice(0, 2).map((r) => (
                       <div
                         key={r.id}
-                        className={`text-[9px] font-mono px-1.5 py-0.5 rounded truncate font-medium border ${getCategoryBadgeClass(
+                        className={`text-[11px] font-mono px-1.5 py-0.5 rounded truncate font-medium border ${getCategoryBadgeClass(
                           r.category
                         )}`}
                       >
@@ -382,7 +382,7 @@ export const StudyCalendar: React.FC<{ userEmail?: string }> = ({ userEmail }) =
                       </div>
                     ))}
                     {dayReminders.length > 2 && (
-                      <div className="text-[9px] font-mono text-[var(--accent-a)] font-semibold">
+                      <div className="text-[11px] font-mono text-[var(--accent-a)] font-semibold">
                         +{dayReminders.length - 2} more
                       </div>
                     )}
@@ -480,7 +480,7 @@ export const StudyCalendar: React.FC<{ userEmail?: string }> = ({ userEmail }) =
 
                           <div className="min-w-0">
                             <span
-                              className={`inline-block text-[10px] font-mono px-2 py-0.5 rounded-md font-semibold border mb-1.5 ${getCategoryBadgeClass(
+                              className={`inline-block text-[11px] font-mono px-2 py-0.5 rounded-md font-semibold border mb-1.5 ${getCategoryBadgeClass(
                                 rem.category
                               )}`}
                             >
@@ -578,7 +578,7 @@ export const StudyCalendar: React.FC<{ userEmail?: string }> = ({ userEmail }) =
                   >
                     <div className="min-w-0 pr-2">
                       <div className="font-semibold text-[var(--text)] truncate">{r.title}</div>
-                      <div className="text-[10px] font-mono text-[var(--text-faint)]">
+                      <div className="text-[11px] font-mono text-[var(--text-faint)]">
                         {r.dateStr} at {r.time}
                       </div>
                     </div>
@@ -704,7 +704,7 @@ export const StudyCalendar: React.FC<{ userEmail?: string }> = ({ userEmail }) =
                   <Mail size={18} className="text-emerald-400 shrink-0" />
                   <div>
                     <div className="text-xs font-bold text-[var(--text)]">Email Notification</div>
-                    <div className="text-[10px] text-[var(--text-dim)]">
+                    <div className="text-[11px] text-[var(--text-dim)]">
                       Sends detailed study agenda to user email
                     </div>
                   </div>
@@ -720,7 +720,7 @@ export const StudyCalendar: React.FC<{ userEmail?: string }> = ({ userEmail }) =
                   <Smartphone size={18} className="text-purple-400 shrink-0" />
                   <div>
                     <div className="text-xs font-bold text-[var(--text)]">Phone SMS / App Push Alert</div>
-                    <div className="text-[10px] text-[var(--text-dim)]">
+                    <div className="text-[11px] text-[var(--text-dim)]">
                       Sends mobile push alert to registered phone (+1 555-019-2834)
                     </div>
                   </div>

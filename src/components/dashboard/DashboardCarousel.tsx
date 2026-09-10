@@ -107,7 +107,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
                 <div className="font-display text-3xl font-extrabold text-[var(--accent-a)]">
                   {currentBand !== null ? `Band ${currentBand.toFixed(1)}` : '—'}
                 </div>
-                <div className="text-[11px] font-mono text-[var(--text-faint)]">
+                <div className="text-xs font-mono text-[var(--text-faint)]">
                   Target: Band {targetBand.toFixed(1)}
                 </div>
               </div>
@@ -189,7 +189,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
                         : 'bg-[var(--bg)] border-[var(--border)] text-[var(--text-faint)]'
                     }`}
                   >
-                    <span className="text-[10px] font-mono uppercase font-bold">{day.label}</span>
+                    <span className="text-[11px] font-mono uppercase font-bold">{day.label}</span>
                     {day.active ? <Check size={16} /> : <span className="text-xs">•</span>}
                   </div>
                 ))}

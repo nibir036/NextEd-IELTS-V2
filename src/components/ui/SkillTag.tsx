@@ -40,7 +40,7 @@ export const SkillTag: React.FC<SkillTagProps> = ({ skill, size = 'md', classNam
   };
 
   const style = colorMap[normalized] || colorMap.writing;
-  const padding = size === 'sm' ? 'px-2 py-0.5 text-[10px]' : 'px-2.5 py-1 text-xs';
+  const padding = size === 'sm' ? 'px-2 py-0.5 text-[11px]' : 'px-2.5 py-1 text-xs';
 
   return (
     <span

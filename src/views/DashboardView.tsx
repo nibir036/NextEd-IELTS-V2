@@ -9,6 +9,7 @@ import { DashboardCarousel } from '../components/dashboard/DashboardCarousel';
 import { SkillProgressGraph } from '../components/dashboard/SkillProgressGraph';
 import { GoalPieChart } from '../components/dashboard/GoalPieChart';
 import { DailyTipBanner } from '../components/dashboard/DailyTipBanner';
+import { Reveal } from '../components/ui/Reveal';
 import {
   Sparkles,
   BookOpen,
@@ -82,7 +83,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
     : null;
 
   return (
-    <div id={id} className="space-y-10 w-full">
+    <div id={id} className="space-y-10 w-full page-fade-in">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
         <div className="lg:col-span-5 xl:col-span-4 flex flex-col justify-between space-y-6">
           <GlassPanel className="p-6 md:p-8 border border-[var(--border)] shadow-lg space-y-6 flex-1 flex flex-col justify-center">
@@ -155,10 +156,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
       </div>
 
       {/* Analytics row: skill progress graph + animated goal-completion pie chart */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <SkillProgressGraph data={dashboard} />
         <GoalPieChart currentBand={user.currentBand} targetBand={user.targetBand} />
-      </div>
+      </Reveal>
 
       {/* Study Calendar -- commented out for now, not removed. Reminder
           notifications (Email/Phone) aren't actually wired to anything
@@ -203,11 +204,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
             { id: 'listening', name: 'Audio Listening', icon: Headphones, badge: 'Audio Play' },
             { id: 'speaking', name: 'Speaking Simulator', icon: Mic, badge: 'Voice AI' },
             { id: 'mock-tests', name: 'Full Mock Exam', icon: FileCheck, badge: 'Timed' },
-          ].map((item) => {
+          ].map((item, idx) => {
             const Icon = item.icon;
             return (
+              <Reveal key={item.id} delayMs={idx * 120}>
               <GlassPanel
-                key={item.id}
                 onClick={() => onNavigateAction(item.id)}
                 className="p-6 border border-[var(--border)] hover:border-[var(--accent-a)] transition-all cursor-pointer group flex flex-col justify-between space-y-5"
               >
@@ -230,6 +231,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
                   </div>
                 </div>
               </GlassPanel>
+              </Reveal>
             );
           })}
         </div>

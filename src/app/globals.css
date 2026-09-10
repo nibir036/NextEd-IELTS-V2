@@ -1,38 +1,44 @@
 @import "tailwindcss";
 
 @layer base {
-  /* Default Theme: Dusk (Dark) -- palette sampled from the reference
-     desk illustration: periwinkle #8cb0fa, indigo #736ed6, deep violet
-     #2f028c / #190186, pink-lilac #ccb1fa. */
+  /* Default Theme: Dusk (Dark) -- a true HSL lightness-inversion of the
+     Daylight theme below (same hue/saturation per color, lightness
+     flipped: L' = 1 - L). Two of Daylight's accent colors invert to a
+     tone with <3:1 contrast against this bg (they were tuned to sit on
+     white, so they invert dark) -- those two are used for secondary/
+     badge-fill roles instead of primary text/glow/border, where
+     visibility against the page doesn't matter. All four values are
+     still the literal, unmodified inversion; only the role assignment
+     was chosen for legibility. */
   :root,
   [data-theme="metallic-dusk"] {
-    --bg: #0d0a1f;
-    --bg-elevated: #171233;
-    --panel-2: #201a42;
-    --border: rgba(140, 176, 250, 0.12);
-    --border-strong: rgba(140, 176, 250, 0.25);
-    --text: #f3f1fb;
-    --text-dim: #b7b0d9;
-    --text-faint: #7d76a3;
-    
-    --accent-a: #8cb0fa;
-    --accent-b: #736ed6;
-    --accent-c: #ccb1fa;
-    --accent-d: #2f028c;
-    --accent-gradient: linear-gradient(135deg, #8cb0fa 0%, #ccb1fa 100%);
-    
-    --success: #34d399;
-    --warning: #fbbf24;
-    --danger: #f87171;
-    
-    --glass-tint-1: rgba(32, 26, 66, 0.65);
-    --glass-tint-2: rgba(20, 16, 45, 0.75);
-    --glass-sheen: rgba(255, 255, 255, 0.08);
-    
-    --glow-a: rgba(140, 176, 250, 0.14);
-    --glow-b: rgba(204, 177, 250, 0.14);
-    --bg-diagonal: repeating-linear-gradient(45deg, rgba(140, 176, 250, 0.015) 0px, rgba(140, 176, 250, 0.015) 1px, transparent 1px, transparent 10px);
-    
+    --bg: #07040f;
+    --bg-elevated: #000000;
+    --panel-2: #0e081c;
+    --border: rgba(160, 115, 253, 0.08);
+    --border-strong: rgba(160, 115, 253, 0.16);
+    --text: #d5ccea;
+    --text-dim: #9a8fbb;
+    --text-faint: #5e547f;
+
+    --accent-a: #a073fd;
+    --accent-b: #2e2991;
+    --accent-c: #9179fe;
+    --accent-d: #2b50b5;
+    --accent-gradient: linear-gradient(135deg, #575aa7 0%, #444892 100%);
+
+    --success: #69facd;
+    --warning: #f99726;
+    --danger: #d92323;
+
+    --glass-tint-1: rgba(0, 0, 0, 0.85);
+    --glass-tint-2: rgba(7, 4, 15, 0.9);
+    --glass-sheen: rgba(0, 0, 0, 0.6);
+
+    --glow-a: rgba(87, 90, 167, 0.16);
+    --glow-b: rgba(145, 121, 254, 0.06);
+    --bg-diagonal: repeating-linear-gradient(45deg, rgba(160, 115, 253, 0.015) 0px, rgba(160, 115, 253, 0.015) 1px, transparent 1px, transparent 10px);
+
     --radius-lg: 16px;
     --radius-md: 12px;
     --radius-sm: 8px;
@@ -211,6 +217,40 @@ h1, h2, h3, .font-display {
 
 @media (prefers-reduced-motion: reduce) {
   .animate-fadeIn, .animate-carouselShiftIn, .animate-carouselSlideIn {
+    animation: none;
+  }
+}
+
+/* App-wide scroll-reveal, used by src/components/ui/Reveal.tsx */
+.reveal-hidden {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* App-wide page load-in: applied once per view on initial mount so
+   content stages in rather than popping in instantly. */
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page-fade-in {
+  animation: pageFadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-hidden {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .page-fade-in {
     animation: none;
   }
 }

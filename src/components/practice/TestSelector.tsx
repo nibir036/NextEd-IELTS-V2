@@ -73,7 +73,7 @@ export const TestSelector: React.FC<TestSelectorProps> = ({
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 page-fade-in">
       {tests.map((t) => (
         <GlassPanel
           key={t.id}

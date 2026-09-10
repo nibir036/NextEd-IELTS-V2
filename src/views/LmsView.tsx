@@ -958,6 +958,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
 import { BackLink } from '../components/ui/BackLink';
+import { Reveal } from '../components/ui/Reveal';
 import {
   GraduationCap,
   BookOpen,
@@ -2539,7 +2540,7 @@ export const LmsView: React.FC<LmsViewProps> = ({
           )}
 
           {!loadingModules && !selectedModule && modules.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <Reveal className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {modules.map((mod) => {
                 const total = mod.chapters.length;
                 const done = mod.chapters.filter((c) => c.status === 'completed').length;
@@ -2590,7 +2591,7 @@ export const LmsView: React.FC<LmsViewProps> = ({
                   </GlassPanel>
                 );
               })}
-            </div>
+            </Reveal>
           )}
         </div>
       )}
@@ -2710,7 +2711,7 @@ export const LmsView: React.FC<LmsViewProps> = ({
                       No chapters found.
                     </GlassPanel>
                   ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <Reveal className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                       {zeroChapters
                         .sort((a, b) => a.meta.number - b.meta.number)
                         .map(({ meta, content }) => (
@@ -2758,7 +2759,7 @@ export const LmsView: React.FC<LmsViewProps> = ({
                             </Button>
                           </GlassPanel>
                         ))}
-                    </div>
+                    </Reveal>
                   )}
                 </>
               )}

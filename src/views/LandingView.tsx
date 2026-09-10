@@ -4,6 +4,7 @@ import { HeroScoreCard } from '../components/landing/HeroScoreCard';
 import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
 import { SkillTag } from '../components/ui/SkillTag';
+import { Reveal } from '../components/ui/Reveal';
 import { skillModules, siteStats } from '../lib/data';
 import {
   Sparkles,
@@ -46,7 +47,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
       <LandingNav onNavigate={(route) => onLaunchApp(route)} isLoggedIn={isLoggedIn} />
 
       {/* 1. HOME SECTION */}
-      <section id="home" className="relative z-10 max-w-7xl mx-auto px-4 md:px-10 pt-10 pb-16 md:pt-16 md:pb-24">
+      <section id="home" className="relative z-10 max-w-7xl mx-auto px-4 md:px-10 pt-10 pb-16 md:pt-16 md:pb-24 page-fade-in">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-6 space-y-6 text-left">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--accent-a)]/15 border border-[var(--accent-a)]/30 text-xs font-mono text-[var(--accent-a)]">
@@ -109,7 +110,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
       <section className="relative z-10 border-y border-[var(--border)] bg-[var(--bg-elevated)]/50 backdrop-blur-lg py-8">
         <div className="max-w-7xl mx-auto px-4 md:px-10 grid grid-cols-2 md:grid-cols-4 gap-6">
           {siteStats.map((stat, idx) => (
-            <div key={idx} className="text-center md:text-left">
+            <Reveal key={idx} delayMs={idx * 160} className="text-center md:text-left">
               <div className="font-display font-bold text-2xl sm:text-3xl text-gradient">
                 {stat.value}
               </div>
@@ -119,13 +120,14 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
               <div className="text-xs text-[var(--text-faint)] mt-1">
                 {stat.description}
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
 
       {/* 2. ABOUT SECTION */}
       <section id="about" className="relative z-10 max-w-7xl mx-auto px-4 md:px-10 py-20">
+        <Reveal>
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-1.5 text-xs font-mono text-[var(--accent-a)] mb-2 uppercase tracking-widest font-semibold">
             <BrainCircuit size={15} />
@@ -138,8 +140,9 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
             AI IELTS Pro is an intelligent exam preparation framework engineered to align strictly with official Cambridge 9-Band descriptors. We provide objective, verifiable feedback without exaggerated guarantees.
           </p>
         </div>
+        </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <Reveal delayMs={200} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <GlassPanel className="p-6 space-y-3">
             <div className="w-10 h-10 rounded-xl bg-[var(--accent-a)]/15 border border-[var(--accent-a)]/30 text-[var(--accent-a)] flex items-center justify-center font-bold">
               <Shield size={20} />
@@ -175,19 +178,19 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
               Instead of generic scores, get line-by-line collocations, discourse marker suggestions, and grammar rewrites targeting Band 7.5+.
             </p>
           </GlassPanel>
-        </div>
+        </Reveal>
 
         {/* 4 Core Practice Modules Overview */}
         <div className="pt-8 border-t border-[var(--border)]">
-          <div className="text-center mb-8">
+          <Reveal className="text-center mb-8">
             <h3 className="font-display text-xl font-bold text-[var(--text)]">
               Comprehensive 4-Skill Practice Coverage
             </h3>
-          </div>
+          </Reveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {skillModules.map((module) => (
+            {skillModules.map((module, idx) => (
+              <Reveal key={module.id} delayMs={idx * 140}>
               <GlassPanel
-                key={module.id}
                 onClick={() => onLaunchApp(module.id)}
                 interactive
                 className="p-5 relative group"
@@ -205,6 +208,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
                   {module.description}
                 </p>
               </GlassPanel>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -213,7 +217,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
       {/* 3. HOW IT WORKS SECTION */}
       <section id="how-it-works" className="relative z-10 bg-[var(--bg-elevated)]/40 border-y border-[var(--border)] py-20">
         <div className="max-w-7xl mx-auto px-4 md:px-10">
-          <div className="text-center max-w-3xl mx-auto mb-14">
+          <Reveal className="text-center max-w-3xl mx-auto mb-14">
             <div className="inline-flex items-center gap-1.5 text-xs font-mono text-[var(--accent-a)] mb-2 uppercase tracking-widest font-semibold">
               <CheckCircle2 size={15} />
               <span>Step-By-Step Workflow</span>
@@ -224,11 +228,11 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
             <p className="text-sm md:text-base text-[var(--text-dim)] mt-3">
               A structured, transparent diagnostic workflow designed for daily practice.
             </p>
-          </div>
+          </Reveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Reveal delayMs={200} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <GlassPanel className="p-6 relative">
-              <div className="w-9 h-9 rounded-xl bg-[var(--accent-a)] text-black font-bold font-mono text-sm flex items-center justify-center mb-4 shadow-md">
+              <div className="w-9 h-9 rounded-xl bg-[var(--accent-a)] text-white font-bold font-mono text-sm flex items-center justify-center mb-4 shadow-md">
                 01
               </div>
               <h3 className="font-display font-bold text-lg text-[var(--text)] mb-2">
@@ -240,7 +244,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
             </GlassPanel>
 
             <GlassPanel className="p-6 relative">
-              <div className="w-9 h-9 rounded-xl bg-[var(--accent-b)] text-black font-bold font-mono text-sm flex items-center justify-center mb-4 shadow-md">
+              <div className="w-9 h-9 rounded-xl bg-[var(--accent-b)] text-white font-bold font-mono text-sm flex items-center justify-center mb-4 shadow-md">
                 02
               </div>
               <h3 className="font-display font-bold text-lg text-[var(--text)] mb-2">
@@ -252,7 +256,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
             </GlassPanel>
 
             <GlassPanel className="p-6 relative">
-              <div className="w-9 h-9 rounded-xl bg-[var(--accent-c)] text-black font-bold font-mono text-sm flex items-center justify-center mb-4 shadow-md">
+              <div className="w-9 h-9 rounded-xl bg-[var(--accent-c)] text-white font-bold font-mono text-sm flex items-center justify-center mb-4 shadow-md">
                 03
               </div>
               <h3 className="font-display font-bold text-lg text-[var(--text)] mb-2">
@@ -274,13 +278,16 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
                 Monitor overall rounded band trends and complete targeted remedial exercises on weak sub-skills.
               </p>
             </GlassPanel>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* 4. PRICING SECTION */}
+      {/* 4. PRICING SECTION -- commented out for now (see {false && (...)}
+          wrapper below). Not deleted; flip back on by removing that
+          wrapper once pricing is ready to show. */}
+      {false && (
       <section id="pricing" className="relative z-10 max-w-7xl mx-auto px-4 md:px-10 py-20">
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        <Reveal className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-1.5 text-xs font-mono text-[var(--accent-a)] mb-2 uppercase tracking-widest font-semibold">
             <Sparkles size={15} />
             <span>Transparent Plans</span>
@@ -291,9 +298,9 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
           <p className="text-sm text-[var(--text-dim)] mt-3">
             Choose the plan that matches your exam date and study schedule. No hidden recurring traps.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <Reveal delayMs={200} className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {/* Plan 1: Candidate Pro */}
           <GlassPanel className="p-7 flex flex-col justify-between relative border border-[var(--border)]">
             <div>
@@ -433,8 +440,9 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
               </Button>
             </div>
           </GlassPanel>
-        </div>
+        </Reveal>
       </section>
+      )}
 
       {/* Footer */}
       <footer className="relative z-10 border-t border-[var(--border)] py-10 px-4 md:px-10 text-center text-xs text-[var(--text-faint)]">

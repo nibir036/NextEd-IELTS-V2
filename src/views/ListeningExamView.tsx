@@ -32,13 +32,17 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
   const [test, setTest] = useState<ListeningTest | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [browseTab, setBrowseTab] = useState<'tests' | 'tips'>(initialBrowseTab ?? 'tests');
+  const [selectedTipsSlug, setSelectedTipsSlug] = useState<string | null>(null);
 
   // See ReadingExamView for why this effect is needed -- the sidebar
-  // dropdown changes the prop without remounting this view.
+  // dropdown changes the prop without remounting this view. This is now
+  // the only way to switch tabs -- the in-page switcher was removed.
   useEffect(() => {
-    if (initialBrowseTab) setBrowseTab(initialBrowseTab);
+    if (initialBrowseTab) {
+      setBrowseTab(initialBrowseTab);
+      if (initialBrowseTab === 'tests') setSelectedTipsSlug(null);
+    }
   }, [initialBrowseTab]);
-  const [selectedTipsSlug, setSelectedTipsSlug] = useState<string | null>(null);
 
   const [answers, setAnswers] = useState<Record<string, AnswerValue>>({});
   const [submitting, setSubmitting] = useState(false);
@@ -140,46 +144,15 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
     return (
       <div id={id} className="space-y-6">
         <GlassPanel className="p-6">
-          <div className="flex items-start justify-between gap-4 flex-wrap">
-            <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono mb-2">
-                <Sparkles size={14} /> <span>Listening Practice</span>
-              </div>
-              <h2 className="font-display text-2xl font-bold text-[var(--text)]">Listening Practice</h2>
-              <p className="text-xs text-[var(--text-dim)] mt-1">
-                {browseTab === 'tests'
-                  ? 'Timed audio tests, auto-scored the moment you finish or the clock runs out.'
-                  : 'Learn the Listening strategies, question types, traps, and recovery techniques needed to reach Band 9.'}
-              </p>
-            </div>
-
-            <div className="inline-flex items-center rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] p-1 shrink-0">
-              <button
-                onClick={() => {
-                  setBrowseTab('tests');
-                  setSelectedTipsSlug(null);
-                }}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  browseTab === 'tests'
-                    ? 'bg-[image:var(--accent-gradient)] text-white shadow'
-                    : 'text-[var(--text-dim)] hover:text-[var(--text)]'
-                }`}
-              >
-                Tests
-              </button>
-
-              <button
-                onClick={() => setBrowseTab('tips')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  browseTab === 'tips'
-                    ? 'bg-[image:var(--accent-gradient)] text-white shadow'
-                    : 'text-[var(--text-dim)] hover:text-[var(--text)]'
-                }`}
-              >
-                Tips &amp; Tricks
-              </button>
-            </div>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono mb-2">
+            <Sparkles size={14} /> <span>Listening Practice</span>
           </div>
+          <h2 className="font-display text-2xl font-bold text-[var(--text)]">Listening Practice</h2>
+          <p className="text-xs text-[var(--text-dim)] mt-1">
+            {browseTab === 'tests'
+              ? 'Timed audio tests, auto-scored the moment you finish or the clock runs out.'
+              : 'Learn the Listening strategies, question types, traps, and recovery techniques needed to reach Band 9.'}
+          </p>
         </GlassPanel>
 
         {browseTab === 'tests' ? (
@@ -211,6 +184,7 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
   if (result) {
     return (
       <div id={id} className="max-w-3xl mx-auto space-y-6">
+        <BackLink onClick={backToTests}>Back to tests</BackLink>
         <GlassPanel className="p-8 text-center space-y-4">
           <div className="w-16 h-16 mx-auto rounded-2xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center shadow-lg shadow-[var(--glow-a)]">
             <Trophy size={30} />
@@ -248,9 +222,6 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
                 </div>
               );
             })}
-          </div>
-          <div className="text-right pt-2">
-            <Button variant="secondary" size="md" onClick={backToTests}>Back to tests</Button>
           </div>
         </GlassPanel>
       </div>

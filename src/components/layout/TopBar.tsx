@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Search, Sparkles, Settings, BookOpen, PenTool, Mic, Headphones, FileCheck, History, LayoutDashboard, Bell } from '../ui/icons';
 import { currentUser as fallbackUser } from '../../lib/data';
 import { db, type DbUser } from '../../lib/db';
@@ -9,8 +9,43 @@ interface TopBarProps {
   id?: string;
 }
 
+interface SearchableItem {
+  label: string;
+  route: string;
+  keywords: string[];
+}
+
+// Quick-search catalogue for the top-bar search box. Each item is a page
+// the query can jump to; `keywords` widen what the user can type to find
+// it (e.g. typing "essay" should still surface Writing Practice).
+const SEARCHABLE_ITEMS: SearchableItem[] = [
+  { label: 'Dashboard', route: 'dashboard', keywords: ['dashboard', 'home', 'overview'] },
+  { label: 'Reading Practice', route: 'reading', keywords: ['reading', 'read'] },
+  { label: 'Listening Practice', route: 'listening', keywords: ['listening', 'listen', 'audio'] },
+  { label: 'Writing Practice', route: 'writing', keywords: ['writing', 'write', 'essay'] },
+  { label: 'Speaking Practice', route: 'speaking', keywords: ['speaking', 'speak', 'cue card'] },
+  { label: 'Full Mock Tests', route: 'mock-tests', keywords: ['mock', 'mock test', 'full exam', 'simulation'] },
+  { label: 'Submission History', route: 'submissions', keywords: ['submission', 'history', 'past attempt'] },
+  { label: 'Grammar', route: 'lms-grammar', keywords: ['grammar'] },
+  { label: 'Vocabulary', route: 'lms-vocab', keywords: ['vocab', 'vocabulary', 'word'] },
+  { label: 'AI Tutor', route: 'tutor-ai', keywords: ['tutor', 'ai tutor', 'chat'] },
+  { label: 'Examiner Practice', route: 'tutor-examiner', keywords: ['examiner'] },
+  { label: 'Settings', route: 'settings', keywords: ['settings', 'profile', 'account'] },
+];
+
+function findMatches(query: string): SearchableItem[] {
+  const q = query.toLowerCase().trim();
+  if (!q) return [];
+  return SEARCHABLE_ITEMS.filter(
+    (item) => item.label.toLowerCase().includes(q) || item.keywords.some((kw) => kw.includes(q) || q.includes(kw)),
+  );
+}
+
 export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, id }) => {
   const [user, setUser] = useState<DbUser | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showDropdown, setShowDropdown] = useState(false);
+  const blurTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -23,6 +58,12 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, id }) 
       });
     return () => {
       cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (blurTimeoutRef.current) clearTimeout(blurTimeoutRef.current);
     };
   }, []);
 
@@ -48,6 +89,36 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, id }) 
   };
 
   const IconComponent = routeInfo.icon;
+  const matches = findMatches(searchQuery);
+
+  const goToItem = (item: SearchableItem) => {
+    setSearchQuery('');
+    setShowDropdown(false);
+    onNavigate(item.route);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const q = searchQuery.trim();
+    if (!q) return;
+
+    if (matches.length > 0) {
+      goToItem(matches[0]);
+      return;
+    }
+
+    // No direct page match -- fall back to the grammar/vocab search page,
+    // carrying the query along so it can be pre-filled there.
+    sessionStorage.setItem('pendingSearchQuery', q);
+    setSearchQuery('');
+    setShowDropdown(false);
+    onNavigate('search');
+  };
+
+  const handleBlur = () => {
+    // Delay so a click on a dropdown item registers before we hide it.
+    blurTimeoutRef.current = setTimeout(() => setShowDropdown(false), 150);
+  };
 
   return (
     <header
@@ -69,12 +140,56 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, id }) 
       </div>
 
       {/* Quick Search Input -- centered */}
-      <div
-        onClick={() => onNavigate('search')}
-        className="hidden lg:flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-xs text-[var(--text-faint)] hover:border-[var(--border-strong)] cursor-pointer w-64 justify-self-center transition-colors"
-      >
-        <Search size={14} />
-        <span>Search tips & vocabulary...</span>
+      <div className="hidden lg:block relative w-64 justify-self-center">
+        <form
+          onSubmit={handleSearchSubmit}
+          className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-xs text-[var(--text-faint)] focus-within:border-[var(--border-strong)] transition-colors"
+        >
+          <Search size={14} className="shrink-0" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setShowDropdown(true);
+            }}
+            onFocus={() => {
+              if (blurTimeoutRef.current) clearTimeout(blurTimeoutRef.current);
+              if (searchQuery.trim()) setShowDropdown(true);
+            }}
+            onBlur={handleBlur}
+            placeholder="Search tips & vocabulary..."
+            className="bg-transparent outline-none border-none w-full text-xs text-[var(--text)] placeholder:text-[var(--text-faint)]"
+          />
+        </form>
+
+        {/* Live suggestions dropdown */}
+        {showDropdown && searchQuery.trim() && (
+          <div className="absolute top-full mt-1.5 left-0 right-0 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] shadow-lg overflow-hidden z-20">
+            {matches.length > 0 ? (
+              matches.map((item) => (
+                <button
+                  key={item.route}
+                  type="button"
+                  // onMouseDown fires before the input's onBlur, so the
+                  // click is registered before the dropdown disappears.
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    goToItem(item);
+                  }}
+                  className="w-full text-left px-3.5 py-2 text-xs text-[var(--text)] hover:bg-[var(--panel-3,rgba(255,255,255,0.06))] cursor-pointer flex items-center gap-2"
+                >
+                  <Search size={12} className="text-[var(--text-faint)] shrink-0" />
+                  {item.label}
+                </button>
+              ))
+            ) : (
+              <div className="px-3.5 py-2 text-xs text-[var(--text-faint)]">
+                No matching pages -- press Enter to search tips & vocabulary
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       <div className="flex items-center gap-3 justify-self-end">

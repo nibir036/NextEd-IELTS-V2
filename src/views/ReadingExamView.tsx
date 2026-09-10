@@ -30,15 +30,19 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
   const [test, setTest] = useState<ReadingTest | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [browseTab, setBrowseTab] = useState<'tests' | 'tips'>(initialBrowseTab ?? 'tests');
+  const [selectedTipsSlug, setSelectedTipsSlug] = useState<string | null>(null);
 
   // Sidebar dropdown navigation (e.g. Tests -> Tips & Tricks) changes
   // this prop without remounting the view -- useState's initial value
   // only applies on first mount, so without this effect the tab never
-  // actually switches, only the URL does.
+  // actually switches, only the URL does. This is now the only way to
+  // switch tabs -- the in-page Tests/Tips switcher was removed.
   useEffect(() => {
-    if (initialBrowseTab) setBrowseTab(initialBrowseTab);
+    if (initialBrowseTab) {
+      setBrowseTab(initialBrowseTab);
+      if (initialBrowseTab === 'tests') setSelectedTipsSlug(null);
+    }
   }, [initialBrowseTab]);
-  const [selectedTipsSlug, setSelectedTipsSlug] = useState<string | null>(null);
 
   const [answers, setAnswers] = useState<Record<string, AnswerValue>>({});
   const [submitting, setSubmitting] = useState(false);
@@ -127,46 +131,15 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
     return (
       <div id={id} className="space-y-6">
         <GlassPanel className="p-6">
-          <div className="flex items-start justify-between gap-4 flex-wrap">
-            <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono mb-2">
-                <Sparkles size={14} /> <span>Reading Practice</span>
-              </div>
-              <h2 className="font-display text-2xl font-bold text-[var(--text)]">Reading Practice</h2>
-              <p className="text-xs text-[var(--text-dim)] mt-1">
-                {browseTab === 'tests'
-                  ? 'Timed passages with comprehension questions, auto-scored the moment you finish or the clock runs out.'
-                  : 'Learn the Reading strategies, question types, traps, and time-management techniques needed to reach Band 9.'}
-              </p>
-            </div>
-
-            <div className="inline-flex items-center rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] p-1 shrink-0">
-              <button
-                onClick={() => {
-                  setBrowseTab('tests');
-                  setSelectedTipsSlug(null);
-                }}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  browseTab === 'tests'
-                    ? 'bg-[image:var(--accent-gradient)] text-white shadow'
-                    : 'text-[var(--text-dim)] hover:text-[var(--text)]'
-                }`}
-              >
-                Tests
-              </button>
-
-              <button
-                onClick={() => setBrowseTab('tips')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  browseTab === 'tips'
-                    ? 'bg-[image:var(--accent-gradient)] text-white shadow'
-                    : 'text-[var(--text-dim)] hover:text-[var(--text)]'
-                }`}
-              >
-                Tips &amp; Tricks
-              </button>
-            </div>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono mb-2">
+            <Sparkles size={14} /> <span>Reading Practice</span>
           </div>
+          <h2 className="font-display text-2xl font-bold text-[var(--text)]">Reading Practice</h2>
+          <p className="text-xs text-[var(--text-dim)] mt-1">
+            {browseTab === 'tests'
+              ? 'Timed passages with comprehension questions, auto-scored the moment you finish or the clock runs out.'
+              : 'Learn the Reading strategies, question types, traps, and time-management techniques needed to reach Band 9.'}
+          </p>
         </GlassPanel>
 
         {browseTab === 'tests' ? (
@@ -194,6 +167,7 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
   if (result) {
     return (
       <div id={id} className="max-w-3xl mx-auto space-y-6">
+        <BackLink onClick={backToTests}>Back to tests</BackLink>
         <GlassPanel className="p-8 text-center space-y-4">
           <div className="w-16 h-16 mx-auto rounded-2xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center shadow-lg shadow-[var(--glow-a)]">
             <Trophy size={30} />
@@ -231,9 +205,6 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
                 </div>
               );
             })}
-          </div>
-          <div className="text-right pt-2">
-            <Button variant="secondary" size="md" onClick={backToTests}>Back to tests</Button>
           </div>
         </GlassPanel>
       </div>
@@ -309,9 +280,14 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
           <div className="lg:col-span-7 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto no-scrollbar space-y-6 pr-1">
             {test.sections.map((section) => {
               // If this section has `matching` questions, they all share the
-              // same option list — show that box ONCE, then render each
-              // question as a compact letter-pick (not the full list again).
-              const matchingOptions = section.questions.find((q) => q.type === 'matching')?.options as
+              // same option list. Find which question is the FIRST one of
+              // type 'matching' so the shared options box can be rendered
+              // immediately before it (not always at the top of the
+              // section) -- e.g. if matching questions are numbered 37-40
+              // after MCQ/T-F-NG questions 27-36, the box now appears
+              // right before 37, not above 27.
+              const firstMatchingIdx = section.questions.findIndex((q) => q.type === 'matching');
+              const matchingOptions = section.questions[firstMatchingIdx]?.options as
                 | { letter: string; text?: string }[]
                 | undefined;
 
@@ -322,20 +298,24 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
                     {section.instructions && <p className="text-xs text-[var(--text-dim)] mt-1">{section.instructions}</p>}
                   </div>
 
-                  {matchingOptions && matchingOptions.length > 0 && (
-                    <div className="rounded-xl bg-[var(--panel-2)] border border-[var(--border)] p-3 space-y-1.5">
-                      <div className="text-[11px] font-mono uppercase text-[var(--text-faint)] mb-1">Options</div>
-                      {matchingOptions.map((o) => (
-                        <div key={o.letter} className="flex items-start gap-2 text-xs text-[var(--text-dim)]">
-                          <span className="font-mono font-bold text-[var(--accent-a)] shrink-0">{o.letter}</span>
-                          <span>{o.text}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
                   <div className="space-y-2">
-                    {section.questions.map((q) => {
+                    {section.questions.map((q, qIdx) => {
+                      const optionsBoxBeforeThis =
+                        qIdx === firstMatchingIdx && matchingOptions && matchingOptions.length > 0 ? (
+                          <div
+                            key={`${section.id}-options-box`}
+                            className="rounded-xl bg-[var(--panel-2)] border border-[var(--border)] p-3 space-y-1.5"
+                          >
+                            <div className="text-[11px] font-mono uppercase text-[var(--text-faint)] mb-1">Options</div>
+                            {matchingOptions.map((o) => (
+                              <div key={o.letter} className="flex items-start gap-2 text-xs text-[var(--text-dim)]">
+                                <span className="font-mono font-bold text-[var(--accent-a)] shrink-0">{o.letter}</span>
+                                <span>{o.text}</span>
+                              </div>
+                            ))}
+                          </div>
+                        ) : null;
+
                       // Compact letter/word-grid: matching questions share the
                       // reference box above and just need a pick.
                       if (q.type === 'matching') {
@@ -344,29 +324,32 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
                           : [];
                         const selected = (answers[String(q.qnumber)] as string) || '';
                         return (
-                          <div key={q.id} className="p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] space-y-2">
-                            <div className="text-sm text-[var(--text)]">
-                              <span className="font-mono font-bold text-[var(--accent-a)]">{q.qnumber}.</span> {q.prompt}
+                          <React.Fragment key={q.id}>
+                            {optionsBoxBeforeThis}
+                            <div className="p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] space-y-2">
+                              <div className="text-sm text-[var(--text)]">
+                                <span className="font-mono font-bold text-[var(--accent-a)]">{q.qnumber}.</span> {q.prompt}
+                              </div>
+                              <div className="flex flex-wrap gap-1.5">
+                                {opts.map((o) => {
+                                  const isSel = selected.toLowerCase() === o.letter.toLowerCase();
+                                  return (
+                                    <button
+                                      key={o.letter}
+                                      onClick={() => setSingleAnswer(q.qnumber, o.letter)}
+                                      className={`min-w-9 h-9 px-2 rounded-lg border flex items-center justify-center text-xs font-bold cursor-pointer transition-colors ${
+                                        isSel
+                                          ? 'border-[var(--accent-a)] bg-[var(--accent-a)] text-white'
+                                          : 'border-[var(--border-strong)] text-[var(--text)] hover:border-[var(--accent-a)]'
+                                      }`}
+                                    >
+                                      {o.letter}
+                                    </button>
+                                  );
+                                })}
+                              </div>
                             </div>
-                            <div className="flex flex-wrap gap-1.5">
-                              {opts.map((o) => {
-                                const isSel = selected.toLowerCase() === o.letter.toLowerCase();
-                                return (
-                                  <button
-                                    key={o.letter}
-                                    onClick={() => setSingleAnswer(q.qnumber, o.letter)}
-                                    className={`min-w-9 h-9 px-2 rounded-lg border flex items-center justify-center text-xs font-bold cursor-pointer transition-colors ${
-                                      isSel
-                                        ? 'border-[var(--accent-a)] bg-[var(--accent-a)] text-white'
-                                        : 'border-[var(--border-strong)] text-[var(--text)] hover:border-[var(--accent-a)]'
-                                    }`}
-                                  >
-                                    {o.letter}
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          </div>
+                          </React.Fragment>
                         );
                       }
 

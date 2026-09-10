@@ -5,7 +5,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Flame,
-  Award,
   Clock,
   TrendingUp,
   FileCheck,
@@ -21,13 +20,6 @@ interface DashboardCarouselProps {
   loading?: boolean;
 }
 
-const SKILL_LABELS: { key: 'listening' | 'reading' | 'writing' | 'speaking'; label: string }[] = [
-  { key: 'listening', label: 'Listening' },
-  { key: 'reading', label: 'Reading' },
-  { key: 'writing', label: 'Writing' },
-  { key: 'speaking', label: 'Speaking' },
-];
-
 const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
@@ -40,14 +32,13 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const totalSlides = 5;
+  const totalSlides = 4;
 
   const slides = [
-    { id: 0, label: 'Overall Band Score', icon: Award },
-    { id: 1, label: 'Daily Streak', icon: Flame },
-    { id: 2, label: '30-Day Progress', icon: TrendingUp },
-    { id: 3, label: 'Practice Hours', icon: Clock },
-    { id: 4, label: 'Tests Completed', icon: FileCheck },
+    { id: 0, label: 'Daily Streak', icon: Flame },
+    { id: 1, label: '30-Day Progress', icon: TrendingUp },
+    { id: 2, label: 'Practice Hours', icon: Clock },
+    { id: 3, label: 'Tests Completed', icon: FileCheck },
   ];
 
   useEffect(() => {
@@ -64,7 +55,6 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
   const handlePrev = () => setActiveSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
 
   // --- Derived, real values (with safe fallbacks) ---
-  const currentBand = user.currentBand > 0 ? user.currentBand : null;
   const targetBand = user.targetBand || 0;
   const streakDays = data?.streakDays ?? 0;
   const practiceHours = data?.practiceHours ?? 0;
@@ -81,11 +71,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
   // Reorder to start Monday for display.
   const weekMonFirst = [...weekActivity.slice(1), weekActivity[0]];
 
-  const anySkillBand = data
-    ? SKILL_LABELS.some(({ key }) => data.skillBands[key] !== null)
-    : false;
-
-  // Same five card bodies as before, just parameterized by index instead
+  // Same four card bodies as before, just parameterized by index instead
   // of reading the closure's activeSlide directly -- lets us render two
   // cards (a left and a right slot) side by side instead of one at a time.
   const renderCardBody = (idx: number) => {
@@ -95,69 +81,9 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
           <div className="space-y-6 animate-fadeIn">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
               <div>
-                <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">
-                  <Award size={16} />
-                  <span>Card 1 • Band Score Diagnostics</span>
-                </div>
-                <h3 className="font-display text-xl md:text-2xl font-bold text-[var(--text)] mt-1">
-                  Overall Band Score & Skill Breakdown
-                </h3>
-              </div>
-              <div className="text-right">
-                <div className="font-display text-3xl font-extrabold text-[var(--accent-a)]">
-                  {currentBand !== null ? `Band ${currentBand.toFixed(1)}` : '—'}
-                </div>
-                <div className="text-xs font-mono text-[var(--text-faint)]">
-                  Target: Band {targetBand.toFixed(1)}
-                </div>
-              </div>
-            </div>
-
-            {anySkillBand ? (
-              <div className="space-y-4">
-                {SKILL_LABELS.map(({ key, label }) => {
-                  const band = data?.skillBands[key] ?? null;
-                  return (
-                    <div key={key} className="space-y-1.5">
-                      <div className="flex justify-between text-xs md:text-sm font-medium">
-                        <span className="text-[var(--text)] font-semibold">{label}</span>
-                        <span className="font-mono font-bold text-[var(--accent-a)]">
-                          {band !== null ? `Band ${band.toFixed(1)}` : 'Not assessed'}
-                        </span>
-                      </div>
-                      <div className="w-full h-3 rounded-full bg-[var(--bg)] border border-[var(--border)] overflow-hidden">
-                        <div
-                          className="h-full bg-[image:var(--accent-gradient)] rounded-full transition-all duration-500"
-                          style={{ width: band !== null ? `${(band / 9.0) * 100}%` : '0%' }}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="py-8 text-center text-sm text-[var(--text-dim)]">
-                No skill assessments yet. Complete a practice test to see your band breakdown.
-              </div>
-            )}
-
-            <div className="pt-2 flex justify-end">
-              <Button size="sm" onClick={() => onNavigateAction('writing')} className="flex items-center gap-1.5">
-                <span>Start a Practice Test</span>
-                <ChevronRight size={16} />
-              </Button>
-            </div>
-          </div>
-        );
-
-      case 1:
-        return (
-          <div className="space-y-6 animate-fadeIn">
-            <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
-              <div>
                 <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--warning)]">
                   <Flame size={16} />
-                  <span>Card 2 • Consistency Metrics</span>
+                  <span>Card 1 • Consistency Metrics</span>
                 </div>
                 <h3 className="font-display text-xl md:text-2xl font-bold text-[var(--text)] mt-1">
                   Daily Study Streak
@@ -203,14 +129,14 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
           </div>
         );
 
-      case 2:
+      case 1:
         return (
           <div className="space-y-6 animate-fadeIn">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
               <div>
                 <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--success)]">
                   <TrendingUp size={16} />
-                  <span>Card 3 • Growth Velocity</span>
+                  <span>Card 2 • Growth Velocity</span>
                 </div>
                 <h3 className="font-display text-xl md:text-2xl font-bold text-[var(--text)] mt-1">
                   30-Day Band Score Trajectory
@@ -262,14 +188,14 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
           </div>
         );
 
-      case 3:
+      case 2:
         return (
           <div className="space-y-6 animate-fadeIn">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
               <div>
                 <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">
                   <Clock size={16} />
-                  <span>Card 4 • Effort & Engagement</span>
+                  <span>Card 3 • Effort & Engagement</span>
                 </div>
                 <h3 className="font-display text-xl md:text-2xl font-bold text-[var(--text)] mt-1">
                   Practice Hours Logged
@@ -299,7 +225,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
           </div>
         );
 
-      case 4:
+      case 3:
       default:
         return (
           <div className="space-y-6 animate-fadeIn">
@@ -307,7 +233,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
               <div>
                 <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">
                   <FileCheck size={16} />
-                  <span>Card 5 • Assessment Record</span>
+                  <span>Card 4 • Assessment Record</span>
                 </div>
                 <h3 className="font-display text-xl md:text-2xl font-bold text-[var(--text)] mt-1">
                   Tests & Skill Modules Completed

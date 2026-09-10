@@ -91,12 +91,18 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
   const [selectedTestId, setSelectedTestId] = useState<string | null>(null);
   const [browseTab, setBrowseTab] = useState<'tests' | 'tips'>(initialBrowseTab ?? 'tests');
 
-  // See ReadingExamView for why this effect is needed -- the sidebar
-  // dropdown changes the prop without remounting this view.
-  useEffect(() => {
-    if (initialBrowseTab) setBrowseTab(initialBrowseTab);
-  }, [initialBrowseTab]);
   const [selectedTipsSlug, setSelectedTipsSlug] = useState<string | null>(null);
+
+  // See ReadingExamView for why this effect is needed -- the sidebar
+  // dropdown changes the prop without remounting this view. The in-page
+  // Tests/Tips switcher was removed (sidebar dropdown is now the only
+  // way to switch), so this is also the only thing driving browseTab.
+  useEffect(() => {
+    if (initialBrowseTab) {
+      setBrowseTab(initialBrowseTab);
+      if (initialBrowseTab === 'tests') setSelectedTipsSlug(null);
+    }
+  }, [initialBrowseTab]);
 
   const [test, setTest] = useState<WritingTest | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -190,42 +196,16 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
     return (
       <div id={id} className="space-y-6">
         <GlassPanel className="p-6">
-          <div className="flex items-start justify-between gap-4 flex-wrap">
-            <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono mb-2">
-                <Sparkles size={14} />
-                <span>AI-Graded Writing Practice</span>
-              </div>
-              <h2 className="font-display text-2xl font-bold text-[var(--text)]">Writing Practice</h2>
-              <p className="text-xs text-[var(--text-dim)] mt-1">
-                {browseTab === 'tests'
-                  ? 'Choose a test below. Each includes Task 1 and Task 2, graded against the official band descriptors.'
-                  : 'The Writing module from Zero to Band 9: how the test really works, chart reading, idea development, and the 60-minute plan.'}
-              </p>
-            </div>
-            <div className="inline-flex items-center rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] p-1 shrink-0">
-              <button
-                onClick={() => { setBrowseTab('tests'); setSelectedTipsSlug(null); }}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  browseTab === 'tests'
-                    ? 'bg-[image:var(--accent-gradient)] text-white shadow'
-                    : 'text-[var(--text-dim)] hover:text-[var(--text)]'
-                }`}
-              >
-                Tests
-              </button>
-              <button
-                onClick={() => setBrowseTab('tips')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  browseTab === 'tips'
-                    ? 'bg-[image:var(--accent-gradient)] text-white shadow'
-                    : 'text-[var(--text-dim)] hover:text-[var(--text)]'
-                }`}
-              >
-                Tips &amp; Tricks
-              </button>
-            </div>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono mb-2">
+            <Sparkles size={14} />
+            <span>AI-Graded Writing Practice</span>
           </div>
+          <h2 className="font-display text-2xl font-bold text-[var(--text)]">Writing Practice</h2>
+          <p className="text-xs text-[var(--text-dim)] mt-1">
+            {browseTab === 'tests'
+              ? 'Choose a test below. Each includes Task 1 and Task 2, graded against the official band descriptors.'
+              : 'The Writing module from Zero to Band 9: how the test really works, chart reading, idea development, and the 60-minute plan.'}
+          </p>
         </GlassPanel>
 
         {browseTab === 'tests' ? (
@@ -252,10 +232,10 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
   // ---------- TAKE MODE ----------
   return (
     <div id={id} className="space-y-6">
+      <BackLink onClick={backToTests}>Back to tests</BackLink>
       <GlassPanel className="p-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <BackLink onClick={backToTests} className="mb-2">Back to tests</BackLink>
             <h2 className="font-display text-2xl font-bold text-[var(--text)]">
               {test ? test.title : 'IELTS Writing Test'}
             </h2>

@@ -111,7 +111,7 @@ export const HeroScoreCard: React.FC = () => {
       {/* Header Row */}
       <div className="flex items-start justify-between mb-6 relative z-10">
         <div>
-          <div className="text-[10px] sm:text-xs font-mono font-bold tracking-widest text-[var(--accent-a)] uppercase">
+          <div className="text-[11px] sm:text-xs font-mono font-bold tracking-widest text-[var(--accent-a)] uppercase">
             OVERALL BAND SCORE
           </div>
           <div className="text-sm sm:text-base font-semibold text-[var(--text)] mt-0.5">
@@ -226,7 +226,7 @@ export const HeroScoreCard: React.FC = () => {
       </div>
 
       {/* Footer helper note */}
-      <div className="mt-5 pt-3 border-t border-[var(--border)] flex items-center justify-between text-[10px] font-mono text-[var(--text-faint)]">
+      <div className="mt-5 pt-3 border-t border-[var(--border)] flex items-center justify-between text-[11px] font-mono text-[var(--text-faint)]">
         <span className="flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-a)] animate-pulse" />
           Live Band Diagnostic Simulation

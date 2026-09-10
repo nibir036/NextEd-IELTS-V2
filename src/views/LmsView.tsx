@@ -118,7 +118,7 @@
 //       lang="bn"
 //       className="mt-2 pt-2 border-t border-[var(--border)]/40 text-sm text-[var(--text-dim)] leading-relaxed"
 //     >
-//       <span className="font-mono text-[10px] uppercase text-[var(--accent-a)] mr-1.5 tracking-wide">
+//       <span className="font-mono text-[11px] uppercase text-[var(--accent-a)] mr-1.5 tracking-wide">
 //         BN
 //       </span>
 //       {text}
@@ -261,7 +261,7 @@
 //             {(block.skills ?? []).map((s) => (
 //               <span
 //                 key={s}
-//                 className="px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[10px] uppercase"
+//                 className="px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[11px] uppercase"
 //               >
 //                 {s}
 //               </span>
@@ -302,7 +302,7 @@
 //   };
 //   return (
 //     <span
-//       className={`px-2 py-0.5 rounded-md font-mono text-[10px] font-semibold uppercase ${map[status] ?? map.not_started}`}
+//       className={`px-2 py-0.5 rounded-md font-mono text-[11px] font-semibold uppercase ${map[status] ?? map.not_started}`}
 //     >
 //       {label[status] ?? status}
 //     </span>
@@ -635,7 +635,7 @@
 //                   {chapter.module.title}
 //                 </span>
 //                 {chapter.bandTarget && (
-//                   <span className="px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[10px] font-semibold">
+//                   <span className="px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[11px] font-semibold">
 //                     {chapter.bandTarget}
 //                   </span>
 //                 )}
@@ -1153,7 +1153,7 @@ function BnNote({ text }: { text?: string | null }) {
       lang="bn"
       className="mt-2 pt-2 border-t border-[var(--border)]/40 text-sm text-[var(--text-dim)] leading-relaxed"
     >
-      <span className="font-mono text-[10px] uppercase text-[var(--accent-a)] mr-1.5 tracking-wide">
+      <span className="font-mono text-[11px] uppercase text-[var(--accent-a)] mr-1.5 tracking-wide">
         BN
       </span>
       {text}
@@ -1279,7 +1279,7 @@ function GrammarBlockRenderer({
             {(block.skills ?? []).map((s) => (
               <span
                 key={s}
-                className="px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[10px] uppercase"
+                className="px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[11px] uppercase"
               >
                 {s}
               </span>
@@ -1319,7 +1319,7 @@ function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
             <h3 className="font-display text-base font-bold text-[var(--text)]">{block.title}</h3>
           )}
           {block.part && (
-            <span className="inline-block px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[10px] uppercase">
+            <span className="inline-block px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[11px] uppercase">
               {block.part}
             </span>
           )}
@@ -1343,7 +1343,7 @@ function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
             <h3 className="font-display text-base font-bold text-[var(--text)]">{block.title}</h3>
           )}
           {block.batch && (
-            <span className="inline-block px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[10px] uppercase">
+            <span className="inline-block px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[11px] uppercase">
               Batch {block.batch}
             </span>
           )}
@@ -1509,15 +1509,15 @@ function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
               {item.levels && (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
                   <div className="p-2 rounded-lg bg-red-500/10 border border-red-500/20">
-                    <div className="font-mono text-[10px] uppercase text-red-400 mb-1">Band 5.5</div>
+                    <div className="font-mono text-[11px] uppercase text-red-400 mb-1">Band 5.5</div>
                     {item.levels.band_5_5}
                   </div>
                   <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/20">
-                    <div className="font-mono text-[10px] uppercase text-amber-400 mb-1">Band 7.5</div>
+                    <div className="font-mono text-[11px] uppercase text-amber-400 mb-1">Band 7.5</div>
                     {item.levels.band_7_5}
                   </div>
                   <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
-                    <div className="font-mono text-[10px] uppercase text-emerald-400 mb-1">Band 9.0</div>
+                    <div className="font-mono text-[11px] uppercase text-emerald-400 mb-1">Band 9.0</div>
                     {item.levels.band_9_0}
                   </div>
                 </div>
@@ -1644,7 +1644,7 @@ function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
               <p className="text-sm text-[var(--text-dim)] mt-1">{block.intro}</p>
             )}
             {block.usage && (
-              <span className="inline-block mt-1 px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[10px] uppercase">
+              <span className="inline-block mt-1 px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[11px] uppercase">
                 {block.usage}
               </span>
             )}
@@ -1660,7 +1660,7 @@ function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
                     {item.number}. {item.expression}
                   </span>
                   {(item.part || item.category) && (
-                    <span className="text-[10px] font-mono text-[var(--text-faint)]">
+                    <span className="text-[11px] font-mono text-[var(--text-faint)]">
                       {item.part || item.category}
                     </span>
                   )}
@@ -1703,19 +1703,19 @@ function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
                     Essay {essay.number}
                   </span>
                   {essay.question_type && (
-                    <span className="px-2 py-0.5 rounded-md bg-[var(--panel-2)] text-[10px] font-mono text-[var(--text-faint)]">
+                    <span className="px-2 py-0.5 rounded-md bg-[var(--panel-2)] text-[11px] font-mono text-[var(--text-faint)]">
                       {essay.question_type}
                     </span>
                   )}
                   {essay.band && (
-                    <span className="px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-400 text-[10px] font-mono">
+                    <span className="px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-400 text-[11px] font-mono">
                       {essay.band}
                     </span>
                   )}
                 </div>
                 <div className="text-sm font-semibold text-[var(--text)]">{essay.prompt}</div>
                 <div className="p-3 rounded-lg bg-red-500/5 border border-red-500/20">
-                  <div className="text-[10px] font-mono uppercase text-red-400 mb-1">
+                  <div className="text-[11px] font-mono uppercase text-red-400 mb-1">
                     Band 6.0 Draft
                   </div>
                   <p className="text-xs text-[var(--text-dim)] whitespace-pre-wrap leading-relaxed">
@@ -1724,7 +1724,7 @@ function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
                 </div>
                 {essay.model_answer && (
                   <div className="p-3 rounded-lg bg-emerald-500/5 border border-emerald-500/20">
-                    <div className="text-[10px] font-mono uppercase text-emerald-400 mb-1">
+                    <div className="text-[11px] font-mono uppercase text-emerald-400 mb-1">
                       Model Band 8.5–9.0
                     </div>
                     <p className="text-xs text-[var(--text)] whitespace-pre-wrap leading-relaxed">
@@ -1857,7 +1857,7 @@ function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
           {block.content && (
             <p className="text-sm text-[var(--text-dim)] whitespace-pre-wrap">{block.content}</p>
           )}
-          <details className="text-[10px] text-[var(--text-faint)]">
+          <details className="text-[11px] text-[var(--text-faint)]">
             <summary className="cursor-pointer">Show raw data</summary>
             <pre className="mt-2 overflow-auto max-h-48">{JSON.stringify(block, null, 2)}</pre>
           </details>
@@ -1883,7 +1883,7 @@ function StatusChip({ status }: { status: string }) {
   };
   return (
     <span
-      className={`px-2 py-0.5 rounded-md font-mono text-[10px] font-semibold uppercase ${
+      className={`px-2 py-0.5 rounded-md font-mono text-[11px] font-semibold uppercase ${
         map[status] ?? map.not_started
       }`}
     >
@@ -2332,7 +2332,7 @@ export const LmsView: React.FC<LmsViewProps> = ({
                   {chapter.module.title}
                 </span>
                 {chapter.bandTarget && (
-                  <span className="px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[10px] font-semibold">
+                  <span className="px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[11px] font-semibold">
                     {chapter.bandTarget}
                   </span>
                 )}
@@ -2658,7 +2658,7 @@ export const LmsView: React.FC<LmsViewProps> = ({
                       <span className="text-[11px] font-mono uppercase text-[var(--accent-a)]">
                         Chapter {selectedZero.meta.number}
                       </span>
-                      <span className="px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[10px] font-semibold">
+                      <span className="px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[11px] font-semibold">
                         Difficulty {selectedZero.meta.difficulty}
                       </span>
                     </div>
@@ -2876,24 +2876,24 @@ export const LmsView: React.FC<LmsViewProps> = ({
                         {(w.past || w.noun_form || w.adjective_form) && (
                           <div className="flex flex-wrap gap-1.5 pt-1">
                             {w.past && (
-                              <span className="px-1.5 py-0.5 rounded bg-[var(--panel-2)] text-[10px] font-mono text-[var(--text-faint)]">
+                              <span className="px-1.5 py-0.5 rounded bg-[var(--panel-2)] text-[11px] font-mono text-[var(--text-faint)]">
                                 past: {w.past}
                               </span>
                             )}
                             {w.noun_form && (
-                              <span className="px-1.5 py-0.5 rounded bg-[var(--panel-2)] text-[10px] font-mono text-[var(--text-faint)]">
+                              <span className="px-1.5 py-0.5 rounded bg-[var(--panel-2)] text-[11px] font-mono text-[var(--text-faint)]">
                                 n: {w.noun_form}
                               </span>
                             )}
                             {w.adjective_form && (
-                              <span className="px-1.5 py-0.5 rounded bg-[var(--panel-2)] text-[10px] font-mono text-[var(--text-faint)]">
+                              <span className="px-1.5 py-0.5 rounded bg-[var(--panel-2)] text-[11px] font-mono text-[var(--text-faint)]">
                                 adj: {w.adjective_form}
                               </span>
                             )}
                           </div>
                         )}
                         {w.topic && (
-                          <div className="text-[10px] font-mono text-[var(--accent-a)] pt-1">
+                          <div className="text-[11px] font-mono text-[var(--accent-a)] pt-1">
                             {w.topic}
                           </div>
                         )}

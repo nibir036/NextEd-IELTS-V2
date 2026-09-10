@@ -19,13 +19,13 @@
     --border-strong: rgba(160, 115, 253, 0.16);
     --text: #d5ccea;
     --text-dim: #9a8fbb;
-    --text-faint: #5e547f;
+    --text-faint: #948abd;
 
     --accent-a: #a073fd;
     --accent-b: #2e2991;
     --accent-c: #9179fe;
     --accent-d: #2b50b5;
-    --accent-gradient: linear-gradient(135deg, #575aa7 0%, #444892 100%);
+    --accent-gradient: linear-gradient(135deg, #9c6bfa 0%, #7c3aed 100%);
 
     --success: #69facd;
     --warning: #f99726;
@@ -35,8 +35,8 @@
     --glass-tint-2: rgba(7, 4, 15, 0.9);
     --glass-sheen: rgba(0, 0, 0, 0.6);
 
-    --glow-a: rgba(87, 90, 167, 0.16);
-    --glow-b: rgba(145, 121, 254, 0.06);
+    --glow-a: rgba(160, 115, 253, 0.22);
+    --glow-b: rgba(145, 121, 254, 0.12);
     --bg-diagonal: repeating-linear-gradient(45deg, rgba(160, 115, 253, 0.015) 0px, rgba(160, 115, 253, 0.015) 1px, transparent 1px, transparent 10px);
 
     --radius-lg: 16px;
@@ -100,6 +100,13 @@ h1, h2, h3, .font-display {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+/* Footer-only display face: Michroma, a geometric/techno font used to
+   give the site footer a distinct brand mark separate from the body
+   copy typeface. */
+.font-michroma {
+  font-family: var(--font-michroma), var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
 /* Glassmorphism styling */
 .glass {
   background: linear-gradient(160deg, var(--glass-tint-1), var(--glass-tint-2));
@@ -107,13 +114,23 @@ h1, h2, h3, .font-display {
   -webkit-backdrop-filter: blur(28px) saturate(140%);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  box-shadow: 0 1px 0 var(--glass-sheen) inset, 0 20px 40px -20px rgba(0, 0, 0, 0.35);
+  box-shadow:
+    0 1px 0 var(--glass-sheen) inset,
+    inset 0 -1px 0 rgba(0, 0, 0, 0.28),
+    0 0 0 1px var(--border-strong),
+    0 20px 40px -20px rgba(0, 0, 0, 0.35),
+    0 0 60px -24px var(--glow-a);
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .glass-interactive:hover {
   border-color: var(--border-strong);
-  box-shadow: 0 1px 0 var(--glass-sheen) inset, 0 24px 48px -20px rgba(0, 0, 0, 0.45);
+  box-shadow:
+    0 1px 0 var(--glass-sheen) inset,
+    inset 0 -1px 0 rgba(0, 0, 0, 0.32),
+    0 0 0 1px var(--accent-a),
+    0 24px 48px -20px rgba(0, 0, 0, 0.45),
+    0 0 70px -20px var(--glow-a);
 }
 
 /* Ambient Background Layer */

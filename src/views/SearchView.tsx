@@ -175,7 +175,7 @@ export const SearchView: React.FC<SearchViewProps> = ({ id, onNavigateAction }) 
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] border border-[var(--accent-a)]/30 text-[10px] font-mono font-bold uppercase">
+                    <span className="px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] border border-[var(--accent-a)]/30 text-[11px] font-mono font-bold uppercase">
                       {r.kind}
                     </span>
                   </div>

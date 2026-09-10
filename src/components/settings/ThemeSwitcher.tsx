@@ -42,7 +42,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ id }) => {
                   <h4 className="font-display font-bold text-sm text-[var(--text)]">
                     {themeOption.name}
                   </h4>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--text-faint)]">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-[var(--text-faint)]">
                     {themeOption.mode} mode
                   </span>
                 </div>

@@ -31,7 +31,7 @@ const Heading: React.FC<{ block: Extract<TipsBlock, { type: 'heading' }> }> = ({
 const Paragraph: React.FC<{ block: Extract<TipsBlock, { type: 'paragraph' }> }> = ({ block }) => {
   if (block.variant === 'footer') {
     return (
-      <p className="text-[10px] text-[var(--text-dim)] italic mt-8 pt-4 border-t border-[var(--border)]">
+      <p className="text-[11px] text-[var(--text-dim)] italic mt-8 pt-4 border-t border-[var(--border)]">
         {block.text}
       </p>
     );
@@ -77,20 +77,20 @@ const TableBlock: React.FC<{ block: Extract<TipsBlock, { type: 'table' }> }> = (
         ))}
       </tbody>
     </table>
-    {block.caption && <p className="text-[10px] text-[var(--text-dim)] italic px-3 py-1.5">{block.caption}</p>}
+    {block.caption && <p className="text-[11px] text-[var(--text-dim)] italic px-3 py-1.5">{block.caption}</p>}
   </div>
 );
 
 const PrincipleBlock: React.FC<{ block: Extract<TipsBlock, { type: 'principle' }> }> = ({ block }) => (
   <div className="my-3 rounded-xl border border-[var(--accent-a)]/30 bg-[var(--accent-a)]/8 p-4">
-    <div className="text-[10px] font-bold tracking-widest text-[var(--accent-a)] mb-1.5 uppercase">Principle</div>
+    <div className="text-[11px] font-bold tracking-widest text-[var(--accent-a)] mb-1.5 uppercase">Principle</div>
     <p className="text-sm leading-relaxed text-[var(--text)]">{block.text}</p>
   </div>
 );
 
 const TutorTipBlock: React.FC<{ block: Extract<TipsBlock, { type: 'callout' }> }> = ({ block }) => (
   <div className="my-3 rounded-xl border border-[var(--accent-b)]/30 bg-[var(--accent-b)]/8 p-4">
-    <div className="text-[10px] font-bold tracking-widest text-[var(--accent-b)] mb-1.5 uppercase">{block.title}</div>
+    <div className="text-[11px] font-bold tracking-widest text-[var(--accent-c)] mb-1.5 uppercase">{block.title}</div>
     <p className="text-sm leading-relaxed text-[var(--text)]">{block.text}</p>
     {block.bn && <p className="text-xs leading-relaxed text-[var(--text-dim)] mt-2 pt-2 border-t border-[var(--accent-b)]/15">{block.bn}</p>}
   </div>

@@ -156,7 +156,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
           </GlassPanel>
 
           <GlassPanel className="p-6 space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-[var(--accent-b)]/15 border border-[var(--accent-b)]/30 text-[var(--accent-b)] flex items-center justify-center font-bold">
+            <div className="w-10 h-10 rounded-xl bg-[var(--accent-b)]/15 border border-[var(--accent-b)]/30 text-[var(--accent-c)] flex items-center justify-center font-bold">
               <Trophy size={20} />
             </div>
             <h3 className="font-display text-lg font-bold text-[var(--text)]">
@@ -197,7 +197,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
               >
                 <div className="flex items-center justify-between mb-3">
                   <SkillTag skill={module.id} size="sm" />
-                  <span className="text-[10px] font-mono text-[var(--text-faint)]">
+                  <span className="text-[11px] font-mono text-[var(--text-faint)]">
                     {module.activeModulesCount} Sets
                   </span>
                 </div>
@@ -348,7 +348,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
 
           {/* Plan 2: 30-Day Sprint Pass (Most Popular) */}
           <GlassPanel className="p-7 flex flex-col justify-between relative border-2 border-[var(--accent-a)] shadow-xl bg-[var(--bg-elevated)]">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-[var(--accent-a)] text-[var(--bg)] font-mono font-bold text-[10px] uppercase tracking-wider">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-[var(--accent-a)] text-[var(--bg)] font-mono font-bold text-[11px] uppercase tracking-wider">
               Most Popular
             </div>
 
@@ -445,12 +445,12 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
       )}
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-[var(--border)] py-10 px-4 md:px-10 text-center text-xs text-[var(--text-faint)]">
-        <div className="flex items-center justify-center gap-2 mb-2">
+      <footer className="font-michroma relative z-10 border-t border-[var(--border)] py-10 px-4 md:px-10 text-center text-xs tracking-wide text-[var(--text-faint)]">
+        <div className="flex items-center justify-center gap-2 mb-3">
           <Sparkles size={16} className="text-[var(--accent-a)]" />
-          <span className="font-display font-bold text-sm text-[var(--text)]">AI IELTS Pro</span>
+          <span className="text-sm text-[var(--text)] tracking-wider">AI IELTS Pro</span>
         </div>
-        <p>© 2026 AI IELTS Pro · Official Descriptor Aligned Evaluator · IELTS is a registered trademark of University of Cambridge, British Council and IDP Education.</p>
+        <p className="leading-relaxed">© 2026 AI IELTS Pro · Official Descriptor Aligned Evaluator · IELTS is a registered trademark of University of Cambridge, British Council and IDP Education.</p>
       </footer>
     </div>
   );

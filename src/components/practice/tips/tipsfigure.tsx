@@ -156,7 +156,7 @@ const PiePairSVG: React.FC<{ data: FigureData }> = ({ data }) => {
       </svg>
       <div className="flex flex-wrap gap-x-4 gap-y-1 justify-center mt-1">
         {rows.map((r, i) => (
-          <div key={r[0]} className="flex items-center gap-1.5 text-[10px] text-[var(--text-dim)]">
+          <div key={r[0]} className="flex items-center gap-1.5 text-[11px] text-[var(--text-dim)]">
             <span className="w-2.5 h-2.5 rounded-sm inline-block" style={{ background: SERIES_COLORS[i % SERIES_COLORS.length] }} />
             {r[0]}
           </div>
@@ -247,7 +247,7 @@ const MapBeforeAfterSVG: React.FC<{ data: FigureData }> = ({ data }) => {
           <div className="text-[11px] font-semibold text-[var(--text)] mb-2 text-center">{headers[colIdx]}</div>
           <ul className="space-y-1">
             {rows.map((r) => (
-              <li key={r[0]} className="text-[10px] text-[var(--text-dim)]">{r[colIdx]}</li>
+              <li key={r[0]} className="text-[11px] text-[var(--text-dim)]">{r[colIdx]}</li>
             ))}
           </ul>
         </div>
@@ -291,12 +291,12 @@ export const TipsFigure: React.FC<{ block: TipsFigureBlock }> = ({ block }) => {
         {block.chart_type === 'table_only' && <SimpleTable data={block.data} />}
       </div>
       {block.chart_type !== 'table_only' && (
-        <details className="text-[10px] text-[var(--text-dim)]">
+        <details className="text-[11px] text-[var(--text-dim)]">
           <summary className="cursor-pointer select-none">Show data table</summary>
           <div className="mt-2 overflow-x-auto"><SimpleTable data={block.data} /></div>
         </details>
       )}
-      <p className="text-[10px] text-[var(--text-dim)] italic mt-2">{block.caption}</p>
+      <p className="text-[11px] text-[var(--text-dim)] italic mt-2">{block.caption}</p>
     </figure>
   );
 };

@@ -84,7 +84,7 @@ export const DiagnosticView: React.FC<DiagnosticViewProps> = ({ id, onNavigateAc
               { label: 'Grammar', score: result.grammarScore },
             ].map((c, i) => (
               <div key={i} className="p-2.5 rounded-xl bg-[var(--panel-2)] border border-[var(--border)]">
-                <div className="text-[10px] font-mono text-[var(--text-faint)] uppercase">{c.label}</div>
+                <div className="text-[11px] font-mono text-[var(--text-faint)] uppercase">{c.label}</div>
                 <div className="font-display font-bold text-lg text-[var(--accent-a)]">{c.score.toFixed(1)}</div>
               </div>
             ))}

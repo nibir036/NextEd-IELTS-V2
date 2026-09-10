@@ -140,7 +140,7 @@ export const ReadingTipsChapterList: React.FC<{
                 )}
 
                 {ch.estimatedMin && (
-                  <div className="flex items-center gap-1 text-[10px] text-[var(--text-dim)] mt-2">
+                  <div className="flex items-center gap-1 text-[11px] text-[var(--text-dim)] mt-2">
                     <Clock size={11} />
 
                     <span>{ch.estimatedMin} min</span>

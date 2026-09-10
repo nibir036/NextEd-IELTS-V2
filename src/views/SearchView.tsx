@@ -1,78 +1,106 @@
-import React, { useState } from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import { GlassPanel } from '../components/ui/GlassPanel';
-import { Search, Sparkles, BookOpen, Check } from '../components/ui/icons';
+import { Search, Sparkles, GraduationCap, BookOpen, ChevronRight } from '../components/ui/icons';
 
-interface SearchItem {
+type ResultKind = 'Grammar Module' | 'Grammar Chapter' | 'Vocabulary Chapter';
+
+interface SearchResult {
   id: string;
-  category: 'Collocations' | 'Cohesion' | 'Grammar' | 'Exam Tips';
+  kind: ResultKind;
   title: string;
-  definition: string;
-  example: string;
+  detail: string;
+  route: string; // full route to navigate to, e.g. 'lms-grammar/module-2-complex-structures'
 }
-
-const strategyDatabase: SearchItem[] = [
-  {
-    id: 's1',
-    category: 'Collocations',
-    title: 'Precipitate intense debate',
-    definition: 'To cause a passionate discussion or argument to happen suddenly or unexpectedly.',
-    example: 'The rapid integration of AI in universities has precipitated intense debate among academics.',
-  },
-  {
-    id: 's2',
-    category: 'Cohesion',
-    title: 'Notwithstanding the advantages',
-    definition: 'Sophisticated discourse marker used to introduce a contrasting counter-argument.',
-    example: 'Notwithstanding the monetary advantages, remote employment can foster professional isolation.',
-  },
-  {
-    id: 's3',
-    category: 'Grammar',
-    title: 'Inverted Conditional (Had it not been for)',
-    definition: 'High-level Band 8.0 grammatical structure demonstrating complex conditional range.',
-    example: 'Had it not been for government subsidies, small eco-enterprises would have collapsed.',
-  },
-  {
-    id: 's4',
-    category: 'Collocations',
-    title: 'Tertiary education',
-    definition: 'Formal academic term for university or higher education.',
-    example: 'Access to tertiary education remains a key pillar of national economic development.',
-  },
-  {
-    id: 's5',
-    category: 'Exam Tips',
-    title: 'True/False/Not Given Traps',
-    definition: 'Avoid relying on personal world knowledge; restrict judgments solely to explicit passage statements.',
-    example: 'If a statement sounds plausible but is completely unmentioned in the text, select NOT GIVEN.',
-  },
-];
 
 interface SearchViewProps {
   id?: string;
+  onNavigateAction: (route: string) => void;
 }
 
-export const SearchView: React.FC<SearchViewProps> = ({ id }) => {
+export const SearchView: React.FC<SearchViewProps> = ({ id, onNavigateAction }) => {
   const [query, setQuery] = useState('');
-  const [selectedCat, setSelectedCat] = useState<string>('All');
-  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [selectedKind, setSelectedKind] = useState<'All' | ResultKind>('All');
+  const [results, setResults] = useState<SearchResult[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const categories = ['All', 'Collocations', 'Cohesion', 'Grammar', 'Exam Tips'];
+  // Build the searchable index once from real content -- grammar
+  // modules/chapters and vocab chapters -- instead of a hardcoded demo
+  // list. This is what makes "Search tips & vocabulary" actually find
+  // things that exist in the app.
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const [grammarRes, vocabRes] = await Promise.all([
+          fetch('/api/grammar/modules'),
+          fetch('/api/vocab'),
+        ]);
 
-  const filtered = strategyDatabase.filter((item) => {
-    const matchesQuery =
-      item.title.toLowerCase().includes(query.toLowerCase()) ||
-      item.definition.toLowerCase().includes(query.toLowerCase()) ||
-      item.example.toLowerCase().includes(query.toLowerCase());
-    const matchesCat = selectedCat === 'All' || item.category === selectedCat;
-    return matchesQuery && matchesCat;
+        const index: SearchResult[] = [];
+
+        if (grammarRes.ok) {
+          const grammarData = await grammarRes.json();
+          for (const m of grammarData.modules ?? []) {
+            index.push({
+              id: `gm-${m.slug}`,
+              kind: 'Grammar Module',
+              title: m.title,
+              detail: m.subtitle || m.description || '',
+              route: `lms-grammar/${m.slug}`,
+            });
+            for (const c of m.chapters ?? []) {
+              index.push({
+                id: `gc-${c.slug}`,
+                kind: 'Grammar Chapter',
+                title: c.title,
+                detail: c.summary || `Part of ${m.title}`,
+                route: `lms-grammar/${m.slug}`,
+              });
+            }
+          }
+        }
+
+        if (vocabRes.ok) {
+          const vocabData = await vocabRes.json();
+          for (const c of vocabData.chapters ?? []) {
+            index.push({
+              id: `vc-${c.chapter}`,
+              kind: 'Vocabulary Chapter',
+              title: c.title,
+              detail: `Vocabulary chapter ${c.chapter}`,
+              route: `lms-vocab/${c.chapter}`,
+            });
+          }
+        }
+
+        if (!cancelled) setResults(index);
+      } catch {
+        if (!cancelled) setError('Could not load search content. Try again in a moment.');
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const kinds: ('All' | ResultKind)[] = ['All', 'Grammar Module', 'Grammar Chapter', 'Vocabulary Chapter'];
+
+  const q = query.trim().toLowerCase();
+  const filtered = results.filter((r) => {
+    const matchesQuery = !q || r.title.toLowerCase().includes(q) || r.detail.toLowerCase().includes(q);
+    const matchesKind = selectedKind === 'All' || r.kind === selectedKind;
+    return matchesQuery && matchesKind;
   });
 
-  const handleCopy = (id: string, text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 1500);
-  };
+  const kindIcon = (kind: ResultKind) =>
+    kind === 'Vocabulary Chapter' ? BookOpen : GraduationCap;
 
   return (
     <div id={id} className="space-y-6">
@@ -82,10 +110,10 @@ export const SearchView: React.FC<SearchViewProps> = ({ id }) => {
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono mb-2">
               <Sparkles size={14} />
-              <span>Band 8.0 Academic Knowledge Bank</span>
+              <span>Grammar & Vocabulary Index</span>
             </div>
             <h2 className="font-display text-2xl font-bold text-[var(--text)]">
-              Search IELTS Vocabulary & Strategy
+              Search Grammar & Vocabulary
             </h2>
           </div>
 
@@ -95,24 +123,25 @@ export const SearchView: React.FC<SearchViewProps> = ({ id }) => {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search collocations, cohesive devices, grammar structures..."
+              placeholder="Search modules, chapters, topics..."
               className="w-full pl-11 pr-4 py-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors"
+              autoFocus
             />
           </div>
 
           {/* Category Filter Pills */}
           <div className="flex items-center gap-2 overflow-x-auto pt-1">
-            {categories.map((cat) => (
+            {kinds.map((k) => (
               <button
-                key={cat}
-                onClick={() => setSelectedCat(cat)}
+                key={k}
+                onClick={() => setSelectedKind(k)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all cursor-pointer whitespace-nowrap ${
-                  selectedCat === cat
+                  selectedKind === k
                     ? 'bg-[image:var(--accent-gradient)] text-white font-semibold'
                     : 'bg-[var(--bg-elevated)] text-[var(--text-dim)] hover:text-[var(--text)] border border-[var(--border)]'
                 }`}
               >
-                {cat}
+                {k}
               </button>
             ))}
           </div>
@@ -120,45 +149,53 @@ export const SearchView: React.FC<SearchViewProps> = ({ id }) => {
       </GlassPanel>
 
       {/* Results List */}
-      <div className="space-y-4">
-        {filtered.map((item) => (
-          <GlassPanel key={item.id} className="p-5 space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="px-2.5 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] border border-[var(--accent-a)]/30 text-[11px] font-mono font-bold">
-                {item.category}
-              </span>
-              <button
-                onClick={() => handleCopy(item.id, item.example)}
-                className="text-xs font-mono text-[var(--text-faint)] hover:text-[var(--accent-a)] flex items-center gap-1 cursor-pointer transition-colors"
-              >
-                {copiedId === item.id ? (
-                  <>
-                    <Check size={13} className="text-[var(--success)]" />
-                    <span className="text-[var(--success)]">Copied!</span>
-                  </>
-                ) : (
-                  <span>Copy Example Sentence</span>
-                )}
-              </button>
-            </div>
-
-            <h3 className="font-display font-bold text-lg text-[var(--text)]">
-              {item.title}
-            </h3>
-
-            <p className="text-xs text-[var(--text-dim)]">
-              {item.definition}
-            </p>
-
-            <div className="p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] font-serif italic text-xs text-[var(--text)] leading-relaxed">
-              "{item.example}"
-            </div>
+      <div className="space-y-3">
+        {loading && (
+          <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)] font-mono">
+            Loading searchable content...
           </GlassPanel>
-        ))}
+        )}
 
-        {filtered.length === 0 && (
+        {error && (
+          <GlassPanel className="p-8 text-center text-sm text-[var(--danger)]">{error}</GlassPanel>
+        )}
+
+        {!loading && !error &&
+          filtered.map((r) => {
+            const Icon = kindIcon(r.kind);
+            return (
+              <GlassPanel
+                key={r.id}
+                onClick={() => onNavigateAction(r.route)}
+                interactive
+                className="p-4 flex items-center gap-4 cursor-pointer group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-[var(--accent-a)]/15 text-[var(--accent-a)] flex items-center justify-center shrink-0">
+                  <Icon size={18} />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] border border-[var(--accent-a)]/30 text-[10px] font-mono font-bold uppercase">
+                      {r.kind}
+                    </span>
+                  </div>
+                  <h3 className="font-display font-bold text-sm text-[var(--text)] group-hover:text-[var(--accent-a)] transition-colors truncate mt-0.5">
+                    {r.title}
+                  </h3>
+                  {r.detail && (
+                    <p className="text-xs text-[var(--text-dim)] truncate">{r.detail}</p>
+                  )}
+                </div>
+                <ChevronRight size={16} className="text-[var(--text-faint)] group-hover:text-[var(--accent-a)] transition-colors shrink-0" />
+              </GlassPanel>
+            );
+          })}
+
+        {!loading && !error && filtered.length === 0 && (
           <GlassPanel className="p-8 text-center">
-            <p className="text-xs text-[var(--text-dim)]">No strategy terms found matching "{query}". Try searching "debate" or "grammar".</p>
+            <p className="text-xs text-[var(--text-dim)]">
+              {query ? `No results found for "${query}".` : 'No content available yet.'}
+            </p>
           </GlassPanel>
         )}
       </div>

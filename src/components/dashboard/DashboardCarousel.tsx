@@ -85,59 +85,13 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
     ? SKILL_LABELS.some(({ key }) => data.skillBands[key] !== null)
     : false;
 
-  return (
-    <div
-      onMouseEnter={() => setIsAutoPlaying(false)}
-      onMouseLeave={() => setIsAutoPlaying(true)}
-      className="space-y-4"
-    >
-      {/* Carousel Top Navigation */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-[var(--panel-2)]/80 p-2 rounded-2xl border border-[var(--border)]">
-        <div className="flex items-center gap-1 overflow-x-auto py-0.5">
-          {slides.map((slide) => {
-            const Icon = slide.icon;
-            const isActive = activeSlide === slide.id;
-            return (
-              <button
-                key={slide.id}
-                onClick={() => setActiveSlide(slide.id)}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
-                  isActive
-                    ? 'bg-[image:var(--accent-gradient)] text-white shadow-md'
-                    : 'text-[var(--text-dim)] hover:text-[var(--text)] hover:bg-[var(--bg)]'
-                }`}
-              >
-                <Icon size={14} />
-                <span>{slide.label}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="flex items-center gap-2 shrink-0">
-          <span className="text-[11px] font-mono text-[var(--text-faint)]">
-            Card {activeSlide + 1} of {totalSlides}
-          </span>
-          <button
-            onClick={handlePrev}
-            title="Previous Card"
-            className="w-8 h-8 rounded-lg bg-[var(--bg)] border border-[var(--border)] flex items-center justify-center text-[var(--text)] hover:border-[var(--accent-a)] transition-colors cursor-pointer"
-          >
-            <ChevronLeft size={16} />
-          </button>
-          <button
-            onClick={handleNext}
-            title="Next Card"
-            className="w-8 h-8 rounded-lg bg-[var(--bg)] border border-[var(--border)] flex items-center justify-center text-[var(--text)] hover:border-[var(--accent-a)] transition-colors cursor-pointer"
-          >
-            <ChevronRight size={16} />
-          </button>
-        </div>
-      </div>
-
-      <GlassPanel className="p-6 md:p-8 relative min-h-[380px] flex flex-col justify-between border border-[var(--border)] shadow-xl overflow-hidden">
-        {/* CARD 1: OVERALL BAND & SKILL BREAKDOWN */}
-        {activeSlide === 0 && (
+  // Same five card bodies as before, just parameterized by index instead
+  // of reading the closure's activeSlide directly -- lets us render two
+  // cards (a left and a right slot) side by side instead of one at a time.
+  const renderCardBody = (idx: number) => {
+    switch (idx) {
+      case 0:
+        return (
           <div className="space-y-6 animate-fadeIn">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
               <div>
@@ -194,10 +148,10 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
               </Button>
             </div>
           </div>
-        )}
+        );
 
-        {/* CARD 2: DAILY STREAK */}
-        {activeSlide === 1 && (
+      case 1:
+        return (
           <div className="space-y-6 animate-fadeIn">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
               <div>
@@ -247,10 +201,10 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
               <span className="font-mono font-bold text-[var(--success)]">{practiceHours} hrs</span>
             </div>
           </div>
-        )}
+        );
 
-        {/* CARD 3: 30-DAY PROGRESS */}
-        {activeSlide === 2 && (
+      case 2:
+        return (
           <div className="space-y-6 animate-fadeIn">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
               <div>
@@ -306,10 +260,10 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
               </div>
             )}
           </div>
-        )}
+        );
 
-        {/* CARD 4: PRACTICE HOURS */}
-        {activeSlide === 3 && (
+      case 3:
+        return (
           <div className="space-y-6 animate-fadeIn">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
               <div>
@@ -343,10 +297,11 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
               <span>Start Practicing</span>
             </Button>
           </div>
-        )}
+        );
 
-        {/* CARD 5: TESTS COMPLETED */}
-        {activeSlide === 4 && (
+      case 4:
+      default:
+        return (
           <div className="space-y-6 animate-fadeIn">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
               <div>
@@ -381,24 +336,96 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
               <span>Take Full Timed Mock Test Now</span>
             </Button>
           </div>
-        )}
+        );
+    }
+  };
 
-        {/* Indicator Dots */}
-        <div className="flex items-center justify-center gap-2 pt-4 border-t border-[var(--border)]">
-          {slides.map((slide) => (
-            <button
-              key={slide.id}
-              onClick={() => setActiveSlide(slide.id)}
-              title={slide.label}
-              className={`h-2.5 rounded-full transition-all cursor-pointer ${
-                activeSlide === slide.id
-                  ? 'w-8 bg-[var(--accent-a)]'
-                  : 'w-2.5 bg-[var(--border)] hover:bg-[var(--text-faint)]'
-              }`}
-            />
-          ))}
+  const rightSlide = (activeSlide + 1) % totalSlides;
+
+  return (
+    <div
+      onMouseEnter={() => setIsAutoPlaying(false)}
+      onMouseLeave={() => setIsAutoPlaying(true)}
+      className="space-y-4"
+    >
+      {/* Carousel Top Navigation */}
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-[var(--panel-2)]/80 p-2 rounded-2xl border border-[var(--border)]">
+        <div className="flex items-center gap-1 overflow-x-auto py-0.5">
+          {slides.map((slide) => {
+            const Icon = slide.icon;
+            const isActive = activeSlide === slide.id || rightSlide === slide.id;
+            return (
+              <button
+                key={slide.id}
+                onClick={() => setActiveSlide(slide.id)}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+                  isActive
+                    ? 'bg-[image:var(--accent-gradient)] text-white shadow-md'
+                    : 'text-[var(--text-dim)] hover:text-[var(--text)] hover:bg-[var(--bg)]'
+                }`}
+              >
+                <Icon size={14} />
+                <span>{slide.label}</span>
+              </button>
+            );
+          })}
         </div>
-      </GlassPanel>
+
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="text-[11px] font-mono text-[var(--text-faint)]">
+            Cards {activeSlide + 1}–{rightSlide + 1} of {totalSlides}
+          </span>
+          <button
+            onClick={handlePrev}
+            title="Previous Card"
+            className="w-8 h-8 rounded-lg bg-[var(--bg)] border border-[var(--border)] flex items-center justify-center text-[var(--text)] hover:border-[var(--accent-a)] transition-colors cursor-pointer"
+          >
+            <ChevronLeft size={16} />
+          </button>
+          <button
+            onClick={handleNext}
+            title="Next Card"
+            className="w-8 h-8 rounded-lg bg-[var(--bg)] border border-[var(--border)] flex items-center justify-center text-[var(--text)] hover:border-[var(--accent-a)] transition-colors cursor-pointer"
+          >
+            <ChevronRight size={16} />
+          </button>
+        </div>
+      </div>
+
+      {/* Two-card viewport: left card holds its slot as the carousel
+          advances, right card is the one new entrant sliding in --
+          matches "displayed 2 at a time, slides to the next one entering
+          only one" rather than swapping both cards at once. */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <GlassPanel
+          key={`left-${activeSlide}`}
+          className="p-6 md:p-8 relative min-h-[380px] flex flex-col justify-between border border-[var(--border)] shadow-xl overflow-hidden animate-carouselShiftIn"
+        >
+          {renderCardBody(activeSlide)}
+        </GlassPanel>
+        <GlassPanel
+          key={`right-${rightSlide}`}
+          className="p-6 md:p-8 relative min-h-[380px] flex flex-col justify-between border border-[var(--border)] shadow-xl overflow-hidden animate-carouselSlideIn hidden lg:flex"
+        >
+          {renderCardBody(rightSlide)}
+        </GlassPanel>
+      </div>
+
+      {/* Indicator Dots */}
+      <div className="flex items-center justify-center gap-2 pt-1">
+        {slides.map((slide) => (
+          <button
+            key={slide.id}
+            onClick={() => setActiveSlide(slide.id)}
+            title={slide.label}
+            className={`h-2.5 rounded-full transition-all cursor-pointer ${
+              activeSlide === slide.id || rightSlide === slide.id
+                ? 'w-8 bg-[var(--accent-a)]'
+                : 'w-2.5 bg-[var(--border)] hover:bg-[var(--text-faint)]'
+            }`}
+          />
+        ))}
+      </div>
     </div>
   );
 };

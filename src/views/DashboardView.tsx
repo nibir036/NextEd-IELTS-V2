@@ -5,7 +5,10 @@ import { db, DbUser, type DashboardData } from '../lib/db';
 import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
 import { DashboardCarousel } from '../components/dashboard/DashboardCarousel';
-import { StudyCalendar } from '../components/dashboard/StudyCalendar';
+// import { StudyCalendar } from '../components/dashboard/StudyCalendar'; // disabled for now -- reminders/notifications aren't real yet, see StudyCalendar.tsx
+import { SkillProgressGraph } from '../components/dashboard/SkillProgressGraph';
+import { GoalPieChart } from '../components/dashboard/GoalPieChart';
+import { DailyTipBanner } from '../components/dashboard/DailyTipBanner';
 import {
   Sparkles,
   BookOpen,
@@ -16,8 +19,7 @@ import {
   ChevronRight,
   Shield,
   Clock,
-  Award,
-  Bell,
+  // Bell, // only used by the commented-out StudyCalendar section below
 } from '../components/ui/icons';
 
 interface DashboardViewProps {
@@ -28,22 +30,34 @@ interface DashboardViewProps {
 export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, id }) => {
   const [user, setUser] = useState<DbUser | null>(null);
   const [dashboard, setDashboard] = useState<DashboardData | null>(null);
-  const [diagnosticDone, setDiagnosticDone] = useState(true); // assume done until known, avoids flash
   const [loading, setLoading] = useState(true);
+  const [isReturning, setIsReturning] = useState(true); // assume returning until known, avoids flash
 
   useEffect(() => {
     let cancelled = false;
     Promise.all([
       db.getCurrentUser(),
       db.getDashboard().catch(() => null),
-      db.getDiagnosticStatus().catch(() => true),
     ]).then(
-      ([u, d, done]) => {
+      ([u, d]) => {
         if (!cancelled) {
           setUser(u);
           setDashboard(d);
-          setDiagnosticDone(done);
           setLoading(false);
+
+          // First-visit-to-dashboard detection: a lightweight per-user
+          // localStorage flag, not tied to account age, so "first time"
+          // means "first time seeing THIS dashboard" rather than
+          // "signed up recently" (those aren't the same thing -- someone
+          // could sign up, close the tab, and come back an hour later).
+          if (u && typeof window !== 'undefined') {
+            const key = `ai-ielts-pro-dashboard-visited:${u.id}`;
+            const hasVisited = localStorage.getItem(key) === 'true';
+            setIsReturning(hasVisited);
+            if (!hasVisited) {
+              localStorage.setItem(key, 'true');
+            }
+          }
         }
       },
     );
@@ -69,35 +83,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
 
   return (
     <div id={id} className="space-y-10 w-full">
-      {!diagnosticDone && (
-        <GlassPanel className="p-5 border border-[var(--accent-a)]/30 bg-[var(--accent-a)]/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center shrink-0">
-              <Sparkles size={20} />
-            </div>
-            <div>
-              <h3 className="font-display font-bold text-sm text-[var(--text)]">
-                Estimate your starting band
-              </h3>
-              <p className="text-xs text-[var(--text-dim)] mt-0.5">
-                Take the 2-minute placement diagnostic to personalise your practice. You haven&apos;t done it yet.
-              </p>
-            </div>
-          </div>
-          <Button
-            variant="primary"
-            size="sm"
-            icon={<ChevronRight size={16} />}
-            onClick={() => onNavigateAction('diagnostic')}
-            className="shrink-0"
-          >
-            Take Diagnostic
-          </Button>
-        </GlassPanel>
-      )}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
         <div className="lg:col-span-5 xl:col-span-4 flex flex-col justify-between space-y-6">
-          <GlassPanel className="p-6 md:p-8 border border-[var(--border)] shadow-lg space-y-6 flex-1 flex flex-col justify-between">
+          <GlassPanel className="p-6 md:p-8 border border-[var(--border)] shadow-lg space-y-6 flex-1 flex flex-col justify-center">
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-a)]/15 border border-[var(--accent-a)]/30 text-[var(--accent-a)] font-mono text-xs font-semibold">
                 <Sparkles size={14} />
@@ -105,7 +93,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
               </div>
 
               <h1 className="font-display text-2xl md:text-3xl xl:text-4xl font-extrabold text-[var(--text)] tracking-tight leading-snug">
-                Welcome back, <br />
+                {isReturning ? 'Welcome back,' : 'Welcome to AI IELTS Pro,'} <br />
                 <span className="text-[var(--accent-a)]">{user.name}</span>
               </h1>
 
@@ -158,35 +146,6 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
                 )}
               </div>
             </div>
-
-            {/* Recommended Action of the Day */}
-            <div className="space-y-3">
-              <div className="text-xs font-mono uppercase text-[var(--text-faint)] font-bold">
-                Today's Recommended Diagnostic:
-              </div>
-
-              <div className="p-4 rounded-2xl bg-[var(--accent-a)]/10 border border-[var(--accent-a)]/30 space-y-3">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <h4 className="font-bold text-sm text-[var(--text)]">
-                      Academic Writing Task 2 Evaluation
-                    </h4>
-                    <p className="text-xs text-[var(--text-dim)] mt-1">
-                      Practice cohesive paragraphing to raise your Writing Band.
-                    </p>
-                  </div>
-                  <Award size={20} className="text-[var(--accent-a)] shrink-0" />
-                </div>
-
-                <Button
-                  onClick={() => onNavigateAction('writing')}
-                  className="w-full flex items-center justify-center gap-2"
-                >
-                  <span>Start Essay Evaluation</span>
-                  <ChevronRight size={16} />
-                </Button>
-              </div>
-            </div>
           </GlassPanel>
         </div>
 
@@ -195,6 +154,18 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
         </div>
       </div>
 
+      {/* Analytics row: skill progress graph + animated goal-completion pie chart */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <SkillProgressGraph data={dashboard} />
+        <GoalPieChart currentBand={user.currentBand} targetBand={user.targetBand} />
+      </div>
+
+      {/* Study Calendar -- commented out for now, not removed. Reminder
+          notifications (Email/Phone) aren't actually wired to anything
+          real yet (localStorage only, no backend, no real email/SMS
+          send). Revisit once that's either built for real or the UI
+          copy is made honest about what it does. */}
+      {/*
       <div className="space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3 pb-2 border-b border-[var(--border)]">
           <div>
@@ -213,6 +184,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
 
         <StudyCalendar userEmail={user.email} />
       </div>
+      */}
 
       <div className="space-y-4">
         <div className="flex items-center justify-between">
@@ -262,6 +234,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
           })}
         </div>
       </div>
+
+      <DailyTipBanner />
     </div>
   );
 };

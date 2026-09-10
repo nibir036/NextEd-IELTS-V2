@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
+import { BackLink } from '../components/ui/BackLink';
 import { TestSelector } from '../components/practice/TestSelector';
 // import { SkillTips } from '../components/practice/SkillTips';
 import { ListeningTipsChapterList } from '../components/practice/tips/listeningtipschapterlist';
@@ -11,6 +12,7 @@ import { Sparkles, Send, RefreshCw, Trophy, CheckCircle2, X, Clock } from '../co
 
 interface ListeningExamViewProps {
   id?: string;
+  initialBrowseTab?: 'tests' | 'tips';
 }
 
 type AnswerValue = string | string[];
@@ -25,11 +27,17 @@ function formatAnswerForReview(v: unknown): string {
   return v ? String(v) : '—';
 }
 
-export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id }) => {
+export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initialBrowseTab }) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [test, setTest] = useState<ListeningTest | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
-  const [browseTab, setBrowseTab] = useState<'tests' | 'tips'>('tests');
+  const [browseTab, setBrowseTab] = useState<'tests' | 'tips'>(initialBrowseTab ?? 'tests');
+
+  // See ReadingExamView for why this effect is needed -- the sidebar
+  // dropdown changes the prop without remounting this view.
+  useEffect(() => {
+    if (initialBrowseTab) setBrowseTab(initialBrowseTab);
+  }, [initialBrowseTab]);
   const [selectedTipsSlug, setSelectedTipsSlug] = useState<string | null>(null);
 
   const [answers, setAnswers] = useState<Record<string, AnswerValue>>({});
@@ -254,7 +262,7 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id }) => {
 
   return (
     <div id={id} className="space-y-4">
-      <button onClick={backToTests} className="text-xs font-mono text-[var(--text-faint)] hover:text-[var(--accent-a)] cursor-pointer">← Back to tests</button>
+      <BackLink onClick={backToTests}>Back to tests</BackLink>
 
       {loadError && <GlassPanel className="p-6 text-sm text-[var(--danger)]">{loadError}</GlassPanel>}
       {!test && !loadError && <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)]">Loading test…</GlassPanel>}

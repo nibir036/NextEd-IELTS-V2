@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
+import { BackLink } from '../components/ui/BackLink';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import { TestSelector } from '../components/practice/TestSelector';
 import { SpeakingTipsChapterList } from '../components/practice/tips/speakingtipschapterlist';
@@ -12,6 +13,7 @@ import {
 
 interface SpeakingViewProps {
   id?: string;
+  initialBrowseTab?: 'tests' | 'tips';
 }
 
 interface SpeakingTopic {
@@ -430,8 +432,14 @@ const InstructionCard: React.FC<{ segment: InstructionSegment; onContinue: () =>
   </GlassPanel>
 );
 
-export const SpeakingView: React.FC<SpeakingViewProps> = ({ id }) => {
-  const [browseTab, setBrowseTab] = useState<'tests' | 'tips'>('tests');
+export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab }) => {
+  const [browseTab, setBrowseTab] = useState<'tests' | 'tips'>(initialBrowseTab ?? 'tests');
+
+  // See ReadingExamView for why this effect is needed -- the sidebar
+  // dropdown changes the prop without remounting this view.
+  useEffect(() => {
+    if (initialBrowseTab) setBrowseTab(initialBrowseTab);
+  }, [initialBrowseTab]);
   const [selectedTipsSlug, setSelectedTipsSlug] = useState<string | null>(null);
 
   const [selectedTestId, setSelectedTestId] = useState<string | null>(null);
@@ -541,12 +549,7 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id }) => {
         <GlassPanel className="p-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <button
-                onClick={backToTests}
-                className="text-xs font-mono text-[var(--text-faint)] hover:text-[var(--accent-a)] flex items-center gap-1 mb-2 cursor-pointer"
-              >
-                ← Back to tests
-              </button>
+              <BackLink onClick={backToTests} className="mb-2">Back to tests</BackLink>
               <h2 className="font-display text-2xl font-bold text-[var(--text)]">
                 {test ? test.title : 'IELTS Speaking Test'}
               </h2>

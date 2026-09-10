@@ -957,6 +957,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
+import { BackLink } from '../components/ui/BackLink';
 import {
   GraduationCap,
   BookOpen,
@@ -967,6 +968,8 @@ import {
 
 interface LmsViewProps {
   initialTab?: string;
+  initialModuleSlug?: string | null;
+  initialChapter?: number | null;
   id?: string;
 }
 
@@ -1892,7 +1895,12 @@ function StatusChip({ status }: { status: string }) {
    LMS VIEW
    ========================================================= */
 
-export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) => {
+export const LmsView: React.FC<LmsViewProps> = ({
+  initialTab = 'grammar',
+  initialModuleSlug = null,
+  initialChapter = null,
+  id,
+}) => {
   const [activeTab, setActiveTab] = useState<'grammar' | 'vocab'>(
     initialTab.includes('vocab') ? 'vocab' : 'grammar',
   );
@@ -1967,6 +1975,25 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
     };
   }, [activeTab]);
 
+  /* Deep-link: auto-select the requested grammar module once loaded
+     (sidebar dropdown -> lms-grammar/<module-slug>). Re-syncs whenever
+     initialModuleSlug itself changes (e.g. switching modules via the
+     sidebar while one is already open) -- not just on first load.
+     Also clears chapter/exercise/feedback: the chapter reader is an
+     early return in the render below (`if (chapter) return ...`), so
+     without this, switching modules while inside a chapter would
+     update selectedModule but keep showing the OLD chapter forever. */
+  useEffect(() => {
+    if (!initialModuleSlug || modules.length === 0) return;
+    const match = modules.find((m) => m.slug === initialModuleSlug);
+    if (match) {
+      setSelectedModule(match);
+      setChapter(null);
+      setExercise(null);
+      setFeedback(null);
+    }
+  }, [initialModuleSlug, modules]);
+
   /* Load Zero to Band 9 chapters */
   useEffect(() => {
     if (activeTab !== 'vocab') return;
@@ -2003,6 +2030,16 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
       cancelled = true;
     };
   }, [activeTab]);
+
+  /* Deep-link: auto-select the requested vocab chapter once loaded
+     (sidebar dropdown -> lms-vocab/<chapter-number>). Re-syncs whenever
+     initialChapter itself changes, same reasoning as the grammar
+     module effect above. */
+  useEffect(() => {
+    if (!initialChapter || zeroChapters.length === 0) return;
+    const match = zeroChapters.find((c) => c.meta.number === initialChapter);
+    if (match) setSelectedZero(match);
+  }, [initialChapter, zeroChapters]);
 
   /* Load Word Bank */
   useEffect(() => {
@@ -2145,18 +2182,15 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
   if (exercise) {
     return (
       <div id={id} className="space-y-6 w-full">
-        <button
-          type="button"
+        <BackLink
           onClick={() => {
             setExercise(null);
             setFeedback(null);
             scrollMainToTop();
           }}
-          className="flex items-center gap-1.5 text-xs font-mono text-[var(--text-faint)] hover:text-[var(--accent-a)] transition-colors"
         >
-          <ChevronLeft size={14} />
           Back to chapter
-        </button>
+        </BackLink>
 
         <GlassPanel className="p-6 border border-[var(--border)] space-y-4">
           <div>
@@ -2274,17 +2308,14 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
   if (chapter || loadingChapter) {
     return (
       <div id={id} className="space-y-6 w-full">
-        <button
-          type="button"
+        <BackLink
           onClick={() => {
             setChapter(null);
             scrollMainToTop();
           }}
-          className="flex items-center gap-1.5 text-xs font-mono text-[var(--text-faint)] hover:text-[var(--accent-a)] transition-colors"
         >
-          <ChevronLeft size={14} />
           Back to chapters
-        </button>
+        </BackLink>
 
         {loadingChapter && (
           <div className="text-sm text-[var(--text-dim)] font-mono py-12 text-center">
@@ -2428,17 +2459,14 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
 
           {!loadingModules && selectedModule && (
             <div className="space-y-4">
-              <button
-                type="button"
+              <BackLink
                 onClick={() => {
                   setSelectedModule(null);
                   scrollMainToTop();
                 }}
-                className="flex items-center gap-1.5 text-xs font-mono text-[var(--text-faint)] hover:text-[var(--accent-a)] transition-colors"
               >
-                <ChevronLeft size={14} />
                 All modules
-              </button>
+              </BackLink>
               <div className="flex items-baseline justify-between gap-3 flex-wrap">
                 <div>
                   <h2 className="font-display text-xl font-bold text-[var(--text)]">
@@ -2615,17 +2643,14 @@ export const LmsView: React.FC<LmsViewProps> = ({ initialTab = 'grammar', id }) 
 
               {!loadingZero && selectedZero && (
                 <div className="space-y-6">
-                  <button
-                    type="button"
+                  <BackLink
                     onClick={() => {
                       setSelectedZero(null);
                       scrollMainToTop();
                     }}
-                    className="flex items-center gap-1.5 text-xs font-mono text-[var(--text-faint)] hover:text-[var(--accent-a)] transition-colors"
                   >
-                    <ChevronLeft size={14} />
                     All chapters
-                  </button>
+                  </BackLink>
 
                   <GlassPanel className="p-6 md:p-8 border border-[var(--border)]">
                     <div className="flex items-center gap-2 flex-wrap mb-2">

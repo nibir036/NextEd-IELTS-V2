@@ -1,12 +1,6 @@
 export type ThemeId =
   | 'metallic-dusk'
-  | 'midnight'
-  | 'emerald'
-  | 'daylight'
-  | 'vintage-rust'
-  | 'forest-chapel'
-  | 'alpine-twilight'
-  | 'royal-salon';
+  | 'daylight';
 
 export interface ThemeConfig {
   id: ThemeId;

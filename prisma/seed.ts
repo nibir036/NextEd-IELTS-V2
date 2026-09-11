@@ -269,6 +269,68 @@ async function upsertTipsChapter(ch: SeedTipsChapter) {
   await prisma.tips_chapters.create({ data: { id: ch.id, module_id: ch.module_id, slug: ch.slug, ...data } });
 }
 
+type SeedTipsLesson = {
+  id: string;
+  module_id: string;
+  chapter_id?: string | null;
+  slug: string;
+  position: number;
+  title: string;
+  source_label?: string | null;
+  bite: string;
+  detail_md: string;
+  read_more_anchor_block_id?: string | null;
+  estimated_min?: number | null;
+  is_published?: boolean;
+};
+
+type AllTipsLessonsSeed = {
+  lessons: SeedTipsLesson[];
+};
+
+async function upsertTipsLesson(l: SeedTipsLesson) {
+  const byId = await prisma.tips_lessons.findUnique({ where: { id: l.id } });
+  const bySlug = await prisma.tips_lessons.findUnique({
+    where: { module_id_slug: { module_id: l.module_id, slug: l.slug } },
+  });
+
+  const data = {
+    title: l.title,
+    source_label: l.source_label ?? null,
+    bite: l.bite,
+    detail_md: l.detail_md,
+    read_more_anchor_block_id: l.read_more_anchor_block_id ?? null,
+    position: l.position,
+    estimated_min: l.estimated_min ?? null,
+    is_published: l.is_published ?? true,
+    updated_at: new Date(),
+  };
+
+  if (byId) {
+    await prisma.tips_lessons.update({
+      where: { id: l.id },
+      data: { ...data, module_id: l.module_id, chapter_id: l.chapter_id ?? null, slug: l.slug },
+    });
+    return;
+  }
+  if (bySlug) {
+    await prisma.tips_lessons.update({
+      where: { id: bySlug.id },
+      data: { ...data, chapter_id: l.chapter_id ?? null },
+    });
+    return;
+  }
+  await prisma.tips_lessons.create({
+    data: {
+      id: l.id,
+      module_id: l.module_id,
+      chapter_id: l.chapter_id ?? null,
+      slug: l.slug,
+      ...data,
+    },
+  });
+}
+
 async function seedTips() {
   const files = [
     'listening-module-1.json',
@@ -307,6 +369,19 @@ async function seedTips() {
         ch.slug,
         `(${n} blocks)`,
       );
+    }
+
+    // Optional companion bite-sized lessons file, e.g.
+    // listening-module-1.json -> listening-module-1-lessons.json
+    const lessonsFilename = filename.replace(/\.json$/, '-lessons.json');
+    const lessonsFile = join(__dirname, 'seed-data', 'tips', lessonsFilename);
+    if (existsSync(lessonsFile)) {
+      const lessonsData = JSON.parse(readFileSync(lessonsFile, 'utf8')) as AllTipsLessonsSeed;
+      console.log(`  Seeding ${lessonsData.lessons.length} bite-sized lessons from ${lessonsFilename}`);
+      for (const l of lessonsData.lessons) {
+        await upsertTipsLesson(l);
+        console.log('    lesson', l.slug);
+      }
     }
   }
 }

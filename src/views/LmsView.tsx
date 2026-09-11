@@ -959,6 +959,7 @@ import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
 import { BackLink } from '../components/ui/BackLink';
 import { Reveal } from '../components/ui/Reveal';
+import { parseInline } from '../components/practice/tips/parseInline';
 import {
   GraduationCap,
   BookOpen,
@@ -1188,7 +1189,7 @@ function GrammarBlockRenderer({
     case 'paragraph':
       return (
         <div className="mb-3">
-          <p className="text-sm text-[var(--text-dim)] leading-relaxed">{block.text}</p>
+          <p className="text-sm text-[var(--text-dim)] leading-relaxed">{parseInline(block.text)}</p>
           <BnNote text={block.bn ?? block.bn_note} />
         </div>
       );
@@ -1230,7 +1231,7 @@ function GrammarBlockRenderer({
               {block.title}
             </div>
           )}
-          <p className="text-sm text-[var(--text)] leading-relaxed">{block.text}</p>
+          <p className="text-sm text-[var(--text)] leading-relaxed">{parseInline(block.text)}</p>
           <BnNote text={block.bn ?? block.bn_note} />
         </div>
       );
@@ -1309,6 +1310,107 @@ function GrammarBlockRenderer({
 /* =========================================================
    ZERO TO BAND 9 BLOCK RENDERER
    ========================================================= */
+
+/**
+ * Interactive question list for exercise types with no dedicated
+ * renderer above (verb drills, register/idiom exercises, etc).
+ * Handles <u>...</u> underline markup via parseInline, and reveals a
+ * per-question answer on demand when the question carries one --
+ * previously this list was static with no way to check answers at all.
+ */
+function ExerciseQuestionList({ questions }: { questions: any[] }) {
+  const [revealed, setRevealed] = useState<Set<string>>(new Set());
+
+  const toggle = (id: string) => {
+    setRevealed((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  return (
+    <div className="space-y-3">
+      {questions.map((q: any) => {
+        const isOpen = revealed.has(q.id);
+        const hasAnswer = q.answer !== undefined && q.answer !== null && q.answer !== '';
+        return (
+          <div
+            key={q.id}
+            className="p-3 rounded-lg bg-[var(--bg)] border border-[var(--border)]"
+          >
+            <div className="text-[11px] font-mono text-[var(--text-faint)] mb-1">
+              Q{q.number}
+            </div>
+            <p className="text-sm text-[var(--text)]">{parseInline(q.prompt || q.sentence || '')}</p>
+            {hasAnswer && (
+              <>
+                <button
+                  onClick={() => toggle(q.id)}
+                  className="mt-2 text-xs font-medium text-[var(--accent-a)] hover:underline cursor-pointer"
+                >
+                  {isOpen ? 'Hide answer' : 'Show answer'}
+                </button>
+                {isOpen && (
+                  <div className="mt-2 pt-2 border-t border-[var(--border)] text-sm text-[var(--text-dim)] leading-relaxed">
+                    <p>{parseInline(q.answer)}</p>
+                    {q.why && <p className="text-xs text-[var(--text-faint)] mt-1">{parseInline(q.why)}</p>}
+                    {q.bn && <p className="text-xs text-[var(--text-faint)] mt-1 italic">{q.bn}</p>}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/**
+ * Reveal-on-demand answer for single-task exercises (e.g. a paragraph
+ * rewrite) that have one block-level prompt + answer instead of a
+ * per-question list. Previously block.prompt rendered with no way to
+ * check the answer at all.
+ */
+function BlockAnswerReveal({
+  prompt,
+  answer,
+  why,
+  bn,
+}: {
+  prompt: string;
+  answer?: string;
+  why?: string;
+  bn?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const hasAnswer = answer !== undefined && answer !== null && answer !== '';
+
+  return (
+    <div className="p-3 rounded-lg bg-[var(--bg)] border border-[var(--border)]">
+      <p className="text-sm text-[var(--text)] whitespace-pre-wrap">{prompt}</p>
+      {hasAnswer && (
+        <>
+          <button
+            onClick={() => setOpen((o) => !o)}
+            className="mt-2 text-xs font-medium text-[var(--accent-a)] hover:underline cursor-pointer"
+          >
+            {open ? 'Hide model answer' : 'Show model answer'}
+          </button>
+          {open && (
+            <div className="mt-2 pt-2 border-t border-[var(--border)] text-sm text-[var(--text-dim)] leading-relaxed whitespace-pre-wrap space-y-2">
+              <p>{parseInline(answer!)}</p>
+              {why && <p className="text-xs text-[var(--text-faint)]">{parseInline(why)}</p>}
+              {bn && <p className="text-xs text-[var(--text-faint)] italic">{bn}</p>}
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
 
 function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
   switch (block.type) {
@@ -1754,23 +1856,14 @@ function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
               <p className="text-sm text-[var(--text-dim)] mt-1">{block.instructions}</p>
             )}
           </div>
-          <div className="space-y-3">
-            {(block.questions ?? []).map((q: any) => (
-              <div
-                key={q.id}
-                className="p-3 rounded-lg bg-[var(--bg)] border border-[var(--border)]"
-              >
-                <div className="text-[11px] font-mono text-[var(--text-faint)] mb-1">
-                  Q{q.number}
-                </div>
-                <p className="text-sm text-[var(--text)]">{q.prompt || q.sentence}</p>
-              </div>
-            ))}
-          </div>
+          <ExerciseQuestionList questions={block.questions ?? []} />
           {block.prompt && (
-            <div className="p-3 rounded-lg bg-[var(--bg)] border border-[var(--border)]">
-              <p className="text-sm text-[var(--text)] whitespace-pre-wrap">{block.prompt}</p>
-            </div>
+            <BlockAnswerReveal
+              prompt={block.prompt}
+              answer={block.answer}
+              why={block.why}
+              bn={block.bn}
+            />
           )}
         </div>
       );

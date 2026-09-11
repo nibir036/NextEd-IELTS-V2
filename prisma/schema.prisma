@@ -346,6 +346,8 @@ model tips_lessons {
   position                  Int           @default(0)
   title                     String
   source_label              String?
+  collection_slug           String?
+  collection_label          String?
   bite                      String
   detail_md                 String
   read_more_anchor_block_id String?
@@ -358,6 +360,7 @@ model tips_lessons {
 
   @@unique([module_id, slug])
   @@index([module_id, position], map: "idx_tips_lessons_module")
+  @@index([module_id, collection_slug], map: "idx_tips_lessons_collection")
 }
 
 model user_tips_progress {

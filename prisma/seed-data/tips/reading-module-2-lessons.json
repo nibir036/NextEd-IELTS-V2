@@ -12,7 +12,11 @@
       "detail_md": "**Why it matters:** Reading looks easier than Listening because the text sits still. That's the trap -- in Reading, *you* control the clock, and most candidates spend it badly.\n\n### The shape of the test\n- **3 passages, 40 questions, 60 minutes.** Passages get harder as you go: Passage 1 is the most approachable, Passage 3 the densest.\n- **Marks don't scale with difficulty.** A hard Passage 3 question is worth exactly one mark, same as an easy Passage 1 question.\n\n### The real test is time, not reading\nThere is **no extra time** to transfer or tidy answers. When the sixty minutes end, your paper ends.\n- ~700-900 words per passage, ~20 minutes per passage including its questions.\n- You **cannot** read that slowly, understand every sentence, and answer 13 questions carefully in 20 minutes. The test is designed to punish candidates who try.\n\n### The passages\nAcademic: books, journals, magazines, newspapers -- academic in flavour but never needs specialist knowledge; everything is in the text. General Training: everyday texts (notices, handbooks, workplace documents), starting easier. **The techniques are identical for both -- only the texts differ.**\n\n### How you answer\nComputer-delivered is standard now: type or click directly on screen, highlight and make notes as you go. Spelling counts, same as Listening. No separate answer sheet, no reward for neatness -- only for being right and finished.\n\n### Tutor insider tip\nPassage 1 usually offers the quickest marks in the test; Passage 3 the slowest. A candidate who perfects Passage 3 and leaves Passage 1 half-done has traded cheap marks for expensive ones.\n\n> তিনটি প্যাসেজ, চল্লিশটি প্রশ্ন, ষাট মিনিট -- অতিরিক্ত সময় নেই। কঠিন প্যাসেজ ৩-এর একটি প্রশ্নও সহজ প্যাসেজ ১-এর প্রশ্নের সমান নম্বরের। তাই সময় বুদ্ধি করে ভাগ করুন।",
       "read_more_anchor_block_id": "r_b0003",
       "estimated_min": 3,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "foundations",
+        "label": "Foundations"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000002",
@@ -26,7 +30,11 @@
       "detail_md": "**Why it matters:** If you take one idea from this whole module, take this one.\n\n### The core reframe\nYou are not trying to understand the passage. You are trying to **find the one place that answers each question, confirm it really does, and record the answer.** Reading to understand the gist doesn't tell you whether a specific statement is True, False, or Not Given.\n\n### The four-step loop\n1. **LOCATE.** Find the region the question points to -- scan for anchors (names, numbers, dates) or paraphrased keywords. You are hunting for the right neighbourhood, not reading yet.\n2. **IDENTIFY.** Within that region, find the exact sentence(s) that address the question. Now slow down, but only for these lines.\n3. **VERIFY.** Check the lines genuinely support your answer. **This is the step beginners skip** -- a word matching is not enough, the *meaning* must match.\n4. **ANSWER.** Commit in the exact required form, respecting word limit and spelling.\n\nWhen stuck, name which step you're stuck on: can't locate means scan wider; can't verify means read the surrounding sentences more carefully.\n\n### The three gears\n- **Skimming** -- fast gear, general idea and shape, builds the map.\n- **Scanning** -- search gear, hunting for a specific target, ignoring everything else.\n- **Close reading** -- slow gear, careful reading of a small patch to identify and verify.\n\n### Tutor insider tip\nStrategic reading is question-led: read the passage lightly first to learn its shape, then never read a paragraph in full until a question sends you there.\n\n> IELTS Reading বোঝার পরীক্ষা নয়, খুঁজে বের করা ও যাচাই করার পরীক্ষা। প্রতিটি প্রশ্নে: খুঁজুন, চিহ্নিত করুন, যাচাই করুন, উত্তর দিন।",
       "read_more_anchor_block_id": "r_b0018",
       "estimated_min": 3,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "foundations",
+        "label": "Foundations"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000003",
@@ -40,7 +48,11 @@
       "detail_md": "**Why it matters:** The purpose of a skim is not to understand the passage -- it's to know which paragraph to visit when a question arrives.\n\n### What skimming actually is\nReading fast still means reading every word, only quicker -- and it still fails. Skimming is **selective sampling**: read the parts that carry the most meaning, ignore the rest.\n\n### Exactly what your eyes read\n1. **The title** -- always, fully. Free information.\n2. **Any subheadings** -- if present, read every one.\n3. **The first paragraph**, more fully than the rest -- it frames the whole passage.\n4. **Each body paragraph's first sentence** -- the topic sentence, where most of your skim's value comes from.\n5. **The second sentence**, when the first doesn't deliver (see below).\n6. **The last sentence**, when a paragraph turns or concludes with \"however\" or \"yet.\"\n\n### The nuance almost no book teaches\nThe opening line of a paragraph reveals its direction, but it is **not automatically the complete main idea**. Sometimes it's a hook, a question, or background, and the real point arrives in the second sentence -- or at the end.\n\n### What you skip\nExamples, lists, long descriptions, statistics, quotations, supporting detail. Note only that they're there and roughly where.\n\n### Tutor insider tip\nLet names, dates, and distinctive words catch your eye as you skim, even though you're not \"reading\" them properly yet -- these become your scanning anchors later.\n\n> স্কিমিং মানে দ্রুত পড়া নয়, বেছে বেছে পড়া। শুধু টাইটেল, প্রথম প্যারা, আর প্রতি প্যারার প্রথম বাক্য পড়ুন -- বাকিটা পরে দরকার হলে ফিরে দেখবেন।",
       "read_more_anchor_block_id": "r_b0002",
       "estimated_min": 3,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "foundations",
+        "label": "Foundations"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000004",
@@ -54,7 +66,11 @@
       "detail_md": "**Why it matters:** Scanning is how you perform the LOCATE step -- fast, and only after skimming has given you a map.\n\n### What scanning is\nYour eyes become a search tool set to a single pattern. Like scanning a page for a phone number: you don't read the page, you let the shape jump out. **Do not subvocalise** -- saying words in your head slows you to reading speed.\n\n### Choose the easiest target\n**Easiest to scan for (spot these first):**\n- Names of people, places, organisations (capital letters)\n- Numbers, dates, percentages, measurements\n- Capitalised or technical terms\n- Unusual, distinctive words unlikely to repeat\n\n**Harder to scan for (no anchor):** ordinary content words like \"benefit\" or \"routine\" get paraphrased in the passage (\"gain,\" \"regular structure\") -- this needs the paraphrase skill, not scanning.\n\n### Worked example\nQuestion: *\"At what age is a cork oak first harvested?\"* -- scan for the number, not the meaning. Eyes sweep for digits, land on \"twenty-five years old.\" Done.\n\n### Tutor insider tip\nNames, numbers, and dates are rarely paraphrased -- when a question contains one, scan for it and you'll land almost on top of the answer.\n\n> সহজে খুঁজে পাওয়া যায় এমন জিনিস আগে বাছুন: নাম, সংখ্যা, তারিখ। এগুলো প্যাসেজে প্রায় অপরিবর্তিত থাকে।",
       "read_more_anchor_block_id": "r_b0010",
       "estimated_min": 3,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "foundations",
+        "label": "Foundations"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000005",
@@ -68,7 +84,11 @@
       "detail_md": "**Why it matters:** The beginner drives the entire passage in Gear 3 (close reading) and stalls. The expert is always shifting gears.\n\n### The exact sequence\n- **Gear 1, skim** (2-3 minutes): starts when you turn to a new passage, stops once you have a paragraph map.\n- **Gear 2, scan** (seconds per question): starts when you read a question and pick its anchor; stops when you find the region.\n- **Gear 3, close read** (a small patch only): starts once located; read 2-3 relevant sentences to identify and verify. Stops once verified -- then shift back up to Gear 2.\n\n**Rhythm of a whole passage:** one skim, then for every question a scan-and-read, eyes constantly changing speed.\n\n### Worked example\nCork oak passage. Skim (20 sec): note the shape -- what it is, how it's harvested, the landscape. Anchors snagged: Portugal, twenty-five years, nine years, cork cambium.\n- Q: *\"What proportion of the world's cork does Portugal produce?\"* Scan for a number near \"Portugal\" → \"around half.\" Verify: yes, Portugal, a proportion. **Answer: half.**\n- Q: *\"...survives bark removal because of a special ____.\"* Scan the bark-removal region → close read: \"regenerates... from a living tissue called the cork cambium.\" **Answer: cork cambium.**\n\n### Tutor insider tip\nIf a question asks for something the passage never gives (like an industrialisation date that isn't there), scan quickly, confirm nothing fits, and conclude the information is simply absent -- don't reread the whole passage hunting for it.\n\n> প্রতিটি প্রশ্নের জন্য: স্ক্যান করুন, অঞ্চল খুঁজুন, তারপর ধীরে পড়ে যাচাই করুন। পুরো প্যাসেজ বারবার পড়বেন না।",
       "read_more_anchor_block_id": "r_b0018",
       "estimated_min": 3,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "foundations",
+        "label": "Foundations"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000006",
@@ -82,7 +102,11 @@
       "detail_md": "**Why it matters:** Scanning for the word \"important\" is useless -- it won't be there. Scanning for \"1714\" or \"Harrison\" lands you on the spot.\n\n### The two jobs a keyword does\n1. **The anchor you scan for.** Names, numbers, dates, distinctive terms appear in the passage almost unchanged.\n2. **The concept you match by meaning.** Ordinary content words (benefit, decline, cause) get paraphrased -- you must hold the meaning, not the word.\n\n### Selecting strong keywords\nMark the one or two words that carry a question's specific meaning. **Generic keywords are broad and useless to search on:** problem, change, people, important, area, time, way -- they appear everywhere.\n\n### The word-match trap\nFinding the same word in the passage does **not** mean you've found the answer. The exam deliberately plants a question's word in the wrong place, or in a sentence with a different meaning, specifically to catch candidates who grab the first word-match and stop.\n\n### Tutor insider tip\nThe passage might use \"expensive\" in paragraph two about something irrelevant, then express the *idea* of expense as \"beyond the reach of ordinary families\" in paragraph four -- where your real answer lives. Match the meaning, never just the word.\n\n> প্যাসেজে প্রশ্নের একই শব্দ পাওয়া মানেই উত্তর পাওয়া নয়। পরীক্ষা ইচ্ছে করে সেই শব্দটা ভুল জায়গায় বসিয়ে রাখে। শব্দ নয়, অর্থ মেলান।",
       "read_more_anchor_block_id": "r_b0003",
       "estimated_min": 3,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "foundations",
+        "label": "Foundations"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000007",
@@ -96,7 +120,11 @@
       "detail_md": "**Why it matters:** Paraphrase is the engine of the whole Reading test.\n\n### The eight forms\n1. **Synonym** -- \"expensive\" → \"costly,\" \"dear\"\n2. **Word-family change** -- \"the decline of the industry\" → \"as the industry declined\"\n3. **Active/passive swap** -- \"the government funded the project\" → \"the project was funded by the government\"\n4. **Noun/verb swaps** -- \"the invention of the clock\" → \"when the clock was invented\"\n5. **Description or definition** -- \"longitude\" → \"a ship's east-west position\"\n6. **Numerical paraphrase** -- \"half\" → \"fifty per cent,\" \"one in two\"\n7. **Comparative paraphrase** -- see below, the biggest source of TFNG errors\n8. **Conceptual paraphrase** -- the whole idea rebuilt with no shared words at all\n\n### Comparative paraphrase -- read this twice\n- **Same direction, reversed wording (still equal):** \"A is more common than B\" = \"B is less common than A.\" If both the direction AND the comparison word flip together, the meaning is unchanged.\n- **Danger -- NOT reversed:** \"prices rose faster than wages\" is the **opposite** of \"wages rose faster than prices.\" Only one comparison word changed.\n\n### Tutor insider tip\nSame meaning, different language is the whole test. Your job on every question is to recognise that the passage and the question say the same thing in different words -- or to recognise that they genuinely don't.\n\n> প্রশ্ন আর প্যাসেজ একই কথা ভিন্ন শব্দে বলে। তুলনামূলক বাক্যে সতর্ক থাকুন -- দিক আর তুলনার শব্দ দুটোই না বদলালে অর্থ পাল্টে যায়।",
       "read_more_anchor_block_id": "r_b0012",
       "estimated_min": 4,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "foundations",
+        "label": "Foundations"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000008",
@@ -110,7 +138,11 @@
       "detail_md": "**Why it matters:** Used well, order turns the passage into a one-way street -- but trusting it blindly for the wrong type wastes minutes.\n\n### Generally follow passage order\nTrue/False/Not Given, Yes/No/Not Given, sentence/summary/note/table/flow-chart completion, short answer, multiple choice (usually), matching sentence endings.\n\n### Do NOT reliably follow order\nMatching Headings, Matching Information (\"which paragraph contains...\"), Matching Features -- the detail can sit anywhere, so treat the whole passage as the search space.\n\n### Three cautions\n- **Order applies within a question set, not across sets.** A new set can point earlier in the text than the previous set's last question.\n- **Order is a hint, not a guarantee.** Use it to decide where to look first, then confirm from actual evidence.\n- **Some sets reset.** When a new set starts, reset your eyes to the top and reread the instructions.\n\n### Tutor insider tip\nThe best use of question order is not finding answers -- it's skipping. When a type follows order and you're sure of a location, you never need to re-scan ground you've already covered.\n\n> বেশিরভাগ প্রশ্নের ধারা প্যাসেজের ক্রম অনুসরণ করে, কিন্তু Matching Headings/Information/Features করে না -- এগুলোতে পুরো প্যাসেজ খুঁজতে হয়।",
       "read_more_anchor_block_id": "r_b0002",
       "estimated_min": 3,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "question-types",
+        "label": "Question types"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000009",
@@ -124,7 +156,11 @@
       "detail_md": "### Multiple Choice\n**Recognise it:** a stem with 3-4 options, pick one. **Before you search:** read stem + options, note how they differ -- that difference is what the passage will decide between.\n**Evidence:** the correct option is fully supported; eliminate options that are half-supported, unsupported, or contradicted.\n**Traps:** an option repeats passage words while distorting meaning; an option is true in reality but never stated in the passage.\n\n*Worked example:* \"Why did clocks fail at sea?\" A) too expensive B) couldn't handle changing conditions C) misused. Passage: \"no clock could keep accurate time on a rolling, damp, temperature-changing ship.\" **Answer: B** -- A and C are never stated, however plausible.\n\n### Matching Information (\"which paragraph contains...\")\n**Recognise it:** often noted \"you may use any letter more than once.\" **Does NOT follow order** -- details are scattered.\n**Before you search:** understand each piece of information precisely -- it's a specific detail, not the paragraph's main idea.\n**Traps:** the same topic may appear in two paragraphs, but only one contains the *specific* detail asked.\n\n### Tutor insider tip\nBecause Matching Information is slow and unordered, most experts do it **last**, after other questions have already made them familiar with where things are in the passage.\n\n> Multiple Choice-এ অপশনের শব্দ মিলে গেলেই উত্তর নয় -- পুরো অর্থ প্যাসেজ সমর্থন করছে কিনা দেখুন। Matching Information ক্রম মানে না, তাই শেষে করাই ভালো।",
       "read_more_anchor_block_id": "r_b0010",
       "estimated_min": 4,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "question-types",
+        "label": "Question types"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000010",
@@ -138,7 +174,11 @@
       "detail_md": "**Recognise it:** statements matched to features (people, theories, categories, labelled A, B, C). **Order:** roughly follows the statement order, but features themselves are scattered -- semi-ordered.\n\n### Strategy\nRead the feature list first -- named items are strong anchors since names rarely change. Either scan for each feature and read what's attributed to it, or take each statement and find which feature the passage links it to (faster when there are few features, many statements).\n\n### Traps\nA distractor feature is mentioned near the wrong statement to tempt a mismatch. A view held by one person may be contrasted with another's -- attach it to the right one, exactly like Part 3 opinion-tracking in Listening.\n\n### Tutor insider tip\nThe beginner matches a statement to the *nearest* named person. The expert confirms the attribution by reading the sentence that actually links the feature and the claim, and never relies on proximity.\n\n> সবচেয়ে কাছের নামের সাথে মেলাবেন না -- প্যাসেজ আসলে কোন ব্যক্তির সাথে কথাটা যুক্ত করছে তা পড়ে নিশ্চিত হোন।",
       "read_more_anchor_block_id": "r_b0015",
       "estimated_min": 2,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "question-types",
+        "label": "Question types"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000011",
@@ -152,7 +192,11 @@
       "detail_md": "**Recognise it:** sentence beginnings completed from a list of endings, with more endings than beginnings. **Order:** follows passage order.\n\n### Strategy\nRead each beginning as a mini-question, locate its subject in the passage, then choose the ending whose *meaning* matches what the passage says -- not merely whose grammar fits.\n\n### Traps\nAn ending that's grammatically smooth and generally true, but not what the passage states about *this* subject. An ending that matches a different part of the passage entirely.\n\n### Worked example\nBeginning: *\"The prize for solving longitude was eventually...\"* Passage: \"he struggled for years to be paid the reward he was owed.\" Correct ending: **\"...paid only after a long struggle.\"** A grammatically valid but wrong ending like \"...never awarded to anyone\" contradicts the passage.\n\n### Tutor insider tip\nThe beginner chooses the ending that reads well as a sentence. The expert matches the ending to the passage evidence first, and only then checks the grammar is clean.\n\n> ব্যাকরণ মিললেই সঠিক নয় -- প্যাসেজের অর্থের সাথে মিলছে কিনা সেটাই আসল পরীক্ষা।",
       "read_more_anchor_block_id": "r_b0018",
       "estimated_min": 2,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "question-types",
+        "label": "Question types"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000012",
@@ -166,7 +210,11 @@
       "detail_md": "**Why it matters:** This one routine wins every completion task in the module.\n\n### Two flavours\n- **Words-from-passage:** you supply the missing words yourself, copied exactly from the text, within the word limit.\n- **Word bank:** you choose from a supplied list with more options than gaps -- box words are often paraphrases, so the skill shifts to matching meaning, not exact words.\n\n### The routine\n1. **Predict the gap's grammar** -- noun, verb, adjective, number? Singular or plural?\n2. **Locate the region** -- these types usually follow passage order.\n3. **Read around the gap** in the passage -- the answer lives in that sentence.\n4. **Pick the exact word(s)** that fit both meaning and grammar.\n5. **Obey the limit and spelling.**\n\n### Universal traps\nGrammar fits, meaning doesn't. A word from the wrong (nearby) sentence. Changing the word's form when the gap needs the passage's exact word.\n\n### Tutor insider tip\nIn words-from-passage completion, if your answer is a word that never appears in the passage, you are very likely wrong. If you find yourself inventing a synonym, stop and look again for the actual word the passage used.\n\n> Words-from-passage completion-এ যদি আপনার উত্তরটা প্যাসেজে না-ই থাকে, তাহলে প্রায় নিশ্চিত ভুল। উত্তর সরাসরি টেক্সট থেকে আসে।",
       "read_more_anchor_block_id": "r_b0004",
       "estimated_min": 3,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "question-types",
+        "label": "Question types"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000013",
@@ -180,7 +228,11 @@
       "detail_md": "**Recognise it:** standalone sentences, gap filled with passage words. **Order:** follows passage order.\n\nRead each sentence and predict the gap's shape. The non-gap part is your keyword cluster -- it appears in the passage, usually paraphrased, just before the answer.\n\n**Trap:** word-limit overreach is common, because the passage phrase is often longer than the limit.\n\n*Worked example:* \"Harrison's fourth clock was finally accurate enough to solve the problem of ____.\" Passage: \"His fourth design finally proved accurate enough\" (topic: longitude). **Answer: longitude** -- one word, taken exactly.\n\n### Tutor insider tip\nThe beginner copies a whole passage phrase and breaks the word limit. The expert takes only the exact words the gap needs.\n\n> পুরো বাক্যাংশ কপি করবেন না -- ফাঁকা জায়গায় ঠিক যতটুকু দরকার ততটুকুই নিন, শব্দসীমা মেনে।",
       "read_more_anchor_block_id": "r_b0011",
       "estimated_min": 2,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "question-types",
+        "label": "Question types"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000014",
@@ -194,7 +246,11 @@
       "detail_md": "**Recognise it:** a summary paragraph with gaps. **Order:** follows the order of the section it summarises, not the whole passage.\n\nRead the whole summary for sense first, then predict each gap. For a word bank, read all options -- several are distractors.\n\n**With a bank:** an option can fit the grammar of a gap but not the meaning -- confirm the passage actually supports that meaning before choosing.\n\n*Worked example (word bank):* \"The cork oak is valuable because its bark can be harvested ____ without harming the tree.\" Bank: repeatedly / permanently / accidentally / cheaply. Passage: \"...only once every nine years... a dozen times across a lifespan.\" **Answer: repeatedly** -- \"permanently\" fits the grammar but not the meaning.\n\n### Tutor insider tip\nThe beginner picks a bank word that fits the grammar. The expert confirms the passage actually supports that meaning before choosing.\n\n> Word bank-এ গ্রামার মিললেই উত্তর নয় -- অর্থ প্যাসেজ সমর্থন করছে কিনা যাচাই করুন।",
       "read_more_anchor_block_id": "r_b0013",
       "estimated_min": 3,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "question-types",
+        "label": "Question types"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000015",
@@ -208,7 +264,11 @@
       "detail_md": "**Recognise it:** notes with headings/bullets and gaps. **Order:** follows passage order, guided by the headings.\n\nUse the headings to know where each answer sits, predict each gap's shape, then take exact words for each gap as you move through the section.\n\n**Trap:** surrounding detail tempts you to write more than the gap needs -- take only the key word.\n\n*Worked example:* \"Tuatara incubation: eggs take over ____ to hatch.\" Passage: \"the eggs take over a year to hatch.\" **Answer: a year.**\n\n> হেডিং হলো আপনার ম্যাপ -- এগুলো অনুসরণ করলে সঠিক জায়গায় উত্তর খুঁজে পাবেন।",
       "read_more_anchor_block_id": "r_b0015",
       "estimated_min": 2,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "question-types",
+        "label": "Question types"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000016",
@@ -222,7 +282,11 @@
       "detail_md": "**Recognise it:** a grid, blanks filled from the passage. **Order:** follows the passage, often row by row.\n\nRead the headings first -- they tell you exactly what type of answer each blank needs. Anchor on the row's subject, find the passage region, take the detail the column asks for.\n\n**Trap:** writing a detail in the wrong cell; two similar values inviting confusion.\n\n*Worked example:* Table: Tree | First harvest age | Harvest interval. Passage: \"first harvested at about twenty-five years old, and thereafter only once every nine years.\" **Answers: twenty-five (years) / every nine years**, each into its own cell.\n\n> কলামের হেডিং পড়ে বুঝুন কোন ঘরে কী ধরনের উত্তর দরকার -- এটাই আপনার পূর্বাভাস।",
       "read_more_anchor_block_id": "r_b0018",
       "estimated_min": 2,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "question-types",
+        "label": "Question types"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000017",
@@ -236,7 +300,11 @@
       "detail_md": "**Recognise it:** boxes + arrows, a process with gaps. **Order:** follows the *logical* order, which usually but not always matches the passage's order.\n\nRead the filled boxes to understand the process first, and predict each gap (often a verb or noun for an action/material).\n\n**Trap:** the passage may present steps in a different order than the chart -- match by logic, not by order of mention.\n\n*Worked example:* Chart: \"Bark regenerates from ____ -> tree stripped again after nine years.\" Passage: \"it regenerates a fresh layer from a living tissue called the cork cambium.\" **Answer: (the) cork cambium.**\n\n> প্যাসেজে ধাপগুলো চার্টের ক্রমে নাও থাকতে পারে -- অর্থ বুঝে সঠিক বক্সে বসান, উল্লেখের ক্রম দেখে নয়।",
       "read_more_anchor_block_id": "r_b0020",
       "estimated_min": 2,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "question-types",
+        "label": "Question types"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000018",
@@ -250,7 +318,11 @@
       "detail_md": "**Recognise it:** a picture with parts to label. **Order:** follows the passage's spatial description (e.g. top to bottom), not necessarily its overall order.\n\nStudy the diagram first, predict the kind of word each label needs (usually a noun). Use position language (\"at the base,\" \"which surrounds\") and function language (\"the layer that...\") to place each label.\n\n**Trap:** the passage may describe a part by function rather than name -- use position and function to place it even when the term itself is new to you.\n\n*Worked example:* Label the regenerating layer on a cork oak trunk diagram. Passage: \"regenerates a fresh layer from a living tissue called the cork cambium.\" **Answer: cork cambium**, placed where the passage says the regenerating happens.\n\n> অচেনা শব্দ মানেই সমস্যা নয় -- প্যাসেজে অবস্থান আর কাজ বর্ণনা করা থাকলে সেটা দিয়েই সঠিক জায়গায় বসাতে পারবেন।",
       "read_more_anchor_block_id": "r_b0023",
       "estimated_min": 2,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "question-types",
+        "label": "Question types"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000019",
@@ -264,7 +336,11 @@
       "detail_md": "**Recognise it:** direct questions, few words, within a word limit. **Order:** follows passage order.\n\nThe question word tells you the shape: predict it, note the word limit, scan for the anchor, take the exact words that answer the question.\n\n**Traps:** answering a related detail rather than the exact question; breaking the limit by copying a whole phrase; a question asking for two things.\n\n*Worked example:* \"Which country produces about half the world's cork?\" (ONE WORD) Passage: \"...especially Portugal, which today produces around half of the world's cork.\" **Answer: Portugal.**\n\n> প্রশ্নবোধক শব্দ (what/where/how many) অনুযায়ী উত্তরের ধরন ঠিক করুন, তারপর নির্দিষ্ট শব্দসীমায় উত্তর দিন।",
       "read_more_anchor_block_id": "r_b0025",
       "estimated_min": 2,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "question-types",
+        "label": "Question types"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000020",
@@ -278,7 +354,11 @@
       "detail_md": "**Why it matters:** Fix these definitions exactly -- most errors come from blurring them.\n\n### The definitions\n- **TRUE.** The passage confirms the statement -- same thing, or the same meaning in different words.\n- **FALSE.** The passage **contradicts** the statement -- says the opposite, or something that can't both be true.\n- **NOT GIVEN.** The passage neither confirms nor contradicts. The information is absent or insufficient. The *topic* may even appear, but this specific claim is never settled.\n\n### Tutor insider tip\nFalse means the passage says the opposite. Not Given means the passage does not say. Confusing \"the passage disagrees\" with \"the passage is silent\" is the deepest TFNG error, and it costs marks in both directions.\n\n> False মানে প্যাসেজ বিপরীত কথা বলছে। Not Given মানে প্যাসেজ কিছুই বলছে না। এই দুটো গুলিয়ে ফেলাই সবচেয়ে বড় ভুল।",
       "read_more_anchor_block_id": "r_b0002",
       "estimated_min": 2,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "question-types",
+        "label": "Question types"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000021",
@@ -292,7 +372,11 @@
       "detail_md": "### The three steps\n1. **CLAIM.** Pin down exactly what the statement asserts. What's the subject? What's claimed about it? Any quantifiers (all, some, most) or qualifiers (only, always)? Underline the precise words -- the evidence must match, contradict, or leave *those exact words* alone.\n2. **EVIDENCE.** Locate the passage lines on the same subject (TFNG follows passage order). Read closely -- this is close reading, not scanning.\n3. **RELATIONSHIP.** Decide: confirms (in same/paraphrased words) → **TRUE**. Contradicts → **FALSE**. Doesn't address the exact claim, or only part of it → **NOT GIVEN**.\n\n### Tutor insider tip\nClaim, evidence, relationship. Never skip to a verdict without naming the relationship first -- the verdict is just the name of the relationship, nothing more.\n\n> দাবি বুঝুন, প্রমাণ খুঁজুন, সম্পর্ক ঠিক করুন -- তারপরই রায় দিন। সরাসরি রায়ে লাফ দেবেন না।",
       "read_more_anchor_block_id": "r_b0005",
       "estimated_min": 3,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "question-types",
+        "label": "Question types"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000022",
@@ -306,7 +390,11 @@
       "detail_md": "### The five relationships\n- **Contradiction (False):** opposite fact, different number/date, reversed comparison, or a clashing quantifier (statement says \"all,\" passage says \"some\").\n- **Absence (Not Given):** the passage simply doesn't address the claim. **Absence is always Not Given, never False.**\n- **Partial information (usually Not Given):** a compound claim where the passage supports only part. Every part must be supported for True; one unconfirmed part makes the whole thing Not Given; one contradicted part makes it False.\n- **Inference and assumption (danger):** you may accept a clear paraphrase or a necessary meaning. You may **not** accept something merely plausible or a reasonable guess. If you must assume a fact to call it True, the honest verdict is Not Given.\n- **Outside knowledge (trap):** judge only by the passage, never by what you know about the world. A statement can be true in reality and still Not Given.\n\n### Tutor insider tip\nThe line is: necessary meaning is allowed; probable-in-the-real-world is not.\n\n> \"সম্ভবত ঠিক\" মনে হলেই সতর্ক হোন -- প্যাসেজ নিশ্চিত না করলে সেটা Not Given, আপনার অনুমান নয়।",
       "read_more_anchor_block_id": "r_b0008",
       "estimated_min": 3,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "traps",
+        "label": "Traps"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000023",
@@ -320,7 +408,11 @@
       "detail_md": "### Carry these into the exam\n- If the statement is stronger or more specific than the passage, it's usually **False or Not Given**.\n- **Extreme words** (all, only, never, always, none, every) deserve suspicion -- passages rarely support absolutes.\n- **Absence is Not Given, not False.** If you can't find the claim addressed at all, that's Not Given -- don't mark False just because you can't confirm it.\n- **False needs a real contradiction.** Before writing False, find the sentence that says the opposite. If you can't point to it, you're probably looking at Not Given.\n\n### Tutor insider tip\nWhen you feel yourself thinking \"well, that's probably true\" or \"that would make sense\" -- stop. Probably and would-make-sense are the exact feelings that signal Not Given. Your own agreement with a statement is not evidence.\n\n> \"সম্ভবত সত্যি\" বা \"যুক্তিসঙ্গত\" মনে হলেই থামুন -- এই অনুভূতিই Not Given-এর ইঙ্গিত, প্যাসেজ নিশ্চিত করলে তবেই True।",
       "read_more_anchor_block_id": "r_b0010",
       "estimated_min": 2,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "traps",
+        "label": "Traps"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000024",
@@ -334,7 +426,11 @@
       "detail_md": "### The mapping\n- **YES.** The writer holds or asserts this view.\n- **NO.** The writer holds or asserts the opposite view.\n- **NOT GIVEN.** The writer's view on this isn't given.\n\nSpot opinion language: *argues, believes, suggests, claims, contends, clearly, surely, unfortunately, rightly, it is a mistake to.* Neutral fact-reporting is **not** the writer's opinion.\n\n### Worked example -- a Not Given that looks True\nStatement: \"The waggle dance took von Frisch many years to decode.\" Passage: \"The dance was first decoded by Karl von Frisch... work for which he later received a Nobel Prize.\" The passage says *who* and *when* and that he won a prize -- but nothing about *how long it took*. To call it True you'd have to assume the timescale. **Verdict: Not Given** -- the plausibility was the trap.\n\n### Tutor insider tip\nA statement about a detail the passage never gives is Not Given, no matter how reasonable it sounds and no matter how much of its topic appears in the text.\n\n> YNNG লেখকের মতামত যাচাই করে, তথ্য নয়। argues, believes, suggests-এর মতো মতামত-শব্দ খুঁজুন।",
       "read_more_anchor_block_id": "r_b0014",
       "estimated_min": 3,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "question-types",
+        "label": "Question types"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000025",
@@ -348,7 +444,11 @@
       "detail_md": "**Why it matters:** Everywhere else in Reading you hunt for a specific detail. Here you must step back and see the paragraph as a whole.\n\n### The core principle\nA heading must capture what the **entire paragraph** is about, not one fact inside it. Matching a single word fails for two reasons: the word may appear in a paragraph mainly about something else, and the paragraph's real point is usually expressed in completely different words from the heading (headings are paraphrases).\n\n### Finding the main idea\nAsk: *\"What is this paragraph mainly doing, or mainly about?\"* Answer in your own words **before** looking at the headings. It sits: often in the first sentence, sometimes in the last (if the paragraph builds to its point), sometimes nowhere explicit -- synthesise it.\n\nName the paragraph's **purpose**: giving background, presenting a problem, offering a solution, describing a cause/effect, giving an example, reporting a finding, drawing a contrast, summarising. This usually makes the right heading obvious.\n\n### Tutor insider tip\nSeparate the main idea from its supporting examples -- a paragraph may use a statistic or example that is *not* the main idea, only serving it. Match the point, not the illustration.\n\n> একটি শব্দ মিলে গেলেই হেডিং সঠিক নয় -- পুরো প্যারার মূল ভাবটা বুঝে হেডিং বাছুন।",
       "read_more_anchor_block_id": "r_b0002",
       "estimated_min": 4,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "question-types",
+        "label": "Question types"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000026",
@@ -362,7 +462,11 @@
       "detail_md": "### Trap 1: Identical words, wrong meaning\nA question and passage share a distinctive word, but mean different things. **Avoid it:** match meaning, not words; read the whole sentence around the shared word.\n\n### Trap 2: Right information, wrong paragraph\nThe correct-sounding information appears, but doesn't answer *this* question. **Avoid it:** use question order and the exact subject to confirm you're in the right paragraph.\n\n### Trap 3: Partial truth\nPart of a statement is supported, part isn't (or is contradicted). **Avoid it:** every part must be supported for True. One unsupported part → Not Given; one contradicted part → False.\n\n### Trap 4: Extreme wording\nA statement uses an absolute (all, only, never, always) the passage doesn't support. **Avoid it:** check whether the passage really makes the absolute claim -- it usually doesn't.\n\n### Trap 5: Examples mistaken for main ideas\nA heading matches an example, not the paragraph's actual point. **Recognise it:** the thing you matched is introduced by \"for example\" or \"such as,\" or is one item among several.\n\n### Tutor insider tip\nThese five traps recur across every question type -- learn to name which one you just fell for, and you'll stop falling for it.\n\n> পাঁচটি ফাঁদ মনে রাখুন: একই শব্দ ভিন্ন অর্থ, ভুল প্যারায় তথ্য, আংশিক সত্য, চরম শব্দ, উদাহরণকে মূল ভাব মনে করা।",
       "read_more_anchor_block_id": "r_b0016",
       "estimated_min": 3,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "traps",
+        "label": "Traps"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000027",
@@ -376,7 +480,11 @@
       "detail_md": "**Why it matters:** Three passages, forty questions, sixty minutes, no extra time. This plan wins that fight.\n\n### The universal rules\n1. **Never read the whole passage first.** Skim for a map (2-3 min), let the questions drive.\n2. **Secure the cheap marks first.** Passage 1's marks are worth exactly as much as Passage 3's.\n3. **Keep a per-question budget.** If a question resists after a fair look, mark a best guess, flag it, move on.\n4. **Never leave a blank.** No penalty for wrong answers.\n5. **Verify, don't agonise.** Back each answer with evidence, then move.\n\n### The default time split\n| Passage | Time | Why |\n|---|---|---|\n| Passage 1 | ~17 min | easiest, bank time here |\n| Passage 2 | ~20 min | medium |\n| Passage 3 | ~20 min | hardest, but capped |\n| Check | ~3 min | fill blanks, review flags |\n\n**The cap on Passage 3 is the point** -- a hard passage will happily eat forty minutes if you let it.\n\n### Tutor insider tip\nBand 5-6 targets: harvest every cheap mark in Passage 1-2, guess-and-flag the hardest types rather than grinding. Band 7+ targets: run the tight 17/20/20 split and fight specifically for traps and Not Givens.\n\n> সহজ প্যাসেজ আগে শেষ করুন, কঠিন প্যাসেজে সময়সীমা বেঁধে দিন, আর কখনো ফাঁকা রাখবেন না -- ভুল উত্তরে কোনো জরিমানা নেই।",
       "read_more_anchor_block_id": "r_b0002",
       "estimated_min": 3,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "test-day-skills",
+        "label": "Test-day skills"
+      }
     },
     {
       "id": "b3000002-0002-4000-8000-000000000028",
@@ -390,7 +498,11 @@
       "detail_md": "Compressed to its core, Reading is this:\n\nSkim each passage in 2-3 minutes to build a paragraph map, never reading it all. Let the questions drive: for each, locate the region by scanning for anchors or paraphrased concepts, then close-read the few lines to identify and verify the answer. **Match meaning, never a bare word.**\n\nOn True/False/Not Given, name the relationship between claim and evidence, and remember that **silence is Not Given, not False**. Watch the small words: all, only, might, more than.\n\nGuard your clock ferociously, secure the cheap marks first, skip and flag the stubborn ones, never leave a blank, and in the final check trust the answers you backed with evidence.\n\n### Tutor insider tip\nThat is the whole module -- not \"read carefully,\" but a precise sequence of locating, verifying, and deciding, run against the clock. When you can do it without thinking, the passage stops being a wall of text and becomes what it always was: a place where every answer is hidden in plain sight, waiting for a reader who knows exactly where to look.\n\n> স্কিম করে ম্যাপ বানান, প্রশ্ন দিয়ে পথ চালান, অর্থ মেলান শব্দ নয়, আর মনে রাখুন নীরবতা মানে Not Given, False নয়।",
       "read_more_anchor_block_id": "r_b0022",
       "estimated_min": 2,
-      "is_published": true
+      "is_published": true,
+      "collection": {
+        "slug": "test-day-skills",
+        "label": "Test-day skills"
+      }
     }
   ]
 }

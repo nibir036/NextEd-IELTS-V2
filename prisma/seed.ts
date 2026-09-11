@@ -277,6 +277,7 @@ type SeedTipsLesson = {
   position: number;
   title: string;
   source_label?: string | null;
+  collection?: { slug: string; label: string } | null;
   bite: string;
   detail_md: string;
   read_more_anchor_block_id?: string | null;
@@ -297,6 +298,8 @@ async function upsertTipsLesson(l: SeedTipsLesson) {
   const data = {
     title: l.title,
     source_label: l.source_label ?? null,
+    collection_slug: l.collection?.slug ?? null,
+    collection_label: l.collection?.label ?? null,
     bite: l.bite,
     detail_md: l.detail_md,
     read_more_anchor_block_id: l.read_more_anchor_block_id ?? null,

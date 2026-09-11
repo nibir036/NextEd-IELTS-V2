@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '../../ui/Button';
 import { ChevronLeft, ChevronRight, Clock, X } from '../../ui/icons';
 import { TipsBlockRenderer, TipsBlock } from './tipsblockrenderer';
@@ -19,12 +19,12 @@ interface ChapterPayload {
 }
 
 /**
- * A large-screen reading view, not a narrow inline panel: fixed overlay
- * covering ~88% of viewport width (comfortably clears the 75% floor) and
- * ~92% of height, independent of the sidebar/content-column width the
- * rest of the app is constrained to. Shared by all 4 skills via the
- * `skill` prop rather than duplicating this per skill, since the
- * `/api/tips/<skill>/...` routes already follow one consistent shape.
+ * A large-screen reading view: a persistent left sidebar ("in this
+ * chapter") listing every level-2 heading as a jump target, with the
+ * section currently in view highlighted via scroll-spy -- plus the
+ * wide main content area. Fixed overlay covering ~92vw x ~92vh,
+ * independent of the sidebar/content-column width the rest of the app
+ * is constrained to. Shared by all 4 skills via the `skill` prop.
  */
 export const TipsReaderOverlay: React.FC<{
   skill: 'listening' | 'reading' | 'writing' | 'speaking';
@@ -35,11 +35,14 @@ export const TipsReaderOverlay: React.FC<{
 }> = ({ skill, slug, anchorBlockId, onNavigate, onClose }) => {
   const [chapter, setChapter] = useState<ChapterPayload | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let cancelled = false;
     setChapter(null);
     setError(null);
+    setActiveSectionId(null);
 
     fetch(`/api/tips/${skill}/chapters/${slug}`)
       .then((res) => res.json())
@@ -64,6 +67,62 @@ export const TipsReaderOverlay: React.FC<{
       cancelled = true;
     };
   }, [skill, slug]);
+
+  // The sidebar's "in this chapter" list -- every level-2 heading in
+  // the chapter, in order. Level-1 headings are bare "PART N" markers
+  // in the source content, not real navigable sections, so they're
+  // excluded here (though they still render inline in the content).
+  const sections = useMemo(() => {
+    if (!chapter) return [];
+    return chapter.content.blocks
+      .filter((b): b is Extract<TipsBlock, { type: 'heading' }> => b.type === 'heading' && b.level === 2)
+      .map((b) => ({ id: b.id, text: b.text }));
+  }, [chapter]);
+
+  // Scroll-spy: on every scroll, find the section heading closest to
+  // (but not past) a line near the top of the content area, and
+  // highlight it in the sidebar. A prior version used
+  // IntersectionObserver with a narrow "top 30%" band, which rarely
+  // caught single-line heading elements as they scrolled through it --
+  // computing directly from scroll position is simpler and reliable
+  // for this. Also sets an initial active section on load, before any
+  // scrolling happens.
+  useEffect(() => {
+    const root = contentRef.current;
+    if (!root || sections.length === 0) return;
+
+    const ACTIVE_LINE_OFFSET = 96; // px from the top of the content area
+
+    const updateActive = () => {
+      const rootTop = root.getBoundingClientRect().top;
+      let current: string | null = sections[0]?.id ?? null;
+      for (const s of sections) {
+        const el = document.getElementById(`tips-block-${s.id}`);
+        if (!el) continue;
+        const elTop = el.getBoundingClientRect().top - rootTop;
+        if (elTop <= ACTIVE_LINE_OFFSET) {
+          current = s.id;
+        } else {
+          break;
+        }
+      }
+      setActiveSectionId(current);
+    };
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        updateActive();
+        ticking = false;
+      });
+    };
+
+    updateActive();
+    root.addEventListener('scroll', onScroll, { passive: true });
+    return () => root.removeEventListener('scroll', onScroll);
+  }, [sections]);
 
   // Scroll to the specific block a bite lesson linked to, once the
   // chapter's content has actually rendered (a plain useEffect on
@@ -101,6 +160,10 @@ export const TipsReaderOverlay: React.FC<{
     if (chapter?.next) onNavigate(chapter.next.slug);
   };
 
+  const jumpTo = (sectionId: string) => {
+    document.getElementById(`tips-block-${sectionId}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 md:p-6 bg-black/70 backdrop-blur-sm">
       <div className="relative w-[92vw] md:w-[88vw] max-w-6xl h-[92vh] rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-elevated)] shadow-2xl flex flex-col overflow-hidden">
@@ -133,23 +196,55 @@ export const TipsReaderOverlay: React.FC<{
           </div>
         </div>
 
-        {/* Content -- the wide, spacious reading area */}
-        <div className="flex-1 overflow-y-auto px-5 md:px-10 py-6">
-          {error && <p className="text-sm text-[var(--danger)]">{error}</p>}
+        {/* Body: sidebar + content */}
+        <div className="flex-1 flex min-h-0">
+          {error && <p className="p-6 text-sm text-[var(--danger)]">{error}</p>}
           {!error && !chapter && (
-            <p className="text-sm text-[var(--text-dim)] font-mono text-center py-12">Loading...</p>
+            <p className="w-full text-sm text-[var(--text-dim)] font-mono text-center py-12">Loading...</p>
           )}
           {chapter && (
-            <div className="max-w-3xl mx-auto">
-              {chapter.summary && (
-                <p className="text-sm text-[var(--text-dim)] mb-6 leading-relaxed">{chapter.summary}</p>
+            <>
+              {/* Sidebar: in this chapter */}
+              {sections.length > 0 && (
+                <nav className="hidden md:block w-56 shrink-0 border-r border-[var(--border)] overflow-y-auto px-4 py-5">
+                  <div className="text-[10px] font-mono uppercase text-[var(--text-faint)] tracking-wide mb-2 px-2">
+                    In this chapter
+                  </div>
+                  <div className="space-y-0.5">
+                    {sections.map((s) => {
+                      const isActive = activeSectionId === s.id;
+                      return (
+                        <button
+                          key={s.id}
+                          onClick={() => jumpTo(s.id)}
+                          className={`w-full text-left px-2 py-1.5 rounded-lg text-xs leading-snug border-l-2 transition-colors cursor-pointer ${
+                            isActive
+                              ? 'border-[var(--accent-a)] text-[var(--text)] font-semibold bg-[var(--panel-2)]'
+                              : 'border-transparent text-[var(--text-faint)] hover:text-[var(--text-dim)]'
+                          }`}
+                        >
+                          {s.text}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </nav>
               )}
-              {chapter.content.blocks.map((block) => (
-                <div key={block.id} id={`tips-block-${block.id}`}>
-                  <TipsBlockRenderer block={block} />
+
+              {/* Main content */}
+              <div ref={contentRef} className="flex-1 overflow-y-auto px-5 md:px-10 py-6">
+                <div className="max-w-3xl mx-auto">
+                  {chapter.summary && (
+                    <p className="text-sm text-[var(--text-dim)] mb-6 leading-relaxed">{chapter.summary}</p>
+                  )}
+                  {chapter.content.blocks.map((block) => (
+                    <div key={block.id} id={`tips-block-${block.id}`}>
+                      <TipsBlockRenderer block={block} />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            </>
           )}
         </div>
 

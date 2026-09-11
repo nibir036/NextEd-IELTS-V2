@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
+/* Bumps Tailwind's own border-radius scale (the rounded-sm/md/lg/xl/2xl/
+   3xl utilities used ~350 times across the app) for a slightly more
+   generous, modern feel. Distinct namespace from the panel-specific
+   --panel-radius-* tokens below (Tailwind v4 uses this exact --radius-*
+   naming for its own utility theme keys, so reusing it here for
+   something unrelated would collide). */
+@theme {
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+}
+
 @layer base {
   /* Default Theme: Dusk (Dark) -- a true HSL lightness-inversion of the
      Daylight theme below (same hue/saturation per color, lightness
@@ -39,9 +54,9 @@
     --glow-b: rgba(145, 121, 254, 0.12);
     --bg-diagonal: repeating-linear-gradient(45deg, rgba(160, 115, 253, 0.015) 0px, rgba(160, 115, 253, 0.015) 1px, transparent 1px, transparent 10px);
 
-    --radius-lg: 16px;
-    --radius-md: 12px;
-    --radius-sm: 8px;
+    --panel-radius-lg: 20px;
+    --panel-radius-md: 14px;
+    --panel-radius-sm: 10px;
   }
 
   /* Theme 2: Daylight (Light) -- same family, lightened. */
@@ -73,9 +88,9 @@
     --glow-b: rgba(47, 2, 140, 0.06);
     --bg-diagonal: repeating-linear-gradient(45deg, rgba(47, 2, 140, 0.015) 0px, rgba(47, 2, 140, 0.015) 1px, transparent 1px, transparent 10px);
 
-    --radius-lg: 16px;
-    --radius-md: 12px;
-    --radius-sm: 8px;
+    --panel-radius-lg: 20px;
+    --panel-radius-md: 14px;
+    --panel-radius-sm: 10px;
   }
 }
 
@@ -90,14 +105,19 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   transition: background-color 0.25s ease, color 0.25s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, .font-display {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+/* Real monospace face -- every uppercase/tracked label, badge, and
+   chapter tag app-wide uses this class (39 files). Previously pointed
+   at --font-sans, so "mono" text wasn't actually monospace. */
 .font-mono {
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-mono-real), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 /* Footer-only display face: Michroma, a geometric/techno font used to
@@ -113,7 +133,7 @@ h1, h2, h3, .font-display {
   backdrop-filter: blur(28px) saturate(140%);
   -webkit-backdrop-filter: blur(28px) saturate(140%);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--panel-radius-lg);
   box-shadow:
     0 1px 0 var(--glass-sheen) inset,
     inset 0 -1px 0 rgba(0, 0, 0, 0.28),

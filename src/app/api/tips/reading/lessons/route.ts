@@ -25,6 +25,8 @@ export async function GET() {
       slug: true,
       title: true,
       source_label: true,
+      collection_slug: true,
+      collection_label: true,
       bite: true,
       detail_md: true,
       estimated_min: true,
@@ -42,6 +44,9 @@ export async function GET() {
     slug: lesson.slug,
     title: lesson.title,
     sourceLabel: lesson.source_label,
+    collection: lesson.collection_slug && lesson.collection_label
+      ? { slug: lesson.collection_slug, label: lesson.collection_label }
+      : null,
     bite: lesson.bite,
     detailMd: lesson.detail_md,
     estimatedMin: lesson.estimated_min,

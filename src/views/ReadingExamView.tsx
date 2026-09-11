@@ -4,7 +4,8 @@ import { Button } from '../components/ui/Button';
 import { BackLink } from '../components/ui/BackLink';
 import { TestSelector } from '../components/practice/TestSelector';
 import { ReadingTipsChapterList } from '../components/practice/tips/readingtipschapterlist';
-import { ReadingTipsReader } from '../components/practice/tips/readingtipsreader';
+import { TipsReaderOverlay } from '../components/practice/tips/TipsReaderOverlay';
+import { TipsLessonList } from '../components/practice/tips/TipsLessonList';
 import { db, type ReadingTest, type ReadingResult } from '../lib/db';
 import { Sparkles, Send, RefreshCw, Trophy, CheckCircle2, X, Clock, BookOpen } from '../components/ui/icons';
 
@@ -31,6 +32,8 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
   const [loadError, setLoadError] = useState<string | null>(null);
   const [browseTab, setBrowseTab] = useState<'tests' | 'tips'>(initialBrowseTab ?? 'tests');
   const [selectedTipsSlug, setSelectedTipsSlug] = useState<string | null>(null);
+  const [selectedTipsAnchor, setSelectedTipsAnchor] = useState<string | null>(null);
+  const [noBiteLessons, setNoBiteLessons] = useState(false);
 
   // Sidebar dropdown navigation (e.g. Tests -> Tips & Tricks) changes
   // this prop without remounting the view -- useState's initial value
@@ -149,14 +152,31 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
             emptyDescription="Reading tests are being prepared. In the meantime, review the tips below to get ready."
           />
         ) : selectedTipsSlug ? (
-          <ReadingTipsReader
+          <TipsReaderOverlay
+            skill="reading"
             slug={selectedTipsSlug}
-            onNavigate={(slug) => setSelectedTipsSlug(slug)}
-            onBack={() => setSelectedTipsSlug(null)}
+            anchorBlockId={selectedTipsAnchor}
+            onNavigate={(slug) => {
+              setSelectedTipsSlug(slug);
+              setSelectedTipsAnchor(null);
+            }}
+            onClose={() => {
+              setSelectedTipsSlug(null);
+              setSelectedTipsAnchor(null);
+            }}
           />
-        ) : (
+        ) : noBiteLessons ? (
           <ReadingTipsChapterList
             onSelectChapter={(slug) => setSelectedTipsSlug(slug)}
+          />
+        ) : (
+          <TipsLessonList
+            skill="reading"
+            onOpenChapter={(slug, anchorBlockId) => {
+              setSelectedTipsSlug(slug);
+              setSelectedTipsAnchor(anchorBlockId);
+            }}
+            onNoLessons={() => setNoBiteLessons(true)}
           />
         )}
       </div>

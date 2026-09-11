@@ -1,0 +1,79 @@
+diff a/src/views/LmsView.tsx b/src/views/LmsView.tsx	(rejected hunks)
+@@ -1318,6 +1318,56 @@ function GrammarBlockRenderer({
+  * per-question answer on demand when the question carries one --
+  * previously this list was static with no way to check answers at all.
+  */
++function ExerciseQuestionList({ questions }: { questions: any[] }) {
++  const [revealed, setRevealed] = useState<Set<string>>(new Set());
++
++  const toggle = (id: string) => {
++    setRevealed((prev) => {
++      const next = new Set(prev);
++      if (next.has(id)) next.delete(id);
++      else next.add(id);
++      return next;
++    });
++  };
++
++  return (
++    <div className="space-y-3">
++      {questions.map((q: any) => {
++        const isOpen = revealed.has(q.id);
++        const hasAnswer = q.answer !== undefined && q.answer !== null && q.answer !== '';
++        return (
++          <div
++            key={q.id}
++            className="p-3 rounded-lg bg-[var(--bg)] border border-[var(--border)]"
++          >
++            <div className="text-[11px] font-mono text-[var(--text-faint)] mb-1">
++              Q{q.number}
++            </div>
++            <p className="text-sm text-[var(--text)]">{parseInline(q.prompt || q.sentence || '')}</p>
++            {hasAnswer && (
++              <>
++                <button
++                  onClick={() => toggle(q.id)}
++                  className="mt-2 text-xs font-medium text-[var(--accent-a)] hover:underline cursor-pointer"
++                >
++                  {isOpen ? 'Hide answer' : 'Show answer'}
++                </button>
++                {isOpen && (
++                  <div className="mt-2 pt-2 border-t border-[var(--border)] text-sm text-[var(--text-dim)] leading-relaxed">
++                    <p>{parseInline(q.answer)}</p>
++                    {q.why && <p className="text-xs text-[var(--text-faint)] mt-1">{parseInline(q.why)}</p>}
++                    {q.bn && <p className="text-xs text-[var(--text-faint)] mt-1 italic">{q.bn}</p>}
++                  </div>
++                )}
++              </>
++            )}
++          </div>
++        );
++      })}
++    </div>
++  );
++}
++
+ function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
+   switch (block.type) {
+     case 'intro':
+@@ -1762,19 +1812,7 @@ function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
+               <p className="text-sm text-[var(--text-dim)] mt-1">{block.instructions}</p>
+             )}
+           </div>
+-          <div className="space-y-3">
+-            {(block.questions ?? []).map((q: any) => (
+-              <div
+-                key={q.id}
+-                className="p-3 rounded-lg bg-[var(--bg)] border border-[var(--border)]"
+-              >
+-                <div className="text-[11px] font-mono text-[var(--text-faint)] mb-1">
+-                  Q{q.number}
+-                </div>
+-                <p className="text-sm text-[var(--text)]">{q.prompt || q.sentence}</p>
+-              </div>
+-            ))}
+-          </div>
++          <ExerciseQuestionList questions={block.questions ?? []} />
+           {block.prompt && (
+             <div className="p-3 rounded-lg bg-[var(--bg)] border border-[var(--border)]">
+               <p className="text-sm text-[var(--text)] whitespace-pre-wrap">{block.prompt}</p>

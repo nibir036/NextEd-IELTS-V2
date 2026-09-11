@@ -5,7 +5,8 @@ import { BackLink } from '../components/ui/BackLink';
 import { TestSelector } from '../components/practice/TestSelector';
 // import { SkillTips } from '../components/practice/SkillTips';
 import { ListeningTipsChapterList } from '../components/practice/tips/listeningtipschapterlist';
-import { ListeningTipsReader } from '../components/practice/tips/listeningtipsreader';
+import { TipsReaderOverlay } from '../components/practice/tips/TipsReaderOverlay';
+import { TipsLessonList } from '../components/practice/tips/TipsLessonList';
 import { PlayOnceAudio } from '../components/practice/PlayOnceAudio';
 import { db, type ListeningTest, type ListeningResult } from '../lib/db';
 import { Sparkles, Send, RefreshCw, Trophy, CheckCircle2, X, Clock } from '../components/ui/icons';
@@ -33,6 +34,8 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
   const [loadError, setLoadError] = useState<string | null>(null);
   const [browseTab, setBrowseTab] = useState<'tests' | 'tips'>(initialBrowseTab ?? 'tests');
   const [selectedTipsSlug, setSelectedTipsSlug] = useState<string | null>(null);
+  const [selectedTipsAnchor, setSelectedTipsAnchor] = useState<string | null>(null);
+  const [noBiteLessons, setNoBiteLessons] = useState(false);
 
   // See ReadingExamView for why this effect is needed -- the sidebar
   // dropdown changes the prop without remounting this view. This is now
@@ -166,14 +169,31 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
             {/* <SkillTips skill="listening" /> */}
           </>
         ) : selectedTipsSlug ? (
-          <ListeningTipsReader
+          <TipsReaderOverlay
+            skill="listening"
             slug={selectedTipsSlug}
-            onNavigate={(slug) => setSelectedTipsSlug(slug)}
-            onBack={() => setSelectedTipsSlug(null)}
+            anchorBlockId={selectedTipsAnchor}
+            onNavigate={(slug) => {
+              setSelectedTipsSlug(slug);
+              setSelectedTipsAnchor(null);
+            }}
+            onClose={() => {
+              setSelectedTipsSlug(null);
+              setSelectedTipsAnchor(null);
+            }}
           />
-        ) : (
+        ) : noBiteLessons ? (
           <ListeningTipsChapterList
             onSelectChapter={(slug) => setSelectedTipsSlug(slug)}
+          />
+        ) : (
+          <TipsLessonList
+            skill="listening"
+            onOpenChapter={(slug, anchorBlockId) => {
+              setSelectedTipsSlug(slug);
+              setSelectedTipsAnchor(anchorBlockId);
+            }}
+            onNoLessons={() => setNoBiteLessons(true)}
           />
         )}
       </div>

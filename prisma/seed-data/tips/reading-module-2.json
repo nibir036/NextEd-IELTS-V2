@@ -809,6 +809,22 @@
             "label": "Drill 11.4 (Level 4): Matching sentence endings",
             "prompt": "Complete: “Professor Osei believes birds may migrate to breeding sites…” Endings: i) …because food is always better there. ii) …even when food is no better there. iii) …only when no predators exist anywhere.",
             "answer": ""
+          },
+          {
+            "id": "r_b0030",
+            "type": "heading",
+            "level": 3,
+            "text": "Drill Answers & Explanations"
+          },
+          {
+            "id": "r_b0031",
+            "type": "paragraph",
+            "text": "[Note: the source material's answer explanations for Drill 11.1 and the opening of Drill 11.2 could not be located in the available extraction -- this recovered text begins mid-sentence, partway through the Drill 11.2 explanation.] and that only strong survival advantages could sustain it.” This contains the agreed point. 2. Nakamura’s sentence: “warns against tidy theories.” This contains the warning. Lesson: Matching Information wants the sentence that contains the specific detail. You scanned for the concept (agreement; warning) and found the exact line, ignoring paragraph topic. Drill 11.3 B. The passage shows disagreement on the cause (three different views) but explicit agreement that migration is “costly and dangerous.” A is wrong (they disagree on cause). C is wrong (the passage never claims it is fully explained; Nakamura resists tidy answers). Evidence: the three contrasting views plus the final “agree on” sentence. Lesson: the fully-supported option wins. C is an outside-knowledge or overreach trap; A distorts the agreement. Only B is provable from the text. Drill 11.4 ii, even when food is no better there. Verify against: “even where food is no better.” Ending i contradicts the passage (it says food is not the driver here). Ending iii (“only when no predators exist anywhere”) overstates “predator-poor” into “no predators anywhere,” a strength-of-claim overreach. Only ii matches both meaning and grammar. Lesson: several endings fit grammatically; only one fits the evidence. You chose on meaning first, then confirmed the grammar, and you rejected the overreaching ending, the same small- word vigilance from File 10."
+          },
+          {
+            "id": "r_b0032",
+            "type": "paragraph",
+            "text": "Order and Reading Question Types, Part One. Next: File 12, Reading Question Types, Part Two (the completion family, diagram labelling, and short answer)."
           }
         ]
       }
@@ -824,16 +840,6 @@
       "content": {
         "version": 1,
         "blocks": [
-          {
-            "id": "r_b0001",
-            "type": "paragraph",
-            "text": "and that only strong survival advantages could sustain it.” This contains the agreed point. 2. Nakamura’s sentence: “warns against tidy theories.” This contains the warning. Lesson: Matching Information wants the sentence that contains the specific detail. You scanned for the concept (agreement; warning) and found the exact line, ignoring paragraph topic. Drill 11.3 B. The passage shows disagreement on the cause (three different views) but explicit agreement that migration is “costly and dangerous.” A is wrong (they disagree on cause). C is wrong (the passage never claims it is fully explained; Nakamura resists tidy answers). Evidence: the three contrasting views plus the final “agree on” sentence. Lesson: the fully-supported option wins. C is an outside-knowledge or overreach trap; A distorts the agreement. Only B is provable from the text. Drill 11.4 ii, even when food is no better there. Verify against: “even where food is no better.” Ending i contradicts the passage (it says food is not the driver here). Ending iii (“only when no predators exist anywhere”) overstates “predator-poor” into “no predators anywhere,” a strength-of-claim overreach. Only ii matches both meaning and grammar. Lesson: several endings fit grammatically; only one fits the evidence. You chose on meaning first, then confirmed the grammar, and you rejected the overreaching ending, the same small- word vigilance from File 10."
-          },
-          {
-            "id": "r_b0002",
-            "type": "paragraph",
-            "text": "Order and Reading Question Types, Part One. Next: File 12, Reading Question Types, Part Two (the completion family, diagram labelling, and short answer)."
-          },
           {
             "id": "r_b0003",
             "type": "paragraph",

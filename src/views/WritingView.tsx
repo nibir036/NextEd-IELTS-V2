@@ -5,7 +5,8 @@ import { BackLink } from '../components/ui/BackLink';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import { TestSelector } from '../components/practice/TestSelector';
 import { WritingTipsChapterList } from '../components/practice/tips/writingtipschapterlist';
-import { WritingTipsReader } from '../components/practice/tips/writingtipsreader';
+import { TipsReaderOverlay } from '../components/practice/tips/TipsReaderOverlay';
+import { TipsLessonList } from '../components/practice/tips/TipsLessonList';
 import {
   PenTool, Sparkles, Send, CheckCircle2, RefreshCw, Trophy, BookOpen,
   ArrowRight,
@@ -92,6 +93,8 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
   const [browseTab, setBrowseTab] = useState<'tests' | 'tips'>(initialBrowseTab ?? 'tests');
 
   const [selectedTipsSlug, setSelectedTipsSlug] = useState<string | null>(null);
+  const [selectedTipsAnchor, setSelectedTipsAnchor] = useState<string | null>(null);
+  const [noBiteLessons, setNoBiteLessons] = useState(false);
 
   // See ReadingExamView for why this effect is needed -- the sidebar
   // dropdown changes the prop without remounting this view. The in-page
@@ -217,13 +220,30 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
             />
           </>
         ) : selectedTipsSlug ? (
-          <WritingTipsReader
+          <TipsReaderOverlay
+            skill="writing"
             slug={selectedTipsSlug}
-            onNavigate={(slug) => setSelectedTipsSlug(slug)}
-            onBack={() => setSelectedTipsSlug(null)}
+            anchorBlockId={selectedTipsAnchor}
+            onNavigate={(slug) => {
+              setSelectedTipsSlug(slug);
+              setSelectedTipsAnchor(null);
+            }}
+            onClose={() => {
+              setSelectedTipsSlug(null);
+              setSelectedTipsAnchor(null);
+            }}
           />
-        ) : (
+        ) : noBiteLessons ? (
           <WritingTipsChapterList onSelectChapter={(slug) => setSelectedTipsSlug(slug)} />
+        ) : (
+          <TipsLessonList
+            skill="writing"
+            onOpenChapter={(slug, anchorBlockId) => {
+              setSelectedTipsSlug(slug);
+              setSelectedTipsAnchor(anchorBlockId);
+            }}
+            onNoLessons={() => setNoBiteLessons(true)}
+          />
         )}
       </div>
     );

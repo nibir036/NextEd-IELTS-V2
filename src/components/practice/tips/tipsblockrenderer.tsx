@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TipsFigure, TipsFigureBlock } from './tipsfigure';
+import { parseInline } from './parseInline';
 
 export type TipsBlock =
   | { id: string; type: 'heading'; level: 1 | 2 | 3 | 4; text: string }
@@ -38,7 +39,7 @@ const Paragraph: React.FC<{ block: Extract<TipsBlock, { type: 'paragraph' }> }> 
   }
   return (
     <div className="my-2">
-      <p className="text-sm leading-relaxed text-[var(--text)]">{block.text}</p>
+      <p className="text-sm leading-relaxed text-[var(--text)]">{parseInline(block.text)}</p>
       {block.bn && <p className="text-xs leading-relaxed text-[var(--text-dim)] mt-1">{block.bn}</p>}
     </div>
   );
@@ -49,7 +50,7 @@ const ListBlock: React.FC<{ block: Extract<TipsBlock, { type: 'list' }> }> = ({ 
   return (
     <Tag className={`my-2 pl-5 space-y-1.5 text-sm text-[var(--text)] ${block.ordered ? 'list-decimal' : 'list-disc'}`}>
       {block.items.map((item, i) => (
-        <li key={i} className="leading-relaxed">{item}</li>
+        <li key={i} className="leading-relaxed">{parseInline(item)}</li>
       ))}
     </Tag>
   );
@@ -71,7 +72,7 @@ const TableBlock: React.FC<{ block: Extract<TipsBlock, { type: 'table' }> }> = (
         {block.rows.map((r, i) => (
           <tr key={i} className="odd:bg-transparent even:bg-[var(--panel-2)]/40">
             {r.map((c, ci) => (
-              <td key={ci} className="px-3 py-1.5 text-[var(--text)] border-b border-[var(--border)]/40">{c}</td>
+              <td key={ci} className="px-3 py-1.5 text-[var(--text)] border-b border-[var(--border)]/40">{parseInline(c)}</td>
             ))}
           </tr>
         ))}
@@ -84,14 +85,14 @@ const TableBlock: React.FC<{ block: Extract<TipsBlock, { type: 'table' }> }> = (
 const PrincipleBlock: React.FC<{ block: Extract<TipsBlock, { type: 'principle' }> }> = ({ block }) => (
   <div className="my-3 rounded-xl border border-[var(--accent-a)]/30 bg-[var(--accent-a)]/8 p-4">
     <div className="text-[11px] font-bold tracking-widest text-[var(--accent-a)] mb-1.5 uppercase">Principle</div>
-    <p className="text-sm leading-relaxed text-[var(--text)]">{block.text}</p>
+    <p className="text-sm leading-relaxed text-[var(--text)]">{parseInline(block.text)}</p>
   </div>
 );
 
 const TutorTipBlock: React.FC<{ block: Extract<TipsBlock, { type: 'callout' }> }> = ({ block }) => (
   <div className="my-3 rounded-xl border border-[var(--accent-b)]/30 bg-[var(--accent-b)]/8 p-4">
     <div className="text-[11px] font-bold tracking-widest text-[var(--accent-c)] mb-1.5 uppercase">{block.title}</div>
-    <p className="text-sm leading-relaxed text-[var(--text)]">{block.text}</p>
+    <p className="text-sm leading-relaxed text-[var(--text)]">{parseInline(block.text)}</p>
     {block.bn && <p className="text-xs leading-relaxed text-[var(--text-dim)] mt-2 pt-2 border-t border-[var(--accent-b)]/15">{block.bn}</p>}
   </div>
 );
@@ -101,7 +102,14 @@ const DrillBlock: React.FC<{ block: Extract<TipsBlock, { type: 'practice_drill' 
   return (
     <div className="my-3 rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]/40 p-4">
       <div className="text-xs font-semibold text-[var(--text)] mb-1.5">{block.label}</div>
-      <p className="text-sm leading-relaxed text-[var(--text)] whitespace-pre-line">{block.prompt}</p>
+      <p className="text-sm leading-relaxed text-[var(--text)]">
+        {block.prompt.split('\n').map((line, i) => (
+          <React.Fragment key={i}>
+            {i > 0 && <br />}
+            {parseInline(line)}
+          </React.Fragment>
+        ))}
+      </p>
       <button
         onClick={() => setOpen((o) => !o)}
         className="mt-3 text-xs font-medium text-[var(--accent-a)] hover:underline"
@@ -109,8 +117,13 @@ const DrillBlock: React.FC<{ block: Extract<TipsBlock, { type: 'practice_drill' 
         {open ? 'Hide answer & reasoning' : 'Show answer & reasoning'}
       </button>
       {open && (
-        <p className="text-sm leading-relaxed text-[var(--text-dim)] whitespace-pre-line mt-2 pt-2 border-t border-[var(--border)]">
-          {block.answer}
+        <p className="text-sm leading-relaxed text-[var(--text-dim)] mt-2 pt-2 border-t border-[var(--border)]">
+          {block.answer.split('\n').map((line, i) => (
+            <React.Fragment key={i}>
+              {i > 0 && <br />}
+              {parseInline(line)}
+            </React.Fragment>
+          ))}
         </p>
       )}
     </div>

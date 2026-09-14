@@ -3,7 +3,6 @@ import { LandingNav } from '../components/landing/LandingNav';
 import { HeroScoreCard } from '../components/landing/HeroScoreCard';
 import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
-import { SkillTag } from '../components/ui/SkillTag';
 import { Reveal } from '../components/ui/Reveal';
 import { skillModules, siteStats } from '../lib/data';
 import {
@@ -50,7 +49,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
       <section id="home" className="relative z-10 max-w-7xl mx-auto px-4 md:px-10 pt-10 pb-16 md:pt-16 md:pb-24 page-fade-in">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-6 space-y-6 text-left">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--accent-a)]/15 border border-[var(--accent-a)]/30 text-xs font-mono text-[var(--accent-a)]">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#6366f1]/15 border border-[#6366f1]/30 text-xs font-mono text-[#6366f1]">
               <Sparkles size={14} />
               <span>Official IELTS Descriptor Aligned Evaluator</span>
             </div>
@@ -143,8 +142,8 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
         </Reveal>
 
         <Reveal delayMs={200} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <GlassPanel className="p-6 space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-[var(--accent-a)]/15 border border-[var(--accent-a)]/30 text-[var(--accent-a)] flex items-center justify-center font-bold">
+          <GlassPanel className="space-y-3 border border-[var(--border)] shadow-lg">
+            <div className="w-10 h-10 rounded-xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center font-bold shadow-md">
               <Shield size={20} />
             </div>
             <h3 className="font-display text-lg font-bold text-[var(--text)]">
@@ -155,8 +154,8 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
             </p>
           </GlassPanel>
 
-          <GlassPanel className="p-6 space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-[var(--accent-b)]/15 border border-[var(--accent-b)]/30 text-[var(--accent-c)] flex items-center justify-center font-bold">
+          <GlassPanel className="space-y-3 border border-[var(--border)] shadow-lg">
+            <div className="w-10 h-10 rounded-xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center font-bold shadow-md">
               <Trophy size={20} />
             </div>
             <h3 className="font-display text-lg font-bold text-[var(--text)]">
@@ -167,8 +166,8 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
             </p>
           </GlassPanel>
 
-          <GlassPanel className="p-6 space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-[var(--accent-c)]/15 border border-[var(--accent-c)]/30 text-[var(--accent-c)] flex items-center justify-center font-bold">
+          <GlassPanel className="space-y-3 border border-[var(--border)] shadow-lg">
+            <div className="w-10 h-10 rounded-xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center font-bold shadow-md">
               <Sparkles size={20} />
             </div>
             <h3 className="font-display text-lg font-bold text-[var(--text)]">
@@ -190,24 +189,26 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {skillModules.map((module, idx) => (
               <Reveal key={module.id} delayMs={idx * 140}>
-              <GlassPanel
-                onClick={() => onLaunchApp(module.id)}
-                interactive
-                className="p-5 relative group"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <SkillTag skill={module.id} size="sm" />
-                  <span className="text-[11px] font-mono text-[var(--text-faint)]">
-                    {module.activeModulesCount} Sets
-                  </span>
-                </div>
-                <h4 className="font-display font-bold text-sm text-[var(--text)] group-hover:text-[var(--accent-a)] transition-colors mb-1">
-                  {module.name}
-                </h4>
-                <p className="text-xs text-[var(--text-dim)] line-clamp-3 leading-relaxed">
-                  {module.description}
-                </p>
-              </GlassPanel>
+                <GlassPanel
+                  interactive
+                  onClick={() => onLaunchApp(module.id)}
+                  className="relative overflow-hidden group shadow-lg transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-[var(--bg-elevated)] border border-[var(--border)] text-[var(--text)]">
+                      {module.name.replace('IELTS ', '')}
+                    </span>
+                    <span className="text-[11px] font-mono text-[var(--text-faint)] bg-[var(--panel-2)] border border-[var(--border)] px-2 py-0.5 rounded-full">
+                      {module.activeModulesCount} Sets
+                    </span>
+                  </div>
+                  <h4 className="font-display font-bold text-sm text-[var(--text)] transition-colors mb-1">
+                    {module.name}
+                  </h4>
+                  <p className="text-xs text-[var(--text-dim)] line-clamp-3 leading-relaxed">
+                    {module.description}
+                  </p>
+                </GlassPanel>
               </Reveal>
             ))}
           </div>
@@ -231,8 +232,8 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
           </Reveal>
 
           <Reveal delayMs={200} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <GlassPanel className="p-6 relative">
-              <div className="w-9 h-9 rounded-xl bg-[var(--accent-a)] text-white font-bold font-mono text-sm flex items-center justify-center mb-4 shadow-md">
+            <GlassPanel className="border border-[var(--border)] shadow-lg">
+              <div className="w-9 h-9 rounded-xl bg-[image:var(--accent-gradient)] text-white font-bold font-mono text-sm flex items-center justify-center mb-4 shadow-md">
                 01
               </div>
               <h3 className="font-display font-bold text-lg text-[var(--text)] mb-2">
@@ -243,8 +244,8 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
               </p>
             </GlassPanel>
 
-            <GlassPanel className="p-6 relative">
-              <div className="w-9 h-9 rounded-xl bg-[var(--accent-b)] text-white font-bold font-mono text-sm flex items-center justify-center mb-4 shadow-md">
+            <GlassPanel className="border border-[var(--border)] shadow-lg">
+              <div className="w-9 h-9 rounded-xl bg-[image:var(--accent-gradient)] text-white font-bold font-mono text-sm flex items-center justify-center mb-4 shadow-md">
                 02
               </div>
               <h3 className="font-display font-bold text-lg text-[var(--text)] mb-2">
@@ -255,8 +256,8 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
               </p>
             </GlassPanel>
 
-            <GlassPanel className="p-6 relative">
-              <div className="w-9 h-9 rounded-xl bg-[var(--accent-c)] text-white font-bold font-mono text-sm flex items-center justify-center mb-4 shadow-md">
+            <GlassPanel className="border border-[var(--border)] shadow-lg">
+              <div className="w-9 h-9 rounded-xl bg-[image:var(--accent-gradient)] text-white font-bold font-mono text-sm flex items-center justify-center mb-4 shadow-md">
                 03
               </div>
               <h3 className="font-display font-bold text-lg text-[var(--text)] mb-2">
@@ -267,8 +268,8 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
               </p>
             </GlassPanel>
 
-            <GlassPanel className="p-6 relative">
-              <div className="w-9 h-9 rounded-xl bg-[var(--accent-d)] text-white font-bold font-mono text-sm flex items-center justify-center mb-4 shadow-md">
+            <GlassPanel className="border border-[var(--border)] shadow-lg">
+              <div className="w-9 h-9 rounded-xl bg-[image:var(--accent-gradient)] text-white font-bold font-mono text-sm flex items-center justify-center mb-4 shadow-md">
                 04
               </div>
               <h3 className="font-display font-bold text-lg text-[var(--text)] mb-2">

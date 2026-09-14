@@ -56,13 +56,26 @@ const ListBlock: React.FC<{ block: Extract<TipsBlock, { type: 'list' }> }> = ({ 
   );
 };
 
+// Generic block-type accent colors -- light touches only, since this is
+// body content people read carefully. Not full saturated gradients.
+const ACCENT = {
+  callout: '#6366f1', // indigo -- callout/tip
+  principle: '#10b981', // emerald -- principle/rule
+  drill: '#38bdf8', // sky -- practice drill
+  table: '#c084fc', // fuchsia -- table/data
+};
+
 const TableBlock: React.FC<{ block: Extract<TipsBlock, { type: 'table' }> }> = ({ block }) => (
-  <div className="my-3 overflow-x-auto rounded-lg border border-[var(--border)]">
+  <div className="my-3 overflow-x-auto rounded-lg border" style={{ borderColor: `${ACCENT.table}40` }}>
     <table className="w-full text-xs border-collapse">
       <thead>
         <tr>
           {block.headers.map((h) => (
-            <th key={h} className="text-left px-3 py-2 bg-[var(--panel-2)] text-[var(--text-dim)] font-medium border-b border-[var(--border)]">
+            <th
+              key={h}
+              className="text-left px-3 py-2 bg-[var(--panel-2)] font-medium border-b"
+              style={{ color: ACCENT.table, borderColor: `${ACCENT.table}40` }}
+            >
               {h}
             </th>
           ))}
@@ -83,24 +96,37 @@ const TableBlock: React.FC<{ block: Extract<TipsBlock, { type: 'table' }> }> = (
 );
 
 const PrincipleBlock: React.FC<{ block: Extract<TipsBlock, { type: 'principle' }> }> = ({ block }) => (
-  <div className="my-3 rounded-xl border border-[var(--accent-a)]/30 bg-[var(--accent-a)]/8 p-4">
-    <div className="text-[11px] font-bold tracking-widest text-[var(--accent-a)] mb-1.5 uppercase">Principle</div>
+  <div
+    className="my-3 rounded-xl border border-l-4 p-4"
+    style={{ borderColor: `${ACCENT.principle}30`, borderLeftColor: ACCENT.principle, backgroundColor: `${ACCENT.principle}0d` }}
+  >
+    <div className="text-[11px] font-bold tracking-widest mb-1.5 uppercase" style={{ color: ACCENT.principle }}>Principle</div>
     <p className="text-sm leading-relaxed text-[var(--text)]">{parseInline(block.text)}</p>
   </div>
 );
 
 const TutorTipBlock: React.FC<{ block: Extract<TipsBlock, { type: 'callout' }> }> = ({ block }) => (
-  <div className="my-3 rounded-xl border border-[var(--accent-b)]/30 bg-[var(--accent-b)]/8 p-4">
-    <div className="text-[11px] font-bold tracking-widest text-[var(--accent-c)] mb-1.5 uppercase">{block.title}</div>
+  <div
+    className="my-3 rounded-xl border border-l-4 p-4"
+    style={{ borderColor: `${ACCENT.callout}30`, borderLeftColor: ACCENT.callout, backgroundColor: `${ACCENT.callout}0d` }}
+  >
+    <div className="text-[11px] font-bold tracking-widest mb-1.5 uppercase" style={{ color: ACCENT.callout }}>{block.title}</div>
     <p className="text-sm leading-relaxed text-[var(--text)]">{parseInline(block.text)}</p>
-    {block.bn && <p className="text-xs leading-relaxed text-[var(--text-dim)] mt-2 pt-2 border-t border-[var(--accent-b)]/15">{block.bn}</p>}
+    {block.bn && (
+      <p className="text-xs leading-relaxed text-[var(--text-dim)] mt-2 pt-2 border-t" style={{ borderColor: `${ACCENT.callout}25` }}>
+        {block.bn}
+      </p>
+    )}
   </div>
 );
 
 const DrillBlock: React.FC<{ block: Extract<TipsBlock, { type: 'practice_drill' }> }> = ({ block }) => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="my-3 rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]/40 p-4">
+    <div
+      className="my-3 rounded-xl border border-l-4 bg-[var(--bg-elevated)]/40 p-4"
+      style={{ borderColor: 'var(--border)', borderLeftColor: ACCENT.drill }}
+    >
       <div className="text-xs font-semibold text-[var(--text)] mb-1.5">{block.label}</div>
       <p className="text-sm leading-relaxed text-[var(--text)]">
         {block.prompt.split('\n').map((line, i) => (
@@ -112,7 +138,8 @@ const DrillBlock: React.FC<{ block: Extract<TipsBlock, { type: 'practice_drill' 
       </p>
       <button
         onClick={() => setOpen((o) => !o)}
-        className="mt-3 text-xs font-medium text-[var(--accent-a)] hover:underline"
+        className="mt-3 text-xs font-medium hover:underline"
+        style={{ color: ACCENT.drill }}
       >
         {open ? 'Hide answer & reasoning' : 'Show answer & reasoning'}
       </button>

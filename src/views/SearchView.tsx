@@ -105,11 +105,11 @@ export const SearchView: React.FC<SearchViewProps> = ({ id, onNavigateAction }) 
   return (
     <div id={id} className="space-y-6">
       {/* Header Banner & Search Input */}
-      <GlassPanel className="p-6">
+      <GlassPanel className="p-6 border border-[var(--border)] shadow-lg">
         <div className="space-y-4">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono mb-2">
-              <Sparkles size={14} />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--bg-elevated)] text-[var(--text)] border border-[var(--border)] text-xs font-mono mb-2">
+              <Sparkles size={14} className="text-[var(--accent-a)]" />
               <span>Grammar & Vocabulary Index</span>
             </div>
             <h2 className="font-display text-2xl font-bold text-[var(--text)]">
@@ -124,7 +124,7 @@ export const SearchView: React.FC<SearchViewProps> = ({ id, onNavigateAction }) 
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search modules, chapters, topics..."
-              className="w-full pl-11 pr-4 py-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors"
+              className="w-full pl-11 pr-4 py-3 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:outline-none focus:border-[var(--accent-a)] transition-colors"
               autoFocus
             />
           </div>
@@ -137,8 +137,8 @@ export const SearchView: React.FC<SearchViewProps> = ({ id, onNavigateAction }) 
                 onClick={() => setSelectedKind(k)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all cursor-pointer whitespace-nowrap ${
                   selectedKind === k
-                    ? 'bg-[image:var(--accent-gradient)] text-white font-semibold'
-                    : 'bg-[var(--bg-elevated)] text-[var(--text-dim)] hover:text-[var(--text)] border border-[var(--border)]'
+                    ? 'bg-[var(--accent-a)] text-white font-semibold'
+                    : 'bg-[var(--bg-elevated)] text-[var(--text-faint)] hover:text-[var(--text)] border border-[var(--border)]'
                 }`}
               >
                 {k}
@@ -151,13 +151,15 @@ export const SearchView: React.FC<SearchViewProps> = ({ id, onNavigateAction }) 
       {/* Results List */}
       <div className="space-y-3">
         {loading && (
-          <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)] font-mono">
+          <GlassPanel className="p-8 border border-[var(--border)] shadow-lg text-center text-sm text-[var(--text-dim)] font-mono">
             Loading searchable content...
           </GlassPanel>
         )}
 
         {error && (
-          <GlassPanel className="p-8 text-center text-sm text-[var(--danger)]">{error}</GlassPanel>
+          <GlassPanel className="p-8 border border-[var(--border)] shadow-lg text-center text-sm text-rose-300">
+            {error}
+          </GlassPanel>
         )}
 
         {!loading && !error &&
@@ -168,31 +170,31 @@ export const SearchView: React.FC<SearchViewProps> = ({ id, onNavigateAction }) 
                 key={r.id}
                 onClick={() => onNavigateAction(r.route)}
                 interactive
-                className="p-4 flex items-center gap-4 cursor-pointer group"
+                className="p-4 flex items-center gap-4 cursor-pointer group border border-[var(--border)] shadow-lg transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-xl"
               >
-                <div className="w-10 h-10 rounded-xl bg-[var(--accent-a)]/15 text-[var(--accent-a)] flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] text-[var(--accent-a)] flex items-center justify-center shrink-0">
                   <Icon size={18} />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] border border-[var(--accent-a)]/30 text-[11px] font-mono font-bold uppercase">
+                    <span className="px-2 py-0.5 rounded-md bg-[var(--bg-elevated)] text-[var(--text-dim)] border border-[var(--border)] text-[11px] font-mono font-bold uppercase">
                       {r.kind}
                     </span>
                   </div>
-                  <h3 className="font-display font-bold text-sm text-[var(--text)] group-hover:text-[var(--accent-a)] transition-colors truncate mt-0.5">
+                  <h3 className="font-display font-bold text-sm text-[var(--text)] transition-colors truncate mt-0.5">
                     {r.title}
                   </h3>
                   {r.detail && (
                     <p className="text-xs text-[var(--text-dim)] truncate">{r.detail}</p>
                   )}
                 </div>
-                <ChevronRight size={16} className="text-[var(--text-faint)] group-hover:text-[var(--accent-a)] transition-colors shrink-0" />
+                <ChevronRight size={16} className="text-[var(--text-faint)] group-hover:text-[var(--text)] transition-colors shrink-0" />
               </GlassPanel>
             );
           })}
 
         {!loading && !error && filtered.length === 0 && (
-          <GlassPanel className="p-8 text-center">
+          <GlassPanel className="p-8 border border-[var(--border)] shadow-lg text-center">
             <p className="text-xs text-[var(--text-dim)]">
               {query ? `No results found for "${query}".` : 'No content available yet.'}
             </p>

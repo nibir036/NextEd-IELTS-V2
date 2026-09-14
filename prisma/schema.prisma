@@ -54,8 +54,39 @@ model lessons {
   updated_at       DateTime           @default(now()) @db.Timestamptz(6)
   lesson_resources lesson_resources[]
   vocabularies     vocabulary[]
+  vocab_lessons    vocab_lessons[]
 
   @@index([section], map: "idx_lessons_section")
+}
+
+// Bite-sized browsing layer for the "Zero to Band 9" vocab chapters --
+// same architecture as tips_lessons / grammar_lessons, but the parent
+// is a single `lessons` row (section = 'vocab', position 1-7) instead
+// of a module/chapter pair, since Zero to Band 9 has no module concept.
+// There is also no separate exercises table for vocab: chapters embed
+// their own exercise blocks, so `exercise_anchor_block_id` points at a
+// block inside the SAME chapter's content rather than a foreign row.
+model vocab_lessons {
+  id                        String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  lesson_id                 String   @db.Uuid
+  slug                      String
+  position                  Int      @default(0)
+  title                     String
+  source_label              String?
+  collection_slug           String?
+  collection_label          String?
+  bite                      String
+  detail_md                 String
+  read_more_anchor_block_id String?
+  exercise_anchor_block_id  String?
+  estimated_min             Int?
+  is_published              Boolean  @default(true)
+  created_at                DateTime @default(now()) @db.Timestamptz(6)
+  updated_at                DateTime @default(now()) @db.Timestamptz(6)
+  lesson                    lessons  @relation(fields: [lesson_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([lesson_id, slug])
+  @@index([lesson_id, position], map: "idx_vocab_lessons_lesson")
 }
 
 model mock_test_sections {
@@ -228,6 +259,7 @@ model grammar_modules {
   created_at   DateTime           @default(now()) @db.Timestamptz(6)
   updated_at   DateTime           @default(now()) @db.Timestamptz(6)
   chapters     grammar_chapters[]
+  lessons      grammar_lessons[]
 }
 
 model grammar_chapters {
@@ -247,6 +279,7 @@ model grammar_chapters {
   module        grammar_modules         @relation(fields: [module_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   exercises     grammar_exercises[]
   progress      user_grammar_progress[]
+  lessons       grammar_lessons[]
 
   @@unique([module_id, slug])
   @@index([module_id, position], map: "idx_grammar_chapters_module")
@@ -265,9 +298,44 @@ model grammar_exercises {
   created_at   DateTime                @default(now()) @db.Timestamptz(6)
   chapter      grammar_chapters        @relation(fields: [chapter_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   attempts     user_grammar_attempts[]
+  lessons      grammar_lessons[]
 
   @@unique([chapter_id, slug])
   @@index([chapter_id, position], map: "idx_grammar_exercises_chapter")
+}
+
+// Bite-sized "quick tip" layer for Grammar, mirroring tips_lessons --
+// short teaser cards, grouped into collections, that sit in front of
+// the full chapters. Unlike tips_lessons, each lesson can also point
+// at a specific grammar_exercise, since Grammar (unlike the Tips
+// modules) has real practice drills attached to its chapters -- the
+// bite-lesson modal offers both "Read More" (full chapter, at
+// read_more_anchor_block_id) and "Go to Exercises" (that exercise).
+model grammar_lessons {
+  id                        String             @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  module_id                 String             @db.Uuid
+  chapter_id                String?            @db.Uuid
+  exercise_id               String?            @db.Uuid
+  slug                      String
+  position                  Int                @default(0)
+  title                     String
+  source_label              String?
+  collection_slug           String?
+  collection_label          String?
+  bite                      String
+  detail_md                 String
+  read_more_anchor_block_id String?
+  estimated_min             Int?
+  is_published               Boolean            @default(true)
+  created_at                DateTime           @default(now()) @db.Timestamptz(6)
+  updated_at                DateTime           @default(now()) @db.Timestamptz(6)
+  module                    grammar_modules    @relation(fields: [module_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  chapter                   grammar_chapters?  @relation(fields: [chapter_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  exercise                  grammar_exercises? @relation(fields: [exercise_id], references: [id], onDelete: SetNull, onUpdate: NoAction)
+
+  @@unique([module_id, slug])
+  @@index([module_id, position], map: "idx_grammar_lessons_module")
+  @@index([module_id, collection_slug], map: "idx_grammar_lessons_collection")
 }
 
 model user_grammar_progress {

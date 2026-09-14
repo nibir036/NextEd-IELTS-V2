@@ -28,22 +28,15 @@ export const DailyTipBanner: React.FC<{ id?: string }> = ({ id }) => {
   return (
     <GlassPanel
       id={id}
-      className="relative overflow-hidden p-6 border-2 border-[var(--accent-a)]/40 bg-[var(--accent-a)]/10 flex items-start gap-4 shadow-lg shadow-[var(--glow-a)]"
+      className="p-6 flex items-start gap-4 border-2 border-[var(--accent-a)]/40 bg-[var(--accent-a)]/10"
     >
-      {/* Faint shimmer sweep -- purely decorative, sits behind the content */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-dailyTipShimmer"
-      />
-
-      <div className="relative shrink-0">
-        <div className="absolute inset-0 rounded-2xl animate-dailyTipPulse" />
-        <div className="relative w-14 h-14 rounded-2xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center shadow-lg shadow-[var(--glow-a)]">
+      <div className="shrink-0">
+        <div className="w-14 h-14 rounded-2xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center shadow-lg">
           <Sparkles size={24} />
         </div>
       </div>
 
-      <div className="relative min-w-0">
+      <div className="min-w-0">
         <div className="flex items-center gap-2 text-xs font-mono font-extrabold uppercase tracking-wide text-[var(--accent-a)] mb-1.5">
           <span className="px-2 py-0.5 rounded-full bg-[var(--accent-a)]/15 border border-[var(--accent-a)]/30">
             Daily Tip

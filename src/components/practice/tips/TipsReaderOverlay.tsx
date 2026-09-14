@@ -165,10 +165,10 @@ export const TipsReaderOverlay: React.FC<{
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 md:p-6 bg-black/70 backdrop-blur-sm">
-      <div className="relative w-[92vw] md:w-[88vw] max-w-6xl h-[92vh] rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-elevated)] shadow-2xl flex flex-col overflow-hidden">
+    <div className="animate-fadeIn fixed inset-0 z-[100] flex items-center justify-center p-3 md:p-6 bg-black/70 backdrop-blur-sm">
+      <div className="animate-pouchPopIn relative w-[92vw] md:w-[88vw] max-w-6xl h-[92vh] rounded-2xl bg-[var(--bg-elevated)] shadow-2xl flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between gap-3 px-5 md:px-8 py-4 border-b border-[var(--border)] shrink-0">
+        <div className="flex items-center justify-between gap-3 px-5 md:px-8 py-4 shrink-0 border-b border-[var(--border)] bg-[var(--panel-2)]">
           <div className="min-w-0">
             {chapter && (
               <div className="text-[11px] font-mono uppercase text-[var(--text-faint)] tracking-wide truncate">
@@ -181,7 +181,7 @@ export const TipsReaderOverlay: React.FC<{
           </div>
           <div className="flex items-center gap-3 shrink-0">
             {chapter?.estimatedMin && (
-              <div className="hidden sm:flex items-center gap-1 text-xs text-[var(--text-dim)] font-mono">
+              <div className="hidden sm:flex items-center gap-1 text-xs text-[var(--text-faint)] font-mono">
                 <Clock size={13} />
                 <span>{chapter.estimatedMin} min</span>
               </div>
@@ -189,7 +189,7 @@ export const TipsReaderOverlay: React.FC<{
             <button
               onClick={onClose}
               aria-label="Close reader"
-              className="w-8 h-8 flex items-center justify-center rounded-lg text-[var(--text-faint)] hover:text-[var(--text)] hover:bg-[var(--panel-2)] transition-colors cursor-pointer"
+              className="w-8 h-8 flex items-center justify-center rounded-lg text-[var(--text-dim)] hover:text-[var(--text)] hover:bg-[var(--bg)] transition-colors cursor-pointer"
             >
               <X size={16} />
             </button>
@@ -206,27 +206,29 @@ export const TipsReaderOverlay: React.FC<{
             <>
               {/* Sidebar: in this chapter */}
               {sections.length > 0 && (
-                <nav className="hidden md:block w-56 shrink-0 border-r border-[var(--border)] overflow-y-auto px-4 py-5">
-                  <div className="text-[10px] font-mono uppercase text-[var(--text-faint)] tracking-wide mb-2 px-2">
-                    In this chapter
-                  </div>
-                  <div className="space-y-0.5">
-                    {sections.map((s) => {
-                      const isActive = activeSectionId === s.id;
-                      return (
-                        <button
-                          key={s.id}
-                          onClick={() => jumpTo(s.id)}
-                          className={`w-full text-left px-2 py-1.5 rounded-lg text-xs leading-snug border-l-2 transition-colors cursor-pointer ${
-                            isActive
-                              ? 'border-[var(--accent-a)] text-[var(--text)] font-semibold bg-[var(--panel-2)]'
-                              : 'border-transparent text-[var(--text-faint)] hover:text-[var(--text-dim)]'
-                          }`}
-                        >
-                          {s.text}
-                        </button>
-                      );
-                    })}
+                <nav className="hidden md:block w-56 shrink-0 border-r border-[var(--border)] bg-[var(--panel-2)]">
+                  <div className="h-full overflow-y-auto px-4 py-5">
+                    <div className="text-[10px] font-mono uppercase text-[var(--text-faint)] tracking-wide mb-2 px-2">
+                      In this chapter
+                    </div>
+                    <div className="space-y-0.5">
+                      {sections.map((s) => {
+                        const isActive = activeSectionId === s.id;
+                        return (
+                          <button
+                            key={s.id}
+                            onClick={() => jumpTo(s.id)}
+                            className={`w-full text-left px-2 py-1.5 rounded-lg text-xs leading-snug border-l-2 transition-colors cursor-pointer ${
+                              isActive
+                                ? 'border-[var(--accent-a)] text-[var(--accent-a)] font-semibold bg-[var(--accent-a)]/10'
+                                : 'border-transparent text-[var(--text-dim)] hover:text-[var(--text)]'
+                            }`}
+                          >
+                            {s.text}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
                 </nav>
               )}

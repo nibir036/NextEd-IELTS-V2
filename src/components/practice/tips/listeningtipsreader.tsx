@@ -65,19 +65,11 @@ export const ListeningTipsReader: React.FC<{
   }, [slug]);
 
   if (error) {
-    return (
-      <GlassPanel className="p-6 text-sm text-[var(--danger)]">
-        {error}
-      </GlassPanel>
-    );
+    return <GlassPanel className="p-6 text-sm text-[var(--danger)]">{error}</GlassPanel>;
   }
 
   if (!chapter) {
-    return (
-      <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)]">
-        Loading…
-      </GlassPanel>
-    );
+    return <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)]">Loading…</GlassPanel>;
   }
 
   const markComplete = () => {

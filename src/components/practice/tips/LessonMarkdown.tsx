@@ -1,6 +1,11 @@
 import React from 'react';
 import { parseInline } from './parseInline';
 
+// Same "callout/tip" accent used by TipsBlockRenderer's tutor-tip
+// callout -- this is the markdown-rendered counterpart of that same
+// block type, so it gets the same light indigo accent.
+const CALLOUT_ACCENT = '#6366f1';
+
 type BodyNode =
   | { t: 'ul' | 'ol'; items: string[] }
   | { t: 'bn'; text: string }
@@ -104,8 +109,12 @@ export const LessonMarkdown: React.FC<{ md: string }> = ({ md }) => {
         if (!s.heading) return <div key={i}>{body}</div>;
         if (s.heading.toLowerCase() === 'tutor insider tip') {
           return (
-            <div key={i} className="my-3 rounded-xl border border-[var(--accent-b)]/30 bg-[var(--accent-b)]/8 p-4">
-              <div className="text-[11px] font-bold tracking-widest text-[var(--accent-c)] mb-1.5 uppercase">
+            <div
+              key={i}
+              className="my-3 rounded-xl border border-l-4 p-4"
+              style={{ borderColor: `${CALLOUT_ACCENT}30`, borderLeftColor: CALLOUT_ACCENT, backgroundColor: `${CALLOUT_ACCENT}0d` }}
+            >
+              <div className="text-[11px] font-bold tracking-widest mb-1.5 uppercase" style={{ color: CALLOUT_ACCENT }}>
                 Tutor insider tip
               </div>
               {body}

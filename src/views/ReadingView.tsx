@@ -15,10 +15,10 @@ export const ReadingView: React.FC<ReadingViewProps> = ({ id }) => {
 
   return (
     <div id={id} className="space-y-6">
-      <GlassPanel className="p-6">
+      <GlassPanel className="p-6 border border-[var(--border)] shadow-lg">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono mb-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text)] text-xs font-mono mb-2">
               <Sparkles size={14} />
               <span>Reading Practice</span>
             </div>
@@ -34,7 +34,7 @@ export const ReadingView: React.FC<ReadingViewProps> = ({ id }) => {
             </p>
           </div>
 
-          <div className="inline-flex items-center rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] p-1 shrink-0">
+          <div className="inline-flex items-center rounded-xl border border-[var(--border)] bg-[var(--panel-2)] p-1 shrink-0">
             <button
               onClick={() => {
                 setBrowseTab('tests');

@@ -17,7 +17,7 @@ export const SkillProgressGraph: React.FC<{ data: DashboardData | null; id?: str
   const anyBand = data ? SKILL_LABELS.some(({ key }) => data.skillBands[key] !== null) : false;
 
   return (
-    <GlassPanel id={id} className="p-6 border border-[var(--border)] h-full flex flex-col">
+    <GlassPanel id={id} className="p-6 h-full flex flex-col border border-[var(--border)] shadow-lg">
       <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-a)] mb-1">
         <TrendingUp size={16} />
         <span>Analytics</span>
@@ -35,11 +35,11 @@ export const SkillProgressGraph: React.FC<{ data: DashboardData | null; id?: str
               <div key={key} className="space-y-1.5">
                 <div className="flex justify-between text-xs md:text-sm font-medium">
                   <span className="text-[var(--text)] font-semibold">{label}</span>
-                  <span className="font-mono font-bold text-[var(--accent-a)]">
+                  <span className="font-mono font-bold text-[var(--text-dim)]">
                     {band !== null ? `Band ${band.toFixed(1)}` : 'Not assessed'}
                   </span>
                 </div>
-                <div className="w-full h-3 rounded-full bg-[var(--bg)] border border-[var(--border)] overflow-hidden">
+                <div className="w-full h-3 rounded-full bg-[var(--panel-2)] border border-[var(--border)] overflow-hidden">
                   <div
                     className="h-full bg-[image:var(--accent-gradient)] rounded-full transition-[width] duration-[1200ms] ease-out"
                     style={{ width: `${pct}%`, transitionDelay: `${idx * 120}ms` }}

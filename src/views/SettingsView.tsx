@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { GlassPanel } from '../components/ui/GlassPanel';
 import { ThemeSwitcher } from '../components/settings/ThemeSwitcher';
 import { Button } from '../components/ui/Button';
+import { GlassPanel } from '../components/ui/GlassPanel';
 import { db, type DbUser, type ExamType, type AcademicBackground } from '../lib/db';
 import {
   Settings,
@@ -37,9 +37,11 @@ const EXAM_TYPE_OPTIONS: { value: ExamType; label: string }[] = [
 ];
 
 const inputClass =
-  'w-full bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-3 text-xs text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] disabled:opacity-60 disabled:cursor-not-allowed';
+  'w-full bg-[var(--bg)] border border-[var(--border)] rounded-xl p-3 text-xs text-[var(--text)] placeholder:text-[var(--text-faint)] focus:outline-none focus:border-[var(--accent-a)] disabled:opacity-60 disabled:cursor-not-allowed transition-colors';
 const labelClass =
-  'block text-xs font-mono text-[var(--text-faint)] uppercase mb-1';
+  'block text-xs font-mono text-[var(--text-dim)] uppercase mb-1 tracking-wide';
+const errorClass =
+  'text-xs font-semibold text-rose-300 bg-rose-500/15 border border-rose-500/30 rounded-lg px-3 py-2';
 
 export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
   const [user, setUser] = useState<DbUser | null>(null);
@@ -146,16 +148,16 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
   return (
     <div id={id} className="space-y-6">
       {/* Identity header */}
-      <GlassPanel className="p-6">
+      <GlassPanel className="p-6 border border-[var(--border)] shadow-lg">
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-[image:var(--accent-gradient)] text-white font-bold text-lg flex items-center justify-center shrink-0">
+          <div className="w-14 h-14 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border)] text-[var(--accent-a)] font-bold text-lg flex items-center justify-center shrink-0">
             {initials}
           </div>
           <div className="min-w-0">
             <h2 className="font-display text-xl font-bold text-[var(--text)] truncate">
               {user?.name && user.name !== 'Candidate' ? user.name : 'Your Profile'}
             </h2>
-            <p className="text-xs text-[var(--text-faint)] mt-0.5">
+            <p className="text-xs text-[var(--text-dim)] mt-0.5">
               Member since {memberSince}
               {user && user.currentBand > 0 && (
                 <> · Current band {user.currentBand.toFixed(1)}</>
@@ -166,7 +168,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
       </GlassPanel>
 
       {/* Profile details */}
-      <GlassPanel className="p-6 space-y-4">
+      <GlassPanel className="p-6 border border-[var(--border)] shadow-lg space-y-4">
         <div className="flex items-center gap-2">
           <User size={18} className="text-[var(--accent-a)]" />
           <h3 className="font-display text-xl font-bold text-[var(--text)]">
@@ -175,7 +177,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
         </div>
 
         {loading ? (
-          <p className="text-xs text-[var(--text-faint)] py-4">Loading your details…</p>
+          <p className="text-xs text-[var(--text-dim)] py-4">Loading your details…</p>
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
@@ -285,8 +287,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
                   disabled
                   className={inputClass}
                 />
-                <p className="flex items-center gap-1.5 text-[11px] text-[var(--text-faint)] mt-1">
-                  <PhoneCall size={12} className="text-[var(--accent-a)]" />
+                <p className="flex items-center gap-1.5 text-[11px] text-[var(--text-dim)] mt-1">
+                  <PhoneCall size={12} className="text-[var(--text-faint)]" />
                   To change your phone number, contact NextEd support.
                 </p>
               </div>
@@ -343,12 +345,12 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
             </div>
 
             {profileError && (
-              <p className="text-xs text-[var(--danger)]">{profileError}</p>
+              <p className={errorClass}>{profileError}</p>
             )}
 
             <div className="pt-2 flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs text-[var(--text-faint)]">
-                <GraduationCap size={14} className="text-[var(--accent-a)]" />
+              <div className="flex items-center gap-2 text-xs text-[var(--text-dim)]">
+                <GraduationCap size={14} className="text-[var(--text-faint)]" />
                 <span>Used to personalize your study plan</span>
               </div>
               <Button
@@ -366,7 +368,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
       </GlassPanel>
 
       {/* Exam goals — separate save */}
-      <GlassPanel className="p-6 space-y-4">
+      <GlassPanel className="p-6 border border-[var(--border)] shadow-lg space-y-4">
         <div className="flex items-center gap-2">
           <Settings size={18} className="text-[var(--accent-a)]" />
           <h3 className="font-display text-xl font-bold text-[var(--text)]">
@@ -401,10 +403,10 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
           </div>
         </div>
 
-        {goalsError && <p className="text-xs text-[var(--danger)]">{goalsError}</p>}
+        {goalsError && <p className={errorClass}>{goalsError}</p>}
 
         <div className="pt-3 flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xs text-[var(--text-faint)]">
+          <div className="flex items-center gap-2 text-xs text-[var(--text-dim)]">
             <Shield size={14} className="text-[var(--success)]" />
             <span>Saved to your account</span>
           </div>
@@ -422,19 +424,19 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
       </GlassPanel>
 
       {/* Theme */}
-      <GlassPanel className="p-6">
+      <GlassPanel className="p-6 border border-[var(--border)] shadow-lg">
         <ThemeSwitcher />
       </GlassPanel>
 
       {/* Account / Session */}
       {onLogout && (
-        <GlassPanel className="p-6 space-y-4">
+        <GlassPanel className="p-6 border border-[var(--border)] shadow-lg space-y-4">
           <div className="flex items-center gap-2">
             <LogOut size={18} className="text-[var(--accent-a)]" />
             <h3 className="font-display text-xl font-bold text-[var(--text)]">Account</h3>
           </div>
-          <div className="flex items-center justify-between">
-            <p className="text-xs text-[var(--text-faint)]">
+          <div className="flex items-center justify-between gap-4">
+            <p className="text-xs text-[var(--text-dim)]">
               Sign out of this device. You&apos;ll need your phone and password to log back in.
             </p>
             <Button

@@ -280,6 +280,38 @@ h1, h2, h3, .font-display {
   }
 }
 
+/* Card grids that load in staggered, like tiles dropping into place --
+   applied per-card with an inline animation-delay for the stagger.
+   Used by TipsLessonList (and shares this utility with any other card
+   grid that wants the same load-in). */
+@keyframes tileDropIn {
+  from { opacity: 0; transform: translateY(-18px) scale(0.96); }
+  60% { opacity: 1; }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-tileDropIn {
+  animation: tileDropIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Modal/overlay open animation -- panel rises and settles with a
+   slight overshoot, like it's being drawn up out of a pouch, rather
+   than just popping into place. Applied to the panel only; the
+   backdrop behind it still just fades in via .animate-fadeIn. */
+@keyframes pouchPopIn {
+  0% { opacity: 0; transform: translateY(52px) scale(0.85); }
+  55% { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-pouchPopIn {
+  animation: pouchPopIn 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-tileDropIn, .animate-pouchPopIn {
+    animation: none;
+  }
+}
+
 /* App-wide scroll-reveal, used by src/components/ui/Reveal.tsx */
 .reveal-hidden {
   opacity: 0;

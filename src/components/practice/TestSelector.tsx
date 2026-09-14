@@ -50,20 +50,26 @@ export const TestSelector: React.FC<TestSelectorProps> = ({
 
   if (loading) {
     return (
-      <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)]">
+      <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)] border border-[var(--border)] shadow-lg">
         Loading available tests…
       </GlassPanel>
     );
   }
 
   if (error) {
-    return <GlassPanel className="p-6 text-sm text-[var(--danger)]">{error}</GlassPanel>;
+    return (
+      <GlassPanel className="p-6 border border-[var(--border)] shadow-lg">
+        <p className="text-sm text-[var(--text)] bg-[var(--panel-2)] border border-[var(--border)] rounded-xl p-3">
+          {error}
+        </p>
+      </GlassPanel>
+    );
   }
 
   if (tests.length === 0) {
     return (
-      <GlassPanel className="p-10 text-center flex flex-col items-center">
-        <div className="w-14 h-14 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)] flex items-center justify-center text-[var(--accent-a)] mb-4">
+      <GlassPanel className="p-10 text-center flex flex-col items-center border border-[var(--border)] shadow-lg">
+        <div className="w-14 h-14 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)] flex items-center justify-center text-[var(--text)] mb-4">
           <BookOpen size={26} />
         </div>
         <h3 className="font-display text-xl font-bold text-[var(--text)] mb-2">{emptyTitle}</h3>
@@ -74,20 +80,20 @@ export const TestSelector: React.FC<TestSelectorProps> = ({
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 page-fade-in">
-      {tests.map((t) => (
+      {tests.map((t, index) => (
         <GlassPanel
           key={t.id}
-          interactive
           onClick={() => onSelect(t.id)}
-          className="p-5 flex flex-col justify-between group"
+          style={{ animationDelay: `${Math.min(index, 14) * 35}ms` }}
+          className="animate-tileDropIn shadow-lg p-5 flex flex-col justify-between border border-[var(--border)] group cursor-pointer transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl"
         >
           <div>
             <div className="flex items-start justify-between gap-3 mb-2">
-              <h3 className="font-display font-bold text-base text-[var(--text)] group-hover:text-[var(--accent-a)] transition-colors">
+              <h3 className="font-display font-bold text-base text-[var(--text)] transition-colors">
                 {t.title}
               </h3>
               {t.bandTarget !== null && (
-                <span className="shrink-0 flex items-center gap-1 text-[11px] font-mono text-[var(--accent-a)] bg-[var(--accent-a)]/10 border border-[var(--accent-a)]/20 px-2 py-0.5 rounded-lg">
+                <span className="shrink-0 flex items-center gap-1 text-[11px] font-mono text-[var(--text)] bg-[var(--panel-2)] border border-[var(--border)] px-2 py-0.5 rounded-lg">
                   <Trophy size={11} /> Band {t.bandTarget.toFixed(1)}
                 </span>
               )}
@@ -109,7 +115,7 @@ export const TestSelector: React.FC<TestSelectorProps> = ({
                 <span>Self-paced</span>
               )}
             </span>
-            <span className="text-xs font-mono text-[var(--accent-a)] flex items-center gap-1 group-hover:gap-2 transition-all">
+            <span className="text-xs font-mono text-[var(--text)] flex items-center gap-1 group-hover:gap-2 transition-all">
               Start <ArrowRight size={14} />
             </span>
           </div>

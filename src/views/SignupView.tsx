@@ -5,9 +5,10 @@ import { BackLink } from '../components/ui/BackLink';
 import {
   Sparkles,
   PhoneCall,
-  Mail,
-  User,
+  KeyRound,
+  ShieldCheck,
   UserPlus,
+  User,
   ArrowRight,
   Award,
 } from '../components/ui/icons';
@@ -32,8 +33,6 @@ const COUNTRY_CODES = [
   { code: '+234', name: 'Nigeria' },
 ];
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 export const SignupView: React.FC<SignupViewProps> = ({
   onSignupSuccess,
   onNavigateToLogin,
@@ -42,22 +41,29 @@ export const SignupView: React.FC<SignupViewProps> = ({
   const [countryCode, setCountryCode] = useState<string>('+1');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [fullName, setFullName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [targetBand, setTargetBand] = useState<number>(8.0);
-  // moduleType has no backing column in `users` yet — kept in UI state only
-  // until a users.module_type migration is added.
-  const [moduleType, setModuleType] = useState<'Academic' | 'General Training'>('Academic');
   const [examDate, setExamDate] = useState<string>('2026-11-14');
+
+  // Phone OTP verification — UI only for now. Not wired to an SMS
+  // provider yet; the Verify button is a no-op until that service is in
+  // place, and it deliberately doesn't gate account creation below.
+  const [otp, setOtp] = useState<string>('');
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const fullPhone = `${countryCode} ${phoneNumber.trim()}`;
 
-  // NOTE: OTP verification is planned as a second step after this succeeds.
-  // For now this is a single-step phone + password + email registration.
+  const handleVerifyOtp = (e: React.MouseEvent) => {
+    e.preventDefault();
+    // TODO: wire up to the SMS/OTP provider once that service is selected.
+  };
+
+  // Email is collected later from the candidate's profile after they log
+  // in, not at signup — this is a single-step phone + password
+  // registration (Academic module only).
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
@@ -68,10 +74,6 @@ export const SignupView: React.FC<SignupViewProps> = ({
     }
     if (!phoneNumber.trim() || phoneNumber.trim().length < 6) {
       setErrorMessage('Please enter a valid mobile phone number.');
-      return;
-    }
-    if (!email.trim() || !EMAIL_REGEX.test(email.trim())) {
-      setErrorMessage('Please enter a valid email address.');
       return;
     }
     if (password.length < 6) {
@@ -89,7 +91,6 @@ export const SignupView: React.FC<SignupViewProps> = ({
         phone: fullPhone,
         password,
         name: fullName.trim(),
-        email: email.trim().toLowerCase(),
         targetBand,
         examDate,
       });
@@ -132,7 +133,7 @@ export const SignupView: React.FC<SignupViewProps> = ({
         <div className="w-full max-w-lg space-y-6">
           <GlassPanel className="p-6 md:p-8 border border-[var(--border)] shadow-2xl space-y-6 relative">
             <div className="text-center space-y-2">
-              <div className="w-12 h-12 rounded-2xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center mx-auto shadow-md">
+              <div className="w-12 h-12 rounded-2xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center mx-auto shadow-lg">
                 <UserPlus size={24} />
               </div>
               <h1 className="font-display text-2xl font-extrabold text-[var(--text)]">
@@ -165,26 +166,6 @@ export const SignupView: React.FC<SignupViewProps> = ({
                     placeholder="e.g. David Sterling"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors"
-                  />
-                </div>
-              </div>
-
-              {/* Email */}
-              <div>
-                <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
-                  Email Address
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[var(--text-faint)]">
-                    <Mail size={16} />
-                  </div>
-                  <input
-                    type="email"
-                    required
-                    placeholder="e.g. david@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors"
                   />
                 </div>
@@ -229,6 +210,40 @@ export const SignupView: React.FC<SignupViewProps> = ({
                 </div>
               </div>
 
+              {/* Phone OTP verification — UI placeholder, not wired up yet */}
+              <div>
+                <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
+                  Verification Code (OTP)
+                </label>
+                <div className="flex gap-2">
+                  <div className="relative flex-1">
+                    <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[var(--text-faint)]">
+                      <KeyRound size={16} />
+                    </div>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      placeholder="Enter the 6-digit code"
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value)}
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors font-mono tracking-widest"
+                    />
+                  </div>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    onClick={handleVerifyOtp}
+                    className="px-4 flex items-center gap-1.5 shrink-0"
+                  >
+                    <ShieldCheck size={16} />
+                    <span>Verify</span>
+                  </Button>
+                </div>
+                <p className="text-[11px] text-[var(--text-faint)] mt-1.5">
+                  SMS verification is coming soon — this doesn&apos;t block account creation yet.
+                </p>
+              </div>
+
               {/* Password + Confirm Password */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
@@ -259,39 +274,23 @@ export const SignupView: React.FC<SignupViewProps> = ({
                 </div>
               </div>
 
-              {/* Target Band & Module Choice */}
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
-                    Target Band Score
-                  </label>
-                  <select
-                    value={targetBand}
-                    onChange={(e) => setTargetBand(parseFloat(e.target.value))}
-                    className="w-full px-3 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-xs font-bold text-[var(--accent-a)] focus:outline-none focus:border-[var(--accent-a)]"
-                  >
-                    <option value={6.5}>Band 6.5 (Competent)</option>
-                    <option value={7.0}>Band 7.0 (Good User)</option>
-                    <option value={7.5}>Band 7.5 (Proficient)</option>
-                    <option value={8.0}>Band 8.0 (Very Good)</option>
-                    <option value={8.5}>Band 8.5 (Expert Goal)</option>
-                    <option value={9.0}>Band 9.0 (Perfect Score)</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
-                    IELTS Module
-                  </label>
-                  <select
-                    value={moduleType}
-                    onChange={(e) => setModuleType(e.target.value as any)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-xs text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)]"
-                  >
-                    <option value="Academic">Academic Module</option>
-                    <option value="General Training">General Training</option>
-                  </select>
-                </div>
+              {/* Target Band */}
+              <div>
+                <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
+                  Target Band Score
+                </label>
+                <select
+                  value={targetBand}
+                  onChange={(e) => setTargetBand(parseFloat(e.target.value))}
+                  className="w-full px-3 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-xs font-bold text-[var(--accent-a)] focus:outline-none focus:border-[var(--accent-a)]"
+                >
+                  <option value={6.5}>Band 6.5 (Competent)</option>
+                  <option value={7.0}>Band 7.0 (Good User)</option>
+                  <option value={7.5}>Band 7.5 (Proficient)</option>
+                  <option value={8.0}>Band 8.0 (Very Good)</option>
+                  <option value={8.5}>Band 8.5 (Expert Goal)</option>
+                  <option value={9.0}>Band 9.0 (Perfect Score)</option>
+                </select>
               </div>
 
               {/* Target Exam Date */}

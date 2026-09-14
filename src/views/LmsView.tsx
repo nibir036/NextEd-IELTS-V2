@@ -960,6 +960,10 @@ import { Button } from '../components/ui/Button';
 import { BackLink } from '../components/ui/BackLink';
 import { Reveal } from '../components/ui/Reveal';
 import { parseInline } from '../components/practice/tips/parseInline';
+import { GrammarLessonList } from '../components/practice/grammar/GrammarLessonList';
+import { VocabLessonList } from '../components/practice/vocab/VocabLessonList';
+import { GrammarReaderOverlay } from '../components/practice/grammar/GrammarReaderOverlay';
+import { ZeroReaderOverlay } from '../components/practice/vocab/ZeroReaderOverlay';
 import {
   GraduationCap,
   BookOpen,
@@ -1225,7 +1229,7 @@ function GrammarBlockRenderer({
       );
     case 'callout':
       return (
-        <div className="mb-4 p-4 rounded-xl border border-[var(--accent-a)]/30 bg-[var(--accent-a)]/8">
+        <div className="mb-4 p-4 rounded-xl border border-[var(--accent-a)]/30 border-l-4 border-l-[#6366f1] bg-[var(--accent-a)]/8">
           {block.title && (
             <div className="text-[11px] font-mono font-semibold uppercase text-[var(--accent-a)] mb-1.5 tracking-wide">
               {block.title}
@@ -1237,7 +1241,7 @@ function GrammarBlockRenderer({
       );
     case 'example_pair':
       return (
-        <div className="mb-4 space-y-1.5 p-3 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)]">
+        <div className="mb-4 space-y-1.5 p-3 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)] border-l-4 border-l-[#fb7185]">
           <div className="text-xs text-red-400/90">
             <span className="font-mono font-semibold mr-1.5">X</span>
             {block.incorrect}
@@ -1255,7 +1259,7 @@ function GrammarBlockRenderer({
       );
     case 'l1_error_fixer':
       return (
-        <div className="mb-4 p-4 rounded-xl border border-amber-500/30 bg-amber-500/8 space-y-3">
+        <div className="mb-4 p-4 rounded-xl border border-amber-500/30 border-l-4 border-l-[#eab308] bg-amber-500/8 space-y-3">
           <div className="text-[11px] font-mono font-semibold uppercase text-amber-400 tracking-wide">
             L1 Error Fixer · {block.title}
           </div>
@@ -1272,7 +1276,7 @@ function GrammarBlockRenderer({
       );
     case 'ielts_impact':
       return (
-        <div className="mb-4 p-4 rounded-xl border border-[var(--accent-a)]/25 bg-[var(--panel-2)]/80 space-y-3">
+        <div className="mb-4 p-4 rounded-xl border border-[var(--accent-a)]/25 border-l-4 border-l-[#38bdf8] bg-[var(--panel-2)]/80 space-y-3">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-[11px] font-mono font-semibold uppercase text-[var(--accent-a)] tracking-wide">
               IELTS Impact
@@ -1416,7 +1420,7 @@ function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
   switch (block.type) {
     case 'intro':
       return (
-        <div className="mb-6 p-5 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)] space-y-3">
+        <div className="mb-6 p-5 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)] border-l-4 border-l-[#6366f1] space-y-3">
           {block.title && (
             <h3 className="font-display text-base font-bold text-[var(--text)]">{block.title}</h3>
           )}
@@ -1467,6 +1471,7 @@ function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
           {(block.sections ?? []).map((section: any, idx: number) => (
             <div
               key={idx}
+              id={section.type === 'exercises' ? `vocab-block-${block.id}::exercises` : undefined}
               className="p-4 rounded-xl border border-[var(--border)] bg-[var(--panel-2)]/40 space-y-2"
             >
               <div className="text-[11px] font-mono uppercase text-[var(--accent-a)] tracking-wide">
@@ -1500,7 +1505,7 @@ function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
 
     case 'closing':
       return (
-        <div className="mb-8 p-5 rounded-xl border border-[var(--border)] bg-[var(--panel-2)]/50 space-y-3">
+        <div className="mb-8 p-5 rounded-xl border border-[var(--border)] border-l-4 border-l-[#2dd4bf] bg-[var(--panel-2)]/50 space-y-3">
           {block.title && (
             <h3 className="font-display text-lg font-bold text-[var(--text)]">{block.title}</h3>
           )}
@@ -1512,7 +1517,7 @@ function ZeroBlockRenderer({ block }: { block: ZeroBlock }) {
 
     case 'register_rule':
       return (
-        <div className="mb-6 p-5 rounded-xl border border-[var(--accent-a)]/30 bg-[var(--accent-a)]/8 space-y-3">
+        <div className="mb-6 p-5 rounded-xl border border-[var(--accent-a)]/30 border-l-4 border-l-[#a855f7] bg-[var(--accent-a)]/8 space-y-3">
           <div className="text-[11px] font-mono font-semibold uppercase text-[var(--accent-a)] tracking-wide">
             {block.title || 'Register Rule'}
           </div>
@@ -2004,6 +2009,8 @@ export const LmsView: React.FC<LmsViewProps> = ({
   const [loadingModules, setLoadingModules] = useState(false);
   const [modulesError, setModulesError] = useState<string | null>(null);
   const [selectedModule, setSelectedModule] = useState<GrammarModule | null>(null);
+  const [noGrammarBiteLessons, setNoGrammarBiteLessons] = useState(false);
+  const [pendingAnchorBlockId, setPendingAnchorBlockId] = useState<string | null>(null);
   const [chapter, setChapter] = useState<ChapterDetail | null>(null);
   const [loadingChapter, setLoadingChapter] = useState(false);
   const [exercise, setExercise] = useState<ExerciseDetail | null>(null);
@@ -2020,6 +2027,8 @@ export const LmsView: React.FC<LmsViewProps> = ({
   const [loadingZero, setLoadingZero] = useState(false);
   const [zeroError, setZeroError] = useState<string | null>(null);
   const [selectedZero, setSelectedZero] = useState<ZeroChapterData | null>(null);
+  const [noVocabBiteLessons, setNoVocabBiteLessons] = useState(false);
+  const [pendingZeroAnchorBlockId, setPendingZeroAnchorBlockId] = useState<string | null>(null);
 
   /* Word Bank state */
   const [vocabSubTab, setVocabSubTab] = useState<'chapters' | 'wordbank'>('chapters');
@@ -2044,6 +2053,8 @@ export const LmsView: React.FC<LmsViewProps> = ({
     setFeedback(null);
     setSelectedZero(null);
     setVocabSubTab('chapters');
+    setNoVocabBiteLessons(false);
+    setPendingZeroAnchorBlockId(null);
   }, [initialTab]);
 
   /* Load grammar modules */
@@ -2087,6 +2098,14 @@ export const LmsView: React.FC<LmsViewProps> = ({
       setFeedback(null);
     }
   }, [initialModuleSlug, modules]);
+
+  /* The bite-lesson layer is per-module data, so its "no lessons for
+     this module yet" fallback has to reset every time the selected
+     module changes -- otherwise switching from a module with lessons
+     to one without would keep showing the previous module's grid. */
+  useEffect(() => {
+    setNoGrammarBiteLessons(false);
+  }, [selectedModule?.slug]);
 
   /* Load Zero to Band 9 chapters */
   useEffect(() => {
@@ -2179,17 +2198,18 @@ export const LmsView: React.FC<LmsViewProps> = ({
   }, []);
 
   const openChapter = useCallback(
-    async (slug: string) => {
+    async (slug: string, anchorBlockId?: string | null) => {
       setLoadingChapter(true);
       setExercise(null);
       setFeedback(null);
-      scrollMainToTop();
+      if (!anchorBlockId) scrollMainToTop();
+      setPendingAnchorBlockId(anchorBlockId ?? null);
       try {
         const res = await fetch(`/api/grammar/chapters/${slug}`);
         if (!res.ok) throw new Error('Chapter not found');
         const data = await res.json();
         setChapter(data.chapter);
-        scrollMainToTop();
+        if (!anchorBlockId) scrollMainToTop();
         fetch(`/api/grammar/chapters/${slug}/progress`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -2204,10 +2224,22 @@ export const LmsView: React.FC<LmsViewProps> = ({
     [scrollMainToTop],
   );
 
+  // Clears the pending anchor once GrammarReaderOverlay has had a
+  // render to consume it (it does the actual scrollIntoView itself,
+  // via its own `anchorBlockId` prop) -- this just stops a stale
+  // anchor from re-triggering a jump if the same chapter is reopened
+  // later without a new one.
+  useEffect(() => {
+    if (!chapter || !pendingAnchorBlockId) return;
+    const t = setTimeout(() => setPendingAnchorBlockId(null), 500);
+    return () => clearTimeout(t);
+  }, [chapter, pendingAnchorBlockId]);
+
   const startExercise = useCallback(
-    async (exerciseSlug: string) => {
-      if (!chapter) return;
-      const meta = chapter.exercises.find((e) => e.slug === exerciseSlug);
+    async (exerciseSlug: string, chapterOverride?: ChapterDetail) => {
+      const source = chapterOverride ?? chapter;
+      if (!source) return;
+      const meta = source.exercises.find((e) => e.slug === exerciseSlug);
       if (!meta) return;
       setFeedback(null);
       setAnswers({});
@@ -2224,6 +2256,64 @@ export const LmsView: React.FC<LmsViewProps> = ({
     },
     [chapter, scrollMainToTop],
   );
+
+  // "Go to Exercises" from a bite-lesson modal: the target chapter may
+  // not be loaded yet (or a different chapter is currently open), so
+  // this loads it fresh and starts the exercise off that freshly
+  // fetched data rather than the (possibly stale) `chapter` state.
+  const goToExerciseInChapter = useCallback(
+    async (chapterSlug: string, exerciseSlug: string) => {
+      setLoadingChapter(true);
+      setExercise(null);
+      setFeedback(null);
+      setPendingAnchorBlockId(null);
+      scrollMainToTop();
+      try {
+        const res = await fetch(`/api/grammar/chapters/${chapterSlug}`);
+        if (!res.ok) throw new Error('Chapter not found');
+        const data = await res.json();
+        const loadedChapter = data.chapter as ChapterDetail;
+        setChapter(loadedChapter);
+        fetch(`/api/grammar/chapters/${chapterSlug}/progress`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: 'in_progress' }),
+        }).catch(() => {});
+        await startExercise(exerciseSlug, loadedChapter);
+      } catch {
+        setChapter(null);
+      } finally {
+        setLoadingChapter(false);
+      }
+    },
+    [scrollMainToTop, startExercise],
+  );
+
+  // Vocab bite-lesson navigation: unlike Grammar's chapters, all 7
+  // "Zero to Band 9" chapters are already loaded client-side in
+  // `zeroChapters`, and there's no separate exercises table -- an
+  // "exercise" is just another block inside the same chapter's content.
+  // So both "Read More" and "Go to Exercises" reduce to the same
+  // action: select the chapter and scroll to a block id within it.
+  const openZeroChapter = useCallback(
+    (chapterNumber: number, anchorBlockId?: string | null) => {
+      const match = zeroChapters.find((c) => c.meta.number === chapterNumber);
+      if (!match) return;
+      setSelectedZero(match);
+      setPendingZeroAnchorBlockId(anchorBlockId ?? null);
+      if (!anchorBlockId) scrollMainToTop();
+    },
+    [zeroChapters, scrollMainToTop],
+  );
+
+  // Clears the pending anchor once ZeroReaderOverlay has had a render
+  // to consume it (it does the actual scrollIntoView itself, via its
+  // own `anchorBlockId` prop) -- same reasoning as the Grammar version.
+  useEffect(() => {
+    if (!selectedZero || !pendingZeroAnchorBlockId) return;
+    const t = setTimeout(() => setPendingZeroAnchorBlockId(null), 500);
+    return () => clearTimeout(t);
+  }, [selectedZero, pendingZeroAnchorBlockId]);
 
   const submitExercise = useCallback(async () => {
     if (!exercise) return;
@@ -2268,7 +2358,10 @@ export const LmsView: React.FC<LmsViewProps> = ({
         ),
       })),
     );
-  }, [chapter]);
+    // Matches the reader's "Mark complete & continue" label -- advance
+    // straight to the next chapter when there is one.
+    if (chapter.next) openChapter(chapter.next.slug);
+  }, [chapter, openChapter]);
 
   /* =========================================================
      EXERCISE SCREEN
@@ -2332,15 +2425,25 @@ export const LmsView: React.FC<LmsViewProps> = ({
             </>
           ) : (
             <div className="space-y-4">
-              <div className="flex items-center gap-3 p-4 rounded-xl bg-[var(--accent-a)]/10 border border-[var(--accent-a)]/25">
-                <CheckCircle2 size={22} className="text-[var(--accent-a)]" />
-                <div>
-                  <div className="font-display font-bold text-[var(--text)]">
-                    Score: {feedback.score} / {feedback.maxScore}
+              <div className="p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/8">
+                <div className="flex items-center gap-3">
+                  <CheckCircle2 size={22} className="text-emerald-400" />
+                  <div>
+                    <div className="font-display font-bold text-[var(--text)]">
+                      Score: {feedback.score} / {feedback.maxScore}
+                    </div>
+                    <div className="text-xs text-[var(--text-dim)]">
+                      {Math.round((feedback.score / Math.max(feedback.maxScore, 1)) * 100)}% correct
+                    </div>
                   </div>
-                  <div className="text-xs text-[var(--text-dim)]">
-                    {Math.round((feedback.score / Math.max(feedback.maxScore, 1)) * 100)}% correct
-                  </div>
+                </div>
+                <div className="w-full h-2 rounded-full bg-[var(--panel-2)] border border-[var(--border)] overflow-hidden mt-3">
+                  <div
+                    className="h-full bg-emerald-400 rounded-full transition-[width] duration-[1200ms] ease-out"
+                    style={{
+                      width: `${Math.round((feedback.score / Math.max(feedback.maxScore, 1)) * 100)}%`,
+                    }}
+                  />
                 </div>
               </div>
               {feedback.items.map((fb, idx) => (
@@ -2397,139 +2500,40 @@ export const LmsView: React.FC<LmsViewProps> = ({
   }
 
   /* =========================================================
-     GRAMMAR CHAPTER SCREEN
-     ========================================================= */
-  if (chapter || loadingChapter) {
-    return (
-      <div id={id} className="space-y-6 w-full">
-        <BackLink
-          onClick={() => {
-            setChapter(null);
-            scrollMainToTop();
-          }}
-        >
-          Back to chapters
-        </BackLink>
-
-        {loadingChapter && (
-          <div className="text-sm text-[var(--text-dim)] font-mono py-12 text-center">
-            Loading chapter...
-          </div>
-        )}
-
-        {chapter && (
-          <>
-            <GlassPanel className="p-6 md:p-8 border border-[var(--border)]">
-              <div className="flex items-center gap-2 flex-wrap mb-2">
-                <span className="text-[11px] font-mono uppercase text-[var(--accent-a)]">
-                  {chapter.module.title}
-                </span>
-                {chapter.bandTarget && (
-                  <span className="px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[11px] font-semibold">
-                    {chapter.bandTarget}
-                  </span>
-                )}
-                <StatusChip status={chapter.status} />
-              </div>
-              <h1 className="font-display text-2xl md:text-3xl font-bold text-[var(--text)]">
-                {chapter.title}
-              </h1>
-              {chapter.summary && (
-                <p className="text-sm text-[var(--text-dim)] mt-2">{chapter.summary}</p>
-              )}
-              {chapter.estimatedMin && (
-                <div className="text-[11px] font-mono text-[var(--text-faint)] mt-2">
-                  ~{chapter.estimatedMin} min read
-                </div>
-              )}
-            </GlassPanel>
-
-            <GlassPanel className="p-6 md:p-8 border border-[var(--border)]">
-              {(chapter.content?.blocks ?? []).map((block) => (
-                <GrammarBlockRenderer
-                  key={block.id}
-                  block={block}
-                  onStartExercise={startExercise}
-                />
-              ))}
-            </GlassPanel>
-
-            {chapter.exercises.length > 0 && (
-              <GlassPanel className="p-6 border border-[var(--border)] space-y-3">
-                <h3 className="font-display font-bold text-[var(--text)]">Exercises</h3>
-                {chapter.exercises.map((ex) => (
-                  <button
-                    key={ex.id}
-                    type="button"
-                    onClick={() => startExercise(ex.slug)}
-                    className="w-full flex items-center justify-between p-3 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)] hover:border-[var(--accent-a)]/40 transition-colors text-left"
-                  >
-                    <div>
-                      <div className="text-sm font-semibold text-[var(--text)]">{ex.title}</div>
-                      <div className="text-[11px] font-mono text-[var(--text-faint)] capitalize">
-                        {ex.kind}
-                      </div>
-                    </div>
-                    <ChevronRight size={16} className="text-[var(--text-faint)]" />
-                  </button>
-                ))}
-              </GlassPanel>
-            )}
-
-            <div className="flex items-center justify-between gap-3 flex-wrap">
-              <div className="flex gap-2">
-                {chapter.prev && (
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    onClick={() => openChapter(chapter.prev!.slug)}
-                  >
-                    <ChevronLeft size={14} /> Prev
-                  </Button>
-                )}
-                {chapter.next && (
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    onClick={() => openChapter(chapter.next!.slug)}
-                  >
-                    Next <ChevronRight size={14} />
-                  </Button>
-                )}
-              </div>
-              {chapter.status !== 'completed' && (
-                <Button variant="primary" size="sm" onClick={markComplete}>
-                  Mark complete
-                </Button>
-              )}
-            </div>
-          </>
-        )}
-      </div>
-    );
-  }
-
-  /* =========================================================
      MAIN LMS
      ========================================================= */
   return (
     <div id={id} className="space-y-6">
+      {/* Back-to-list link -- rendered above the header (not below it)
+          so it always sits at the very top of the page, consistent
+          with every other "back" control in the app (BackLink is
+          otherwise always the first element in its view). Covers both
+          tabs' "drilled into one item" states from a single place. */}
+      {activeTab === 'grammar' && selectedModule && (
+        <BackLink
+          onClick={() => {
+            setSelectedModule(null);
+            scrollMainToTop();
+          }}
+        >
+          All modules
+        </BackLink>
+      )}
+
       {/* Header */}
-      <GlassPanel className="p-6 md:p-8 relative overflow-hidden border border-[var(--border)]">
-        <div className="relative z-10">
-          <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--accent-a)] tracking-wider mb-2">
-            <GraduationCap size={18} />
-            <span>LMS · Learning Management System</span>
-          </div>
-          <h1 className="font-display text-2xl md:text-3xl font-bold text-[var(--text)]">
-            {activeTab === 'grammar' ? 'Grammar Masterclass' : 'Zero to Band 9'}
-          </h1>
-          <p className="text-sm text-[var(--text-dim)] mt-1 max-w-2xl">
-            {activeTab === 'grammar'
-              ? 'Curated grammar rules designed specifically to elevate your Grammatical Range & Accuracy score.'
-              : 'Complete chapters + searchable Word Bank.'}
-          </p>
+      <GlassPanel className="p-6 md:p-8 border border-[var(--border)] shadow-lg">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text)] font-mono text-xs font-semibold mb-3">
+          <GraduationCap size={14} />
+          <span>LMS · Learning Management System</span>
         </div>
+        <h1 className="font-display text-2xl md:text-3xl font-extrabold text-[var(--text)] tracking-tight">
+          {activeTab === 'grammar' ? 'Grammar Masterclass' : 'Zero to Band 9'}
+        </h1>
+        <p className="text-sm text-[var(--text-dim)] mt-1 max-w-2xl leading-relaxed">
+          {activeTab === 'grammar'
+            ? 'Curated grammar rules designed specifically to elevate your Grammatical Range & Accuracy score.'
+            : 'Complete chapters + searchable Word Bank.'}
+        </p>
       </GlassPanel>
 
       {/* ===================== GRAMMAR TAB ===================== */}
@@ -2553,14 +2557,6 @@ export const LmsView: React.FC<LmsViewProps> = ({
 
           {!loadingModules && selectedModule && (
             <div className="space-y-4">
-              <BackLink
-                onClick={() => {
-                  setSelectedModule(null);
-                  scrollMainToTop();
-                }}
-              >
-                All modules
-              </BackLink>
               <div className="flex items-baseline justify-between gap-3 flex-wrap">
                 <div>
                   <h2 className="font-display text-xl font-bold text-[var(--text)]">
@@ -2585,48 +2581,59 @@ export const LmsView: React.FC<LmsViewProps> = ({
                 <GlassPanel className="p-6 border border-[var(--border)] text-sm text-[var(--text-dim)]">
                   No chapters published in this module yet.
                 </GlassPanel>
+              ) : !noGrammarBiteLessons ? (
+                <GrammarLessonList
+                  moduleSlug={selectedModule.slug}
+                  onOpenChapter={(chapterSlug, anchorBlockId) => openChapter(chapterSlug, anchorBlockId)}
+                  onGoToExercise={(chapterSlug, exerciseSlug) => goToExerciseInChapter(chapterSlug, exerciseSlug)}
+                  onNoLessons={() => setNoGrammarBiteLessons(true)}
+                />
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {selectedModule.chapters.map((ch) => (
-                    <GlassPanel
-                      key={ch.id}
-                      className="p-5 flex flex-col justify-between border border-[var(--border)] hover:border-[var(--accent-a)]/40 transition-colors cursor-pointer"
-                      onClick={() => openChapter(ch.slug)}
-                    >
-                      <div>
-                        <div className="flex items-center justify-between mb-3 gap-2">
-                          {ch.bandTarget ? (
-                            <span className="px-2.5 py-1 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[11px] font-semibold">
-                              {ch.bandTarget}
-                            </span>
-                          ) : (
-                            <span />
-                          )}
-                          <StatusChip status={ch.status} />
-                        </div>
-                        <h3 className="font-display text-base font-bold text-[var(--text)] mb-2">
-                          {ch.title}
-                        </h3>
-                        {ch.summary && (
-                          <p className="text-xs text-[var(--text-dim)] mb-3 line-clamp-3">
-                            {ch.summary}
-                          </p>
-                        )}
-                      </div>
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        className="w-full flex items-center justify-center gap-1.5"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          openChapter(ch.slug);
-                        }}
+                  {selectedModule.chapters.map((ch, index) => {
+                    return (
+                      <GlassPanel
+                        key={ch.id}
+                        interactive
+                        style={{ animationDelay: `${Math.min(index, 14) * 35}ms` }}
+                        className="p-5 border border-[var(--border)] shadow-lg animate-tileDropIn flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl"
+                        onClick={() => openChapter(ch.slug)}
                       >
-                        <span>Open chapter</span>
-                        <ChevronRight size={16} />
-                      </Button>
-                    </GlassPanel>
-                  ))}
+                        <div>
+                          <div className="flex items-center justify-between mb-3 gap-2">
+                            {ch.bandTarget ? (
+                              <span className="px-2.5 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text)] font-mono text-[11px] font-semibold">
+                                {ch.bandTarget}
+                              </span>
+                            ) : (
+                              <span />
+                            )}
+                            <StatusChip status={ch.status} />
+                          </div>
+                          <h3 className="font-display text-base font-bold text-[var(--text)] mb-2">
+                            {ch.title}
+                          </h3>
+                          {ch.summary && (
+                            <p className="text-xs text-[var(--text-dim)] mb-3 line-clamp-3">
+                              {ch.summary}
+                            </p>
+                          )}
+                        </div>
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          className="w-full flex items-center justify-center gap-1.5"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openChapter(ch.slug);
+                          }}
+                        >
+                          <span>Open chapter</span>
+                          <ChevronRight size={16} />
+                        </Button>
+                      </GlassPanel>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -2634,13 +2641,15 @@ export const LmsView: React.FC<LmsViewProps> = ({
 
           {!loadingModules && !selectedModule && modules.length > 0 && (
             <Reveal className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {modules.map((mod) => {
+              {modules.map((mod, idx) => {
                 const total = mod.chapters.length;
                 const done = mod.chapters.filter((c) => c.status === 'completed').length;
+                const pct = total > 0 ? Math.min(100, (done / total) * 100) : 0;
                 return (
                   <GlassPanel
                     key={mod.id}
-                    className="p-6 flex flex-col justify-between border border-[var(--border)] hover:border-[var(--accent-a)]/40 transition-colors cursor-pointer"
+                    interactive
+                    className="p-6 border border-[var(--border)] shadow-lg flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl"
                     onClick={() => {
                       setSelectedModule(mod);
                       scrollMainToTop();
@@ -2648,11 +2657,11 @@ export const LmsView: React.FC<LmsViewProps> = ({
                   >
                     <div>
                       <div className="flex items-center justify-between mb-3 gap-2">
-                        <span className="px-2.5 py-1 rounded-md bg-[var(--panel-2)] text-[var(--text-faint)] font-mono text-[11px] font-semibold">
+                        <span className="px-2.5 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text-dim)] font-mono text-[11px] font-semibold">
                           Module {mod.position}
                         </span>
                         {mod.bandUnlock && (
-                          <span className="px-2.5 py-1 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[11px] font-semibold">
+                          <span className="px-2.5 py-1 rounded-full bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[11px] font-semibold">
                             {mod.bandUnlock}
                           </span>
                         )}
@@ -2663,10 +2672,18 @@ export const LmsView: React.FC<LmsViewProps> = ({
                       {mod.subtitle && (
                         <p className="text-xs text-[var(--text-dim)] mb-3">{mod.subtitle}</p>
                       )}
-                      <div className="text-[11px] font-mono text-[var(--text-faint)] mb-4">
+                      <div className="text-[11px] font-mono text-[var(--text-faint)] mb-2">
                         {total} chapter{total === 1 ? '' : 's'}
                         {total > 0 && ` · ${done}/${total} completed`}
                       </div>
+                      {total > 0 && (
+                        <div className="w-full h-2 rounded-full bg-[var(--panel-2)] border border-[var(--border)] overflow-hidden mb-4">
+                          <div
+                            className="h-full bg-[var(--accent-a)] rounded-full transition-[width] duration-[1200ms] ease-out"
+                            style={{ width: `${pct}%` }}
+                          />
+                        </div>
+                      )}
                     </div>
                     <Button
                       variant="secondary"
@@ -2702,7 +2719,7 @@ export const LmsView: React.FC<LmsViewProps> = ({
               }}
               className={`px-4 py-2 rounded-lg text-sm font-mono font-semibold transition-colors ${
                 vocabSubTab === 'chapters'
-                  ? 'bg-[var(--accent-a)]/20 text-[var(--accent-a)] border border-[var(--accent-a)]/40'
+                  ? 'bg-[var(--accent-a)]/15 text-[var(--accent-a)] border border-[var(--accent-a)]/30'
                   : 'bg-[var(--panel-2)] text-[var(--text-faint)] border border-[var(--border)] hover:text-[var(--text)]'
               }`}
             >
@@ -2713,7 +2730,7 @@ export const LmsView: React.FC<LmsViewProps> = ({
               onClick={() => setVocabSubTab('wordbank')}
               className={`px-4 py-2 rounded-lg text-sm font-mono font-semibold transition-colors ${
                 vocabSubTab === 'wordbank'
-                  ? 'bg-[var(--accent-a)]/20 text-[var(--accent-a)] border border-[var(--accent-a)]/40'
+                  ? 'bg-[var(--accent-a)]/15 text-[var(--accent-a)] border border-[var(--accent-a)]/30'
                   : 'bg-[var(--panel-2)] text-[var(--text-faint)] border border-[var(--border)] hover:text-[var(--text)]'
               }`}
             >
@@ -2730,128 +2747,77 @@ export const LmsView: React.FC<LmsViewProps> = ({
                 </div>
               )}
               {zeroError && (
-                <GlassPanel className="p-4 border border-red-500/30 text-sm text-red-400">
+                <div className="p-4 rounded-2xl border border-red-500/30 bg-red-500/10 text-sm text-red-400">
                   {zeroError}
-                </GlassPanel>
-              )}
-
-              {!loadingZero && selectedZero && (
-                <div className="space-y-6">
-                  <BackLink
-                    onClick={() => {
-                      setSelectedZero(null);
-                      scrollMainToTop();
-                    }}
-                  >
-                    All chapters
-                  </BackLink>
-
-                  <GlassPanel className="p-6 md:p-8 border border-[var(--border)]">
-                    <div className="flex items-center gap-2 flex-wrap mb-2">
-                      <span className="text-[11px] font-mono uppercase text-[var(--accent-a)]">
-                        Chapter {selectedZero.meta.number}
-                      </span>
-                      <span className="px-2 py-0.5 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[11px] font-semibold">
-                        Difficulty {selectedZero.meta.difficulty}
-                      </span>
-                    </div>
-                    <h1 className="font-display text-2xl md:text-3xl font-bold text-[var(--text)]">
-                      {selectedZero.meta.title}
-                    </h1>
-                    {selectedZero.content.chapter.description && (
-                      <p className="text-sm text-[var(--text-dim)] mt-2">
-                        {selectedZero.content.chapter.description}
-                      </p>
-                    )}
-                    {(selectedZero.content.chapter.learning_objectives ?? []).length > 0 && (
-                      <ul className="mt-3 space-y-1">
-                        {selectedZero.content.chapter.learning_objectives!.map((obj, i) => (
-                          <li key={i} className="text-xs text-[var(--text-faint)] flex gap-2">
-                            <span className="text-[var(--accent-a)]">•</span>
-                            {obj}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </GlassPanel>
-
-                  <GlassPanel className="p-6 md:p-8 border border-[var(--border)] space-y-2">
-                    {(selectedZero.content.blocks ?? []).map((block) => (
-                      <ZeroBlockRenderer key={block.id} block={block} />
-                    ))}
-                  </GlassPanel>
-
-                  <div className="flex justify-start">
-                    <Button
-                      variant="secondary"
-                      size="sm"
-                      onClick={() => {
-                        setSelectedZero(null);
-                        scrollMainToTop();
-                      }}
-                    >
-                      <ChevronLeft size={14} />
-                      Back to chapters
-                    </Button>
-                  </div>
                 </div>
               )}
 
-              {!loadingZero && !zeroError && !selectedZero && (
+              {!loadingZero && !zeroError && (
                 <>
                   {zeroChapters.length === 0 ? (
                     <GlassPanel className="p-6 border border-[var(--border)] text-sm text-[var(--text-dim)]">
                       No chapters found.
                     </GlassPanel>
+                  ) : !noVocabBiteLessons ? (
+                    <VocabLessonList
+                      onOpenChapter={(chapterNumber, anchorBlockId) => openZeroChapter(chapterNumber, anchorBlockId)}
+                      onGoToExercise={(chapterNumber, exerciseAnchorBlockId) =>
+                        openZeroChapter(chapterNumber, exerciseAnchorBlockId)
+                      }
+                      onNoLessons={() => setNoVocabBiteLessons(true)}
+                    />
                   ) : (
                     <Reveal className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                       {zeroChapters
                         .sort((a, b) => a.meta.number - b.meta.number)
-                        .map(({ meta, content }) => (
-                          <GlassPanel
-                            key={meta.id}
-                            className="p-6 flex flex-col justify-between border border-[var(--border)] hover:border-[var(--accent-a)]/40 transition-colors cursor-pointer"
-                            onClick={() => {
-                              setSelectedZero({ meta, content });
-                              scrollMainToTop();
-                            }}
-                          >
-                            <div>
-                              <div className="flex items-center justify-between mb-3 gap-2">
-                                <span className="px-2.5 py-1 rounded-md bg-[var(--panel-2)] text-[var(--text-faint)] font-mono text-[11px] font-semibold">
-                                  Chapter {meta.number}
-                                </span>
-                                <span className="px-2.5 py-1 rounded-md bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[11px] font-semibold">
-                                  Diff {meta.difficulty}
-                                </span>
-                              </div>
-                              <h3 className="font-display text-lg font-bold text-[var(--text)] mb-2">
-                                {meta.title}
-                              </h3>
-                              {content.chapter.description && (
-                                <p className="text-xs text-[var(--text-dim)] mb-3 line-clamp-3">
-                                  {content.chapter.description}
-                                </p>
-                              )}
-                              <div className="text-[11px] font-mono text-[var(--text-faint)]">
-                                {content.blocks?.length ?? 0} blocks
-                              </div>
-                            </div>
-                            <Button
-                              variant="secondary"
-                              size="sm"
-                              className="w-full flex items-center justify-center gap-1.5 mt-4"
-                              onClick={(e) => {
-                                e.stopPropagation();
+                        .map(({ meta, content }, idx) => {
+                          return (
+                            <GlassPanel
+                              key={meta.id}
+                              interactive
+                              className="p-6 border border-[var(--border)] shadow-lg flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl"
+                              onClick={() => {
                                 setSelectedZero({ meta, content });
                                 scrollMainToTop();
                               }}
                             >
-                              <span>Open chapter</span>
-                              <ChevronRight size={16} />
-                            </Button>
-                          </GlassPanel>
-                        ))}
+                              <div>
+                                <div className="flex items-center justify-between mb-3 gap-2">
+                                  <span className="px-2.5 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text-dim)] font-mono text-[11px] font-semibold">
+                                    Chapter {meta.number}
+                                  </span>
+                                  <span className="px-2.5 py-1 rounded-full bg-[var(--accent-a)]/15 text-[var(--accent-a)] font-mono text-[11px] font-semibold">
+                                    Diff {meta.difficulty}
+                                  </span>
+                                </div>
+                                <h3 className="font-display text-lg font-bold text-[var(--text)] mb-2">
+                                  {meta.title}
+                                </h3>
+                                {content.chapter.description && (
+                                  <p className="text-xs text-[var(--text-dim)] mb-3 line-clamp-3">
+                                    {content.chapter.description}
+                                  </p>
+                                )}
+                                <div className="text-[11px] font-mono text-[var(--text-faint)]">
+                                  {content.blocks?.length ?? 0} blocks
+                                </div>
+                              </div>
+                              <Button
+                                variant="secondary"
+                                size="sm"
+                                className="w-full flex items-center justify-center gap-1.5 mt-4"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setSelectedZero({ meta, content });
+                                  scrollMainToTop();
+                                }}
+                              >
+                                <span>Open chapter</span>
+                                <ChevronRight size={16} />
+                              </Button>
+                            </GlassPanel>
+                          );
+                        })}
                     </Reveal>
                   )}
                 </>
@@ -2862,7 +2828,7 @@ export const LmsView: React.FC<LmsViewProps> = ({
           {/* ---------- WORD BANK ---------- */}
           {vocabSubTab === 'wordbank' && (
             <div className="space-y-5">
-              <GlassPanel className="p-4 border border-[var(--border)] space-y-3">
+              <GlassPanel className="p-4 border border-[var(--border)] shadow-lg space-y-3">
                 <div className="flex flex-col sm:flex-row gap-3">
                   <input
                     type="text"
@@ -2872,7 +2838,7 @@ export const LmsView: React.FC<LmsViewProps> = ({
                       setWbQuery(e.target.value);
                       setWbPage(1);
                     }}
-                    className="flex-1 px-3 py-2 rounded-lg bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)]/50"
+                    className="flex-1 px-3 py-2 rounded-lg bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:outline-none focus:border-[var(--accent-a)]"
                   />
                   <select
                     value={wbTopic}
@@ -2880,7 +2846,7 @@ export const LmsView: React.FC<LmsViewProps> = ({
                       setWbTopic(e.target.value);
                       setWbPage(1);
                     }}
-                    className="px-3 py-2 rounded-lg bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)]/50"
+                    className="px-3 py-2 rounded-lg bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)]"
                   >
                     <option value="">All topics</option>
                     {wbTopics.map((t) => (
@@ -2900,7 +2866,7 @@ export const LmsView: React.FC<LmsViewProps> = ({
                     }}
                     className={`px-2 py-1 rounded-md text-[11px] font-mono ${
                       !wbLetter
-                        ? 'bg-[var(--accent-a)]/20 text-[var(--accent-a)]'
+                        ? 'bg-[var(--accent-a)] text-[var(--bg)] font-bold'
                         : 'bg-[var(--panel-2)] text-[var(--text-faint)] hover:text-[var(--text)]'
                     }`}
                   >
@@ -2916,7 +2882,7 @@ export const LmsView: React.FC<LmsViewProps> = ({
                       }}
                       className={`px-2 py-1 rounded-md text-[11px] font-mono ${
                         wbLetter === L.toLowerCase()
-                          ? 'bg-[var(--accent-a)]/20 text-[var(--accent-a)]'
+                          ? 'bg-[var(--accent-a)] text-[var(--bg)] font-bold'
                           : 'bg-[var(--panel-2)] text-[var(--text-faint)] hover:text-[var(--text)]'
                       }`}
                     >
@@ -2937,9 +2903,9 @@ export const LmsView: React.FC<LmsViewProps> = ({
               )}
 
               {wordBankError && (
-                <GlassPanel className="p-4 border border-red-500/30 text-sm text-red-400">
+                <div className="p-4 rounded-2xl border border-red-500/30 bg-red-500/10 text-sm text-red-400">
                   {wordBankError}
-                </GlassPanel>
+                </div>
               )}
 
               {!wordBankLoading && !wordBankError && (
@@ -2948,7 +2914,7 @@ export const LmsView: React.FC<LmsViewProps> = ({
                     {wordBank.map((w) => (
                       <GlassPanel
                         key={w.word}
-                        className="p-4 border border-[var(--border)] space-y-2"
+                        className="p-4 border border-[var(--border)] shadow-lg space-y-2"
                       >
                         <div className="flex items-baseline justify-between gap-2">
                           <span className="font-display font-bold text-[var(--text)] text-base">
@@ -2969,24 +2935,24 @@ export const LmsView: React.FC<LmsViewProps> = ({
                         {(w.past || w.noun_form || w.adjective_form) && (
                           <div className="flex flex-wrap gap-1.5 pt-1">
                             {w.past && (
-                              <span className="px-1.5 py-0.5 rounded bg-[var(--panel-2)] text-[11px] font-mono text-[var(--text-faint)]">
+                              <span className="px-1.5 py-0.5 rounded bg-[var(--panel-2)] border border-[var(--border)] text-[11px] font-mono text-[var(--text-dim)]">
                                 past: {w.past}
                               </span>
                             )}
                             {w.noun_form && (
-                              <span className="px-1.5 py-0.5 rounded bg-[var(--panel-2)] text-[11px] font-mono text-[var(--text-faint)]">
+                              <span className="px-1.5 py-0.5 rounded bg-[var(--panel-2)] border border-[var(--border)] text-[11px] font-mono text-[var(--text-dim)]">
                                 n: {w.noun_form}
                               </span>
                             )}
                             {w.adjective_form && (
-                              <span className="px-1.5 py-0.5 rounded bg-[var(--panel-2)] text-[11px] font-mono text-[var(--text-faint)]">
+                              <span className="px-1.5 py-0.5 rounded bg-[var(--panel-2)] border border-[var(--border)] text-[11px] font-mono text-[var(--text-dim)]">
                                 adj: {w.adjective_form}
                               </span>
                             )}
                           </div>
                         )}
                         {w.topic && (
-                          <div className="text-[11px] font-mono text-[var(--accent-a)] pt-1">
+                          <div className="text-[11px] font-mono text-[var(--accent-a)] font-semibold pt-1">
                             {w.topic}
                           </div>
                         )}
@@ -3028,6 +2994,32 @@ export const LmsView: React.FC<LmsViewProps> = ({
             </div>
           )}
         </div>
+      )}
+
+      {(chapter || loadingChapter) && (
+        <GrammarReaderOverlay
+          chapter={chapter}
+          loading={loadingChapter}
+          anchorBlockId={pendingAnchorBlockId}
+          onNavigate={(chapterSlug, anchor) => openChapter(chapterSlug, anchor)}
+          onClose={() => setChapter(null)}
+          onStartExercise={startExercise}
+          onMarkComplete={markComplete}
+          renderBlock={(block) => (
+            <GrammarBlockRenderer block={block as ContentBlock} onStartExercise={startExercise} />
+          )}
+        />
+      )}
+
+      {selectedZero && (
+        <ZeroReaderOverlay
+          chapters={zeroChapters}
+          number={selectedZero.meta.number}
+          anchorBlockId={pendingZeroAnchorBlockId}
+          onNavigate={(chapterNumber, anchor) => openZeroChapter(chapterNumber, anchor)}
+          onClose={() => setSelectedZero(null)}
+          renderBlock={(block) => <ZeroBlockRenderer block={block as ZeroBlock} />}
+        />
       )}
     </div>
   );

@@ -277,10 +277,19 @@ const SimpleTable: React.FC<{ data: FigureData }> = ({ data }) => (
   </table>
 );
 
+// Same "table/data" accent used for the block renderer's table blocks --
+// figures are data visualizations too, so their chrome (border, caption
+// label, "show data" toggle) picks up the same light accent. The charts
+// themselves are already colorful and untouched.
+const FIGURE_ACCENT = '#c084fc';
+
 export const TipsFigure: React.FC<{ block: TipsFigureBlock }> = ({ block }) => {
   return (
-    <figure className="rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]/50 p-4 my-2">
-      <figcaption className="text-xs font-semibold text-[var(--text)] mb-3">{block.title}</figcaption>
+    <figure
+      className="rounded-xl border bg-[var(--bg-elevated)]/50 p-4 my-2"
+      style={{ borderColor: `${FIGURE_ACCENT}35` }}
+    >
+      <figcaption className="text-xs font-semibold mb-3" style={{ color: FIGURE_ACCENT }}>{block.title}</figcaption>
       <div className="mb-3">
         {block.chart_type === 'line' && <LineChartSVG data={block.data} />}
         {block.chart_type === 'grouped_bar' && <GroupedBarSVG data={block.data} />}
@@ -292,7 +301,7 @@ export const TipsFigure: React.FC<{ block: TipsFigureBlock }> = ({ block }) => {
       </div>
       {block.chart_type !== 'table_only' && (
         <details className="text-[11px] text-[var(--text-dim)]">
-          <summary className="cursor-pointer select-none">Show data table</summary>
+          <summary className="cursor-pointer select-none" style={{ color: FIGURE_ACCENT }}>Show data table</summary>
           <div className="mt-2 overflow-x-auto"><SimpleTable data={block.data} /></div>
         </details>
       )}

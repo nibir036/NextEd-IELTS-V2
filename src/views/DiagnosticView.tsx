@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
+import { GlassPanel } from '../components/ui/GlassPanel';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import { db } from '../lib/db';
 import { DIAGNOSTIC_PROMPT, DIAGNOSTIC_MIN_WORDS, DIAGNOSTIC_TARGET_WORDS } from '../lib/diagnostic';
@@ -58,11 +58,11 @@ export const DiagnosticView: React.FC<DiagnosticViewProps> = ({ id, onNavigateAc
   if (result) {
     return (
       <div id={id} className="max-w-2xl mx-auto space-y-6">
-        <GlassPanel className="p-8 text-center space-y-4">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono">
-            <Sparkles size={14} /> <span>Provisional Placement Estimate</span>
+        <GlassPanel className="p-8 border border-[var(--border)] shadow-lg text-center space-y-4">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--bg-elevated)] text-[var(--text)] border border-[var(--border)] text-xs font-mono">
+            <Sparkles size={14} className="text-[var(--accent-a)]" /> <span>Provisional Placement Estimate</span>
           </div>
-          <div className="w-16 h-16 mx-auto rounded-2xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center shadow-lg shadow-[var(--glow-a)]">
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border)] text-[var(--accent-a)] flex items-center justify-center shadow-lg">
             <Trophy size={30} />
           </div>
           <div>
@@ -70,7 +70,7 @@ export const DiagnosticView: React.FC<DiagnosticViewProps> = ({ id, onNavigateAc
             <div className="font-display font-extrabold text-5xl text-[var(--text)] mt-1">
               Band {result.estimatedBand.toFixed(1)}
             </div>
-            <p className="text-[11px] text-[var(--text-faint)] mt-2 max-w-md mx-auto">
+            <p className="text-[11px] text-[var(--text-dim)] mt-2 max-w-md mx-auto">
               This is a provisional estimate from a short writing sample — not an official IELTS score.
               It gives us a starting point to personalise your practice.
             </p>
@@ -83,15 +83,15 @@ export const DiagnosticView: React.FC<DiagnosticViewProps> = ({ id, onNavigateAc
               { label: 'Lexical', score: result.lexicalScore },
               { label: 'Grammar', score: result.grammarScore },
             ].map((c, i) => (
-              <div key={i} className="p-2.5 rounded-xl bg-[var(--panel-2)] border border-[var(--border)]">
+              <div key={i} className="p-2.5 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)]">
                 <div className="text-[11px] font-mono text-[var(--text-faint)] uppercase">{c.label}</div>
-                <div className="font-display font-bold text-lg text-[var(--accent-a)]">{c.score.toFixed(1)}</div>
+                <div className="font-display font-bold text-lg text-[var(--text)]">{c.score.toFixed(1)}</div>
               </div>
             ))}
           </div>
 
-          <div className="p-3.5 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-left">
-            <div className="text-xs font-mono font-semibold text-[var(--accent-a)] mb-1">Examiner Summary</div>
+          <div className="p-3.5 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] text-left">
+            <div className="text-xs font-mono font-semibold text-[var(--text)] mb-1">Examiner Summary</div>
             <p className="text-xs text-[var(--text-dim)] leading-relaxed">{result.generalSummary}</p>
           </div>
 
@@ -124,9 +124,9 @@ export const DiagnosticView: React.FC<DiagnosticViewProps> = ({ id, onNavigateAc
   if (!started) {
     return (
       <div id={id} className="max-w-2xl mx-auto space-y-6">
-        <GlassPanel className="p-8 text-center space-y-4">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono">
-            <Sparkles size={14} /> <span>2-Minute Placement Diagnostic</span>
+        <GlassPanel className="p-8 border border-[var(--border)] shadow-lg text-center space-y-4">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--bg-elevated)] text-[var(--text)] border border-[var(--border)] text-xs font-mono">
+            <Sparkles size={14} className="text-[var(--accent-a)]" /> <span>2-Minute Placement Diagnostic</span>
           </div>
           <h2 className="font-display text-2xl font-bold text-[var(--text)]">Let&apos;s find your starting level</h2>
           <p className="text-sm text-[var(--text-dim)] max-w-md mx-auto leading-relaxed">
@@ -149,13 +149,13 @@ export const DiagnosticView: React.FC<DiagnosticViewProps> = ({ id, onNavigateAc
   // ---------- WRITING ----------
   return (
     <div id={id} className="max-w-2xl mx-auto space-y-6">
-      <GlassPanel className="p-6 space-y-4">
+      <GlassPanel className="p-6 border border-[var(--border)] shadow-lg space-y-4">
         <div className="flex items-center gap-2">
           <Sparkles size={16} className="text-[var(--accent-a)]" />
           <h2 className="font-display text-xl font-bold text-[var(--text)]">Placement Diagnostic</h2>
         </div>
 
-        <p className="text-sm text-[var(--text)] leading-relaxed bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-4">
+        <p className="text-sm text-[var(--text-dim)] leading-relaxed bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-4">
           {DIAGNOSTIC_PROMPT}
         </p>
 
@@ -163,7 +163,7 @@ export const DiagnosticView: React.FC<DiagnosticViewProps> = ({ id, onNavigateAc
           <span className="text-xs font-mono font-semibold text-[var(--text)] flex items-center gap-1.5">
             <PenTool size={15} className="text-[var(--accent-a)]" /> Your Response
           </span>
-          <span className={`text-xs font-mono ${words >= DIAGNOSTIC_MIN_WORDS ? 'text-[var(--success)] font-bold' : 'text-[var(--text-dim)]'}`}>
+          <span className={`text-xs font-mono ${words >= DIAGNOSTIC_MIN_WORDS ? 'text-[var(--success)] font-bold' : 'text-[var(--text-faint)]'}`}>
             {words} words <span className="text-[var(--text-faint)]">/ {DIAGNOSTIC_MIN_WORDS}+</span>
           </span>
         </div>
@@ -173,12 +173,14 @@ export const DiagnosticView: React.FC<DiagnosticViewProps> = ({ id, onNavigateAc
           onChange={(e) => setEssayText(e.target.value)}
           placeholder="Write your response here..."
           rows={12}
-          className="w-full bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-3 text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] leading-relaxed resize-none"
+          className="w-full bg-[var(--bg)] border border-[var(--border)] rounded-xl p-3 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:outline-none focus:border-[var(--accent-a)] leading-relaxed resize-none"
         />
-        <ProgressBar value={(words / DIAGNOSTIC_TARGET_WORDS) * 100} showPercent={false} size="sm" />
+        <div>
+          <ProgressBar value={(words / DIAGNOSTIC_TARGET_WORDS) * 100} showPercent={false} size="sm" />
+        </div>
 
         {errorMessage && (
-          <div className="text-xs text-[var(--danger)] bg-[var(--danger)]/10 border border-[var(--danger)]/20 p-2.5 rounded-xl">
+          <div className="text-xs font-semibold text-rose-300 bg-rose-500/15 border border-rose-500/30 p-2.5 rounded-xl">
             {errorMessage}
           </div>
         )}

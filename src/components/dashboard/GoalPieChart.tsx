@@ -24,7 +24,7 @@ export const GoalPieChart: React.FC<{
   const offset = circumference - (animatedPct / 100) * circumference;
 
   return (
-    <GlassPanel id={id} className="p-6 border border-[var(--border)] h-full flex flex-col">
+    <GlassPanel id={id} className="p-6 h-full flex flex-col border border-[var(--border)] shadow-lg">
       <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-a)] mb-1">
         <Award size={16} />
         <span>Goal Completion</span>
@@ -72,7 +72,7 @@ export const GoalPieChart: React.FC<{
           </div>
           <div>
             <div className="text-[var(--text-faint)] font-mono uppercase">Target</div>
-            <div className="font-display font-bold text-lg text-[var(--accent-a)]">
+            <div className="font-display font-bold text-lg text-[var(--text)]">
               {targetBand.toFixed(1)}
             </div>
           </div>

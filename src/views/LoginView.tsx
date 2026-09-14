@@ -100,7 +100,7 @@ export const LoginView: React.FC<LoginViewProps> = ({
         <div className="w-full max-w-md space-y-6">
           <GlassPanel className="p-6 md:p-8 border border-[var(--border)] shadow-2xl space-y-6 relative">
             <div className="text-center space-y-2">
-              <div className="w-12 h-12 rounded-2xl bg-[var(--accent-a)]/15 text-[var(--accent-a)] flex items-center justify-center mx-auto shadow-inner">
+              <div className="w-12 h-12 rounded-2xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center mx-auto shadow-lg">
                 <LogIn size={24} />
               </div>
               <h1 className="font-display text-2xl font-extrabold text-[var(--text)]">

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
+import { GlassPanel } from '../components/ui/GlassPanel';
 import { Bot, Sparkles, Send, BrainCircuit, Shield, Check } from '../components/ui/icons';
 
 interface AiTutorViewProps {
@@ -73,11 +73,11 @@ export const AiTutorView: React.FC<AiTutorViewProps> = ({ initialTab = 'tutor', 
   return (
     <div id={id} className="space-y-6">
       {/* Header */}
-      <GlassPanel className="p-6 md:p-8 relative overflow-hidden border border-[var(--border)]">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+      <GlassPanel className="p-6 md:p-8 border border-[var(--border)] shadow-lg">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--accent-a)] tracking-wider mb-2">
-              <Bot size={18} />
+            <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--text-dim)] tracking-wider mb-2">
+              <Bot size={18} className="text-[var(--accent-a)]" />
               <span>AI Tutor & Official Examiner Engine</span>
             </div>
             <h1 className="font-display text-2xl md:text-3xl font-bold text-[var(--text)]">
@@ -88,13 +88,13 @@ export const AiTutorView: React.FC<AiTutorViewProps> = ({ initialTab = 'tutor', 
             </p>
           </div>
 
-          <div className="flex items-center gap-2 bg-[var(--panel-2)] p-1.5 rounded-xl border border-[var(--border)] shrink-0">
+          <div className="flex items-center gap-2 bg-[var(--bg-elevated)] p-1.5 rounded-xl border border-[var(--border)] shrink-0">
             <button
               onClick={() => setActiveTab('tutor')}
               className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                 activeTab === 'tutor'
-                  ? 'bg-[image:var(--accent-gradient)] text-white shadow-md font-semibold'
-                  : 'text-[var(--text-dim)] hover:text-[var(--text)]'
+                  ? 'bg-[var(--accent-a)] text-white shadow-md font-semibold'
+                  : 'text-[var(--text-faint)] hover:text-[var(--text)]'
               }`}
             >
               AI Live Tutor
@@ -103,8 +103,8 @@ export const AiTutorView: React.FC<AiTutorViewProps> = ({ initialTab = 'tutor', 
               onClick={() => setActiveTab('examiner')}
               className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                 activeTab === 'examiner'
-                  ? 'bg-[image:var(--accent-gradient)] text-white shadow-md font-semibold'
-                  : 'text-[var(--text-dim)] hover:text-[var(--text)]'
+                  ? 'bg-[var(--accent-a)] text-white shadow-md font-semibold'
+                  : 'text-[var(--text-faint)] hover:text-[var(--text)]'
               }`}
             >
               Examiner Diagnostics
@@ -115,10 +115,10 @@ export const AiTutorView: React.FC<AiTutorViewProps> = ({ initialTab = 'tutor', 
 
       {/* Tab 1: AI Live Tutor Chat Interface */}
       {activeTab === 'tutor' && (
-        <GlassPanel className="p-6 border border-[var(--border)] flex flex-col h-[520px]">
+        <GlassPanel className="p-6 border border-[var(--border)] shadow-lg flex flex-col h-[520px]">
           <div className="flex items-center justify-between pb-4 border-b border-[var(--border)] mb-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-[image:var(--accent-gradient)] flex items-center justify-center text-white shadow-sm">
+              <div className="w-9 h-9 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] flex items-center justify-center text-[var(--accent-a)] shadow-sm">
                 <BrainCircuit size={18} />
               </div>
               <div>
@@ -142,15 +142,15 @@ export const AiTutorView: React.FC<AiTutorViewProps> = ({ initialTab = 'tutor', 
                 className={`flex gap-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {msg.sender === 'ai' && (
-                  <div className="w-8 h-8 rounded-lg bg-[var(--accent-a)]/20 text-[var(--accent-a)] flex items-center justify-center shrink-0 mt-1">
+                  <div className="w-8 h-8 rounded-lg bg-[var(--bg-elevated)] text-[var(--accent-a)] flex items-center justify-center shrink-0 mt-1">
                     <Bot size={16} />
                   </div>
                 )}
                 <div
                   className={`p-4 rounded-2xl max-w-xl text-xs md:text-sm leading-relaxed ${
                     msg.sender === 'user'
-                      ? 'bg-[image:var(--accent-gradient)] text-white shadow-md'
-                      : 'bg-[var(--panel-2)] text-[var(--text)] border border-[var(--border)]'
+                      ? 'bg-[var(--accent-a)] text-white shadow-md'
+                      : 'bg-[var(--bg-elevated)] text-[var(--text)] border border-[var(--border)] shadow-sm'
                   }`}
                 >
                   {msg.text}
@@ -167,7 +167,7 @@ export const AiTutorView: React.FC<AiTutorViewProps> = ({ initialTab = 'tutor', 
               onChange={(e) => setInputVal(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
               placeholder="Ask for feedback or paste a sentence/essay draft..."
-              className="flex-1 bg-[var(--bg)] border border-[var(--border)] rounded-xl px-4 py-3 text-xs md:text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)]"
+              className="flex-1 bg-[var(--bg)] border border-[var(--border)] rounded-xl px-4 py-3 text-xs md:text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:outline-none focus:border-[var(--accent-a)]"
             />
             <Button onClick={handleSendMessage} className="flex items-center gap-2 px-5">
               <span>Send</span>
@@ -182,25 +182,25 @@ export const AiTutorView: React.FC<AiTutorViewProps> = ({ initialTab = 'tutor', 
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {diagnosticReports.map((report, idx) => (
-              <GlassPanel key={idx} className="p-6 border border-[var(--border)] space-y-4">
+              <GlassPanel key={idx} className="p-6 border border-[var(--border)] shadow-lg space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono font-semibold uppercase text-[var(--accent-a)] flex items-center gap-1.5">
-                    <Shield size={16} />
+                  <span className="text-xs font-mono font-semibold uppercase text-[var(--text)] flex items-center gap-1.5">
+                    <Shield size={16} className="text-[var(--accent-a)]" />
                     <span>{report.module}</span>
                   </span>
                   <span className="text-xs font-mono text-[var(--text-faint)]">{report.date}</span>
                 </div>
 
                 <div className="text-base font-bold text-[var(--text)]">
-                  Diagnostic Result: <span className="text-[var(--accent-a)]">{report.score}</span>
+                  Diagnostic Result: <span className="font-extrabold">{report.score}</span>
                 </div>
 
-                <div className="p-3 rounded-xl bg-[var(--danger)]/10 border border-[var(--danger)]/20 text-xs text-[var(--text)] space-y-1">
-                  <div className="font-bold text-[var(--danger)]">Primary Band Bottleneck:</div>
+                <div className="p-3 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-xs text-[var(--text-dim)] space-y-1">
+                  <div className="font-bold text-rose-400">Primary Band Bottleneck:</div>
                   <div>{report.primaryIssue}</div>
                 </div>
 
-                <div className="p-3 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-xs text-[var(--text)] space-y-1">
+                <div className="p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] text-xs text-[var(--text-dim)] space-y-1">
                   <div className="font-bold text-[var(--success)]">Examiner Action Plan:</div>
                   <div>{report.recommendation}</div>
                 </div>
@@ -212,7 +212,7 @@ export const AiTutorView: React.FC<AiTutorViewProps> = ({ initialTab = 'tutor', 
             ))}
           </div>
 
-          <GlassPanel className="p-6 border border-[var(--border)]">
+          <GlassPanel className="p-6 border border-[var(--border)] shadow-lg">
             <h3 className="font-display text-lg font-bold text-[var(--text)] mb-4 flex items-center gap-2">
               <Sparkles size={18} className="text-[var(--accent-a)]" />
               <span>Live Practice Prompts for Today</span>
@@ -220,9 +220,12 @@ export const AiTutorView: React.FC<AiTutorViewProps> = ({ initialTab = 'tutor', 
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {interactivePrompts.map((p, pIdx) => (
-                <div key={pIdx} className="p-4 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] justify-between flex flex-col space-y-3">
+                <div
+                  key={pIdx}
+                  className="rounded-2xl p-4 justify-between flex flex-col space-y-3 shadow-lg bg-[var(--bg-elevated)] border border-[var(--border)]"
+                >
                   <div>
-                    <div className="flex items-center justify-between text-[11px] font-mono text-[var(--accent-a)] mb-1">
+                    <div className="flex items-center justify-between text-[11px] font-mono text-[var(--text)] mb-1">
                       <span>{p.topic}</span>
                       <span className="text-[var(--text-faint)]">{p.difficulty}</span>
                     </div>

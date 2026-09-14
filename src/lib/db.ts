@@ -236,7 +236,9 @@ export const db = {
     phone: string;
     password: string;
     name: string;
-    email: string;
+    // Email is no longer collected at signup -- candidates add it later
+    // from their profile once logged in.
+    email?: string;
     targetBand?: number;
     examDate?: string;
   }): Promise<DbUser> {

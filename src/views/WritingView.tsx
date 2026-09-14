@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
 import { BackLink } from '../components/ui/BackLink';
@@ -9,12 +9,18 @@ import { TipsReaderOverlay } from '../components/practice/tips/TipsReaderOverlay
 import { TipsLessonList } from '../components/practice/tips/TipsLessonList';
 import {
   PenTool, Sparkles, Send, CheckCircle2, RefreshCw, Trophy, BookOpen,
-  ArrowRight,
+  ArrowRight, Clock,
 } from '../components/ui/icons';
 
 interface WritingViewProps {
   id?: string;
   initialBrowseTab?: 'tests' | 'tips';
+  // "Forced" mode: a parent (the full-mock-test runner) hands us a specific
+  // testId to load directly, skipping the browse/select-a-test screen, and
+  // gets notified with the resulting band once this skill is scored so it
+  // can move on to the next one.
+  forcedTestId?: string;
+  onExamComplete?: (band: number) => void;
 }
 
 interface WritingTest {
@@ -53,7 +59,7 @@ const wordsOf = (t: string) => (t.trim() ? t.trim().split(/\s+/).length : 0);
 const TaskReport: React.FC<{ label: string; evalData: TaskEval }> = ({ label, evalData }) => (
   <div className="space-y-3">
     <div className="flex items-center justify-between">
-      <span className="text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">{label}</span>
+      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[11px] font-mono font-semibold uppercase text-[var(--text)]">{label}</span>
       <span className="font-display font-bold text-sm text-[var(--text)]">Band {evalData.overallBand.toFixed(1)}</span>
     </div>
     <div className="grid grid-cols-2 gap-2">
@@ -63,7 +69,7 @@ const TaskReport: React.FC<{ label: string; evalData: TaskEval }> = ({ label, ev
         { label: 'Lexical', score: evalData.lexicalScore, fb: evalData.lexicalFeedback },
         { label: 'Grammar', score: evalData.grammarScore, fb: evalData.grammarFeedback },
       ].map((c, i) => (
-        <div key={i} className="p-2.5 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)]">
+        <div key={i} className="p-2.5 rounded-xl bg-[var(--panel-2)] border border-[var(--border)]">
           <div className="flex justify-between items-center mb-1">
             <span className="text-[11px] font-mono text-[var(--text-faint)]">{c.label}</span>
             <span className="font-display font-bold text-xs text-[var(--text)]">{c.score.toFixed(1)}</span>
@@ -88,8 +94,13 @@ const TaskReport: React.FC<{ label: string; evalData: TaskEval }> = ({ label, ev
   </div>
 );
 
-export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }) => {
-  const [selectedTestId, setSelectedTestId] = useState<string | null>(null);
+export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab, forcedTestId, onExamComplete }) => {
+  const [selectedTestId, setSelectedTestId] = useState<string | null>(forcedTestId ?? null);
+
+  // Forced mode: the runner may hand us forcedTestId slightly after mount.
+  useEffect(() => {
+    if (forcedTestId) setSelectedTestId(forcedTestId);
+  }, [forcedTestId]);
   const [browseTab, setBrowseTab] = useState<'tests' | 'tips'>(initialBrowseTab ?? 'tests');
 
   const [selectedTipsSlug, setSelectedTipsSlug] = useState<string | null>(null);
@@ -119,6 +130,13 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [noticeMessage, setNoticeMessage] = useState<string | null>(null);
 
+  // Overall countdown for the whole test (both tasks share one clock,
+  // exactly like the real IELTS Writing paper — 60 minutes total, with
+  // Task 1/Task 2 just being a view toggle, not a separate timer).
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const submitRef = useRef<() => void>(() => {});
+
   const task1Words = wordsOf(task1Text);
   const task2Words = wordsOf(task2Text);
 
@@ -131,7 +149,10 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
       .then(async (r) => {
         const data = await r.json();
         if (!r.ok) throw new Error(data.error || 'Could not load the writing test.');
-        if (!cancelled) setTest(data.test);
+        if (!cancelled) {
+          setTest(data.test);
+          setTimeLeft(data.test.durationSeconds ?? null);
+        }
       })
       .catch((err) => {
         if (!cancelled) setLoadError(err instanceof Error ? err.message : 'Could not load the writing test.');
@@ -141,7 +162,33 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
     };
   }, [selectedTestId]);
 
+  // No audio gate for Writing either — the clock starts as soon as the
+  // test loads, same as Reading/Listening.
+  useEffect(() => {
+    if (timeLeft === null) return;
+    intervalRef.current = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev === null) return prev;
+        if (prev <= 1) {
+          if (intervalRef.current) clearInterval(intervalRef.current);
+          submitRef.current();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [test?.id]);
+
+  const fmtTime = (s: number) => {
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return `${m}:${sec.toString().padStart(2, '0')}`;
+  };
+
   const backToTests = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
     setSelectedTestId(null);
     setTest(null);
     setStep('task1');
@@ -150,6 +197,7 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
     setResult(null);
     setErrorMessage(null);
     setNoticeMessage(null);
+    setTimeLeft(null);
   };
 
   const handleEvaluate = async () => {
@@ -158,6 +206,7 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
       setErrorMessage('Please write a full attempt for BOTH tasks before submitting.');
       return;
     }
+    if (intervalRef.current) clearInterval(intervalRef.current);
     setIsEvaluating(true);
     setErrorMessage(null);
     setNoticeMessage(null);
@@ -177,6 +226,7 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
       if (!res.ok) throw new Error(data.error || 'Server evaluation error');
 
       setResult(data);
+      onExamComplete?.(data.overallBand);
       if (data.saved === false) {
         setNoticeMessage('Your test was evaluated but could NOT be saved to your history. Make sure you are logged in.');
       }
@@ -193,13 +243,14 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
       setIsEvaluating(false);
     }
   };
+  submitRef.current = handleEvaluate;
 
   // ---------- BROWSE MODE ----------
   if (!selectedTestId) {
     return (
       <div id={id} className="space-y-6">
-        <GlassPanel className="p-6">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono mb-2">
+        <GlassPanel className="border border-[var(--border)] shadow-lg">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text)] text-xs font-mono mb-2">
             <Sparkles size={14} />
             <span>AI-Graded Writing Practice</span>
           </div>
@@ -250,10 +301,15 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
   }
 
   // ---------- TAKE MODE ----------
+  const timeIsLow = timeLeft !== null && timeLeft <= 60;
+  const progressPct = test?.durationSeconds && timeLeft !== null
+    ? Math.max(0, Math.min(100, (timeLeft / test.durationSeconds) * 100))
+    : 100;
+
   return (
     <div id={id} className="space-y-6">
-      <BackLink onClick={backToTests}>Back to tests</BackLink>
-      <GlassPanel className="p-6">
+      {!forcedTestId && <BackLink onClick={backToTests}>Back to tests</BackLink>}
+      <GlassPanel className="overflow-hidden shadow-xl space-y-3 border border-[var(--border)]">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h2 className="font-display text-2xl font-bold text-[var(--text)]">
@@ -263,12 +319,18 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
               Complete both tasks. Task 2 is weighted double, exactly like the official exam.
             </p>
           </div>
-          <div className="flex items-center gap-2 self-start md:self-auto">
-            <div className="flex items-center gap-1 bg-[var(--bg-elevated)] p-1.5 rounded-xl border border-[var(--border)]">
+          <div className="flex items-center gap-3 self-start md:self-auto">
+            <div className="flex items-center gap-1.5">
+              <Clock size={16} className={timeIsLow ? 'text-[var(--danger)] animate-pulse' : 'text-[var(--text)]'} />
+              <span className={`font-display font-extrabold text-xl tabular-nums ${timeIsLow ? 'text-[var(--danger)]' : 'text-[var(--text)]'}`}>
+                {timeLeft !== null ? fmtTime(timeLeft) : '--:--'}
+              </span>
+            </div>
+            <div className="flex items-center gap-1 bg-[var(--panel-2)] border border-[var(--border)] p-1.5 rounded-xl">
               <button
                 onClick={() => setStep('task1')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${
-                  step === 'task1' ? 'bg-[image:var(--accent-gradient)] text-white' : 'text-[var(--text-dim)] hover:text-[var(--text)]'
+                  step === 'task1' ? 'bg-[image:var(--accent-gradient)] text-white shadow' : 'text-[var(--text-dim)] hover:text-[var(--text)]'
                 }`}
               >
                 Task 1
@@ -276,7 +338,7 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
               <button
                 onClick={() => setStep('task2')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${
-                  step === 'task2' ? 'bg-[image:var(--accent-gradient)] text-white' : 'text-[var(--text-dim)] hover:text-[var(--text)]'
+                  step === 'task2' ? 'bg-[image:var(--accent-gradient)] text-white shadow' : 'text-[var(--text-dim)] hover:text-[var(--text)]'
                 }`}
               >
                 Task 2
@@ -284,16 +346,38 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
             </div>
           </div>
         </div>
+
+        {/* Horizontal timer bar — one 60-minute clock shared by both
+            tasks, just like the real exam. Depletes as time runs out. */}
+        <div className={`-mx-5 md:-mx-6 h-2 overflow-hidden ${timeIsLow ? 'bg-[var(--danger)]/20' : 'bg-[var(--panel-2)]'}`}>
+          <div
+            className={`h-full transition-[width] duration-1000 ease-linear ${timeIsLow ? 'bg-[var(--danger)] animate-pulse' : 'bg-[image:var(--accent-gradient)]'}`}
+            style={{ width: `${progressPct}%` }}
+          />
+        </div>
       </GlassPanel>
 
-      {loadError && <GlassPanel className="p-6 text-sm text-[var(--danger)]">{loadError}</GlassPanel>}
-      {!test && !loadError && <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)]">Loading test…</GlassPanel>}
+      {loadError && (
+        <div className="rounded-3xl p-6 text-sm text-red-200 bg-red-950/40 border border-red-400/30 backdrop-blur-sm">
+          {loadError}
+        </div>
+      )}
+      {!test && !loadError && (
+        <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)] shadow-lg border border-[var(--border)]">
+          Loading test…
+        </GlassPanel>
+      )}
 
       {test && step === 'task1' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-6 space-y-3">
-            <GlassPanel className="p-5 space-y-3 h-full">
-              <span className="text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">Task 1 (min 150 words)</span>
+            <GlassPanel className="space-y-3 h-full shadow-lg border border-[var(--border)]">
+              <span className="inline-flex items-center px-3 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-xs font-mono font-semibold uppercase text-[var(--text)]">
+                Task 1 (min 150 words)
+              </span>
+              {/* Prompt text stays on its own neutral, always-legible surface
+                  (theme-driven bg/text) -- this is the copy the candidate
+                  has to read carefully while writing. */}
               <p className="text-xs text-[var(--text)] leading-relaxed bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-3">
                 {test.task1.prompt}
               </p>
@@ -307,15 +391,18 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
           </div>
 
           <div className="lg:col-span-6 space-y-3">
-            <GlassPanel className="p-5 space-y-3 h-full flex flex-col">
+            <GlassPanel className="space-y-3 h-full flex flex-col shadow-lg border border-[var(--border)]">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono font-semibold text-[var(--text)] flex items-center gap-1.5">
-                  <PenTool size={15} className="text-[var(--accent-a)]" /> Your Task 1 Response
+                  <PenTool size={15} className="text-[var(--text-dim)]" /> Your Task 1 Response
                 </span>
-                <span className={`text-xs font-mono ${task1Words >= 150 ? 'text-[var(--success)] font-bold' : 'text-[var(--text-dim)]'}`}>
+                <span className={`text-xs font-mono ${task1Words >= 150 ? 'text-[var(--text)] font-bold' : 'text-[var(--text-faint)]'}`}>
                   {task1Words} words <span className="text-[var(--text-faint)]">/ 150+</span>
                 </span>
               </div>
+              {/* Writing surface stays on its normal light/neutral theme
+                  background -- comfort and legibility for typing come
+                  first here. */}
               <textarea
                 value={task1Text}
                 onChange={(e) => setTask1Text(e.target.value)}
@@ -323,7 +410,9 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
                 rows={18}
                 className="w-full flex-1 bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-3 text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] leading-relaxed resize-none"
               />
-              <ProgressBar value={(task1Words / 150) * 100} showPercent={false} size="sm" />
+              <div>
+                <ProgressBar value={(task1Words / 150) * 100} showPercent={false} size="sm" />
+              </div>
               <div className="flex justify-end pt-1">
                 <Button variant="primary" size="md" icon={<ArrowRight size={16} />} onClick={() => setStep('task2')}>
                   Next: Task 2
@@ -337,19 +426,25 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
       {test && step === 'task2' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-7 space-y-4">
-            <GlassPanel className="p-5 space-y-3">
-              <span className="text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">Task 2 (min 250 words)</span>
+            <GlassPanel className="space-y-3 shadow-lg border border-[var(--border)]">
+              <span className="inline-flex items-center px-3 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-xs font-mono font-semibold uppercase text-[var(--text)]">
+                Task 2 (min 250 words)
+              </span>
+              {/* Prompt text stays on its own neutral, always-legible surface. */}
               <p className="text-xs text-[var(--text)] leading-relaxed bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-3">
                 {test.task2.prompt}
               </p>
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono font-semibold text-[var(--text)] flex items-center gap-1.5">
-                  <PenTool size={15} className="text-[var(--accent-a)]" /> Your Task 2 Response
+                  <PenTool size={15} className="text-[var(--text-dim)]" /> Your Task 2 Response
                 </span>
-                <span className={`text-xs font-mono ${task2Words >= 250 ? 'text-[var(--success)] font-bold' : 'text-[var(--text-dim)]'}`}>
+                <span className={`text-xs font-mono ${task2Words >= 250 ? 'text-[var(--text)] font-bold' : 'text-[var(--text-faint)]'}`}>
                   {task2Words} words <span className="text-[var(--text-faint)]">/ 250+</span>
                 </span>
               </div>
+              {/* Writing surface stays on its normal light/neutral theme
+                  background -- comfort and legibility for typing come
+                  first here. */}
               <textarea
                 value={task2Text}
                 onChange={(e) => setTask2Text(e.target.value)}
@@ -357,13 +452,15 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
                 rows={16}
                 className="w-full bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-3 text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] leading-relaxed resize-none"
               />
-              <ProgressBar value={(task2Words / 250) * 100} showPercent={false} size="sm" />
+              <div>
+                <ProgressBar value={(task2Words / 250) * 100} showPercent={false} size="sm" />
+              </div>
 
               {errorMessage && (
-                <div className="text-xs text-[var(--danger)] bg-[var(--danger)]/10 border border-[var(--danger)]/20 p-2.5 rounded-xl">{errorMessage}</div>
+                <div className="text-xs text-[var(--danger)] bg-[var(--danger)]/15 border border-[var(--danger)]/30 p-2.5 rounded-xl">{errorMessage}</div>
               )}
               {noticeMessage && (
-                <div className="text-xs text-[var(--warning)] bg-[var(--warning)]/10 border border-[var(--warning)]/20 p-2.5 rounded-xl">{noticeMessage}</div>
+                <div className="text-xs text-[var(--warning)] bg-[var(--warning)]/15 border border-[var(--warning)]/30 p-2.5 rounded-xl">{noticeMessage}</div>
               )}
 
               <div className="flex items-center justify-between pt-1">
@@ -385,8 +482,8 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
 
           <div className="lg:col-span-5 space-y-4">
             {result ? (
-              <GlassPanel className="p-6 space-y-5 animate-fade-in">
-                <div className="p-4 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border)] flex items-center justify-between">
+              <GlassPanel className="space-y-5 shadow-xl animate-fade-in border border-[var(--border)]">
+                <div className="p-4 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)] flex items-center justify-between">
                   <div>
                     <div className="text-xs font-mono uppercase text-[var(--text-faint)]">Overall Writing Band</div>
                     <div className="font-display font-extrabold text-4xl text-[var(--text)] mt-1">Band {result.overallBand.toFixed(1)}</div>
@@ -398,13 +495,17 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab }
                     <Trophy size={28} />
                   </div>
                 </div>
-                <TaskReport label="Task 1 Breakdown" evalData={result.task1} />
+                <div>
+                  <TaskReport label="Task 1 Breakdown" evalData={result.task1} />
+                </div>
                 <div className="border-t border-[var(--border)]" />
-                <TaskReport label="Task 2 Breakdown" evalData={result.task2} />
+                <div>
+                  <TaskReport label="Task 2 Breakdown" evalData={result.task2} />
+                </div>
               </GlassPanel>
             ) : (
-              <GlassPanel className="p-8 text-center flex flex-col items-center justify-center min-h-[420px]">
-                <div className="w-14 h-14 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)] flex items-center justify-center text-[var(--accent-a)] mb-4">
+              <GlassPanel className="p-8 text-center flex flex-col items-center justify-center min-h-[420px] shadow-xl border border-[var(--border)]">
+                <div className="w-14 h-14 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)] flex items-center justify-center text-[var(--text)] mb-4">
                   <BookOpen size={28} />
                 </div>
                 <h3 className="font-display text-xl font-bold text-[var(--text)] mb-2">Full-Test Evaluation Report</h3>

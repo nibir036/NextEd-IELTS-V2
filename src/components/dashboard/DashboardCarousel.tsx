@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { GlassPanel } from '../ui/GlassPanel';
 import { Button } from '../ui/Button';
+import { GlassPanel } from '../ui/GlassPanel';
 import {
   ChevronLeft,
   ChevronRight,
@@ -71,9 +71,6 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
   // Reorder to start Monday for display.
   const weekMonFirst = [...weekActivity.slice(1), weekActivity[0]];
 
-  // Same four card bodies as before, just parameterized by index instead
-  // of reading the closure's activeSlide directly -- lets us render two
-  // cards (a left and a right slot) side by side instead of one at a time.
   const renderCardBody = (idx: number) => {
     switch (idx) {
       case 0:
@@ -81,7 +78,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
           <div className="space-y-6 animate-fadeIn">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
               <div>
-                <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--warning)]">
+                <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--text-faint)]">
                   <Flame size={16} />
                   <span>Card 1 • Consistency Metrics</span>
                 </div>
@@ -92,7 +89,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
               <div className="flex items-center gap-2 bg-[var(--warning)]/15 border border-[var(--warning)]/30 px-3 py-1.5 rounded-xl">
                 <Flame size={22} className="text-[var(--warning)]" />
                 <div className="font-display font-extrabold text-2xl text-[var(--text)]">
-                  {streakDays} <span className="text-xs font-normal text-[var(--text-dim)]">Days Active</span>
+                  {streakDays} <span className="text-xs font-normal text-[var(--text-faint)]">Days Active</span>
                 </div>
               </div>
             </div>
@@ -111,8 +108,8 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
                     key={idx}
                     className={`p-3 rounded-xl border flex flex-col items-center gap-1 ${
                       day.active
-                        ? 'bg-[var(--accent-a)]/15 border-[var(--accent-a)]/40 text-[var(--accent-a)]'
-                        : 'bg-[var(--bg)] border-[var(--border)] text-[var(--text-faint)]'
+                        ? 'bg-[var(--warning)]/15 border-[var(--warning)]/40 text-[var(--warning)]'
+                        : 'bg-[var(--panel-2)] border-[var(--border)] text-[var(--text-faint)]'
                     }`}
                   >
                     <span className="text-[11px] font-mono uppercase font-bold">{day.label}</span>
@@ -123,8 +120,8 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
             </div>
 
             <div className="p-3 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] flex items-center justify-between text-xs">
-              <span className="text-[var(--text-dim)]">Total practice logged</span>
-              <span className="font-mono font-bold text-[var(--success)]">{practiceHours} hrs</span>
+              <span className="text-[var(--text-faint)]">Total practice logged</span>
+              <span className="font-mono font-bold text-[var(--text)]">{practiceHours} hrs</span>
             </div>
           </div>
         );
@@ -134,7 +131,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
           <div className="space-y-6 animate-fadeIn">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
               <div>
-                <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--success)]">
+                <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--text-faint)]">
                   <TrendingUp size={16} />
                   <span>Card 2 • Growth Velocity</span>
                 </div>
@@ -143,7 +140,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
                 </h3>
               </div>
               {trend && (
-                <div className="px-3 py-1.5 rounded-xl bg-[var(--success)]/15 text-[var(--success)] font-mono font-bold text-sm">
+                <div className="px-3 py-1.5 rounded-xl bg-[var(--success)]/15 border border-[var(--success)]/30 text-[var(--success)] font-mono font-bold text-sm">
                   {trend.gain >= 0 ? '+' : ''}{trend.gain.toFixed(1)} Band
                 </div>
               )}
@@ -153,15 +150,15 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
               <>
                 <div className="space-y-3">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-[var(--text-dim)]">Earliest (last 30 days):</span>
+                    <span className="text-[var(--text-faint)]">Earliest (last 30 days):</span>
                     <span className="font-mono font-bold text-[var(--text)]">Band {trend.startBand.toFixed(1)}</span>
                   </div>
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-[var(--text-dim)]">Most Recent Score:</span>
-                    <span className="font-mono font-bold text-[var(--accent-a)]">Band {trend.latestBand.toFixed(1)}</span>
+                    <span className="text-[var(--text-faint)]">Most Recent Score:</span>
+                    <span className="font-mono font-bold text-[var(--text)]">Band {trend.latestBand.toFixed(1)}</span>
                   </div>
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-[var(--text-dim)]">Target Exam Score:</span>
+                    <span className="text-[var(--text-faint)]">Target Exam Score:</span>
                     <span className="font-mono font-bold text-[var(--text)]">Band {targetBand.toFixed(1)}</span>
                   </div>
                 </div>
@@ -181,7 +178,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
                 </div>
               </>
             ) : (
-              <div className="py-8 text-center text-sm text-[var(--text-dim)]">
+              <div className="py-8 text-center text-sm text-[var(--text-faint)]">
                 Not enough scored submissions in the last 30 days to plot a trend yet.
               </div>
             )}
@@ -193,7 +190,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
           <div className="space-y-6 animate-fadeIn">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
               <div>
-                <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">
+                <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--text-faint)]">
                   <Clock size={16} />
                   <span>Card 3 • Effort & Engagement</span>
                 </div>
@@ -203,7 +200,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
               </div>
               <div className="text-right">
                 <div className="font-display text-3xl font-extrabold text-[var(--text)]">
-                  {practiceHours} <span className="text-sm font-normal text-[var(--text-dim)]">Hours</span>
+                  {practiceHours} <span className="text-sm font-normal text-[var(--text-faint)]">Hours</span>
                 </div>
               </div>
             </div>
@@ -213,7 +210,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
                 You&apos;ve logged {practiceHours} hours of focused practice. Keep a steady daily rhythm to build toward Band {targetBand.toFixed(1)} readiness.
               </p>
             ) : (
-              <div className="py-8 text-center text-sm text-[var(--text-dim)]">
+              <div className="py-8 text-center text-sm text-[var(--text-faint)]">
                 No practice time logged yet. Your hours accumulate as you complete tests.
               </div>
             )}
@@ -231,7 +228,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
           <div className="space-y-6 animate-fadeIn">
             <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
               <div>
-                <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">
+                <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--text-faint)]">
                   <FileCheck size={16} />
                   <span>Card 4 • Assessment Record</span>
                 </div>
@@ -241,7 +238,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
               </div>
               <div className="text-right">
                 <div className="font-display text-3xl font-extrabold text-[var(--text)]">
-                  {testsCompleted} <span className="text-sm font-normal text-[var(--text-dim)]">Total</span>
+                  {testsCompleted} <span className="text-sm font-normal text-[var(--text-faint)]">Total</span>
                 </div>
               </div>
             </div>
@@ -249,7 +246,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
             <div className="grid grid-cols-2 gap-4">
               <div className="p-4 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)] space-y-2">
                 <div className="text-xs font-mono text-[var(--text-faint)] uppercase">Full Mock Exams:</div>
-                <div className="font-display font-bold text-2xl text-[var(--accent-a)]">{mockCount} Exams</div>
+                <div className="font-display font-bold text-2xl text-[var(--text)]">{mockCount} Exams</div>
               </div>
               <div className="p-4 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)] space-y-2">
                 <div className="text-xs font-mono text-[var(--text-faint)] uppercase">Modular Practice Sets:</div>
@@ -275,7 +272,7 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
       className="space-y-4"
     >
       {/* Carousel Top Navigation */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-[var(--panel-2)]/80 p-2 rounded-2xl border border-[var(--border)]">
+      <div className="flex flex-wrap items-center justify-between gap-3 p-2 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)]">
         <div className="flex items-center gap-1 overflow-x-auto py-0.5">
           {slides.map((slide) => {
             const Icon = slide.icon;
@@ -325,15 +322,19 @@ export const DashboardCarousel: React.FC<DashboardCarouselProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <GlassPanel
           key={`left-${activeSlide}`}
-          className="p-6 md:p-8 relative min-h-[380px] flex flex-col justify-between border border-[var(--border)] shadow-xl overflow-hidden animate-carouselShiftIn"
+          className="p-6 md:p-8 min-h-[380px] border border-[var(--border)] shadow-lg animate-carouselShiftIn"
         >
-          {renderCardBody(activeSlide)}
+          <div className="h-full flex flex-col justify-between">
+            {renderCardBody(activeSlide)}
+          </div>
         </GlassPanel>
         <GlassPanel
           key={`right-${rightSlide}`}
-          className="p-6 md:p-8 relative min-h-[380px] flex flex-col justify-between border border-[var(--border)] shadow-xl overflow-hidden animate-carouselSlideIn hidden lg:flex"
+          className="p-6 md:p-8 min-h-[380px] border border-[var(--border)] shadow-lg animate-carouselSlideIn hidden lg:block"
         >
-          {renderCardBody(rightSlide)}
+          <div className="h-full flex flex-col justify-between">
+            {renderCardBody(rightSlide)}
+          </div>
         </GlassPanel>
       </div>
 

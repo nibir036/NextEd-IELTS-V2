@@ -13,6 +13,7 @@ import { SpeakingView } from './views/SpeakingView';
 import { ListeningView } from './views/ListeningView';
 import { ListeningExamView } from './views/ListeningExamView';
 import { MockTestsView } from './views/MockTestsView';
+import { FullMockRunnerView } from './views/FullMockRunnerView';
 import { SubmissionsView } from './views/SubmissionsView';
 import { SearchView } from './views/SearchView';
 import { SettingsView } from './views/SettingsView';
@@ -29,6 +30,7 @@ const PROTECTED_ROUTES = [
   'speaking',
   'listening',
   'mock-tests',
+  'mock-runner',
   'submissions',
   'search',
   'settings',
@@ -179,6 +181,8 @@ export default function App() {
         return <ListeningExamView initialBrowseTab={subPath === 'tips' ? 'tips' : 'tests'} />;
       case 'mock-tests':
         return <MockTestsView onNavigateAction={handleNavigate} />;
+      case 'mock-runner':
+        return <FullMockRunnerView mockTestId={subPath} onNavigateAction={handleNavigate} />;
       case 'submissions':
         return <SubmissionsView />;
       case 'search':

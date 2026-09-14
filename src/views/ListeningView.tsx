@@ -67,7 +67,7 @@ export const ListeningView: React.FC<ListeningViewProps> = ({ id }) => {
         <GlassPanel className="p-6">
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono mb-2">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--panel-2)] text-[var(--text)] border border-[var(--border)] text-xs font-mono mb-2">
                 <Sparkles size={14} /> <span>Listening Practice</span>
               </div>
               <h2 className="font-display text-2xl font-bold text-[var(--text)]">Listening Practice</h2>
@@ -78,7 +78,7 @@ export const ListeningView: React.FC<ListeningViewProps> = ({ id }) => {
               </p>
             </div>
 
-            <div className="inline-flex items-center rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] p-1 shrink-0">
+            <div className="inline-flex items-center rounded-xl border border-[var(--border)] bg-[var(--panel-2)] p-1 shrink-0">
               <button
                 onClick={() => {
                   setBrowseTab('tests');
@@ -137,7 +137,7 @@ export const ListeningView: React.FC<ListeningViewProps> = ({ id }) => {
     return (
       <div id={id} className="max-w-3xl mx-auto space-y-6">
         <GlassPanel className="p-8 text-center space-y-4">
-          <div className="w-16 h-16 mx-auto rounded-2xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center shadow-lg shadow-[var(--glow-a)]">
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-[var(--panel-2)] text-[var(--accent-a)] flex items-center justify-center shadow-lg">
             <Trophy size={30} />
           </div>
           <div>
@@ -193,7 +193,7 @@ export const ListeningView: React.FC<ListeningViewProps> = ({ id }) => {
   return (
     <div id={id} className="max-w-3xl mx-auto space-y-6">
       <GlassPanel className="p-6">
-        <button onClick={backToTests} className="text-xs font-mono text-[var(--text-faint)] hover:text-[var(--accent-a)] mb-2 cursor-pointer">← Back to tests</button>
+        <button onClick={backToTests} className="text-xs font-mono text-[var(--text-faint)] hover:text-[var(--text)] mb-2 cursor-pointer">← Back to tests</button>
         <h2 className="font-display text-2xl font-bold text-[var(--text)]">{test ? test.title : 'Listening Test'}</h2>
         <p className="text-xs text-[var(--text-dim)] mt-1">{test?.instructions}</p>
       </GlassPanel>
@@ -202,7 +202,7 @@ export const ListeningView: React.FC<ListeningViewProps> = ({ id }) => {
       {!test && !loadError && <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)]">Loading test…</GlassPanel>}
 
       {test && test.sections.map((section) => (
-        <GlassPanel key={section.id} className="p-6 space-y-4">
+        <GlassPanel key={section.id} className="p-6 space-y-4 border-l-4 border-amber-400/70">
           <div>
             <h3 className="font-display font-bold text-base text-[var(--text)]">{section.title}</h3>
             {section.instructions && <p className="text-xs text-[var(--text-dim)] mt-1">{section.instructions}</p>}
@@ -223,14 +223,14 @@ export const ListeningView: React.FC<ListeningViewProps> = ({ id }) => {
               const parts = (q.prompt || '').split('____');
               return (
                 <div key={q.id} className="flex flex-wrap items-center gap-2 p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] text-sm text-[var(--text)]">
-                  <span className="font-mono font-bold text-[var(--accent-a)]">{q.qnumber}.</span>
+                  <span className="font-mono font-bold text-amber-600">{q.qnumber}.</span>
                   <span>{parts[0]}</span>
                   <input
                     type="text"
                     value={answers[String(q.qnumber)] || ''}
                     onChange={(e) => setAnswers((a) => ({ ...a, [String(q.qnumber)]: e.target.value }))}
                     placeholder="answer"
-                    className="inline-block w-32 bg-[var(--bg)] border border-[var(--border)] rounded-lg px-2 py-1 text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)]"
+                    className="inline-block w-32 bg-[var(--bg)] border border-[var(--border)] rounded-lg px-2 py-1 text-sm text-[var(--text)] focus:outline-none focus:border-amber-500"
                   />
                   {parts[1] && <span>{parts[1]}</span>}
                 </div>
@@ -242,9 +242,9 @@ export const ListeningView: React.FC<ListeningViewProps> = ({ id }) => {
 
       {test && (
         <GlassPanel className="p-5">
-          {errorMessage && <div className="text-xs text-[var(--danger)] bg-[var(--danger)]/10 border border-[var(--danger)]/20 p-2.5 rounded-xl mb-3">{errorMessage}</div>}
+          {errorMessage && <div className="text-xs text-[var(--danger)] bg-[var(--danger)]/10 border border-[var(--danger)]/30 p-2.5 rounded-xl mb-3">{errorMessage}</div>}
           <div className="flex items-center justify-between">
-            <span className="text-xs text-[var(--text-faint)]">
+            <span className="text-xs text-[var(--text-dim)]">
               {Object.values(answers).filter((v) => v.trim()).length} / {allQuestions.length} answered
             </span>
             <Button

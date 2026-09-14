@@ -42,15 +42,15 @@ export const SkillTips: React.FC<{ skill: Skill }> = ({ skill }) => {
   if (!tips || tips.length === 0) return null;
 
   return (
-    <GlassPanel className="p-5 space-y-3">
+    <GlassPanel className="p-5 space-y-3 border border-[var(--border)] shadow-lg">
       <div className="flex items-center gap-2">
-        <Sparkles size={16} className="text-[var(--accent-a)]" />
+        <Sparkles size={16} className="text-[var(--text)]" />
         <h3 className="font-display font-bold text-base text-[var(--text)]">Band 8+ Tips &amp; Tricks</h3>
       </div>
       <div className="space-y-2">
         {tips.map((tip, i) => (
           <div key={i} className="flex items-start gap-2 text-xs text-[var(--text-dim)] leading-relaxed">
-            <CheckCircle2 size={14} className="text-[var(--success)] shrink-0 mt-0.5" />
+            <CheckCircle2 size={14} className="text-[var(--text)] shrink-0 mt-0.5" />
             <span>{tip}</span>
           </div>
         ))}

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { GlassPanel } from '../../ui/GlassPanel';
 import { Clock, CheckCircle2, ChevronRight } from '../../ui/icons';
 
 interface TipsChapterSummary {
@@ -63,26 +62,28 @@ export const ReadingTipsChapterList: React.FC<{
 
   if (error) {
     return (
-      <GlassPanel className="p-6 text-sm text-[var(--danger)]">
-        {error}
-      </GlassPanel>
+      <div className="rounded-2xl border border-[var(--border)] bg-[var(--panel-2)] p-6 text-sm text-[var(--danger)]">
+        <span>{error}</span>
+      </div>
     );
   }
 
   if (!modules) {
     return (
-      <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)]">
-        Loading tips…
-      </GlassPanel>
+      <div className="rounded-2xl border border-[var(--border)] bg-[var(--panel-2)] p-8 text-center text-sm text-[var(--text-dim)]">
+        <span>Loading tips…</span>
+      </div>
     );
   }
 
   if (modules.length === 0) {
     return (
-      <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)]">
-        Reading Tips &amp; Tricks content is being prepared. Please check back
-        soon.
-      </GlassPanel>
+      <div className="rounded-2xl border border-[var(--border)] bg-[var(--panel-2)] p-8 text-center text-sm text-[var(--text-dim)]">
+        <span>
+          Reading Tips &amp; Tricks content is being prepared. Please check back
+          soon.
+        </span>
+      </div>
     );
   }
 
@@ -109,26 +110,29 @@ export const ReadingTipsChapterList: React.FC<{
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {mod.chapters.map((ch) => (
+            {mod.chapters.map((ch, index) => (
               <button
                 key={ch.id}
                 onClick={() => onSelectChapter(ch.slug)}
-                className="text-left rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]/50 p-4 hover:border-[var(--accent-a)]/40 hover:bg-[var(--panel-2)] transition-all group"
+                style={{
+                  animationDelay: `${Math.min(index, 14) * 35}ms`,
+                }}
+                className="animate-tileDropIn text-left rounded-2xl border border-[var(--border)] bg-[var(--panel-2)] p-4 transition-colors duration-300 hover:-translate-y-1 hover:border-[var(--border-strong)] group"
               >
                 <div className="flex items-start justify-between gap-2">
-                  <span className="text-sm font-semibold text-[var(--text)] group-hover:text-[var(--accent-a)] transition-colors">
+                  <span className="text-sm font-semibold text-[var(--text)] transition-colors">
                     {ch.title}
                   </span>
 
                   {ch.status === 'completed' ? (
                     <CheckCircle2
                       size={16}
-                      className="text-[var(--success,#22c55e)] shrink-0 mt-0.5"
+                      className="text-[var(--success)] shrink-0 mt-0.5"
                     />
                   ) : (
                     <ChevronRight
                       size={16}
-                      className="text-[var(--text-dim)] shrink-0 mt-0.5 group-hover:text-[var(--accent-a)] transition-colors"
+                      className="text-[var(--text-faint)] shrink-0 mt-0.5 transition-colors"
                     />
                   )}
                 </div>
@@ -140,13 +144,13 @@ export const ReadingTipsChapterList: React.FC<{
                 )}
 
                 {ch.estimatedMin && (
-                  <div className="flex items-center gap-1 text-[11px] text-[var(--text-dim)] mt-2">
+                  <div className="flex items-center gap-1 text-[11px] text-[var(--text-faint)] mt-2">
                     <Clock size={11} />
 
                     <span>{ch.estimatedMin} min</span>
 
                     {ch.status === 'in_progress' && (
-                      <span className="ml-2 text-[var(--accent-a)]">
+                      <span className="ml-2 text-[var(--accent-a)] font-semibold">
                         In progress
                       </span>
                     )}

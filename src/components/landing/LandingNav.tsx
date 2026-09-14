@@ -58,6 +58,10 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onNavigate, isLoggedIn =
         >
           How It Works
         </a>
+        {/* Pricing nav link -- commented out for now, matching the
+            already-commented-out Pricing section on the landing page.
+            Re-enable both together once pricing is ready to show. */}
+        {/*
         <a
           href="#pricing"
           onClick={(e) => handleScrollToSection(e, 'pricing')}
@@ -65,6 +69,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onNavigate, isLoggedIn =
         >
           Pricing
         </a>
+        */}
       </div>
 
       <div className="flex items-center gap-3">

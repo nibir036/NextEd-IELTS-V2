@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenAI, Type } from '@google/genai';
 import { prisma } from '../../../../lib/prisma';
 import { getSessionUserId } from '../../../../lib/session';
+import { ieltsOverall } from '../../../../lib/scoring';
 
 function getGenAIClient() {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -80,6 +81,41 @@ interface TaskEval {
   generalSummary: string;
   keyImprovements: string[];
   enhancedVersionSnippet?: string;
+}
+
+// Update the user's writing skill band to their BEST band so far, then
+// recompute overall_band from every skill band the user now has -- the
+// same pattern listening/reading/speaking already follow. Writing used to
+// skip this entirely (it only ever saved band_score on the submission
+// itself), so a writing-only student's overall_band never existed, and a
+// student strong elsewhere had writing silently missing from the average
+// instead of counted as a weak score.
+async function updateWritingSkillBandAndOverall(userId: string, band: number) {
+  const existing = await prisma.user_skill_bands.findUnique({
+    where: { user_id_skill: { user_id: userId, skill: 'writing' } },
+    select: { band: true },
+  });
+  const prevBest = existing?.band !== null && existing?.band !== undefined ? Number(existing.band) : null;
+  const bestBand = prevBest === null ? band : Math.max(prevBest, band);
+
+  if (bestBand !== prevBest) {
+    await prisma.user_skill_bands.upsert({
+      where: { user_id_skill: { user_id: userId, skill: 'writing' } },
+      create: { user_id: userId, skill: 'writing', band: bestBand },
+      update: { band: bestBand, updated_at: new Date() },
+    });
+  }
+
+  const allBands = await prisma.user_skill_bands.findMany({
+    where: { user_id: userId },
+    select: { band: true },
+  });
+  const overall = ieltsOverall(
+    allBands.map((b) => (b.band !== null ? Number(b.band) : NaN)).filter((n) => !Number.isNaN(n)),
+  );
+  if (overall !== null) {
+    await prisma.users.update({ where: { id: userId }, data: { overall_band: overall } });
+  }
 }
 
 // Fetch a remote image and return Gemini inlineData (base64 + mime).
@@ -187,6 +223,7 @@ export async function POST(req: NextRequest) {
             select: { id: true },
           });
           submissionId = created.id;
+          await updateWritingSkillBandAndOverall(userId, single.overallBand);
         } catch (e) { console.error('Writing save failed:', e); }
       }
       return NextResponse.json({ ...single, submissionId, saved: submissionId !== null });
@@ -250,6 +287,7 @@ export async function POST(req: NextRequest) {
           select: { id: true },
         });
         submissionId = created.id;
+        await updateWritingSkillBandAndOverall(userId, overallBand);
       } catch (saveErr) {
         console.error('Writing submission save failed:', saveErr);
       }

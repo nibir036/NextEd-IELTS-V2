@@ -12,6 +12,12 @@ import { Sparkles, Send, RefreshCw, Trophy, CheckCircle2, X, Clock, BookOpen } f
 interface ReadingExamViewProps {
   id?: string;
   initialBrowseTab?: 'tests' | 'tips';
+  // "Forced" mode: a parent (the full-mock-test runner) hands us a specific
+  // testId to load directly, skipping the browse/select-a-test screen, and
+  // gets notified with the resulting band once this skill is scored so it
+  // can move on to the next one.
+  forcedTestId?: string;
+  onExamComplete?: (band: number) => void;
 }
 
 type AnswerValue = string | string[];
@@ -26,8 +32,13 @@ function formatAnswerForReview(v: unknown): string {
   return v ? String(v) : '—';
 }
 
-export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBrowseTab }) => {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBrowseTab, forcedTestId, onExamComplete }) => {
+  const [selectedId, setSelectedId] = useState<string | null>(forcedTestId ?? null);
+
+  // Forced mode: the runner may hand us forcedTestId slightly after mount.
+  useEffect(() => {
+    if (forcedTestId) setSelectedId(forcedTestId);
+  }, [forcedTestId]);
   const [test, setTest] = useState<ReadingTest | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [browseTab, setBrowseTab] = useState<'tests' | 'tips'>(initialBrowseTab ?? 'tests');
@@ -55,6 +66,58 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const submitRef = useRef<() => void>(() => {});
+
+  // Resizable split-pane state for the two-column exam layout (passage
+  // left, questions right). leftPct is the left panel's share of the
+  // container width; persisted to localStorage so the user's preferred
+  // split sticks around next time they take a test.
+  const [leftPct, setLeftPct] = useState<number>(45);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const splitContainerRef = useRef<HTMLDivElement>(null);
+  const draggingRef = useRef(false);
+
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem('reading-exam-split-pct');
+      const n = saved ? parseFloat(saved) : NaN;
+      if (Number.isFinite(n)) setLeftPct(Math.min(75, Math.max(25, n)));
+    } catch {
+      /* localStorage unavailable — fall back to the default split */
+    }
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem('reading-exam-split-pct', String(leftPct));
+    } catch {
+      /* localStorage unavailable — split just won't persist */
+    }
+  }, [leftPct]);
+
+  const clampSplit = (n: number) => Math.min(75, Math.max(25, n));
+
+  const onDividerPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    draggingRef.current = true;
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+  const onDividerPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!draggingRef.current || !splitContainerRef.current) return;
+    const rect = splitContainerRef.current.getBoundingClientRect();
+    setLeftPct(clampSplit(((e.clientX - rect.left) / rect.width) * 100));
+  };
+  const onDividerPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    draggingRef.current = false;
+    try {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    } catch {
+      /* already released */
+    }
+  };
 
   useEffect(() => {
     if (!selectedId) return;
@@ -101,6 +164,7 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
     try {
       const res = await db.submitReading(test.id, answers);
       setResult(res);
+      onExamComplete?.(res.band);
     } catch (err) {
       setErrorMessage(err instanceof Error ? err.message : 'Submission failed.');
     } finally {
@@ -133,8 +197,8 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
   if (!selectedId) {
     return (
       <div id={id} className="space-y-6">
-        <GlassPanel className="p-6">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono mb-2">
+        <GlassPanel className="p-6 border border-[var(--border)] shadow-lg">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text)] text-xs font-mono mb-2">
             <Sparkles size={14} /> <span>Reading Practice</span>
           </div>
           <h2 className="font-display text-2xl font-bold text-[var(--text)]">Reading Practice</h2>
@@ -187,9 +251,9 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
   if (result) {
     return (
       <div id={id} className="max-w-3xl mx-auto space-y-6">
-        <BackLink onClick={backToTests}>Back to tests</BackLink>
-        <GlassPanel className="p-8 text-center space-y-4">
-          <div className="w-16 h-16 mx-auto rounded-2xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center shadow-lg shadow-[var(--glow-a)]">
+        {!forcedTestId && <BackLink onClick={backToTests}>Back to tests</BackLink>}
+        <GlassPanel className="p-8 text-center space-y-4 border border-[var(--border)] shadow-lg">
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text)] flex items-center justify-center">
             <Trophy size={30} />
           </div>
           <div>
@@ -231,211 +295,247 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
     );
   }
 
-  // ---------- EXAM (two-panel: passage left, questions right) ----------
+  // ---------- EXAM (horizontal timer bar + resizable passage/questions split) ----------
   const timeIsLow = timeLeft !== null && timeLeft <= 60;
+  const progressPct = test?.durationSeconds && timeLeft !== null
+    ? Math.max(0, Math.min(100, (timeLeft / test.durationSeconds) * 100))
+    : 100;
 
   return (
     <div id={id} className="space-y-4">
-      <BackLink onClick={backToTests}>Back to tests</BackLink>
+      {!forcedTestId && <BackLink onClick={backToTests}>Back to tests</BackLink>}
 
       {loadError && <GlassPanel className="p-6 text-sm text-[var(--danger)]">{loadError}</GlassPanel>}
       {!test && !loadError && <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)]">Loading test…</GlassPanel>}
 
       {test && (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          {/* LEFT: sticky timer + scrollable passage(s) */}
-          <div className="lg:col-span-5 lg:sticky lg:top-6 space-y-4">
-            <GlassPanel className="p-5 space-y-4">
-              <h2 className="font-display text-xl font-bold text-[var(--text)]">{test.title}</h2>
-
-              <div className={`rounded-2xl border p-4 flex items-center justify-between ${timeIsLow ? 'border-[var(--danger)]/40 bg-[var(--danger)]/10' : 'border-[var(--border)] bg-[var(--bg-elevated)]'}`}>
-                <div className="flex items-center gap-2">
-                  <Clock size={18} className={timeIsLow ? 'text-[var(--danger)]' : 'text-[var(--accent-a)]'} />
-                  <span className="text-xs font-mono text-[var(--text-dim)]">Time remaining</span>
-                </div>
-                <span className={`font-display font-extrabold text-2xl ${timeIsLow ? 'text-[var(--danger)]' : 'text-[var(--text)]'}`}>
-                  {timeLeft !== null ? fmtTime(timeLeft) : '--:--'}
-                </span>
+        <>
+          {/* Header: title, instructions, answered count, submit — plus a
+              horizontal countdown bar across the top of the test page
+              (replaces the old boxed "time remaining" panel). Same
+              countdown logic as before, just a different presentation. */}
+          <GlassPanel className="p-5 md:p-6 space-y-3 border border-[var(--border)] shadow-lg">
+            <div className="flex items-center justify-between gap-4 flex-wrap">
+              <div className="min-w-0">
+                <h2 className="font-display text-lg font-bold text-[var(--text)] truncate">{test.title}</h2>
+                {test.instructions && (
+                  <p className="text-[11px] text-[var(--text-dim)] mt-0.5 max-w-xl leading-relaxed">
+                    {test.instructions}
+                  </p>
+                )}
               </div>
 
-              {test.instructions && (
-                <div className="rounded-xl bg-[var(--panel-2)] border border-[var(--border)] p-3">
-                  <div className="text-[11px] font-mono uppercase text-[var(--text-faint)] mb-1">Instructions</div>
-                  <p className="text-xs text-[var(--text-dim)] leading-relaxed">{test.instructions}</p>
+              <div className="flex items-center gap-3 shrink-0">
+                <div className="flex items-center gap-1.5">
+                  <Clock size={16} className={timeIsLow ? 'text-[var(--danger)] animate-pulse' : 'text-[var(--text)]'} />
+                  <span className={`font-display font-extrabold text-xl tabular-nums ${timeIsLow ? 'text-[var(--danger)]' : 'text-[var(--text)]'}`}>
+                    {timeLeft !== null ? fmtTime(timeLeft) : '--:--'}
+                  </span>
                 </div>
-              )}
-
-              {errorMessage && <div className="text-xs text-[var(--danger)] bg-[var(--danger)]/10 border border-[var(--danger)]/20 p-2.5 rounded-xl">{errorMessage}</div>}
-
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-[var(--text-faint)]">
+                <span className="text-xs font-mono text-[var(--text-faint)] hidden sm:inline">
                   {answeredCount} / {allQuestions.length} answered
                 </span>
                 <Button
-                  variant="primary" size="md"
-                  icon={submitting ? <RefreshCw size={16} className="animate-spin" /> : <Send size={16} />}
+                  variant="primary" size="sm"
+                  icon={submitting ? <RefreshCw size={15} className="animate-spin" /> : <Send size={15} />}
                   disabled={submitting}
                   onClick={doSubmit}
                 >
-                  {submitting ? 'Scoring...' : 'Submit & Score'}
+                  {submitting ? 'Scoring...' : 'Submit'}
                 </Button>
               </div>
-            </GlassPanel>
+            </div>
 
-            {/* Passage text(s) — scrollable reading pane */}
-            <GlassPanel className="p-5 lg:max-h-[calc(100vh-20rem)] lg:overflow-y-auto no-scrollbar space-y-5">
-              {test.sections.filter((s) => s.passageText).map((section) => (
-                <div key={section.id} className="space-y-2">
-                  <div className="flex items-center gap-2 text-xs font-mono uppercase text-[var(--text-faint)]">
-                    <BookOpen size={14} className="text-[var(--accent-a)]" />
-                    {section.title}
+            {/* Horizontal timer bar — bleeds to the card's edges and
+                depletes as time runs out. */}
+            <div className={`-mx-5 md:-mx-6 h-2 overflow-hidden ${timeIsLow ? 'bg-[var(--danger)]/25' : 'bg-[var(--panel-2)]'}`}>
+              <div
+                className={`h-full transition-[width] duration-1000 ease-linear ${timeIsLow ? 'bg-[var(--danger)]' : 'bg-[image:var(--accent-gradient)]'}`}
+                style={{ width: `${progressPct}%` }}
+              />
+            </div>
+
+            {errorMessage && (
+              <div className="text-xs text-[var(--danger)] bg-[var(--danger)]/10 border border-[var(--danger)]/30 p-2.5 rounded-xl">
+                {errorMessage}
+              </div>
+            )}
+          </GlassPanel>
+
+          {/* Resizable split: passage (left) / questions (right). Drag the
+              handle to adjust each pane's width — the split is remembered
+              for next time. Stacks full-width on small screens, where
+              dragging isn't practical. */}
+          <div ref={splitContainerRef} className="flex flex-col lg:flex-row gap-4 lg:gap-0">
+            <div className="min-w-0" style={isDesktop ? { width: `${leftPct}%` } : undefined}>
+              <GlassPanel className="lg:max-h-[calc(100vh-15rem)] lg:min-h-[24rem] lg:overflow-y-auto no-scrollbar space-y-5">
+                {test.sections.filter((s) => s.passageText).map((section) => (
+                  <div key={section.id} className="space-y-2">
+                    <div className="flex items-center gap-2 text-xs font-mono uppercase text-[var(--text-faint)]">
+                      <BookOpen size={14} className="text-[#a855f7]" />
+                      {section.title}
+                    </div>
+                    <p className="text-sm text-[var(--text)] leading-relaxed whitespace-pre-line">{section.passageText}</p>
                   </div>
-                  <p className="text-sm text-[var(--text)] leading-relaxed whitespace-pre-line">{section.passageText}</p>
-                </div>
-              ))}
-            </GlassPanel>
+                ))}
+              </GlassPanel>
+            </div>
+
+            {/* Drag handle — desktop only; hidden when panes stack on mobile. */}
+            <div
+              className="hidden lg:flex w-3 shrink-0 items-center justify-center cursor-col-resize group touch-none"
+              onPointerDown={onDividerPointerDown}
+              onPointerMove={onDividerPointerMove}
+              onPointerUp={onDividerPointerUp}
+              onPointerCancel={onDividerPointerUp}
+              onDoubleClick={() => setLeftPct(45)}
+              title="Drag to resize · double-click to reset"
+            >
+              <div className="w-1 h-10 rounded-full bg-[var(--border-strong)] group-hover:bg-[var(--accent-a)] group-active:bg-[var(--accent-a)] transition-colors" />
+            </div>
+
+            <div className="min-w-0" style={isDesktop ? { width: `${100 - leftPct}%` } : undefined}>
+              <div className="lg:max-h-[calc(100vh-15rem)] lg:min-h-[24rem] lg:overflow-y-auto no-scrollbar space-y-6 pr-1">
+                {test.sections.map((section) => {
+                  // If this section has `matching` questions, they all share the
+                  // same option list. Find which question is the FIRST one of
+                  // type 'matching' so the shared options box can be rendered
+                  // immediately before it (not always at the top of the
+                  // section) -- e.g. if matching questions are numbered 37-40
+                  // after MCQ/T-F-NG questions 27-36, the box now appears
+                  // right before 37, not above 27.
+                  const firstMatchingIdx = section.questions.findIndex((q) => q.type === 'matching');
+                  const matchingOptions = section.questions[firstMatchingIdx]?.options as
+                    | { letter: string; text?: string }[]
+                    | undefined;
+
+                  return (
+                    <GlassPanel key={section.id} className="p-6 space-y-4">
+                      <div>
+                        <h3 className="font-display font-bold text-base text-[var(--text)]">{section.title}</h3>
+                        {section.instructions && <p className="text-xs text-[var(--text-dim)] mt-1">{section.instructions}</p>}
+                      </div>
+
+                      <div className="space-y-2">
+                        {section.questions.map((q, qIdx) => {
+                          const optionsBoxBeforeThis =
+                            qIdx === firstMatchingIdx && matchingOptions && matchingOptions.length > 0 ? (
+                              <div
+                                key={`${section.id}-options-box`}
+                                className="rounded-xl bg-[var(--panel-2)] border border-[var(--border)] p-3 space-y-1.5"
+                              >
+                                <div className="text-[11px] font-mono uppercase text-[var(--text-faint)] mb-1">Options</div>
+                                {matchingOptions.map((o) => (
+                                  <div key={o.letter} className="flex items-start gap-2 text-xs text-[var(--text-dim)]">
+                                    <span className="font-mono font-bold text-[#a855f7] shrink-0">{o.letter}</span>
+                                    <span>{o.text}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : null;
+
+                          // Compact letter/word-grid: matching questions share the
+                          // reference box above and just need a pick.
+                          if (q.type === 'matching') {
+                            const opts = Array.isArray(q.options)
+                              ? (q.options as { letter: string; text?: string }[])
+                              : [];
+                            const selected = (answers[String(q.qnumber)] as string) || '';
+                            return (
+                              <React.Fragment key={q.id}>
+                                {optionsBoxBeforeThis}
+                                <div className="p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] space-y-2">
+                                  <div className="text-sm text-[var(--text)]">
+                                    <span className="font-mono font-bold text-[#a855f7]">{q.qnumber}.</span> {q.prompt}
+                                  </div>
+                                  <div className="flex flex-wrap gap-1.5">
+                                    {opts.map((o) => {
+                                      const isSel = selected.toLowerCase() === o.letter.toLowerCase();
+                                      return (
+                                        <button
+                                          key={o.letter}
+                                          onClick={() => setSingleAnswer(q.qnumber, o.letter)}
+                                          className={`min-w-9 h-9 px-2 rounded-lg border flex items-center justify-center text-xs font-bold cursor-pointer transition-colors ${
+                                            isSel
+                                              ? 'border-[#a855f7] bg-[#a855f7] text-white'
+                                              : 'border-[var(--border-strong)] text-[var(--text)] hover:border-[#a855f7]'
+                                          }`}
+                                        >
+                                          {o.letter}
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                              </React.Fragment>
+                            );
+                          }
+
+                          // single_choice — full inline list. Used for both MCQ
+                          // (A-D) and True/False/Not Given questions.
+                          if (q.type === 'single_choice') {
+                            const opts = Array.isArray(q.options)
+                              ? (q.options as { letter: string; text: string }[])
+                              : [];
+                            const selected = (answers[String(q.qnumber)] as string) || '';
+                            return (
+                              <div key={q.id} className="p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] space-y-2">
+                                <div className="text-sm text-[var(--text)]">
+                                  <span className="font-mono font-bold text-[#a855f7]">{q.qnumber}.</span> {q.prompt}
+                                </div>
+                                <div className="space-y-1.5">
+                                  {opts.map((o) => {
+                                    const isSel = selected.toLowerCase() === o.letter.toLowerCase();
+                                    return (
+                                      <button
+                                        key={o.letter}
+                                        onClick={() => setSingleAnswer(q.qnumber, o.letter)}
+                                        className={`w-full flex items-start gap-2.5 text-left p-2.5 rounded-lg border transition-colors cursor-pointer ${
+                                          isSel
+                                            ? 'border-[#a855f7] bg-[#a855f7]/10'
+                                            : 'border-[var(--border)] hover:border-[var(--border-strong)] hover:bg-[var(--panel-2)]'
+                                        }`}
+                                      >
+                                        <span className={`shrink-0 mt-0.5 px-1.5 h-5 min-w-5 rounded-full border flex items-center justify-center text-[10px] font-bold ${
+                                          isSel ? 'border-[#a855f7] bg-[#a855f7] text-white' : 'border-[var(--border-strong)] text-[var(--text-faint)]'
+                                        }`}>
+                                          {o.letter}
+                                        </span>
+                                        <span className="text-xs text-[var(--text)] leading-snug">{o.text}</span>
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                            );
+                          }
+
+                          // Default: text_input completion — inline blank, or a
+                          // standalone short-answer question if there's no blank.
+                          const parts = (q.prompt || '').split('____');
+                          return (
+                            <div key={q.id} className="flex flex-wrap items-center gap-2 p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] text-sm text-[var(--text)]">
+                              <span className="font-mono font-bold text-[#a855f7]">{q.qnumber}.</span>
+                              <span>{parts[0]}</span>
+                              <input
+                                type="text"
+                                value={(answers[String(q.qnumber)] as string) || ''}
+                                onChange={(e) => setAnswers((a) => ({ ...a, [String(q.qnumber)]: e.target.value }))}
+                                placeholder="answer"
+                                className="inline-block w-40 bg-[var(--bg)] border border-[var(--border)] rounded-lg px-2 py-1 text-sm text-[var(--text)] focus:outline-none focus:border-[#a855f7] focus:ring-2 focus:ring-[#a855f7]/30"
+                              />
+                              {parts[1] && <span>{parts[1]}</span>}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </GlassPanel>
+                  );
+                })}
+              </div>
+            </div>
           </div>
-
-          {/* RIGHT: scrollable question sets */}
-          <div className="lg:col-span-7 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto no-scrollbar space-y-6 pr-1">
-            {test.sections.map((section) => {
-              // If this section has `matching` questions, they all share the
-              // same option list. Find which question is the FIRST one of
-              // type 'matching' so the shared options box can be rendered
-              // immediately before it (not always at the top of the
-              // section) -- e.g. if matching questions are numbered 37-40
-              // after MCQ/T-F-NG questions 27-36, the box now appears
-              // right before 37, not above 27.
-              const firstMatchingIdx = section.questions.findIndex((q) => q.type === 'matching');
-              const matchingOptions = section.questions[firstMatchingIdx]?.options as
-                | { letter: string; text?: string }[]
-                | undefined;
-
-              return (
-                <GlassPanel key={section.id} className="p-6 space-y-4">
-                  <div>
-                    <h3 className="font-display font-bold text-base text-[var(--text)]">{section.title}</h3>
-                    {section.instructions && <p className="text-xs text-[var(--text-dim)] mt-1">{section.instructions}</p>}
-                  </div>
-
-                  <div className="space-y-2">
-                    {section.questions.map((q, qIdx) => {
-                      const optionsBoxBeforeThis =
-                        qIdx === firstMatchingIdx && matchingOptions && matchingOptions.length > 0 ? (
-                          <div
-                            key={`${section.id}-options-box`}
-                            className="rounded-xl bg-[var(--panel-2)] border border-[var(--border)] p-3 space-y-1.5"
-                          >
-                            <div className="text-[11px] font-mono uppercase text-[var(--text-faint)] mb-1">Options</div>
-                            {matchingOptions.map((o) => (
-                              <div key={o.letter} className="flex items-start gap-2 text-xs text-[var(--text-dim)]">
-                                <span className="font-mono font-bold text-[var(--accent-a)] shrink-0">{o.letter}</span>
-                                <span>{o.text}</span>
-                              </div>
-                            ))}
-                          </div>
-                        ) : null;
-
-                      // Compact letter/word-grid: matching questions share the
-                      // reference box above and just need a pick.
-                      if (q.type === 'matching') {
-                        const opts = Array.isArray(q.options)
-                          ? (q.options as { letter: string; text?: string }[])
-                          : [];
-                        const selected = (answers[String(q.qnumber)] as string) || '';
-                        return (
-                          <React.Fragment key={q.id}>
-                            {optionsBoxBeforeThis}
-                            <div className="p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] space-y-2">
-                              <div className="text-sm text-[var(--text)]">
-                                <span className="font-mono font-bold text-[var(--accent-a)]">{q.qnumber}.</span> {q.prompt}
-                              </div>
-                              <div className="flex flex-wrap gap-1.5">
-                                {opts.map((o) => {
-                                  const isSel = selected.toLowerCase() === o.letter.toLowerCase();
-                                  return (
-                                    <button
-                                      key={o.letter}
-                                      onClick={() => setSingleAnswer(q.qnumber, o.letter)}
-                                      className={`min-w-9 h-9 px-2 rounded-lg border flex items-center justify-center text-xs font-bold cursor-pointer transition-colors ${
-                                        isSel
-                                          ? 'border-[var(--accent-a)] bg-[var(--accent-a)] text-white'
-                                          : 'border-[var(--border-strong)] text-[var(--text)] hover:border-[var(--accent-a)]'
-                                      }`}
-                                    >
-                                      {o.letter}
-                                    </button>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          </React.Fragment>
-                        );
-                      }
-
-                      // single_choice — full inline list. Used for both MCQ
-                      // (A-D) and True/False/Not Given questions.
-                      if (q.type === 'single_choice') {
-                        const opts = Array.isArray(q.options)
-                          ? (q.options as { letter: string; text: string }[])
-                          : [];
-                        const selected = (answers[String(q.qnumber)] as string) || '';
-                        return (
-                          <div key={q.id} className="p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] space-y-2">
-                            <div className="text-sm text-[var(--text)]">
-                              <span className="font-mono font-bold text-[var(--accent-a)]">{q.qnumber}.</span> {q.prompt}
-                            </div>
-                            <div className="space-y-1.5">
-                              {opts.map((o) => {
-                                const isSel = selected.toLowerCase() === o.letter.toLowerCase();
-                                return (
-                                  <button
-                                    key={o.letter}
-                                    onClick={() => setSingleAnswer(q.qnumber, o.letter)}
-                                    className={`w-full flex items-start gap-2.5 text-left p-2.5 rounded-lg border transition-colors cursor-pointer ${
-                                      isSel
-                                        ? 'border-[var(--accent-a)] bg-[var(--accent-a)]/10'
-                                        : 'border-[var(--border)] hover:border-[var(--border-strong)] hover:bg-[var(--panel-2)]'
-                                    }`}
-                                  >
-                                    <span className={`shrink-0 mt-0.5 px-1.5 h-5 min-w-5 rounded-full border flex items-center justify-center text-[10px] font-bold ${
-                                      isSel ? 'border-[var(--accent-a)] bg-[var(--accent-a)] text-white' : 'border-[var(--border-strong)] text-[var(--text-faint)]'
-                                    }`}>
-                                      {o.letter}
-                                    </span>
-                                    <span className="text-xs text-[var(--text)] leading-snug">{o.text}</span>
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        );
-                      }
-
-                      // Default: text_input completion — inline blank, or a
-                      // standalone short-answer question if there's no blank.
-                      const parts = (q.prompt || '').split('____');
-                      return (
-                        <div key={q.id} className="flex flex-wrap items-center gap-2 p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] text-sm text-[var(--text)]">
-                          <span className="font-mono font-bold text-[var(--accent-a)]">{q.qnumber}.</span>
-                          <span>{parts[0]}</span>
-                          <input
-                            type="text"
-                            value={(answers[String(q.qnumber)] as string) || ''}
-                            onChange={(e) => setAnswers((a) => ({ ...a, [String(q.qnumber)]: e.target.value }))}
-                            placeholder="answer"
-                            className="inline-block w-40 bg-[var(--bg)] border border-[var(--border)] rounded-lg px-2 py-1 text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)]"
-                          />
-                          {parts[1] && <span>{parts[1]}</span>}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </GlassPanel>
-              );
-            })}
-          </div>
-        </div>
+        </>
       )}
     </div>
   );

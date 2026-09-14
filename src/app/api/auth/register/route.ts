@@ -10,9 +10,9 @@ export async function POST(req: NextRequest) {
   try {
     const { phone, password, name, email, targetBand, examDate } = await req.json();
 
-    if (!phone || !password || !name || !email) {
+    if (!phone || !password || !name) {
       return NextResponse.json(
-        { error: 'phone, password, name, and email are required.' },
+        { error: 'phone, password, and name are required.' },
         { status: 400 },
       );
     }
@@ -23,12 +23,18 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const cleanEmail = String(email).trim().toLowerCase();
-    if (!EMAIL_REGEX.test(cleanEmail)) {
-      return NextResponse.json(
-        { error: 'Please enter a valid email address.' },
-        { status: 400 },
-      );
+    // Email is no longer collected at signup -- candidates add it later
+    // from their profile once logged in. Still accept it if a caller does
+    // pass one (e.g. a future admin-created account), but don't require it.
+    let cleanEmail: string | null = null;
+    if (email) {
+      cleanEmail = String(email).trim().toLowerCase();
+      if (!EMAIL_REGEX.test(cleanEmail)) {
+        return NextResponse.json(
+          { error: 'Please enter a valid email address.' },
+          { status: 400 },
+        );
+      }
     }
 
     const cleanPhone = String(phone).replace(/\s+/g, '');
@@ -41,12 +47,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const existingEmail = await prisma.users.findFirst({ where: { email: cleanEmail } });
-    if (existingEmail) {
-      return NextResponse.json(
-        { error: 'An account with this email address already exists.' },
-        { status: 409 },
-      );
+    if (cleanEmail) {
+      const existingEmail = await prisma.users.findFirst({ where: { email: cleanEmail } });
+      if (existingEmail) {
+        return NextResponse.json(
+          { error: 'An account with this email address already exists.' },
+          { status: 409 },
+        );
+      }
     }
 
     const passwordHash = await bcrypt.hash(password, 10);

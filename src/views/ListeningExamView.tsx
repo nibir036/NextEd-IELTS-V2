@@ -14,6 +14,12 @@ import { Sparkles, Send, RefreshCw, Trophy, CheckCircle2, X, Clock } from '../co
 interface ListeningExamViewProps {
   id?: string;
   initialBrowseTab?: 'tests' | 'tips';
+  // "Forced" mode: a parent (the full-mock-test runner) hands us a specific
+  // testId to load directly, skipping the browse/select-a-test screen, and
+  // gets notified with the resulting band once this skill is scored so it
+  // can move on to the next one.
+  forcedTestId?: string;
+  onExamComplete?: (band: number) => void;
 }
 
 type AnswerValue = string | string[];
@@ -28,8 +34,13 @@ function formatAnswerForReview(v: unknown): string {
   return v ? String(v) : '—';
 }
 
-export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initialBrowseTab }) => {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initialBrowseTab, forcedTestId, onExamComplete }) => {
+  const [selectedId, setSelectedId] = useState<string | null>(forcedTestId ?? null);
+
+  // Forced mode: the runner may hand us forcedTestId slightly after mount.
+  useEffect(() => {
+    if (forcedTestId) setSelectedId(forcedTestId);
+  }, [forcedTestId]);
   const [test, setTest] = useState<ListeningTest | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [browseTab, setBrowseTab] = useState<'tests' | 'tips'>(initialBrowseTab ?? 'tests');
@@ -103,6 +114,7 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
     try {
       const res = await db.submitListening(test.id, answers);
       setResult(res);
+      onExamComplete?.(res.band);
     } catch (err) {
       setErrorMessage(err instanceof Error ? err.message : 'Submission failed.');
     } finally {
@@ -147,7 +159,7 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
     return (
       <div id={id} className="space-y-6">
         <GlassPanel className="p-6">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--panel-2)] text-[var(--text)] border border-[var(--border)] text-xs font-mono mb-2">
             <Sparkles size={14} /> <span>Listening Practice</span>
           </div>
           <h2 className="font-display text-2xl font-bold text-[var(--text)]">Listening Practice</h2>
@@ -204,9 +216,9 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
   if (result) {
     return (
       <div id={id} className="max-w-3xl mx-auto space-y-6">
-        <BackLink onClick={backToTests}>Back to tests</BackLink>
+        {!forcedTestId && <BackLink onClick={backToTests}>Back to tests</BackLink>}
         <GlassPanel className="p-8 text-center space-y-4">
-          <div className="w-16 h-16 mx-auto rounded-2xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center shadow-lg shadow-[var(--glow-a)]">
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-[var(--panel-2)] text-[var(--accent-a)] flex items-center justify-center shadow-lg">
             <Trophy size={30} />
           </div>
           <div>
@@ -253,7 +265,7 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
 
   return (
     <div id={id} className="space-y-4">
-      <BackLink onClick={backToTests}>Back to tests</BackLink>
+      {!forcedTestId && <BackLink onClick={backToTests}>Back to tests</BackLink>}
 
       {loadError && <GlassPanel className="p-6 text-sm text-[var(--danger)]">{loadError}</GlassPanel>}
       {!test && !loadError && <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)]">Loading test…</GlassPanel>}
@@ -265,14 +277,24 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
             <GlassPanel className="p-5 space-y-4">
               <h2 className="font-display text-xl font-bold text-[var(--text)]">{test.title}</h2>
 
-              <div className={`rounded-2xl border p-4 flex items-center justify-between ${timeIsLow ? 'border-[var(--danger)]/40 bg-[var(--danger)]/10' : 'border-[var(--border)] bg-[var(--bg-elevated)]'}`}>
-                <div className="flex items-center gap-2">
-                  <Clock size={18} className={timeIsLow ? 'text-[var(--danger)]' : 'text-[var(--accent-a)]'} />
-                  <span className="text-xs font-mono text-[var(--text-dim)]">Time remaining</span>
+              <div className={`rounded-2xl border p-4 space-y-2 ${timeIsLow ? 'border-[var(--danger)]/40 bg-[var(--danger)]/10' : 'border-[var(--border)] bg-[var(--panel-2)]'}`}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Clock size={18} className={timeIsLow ? 'text-[var(--danger)]' : 'text-[var(--text)]'} />
+                    <span className="text-xs font-mono text-[var(--text-dim)]">Time remaining</span>
+                  </div>
+                  <span className={`font-display font-extrabold text-2xl ${timeIsLow ? 'text-[var(--danger)]' : 'text-[var(--text)]'}`}>
+                    {timeLeft !== null ? fmtTime(timeLeft) : '--:--'}
+                  </span>
                 </div>
-                <span className={`font-display font-extrabold text-2xl ${timeIsLow ? 'text-[var(--danger)]' : 'text-[var(--text)]'}`}>
-                  {timeLeft !== null ? fmtTime(timeLeft) : '--:--'}
-                </span>
+                {timeLeft !== null && test.durationSeconds ? (
+                  <div className="w-full h-2 rounded-full bg-[var(--border)] overflow-hidden">
+                    <div
+                      className={`h-full rounded-full transition-[width] duration-1000 ease-linear ${timeIsLow ? 'bg-[var(--danger)]' : 'bg-[image:var(--accent-gradient)]'}`}
+                      style={{ width: `${Math.max(0, Math.min(100, (timeLeft / test.durationSeconds) * 100))}%` }}
+                    />
+                  </div>
+                ) : null}
               </div>
               {!timerRunning && timeLeft !== null && timeLeft > 0 && (
                 <p className="text-[11px] text-[var(--text-faint)] -mt-2">The timer starts when you start the audio.</p>
@@ -292,10 +314,10 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
                 </div>
               )}
 
-              {errorMessage && <div className="text-xs text-[var(--danger)] bg-[var(--danger)]/10 border border-[var(--danger)]/20 p-2.5 rounded-xl">{errorMessage}</div>}
+              {errorMessage && <div className="text-xs text-[var(--danger)] bg-[var(--danger)]/10 border border-[var(--danger)]/30 p-2.5 rounded-xl">{errorMessage}</div>}
 
               <div className="flex items-center justify-between">
-                <span className="text-xs text-[var(--text-faint)]">
+                <span className="text-xs text-[var(--text-dim)]">
                   {answeredCount} / {allQuestions.length} answered
                 </span>
                 <Button
@@ -321,7 +343,7 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
                 | undefined;
 
               return (
-                <GlassPanel key={section.id} className="p-6 space-y-4">
+                <GlassPanel key={section.id} className="p-6 space-y-4 border-l-4 border-amber-400/70">
                   <div>
                     <h3 className="font-display font-bold text-base text-[var(--text)]">{section.title}</h3>
                     {section.instructions && <p className="text-xs text-[var(--text-dim)] mt-1">{section.instructions}</p>}
@@ -341,7 +363,7 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
                       <div className="text-[11px] font-mono uppercase text-[var(--text-faint)] mb-1">Options</div>
                       {matchingOptions.map((o) => (
                         <div key={o.letter} className="flex items-start gap-2 text-xs text-[var(--text-dim)]">
-                          <span className="font-mono font-bold text-[var(--accent-a)] shrink-0">{o.letter}</span>
+                          <span className="font-mono font-bold text-amber-600 shrink-0">{o.letter}</span>
                           <span>{o.text}</span>
                         </div>
                       ))}
@@ -360,7 +382,7 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
                         return (
                           <div key={q.id} className="p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] space-y-2">
                             <div className="text-sm text-[var(--text)]">
-                              <span className="font-mono font-bold text-[var(--accent-a)]">{q.qnumber}.</span> {q.prompt}
+                              <span className="font-mono font-bold text-amber-600">{q.qnumber}.</span> {q.prompt}
                             </div>
                             <div className="flex flex-wrap gap-1.5">
                               {opts.map((o) => {
@@ -371,8 +393,8 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
                                     onClick={() => setSingleAnswer(q.qnumber, o.letter)}
                                     className={`w-9 h-9 rounded-lg border flex items-center justify-center text-xs font-bold cursor-pointer transition-colors ${
                                       isSel
-                                        ? 'border-[var(--accent-a)] bg-[var(--accent-a)] text-white'
-                                        : 'border-[var(--border-strong)] text-[var(--text)] hover:border-[var(--accent-a)]'
+                                        ? 'border-amber-500 bg-amber-500 text-white'
+                                        : 'border-[var(--border-strong)] text-[var(--text)] hover:border-amber-400'
                                     }`}
                                   >
                                     {o.letter}
@@ -395,7 +417,7 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
                         return (
                           <div key={q.id} className="p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] space-y-2">
                             <div className="text-sm text-[var(--text)]">
-                              <span className="font-mono font-bold text-[var(--accent-a)]">{q.qnumber}.</span> {q.prompt}
+                              <span className="font-mono font-bold text-amber-600">{q.qnumber}.</span> {q.prompt}
                             </div>
                             <div className="space-y-1.5">
                               {opts.map((o) => {
@@ -406,12 +428,12 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
                                     onClick={() => setSingleAnswer(q.qnumber, o.letter)}
                                     className={`w-full flex items-start gap-2.5 text-left p-2.5 rounded-lg border transition-colors cursor-pointer ${
                                       isSel
-                                        ? 'border-[var(--accent-a)] bg-[var(--accent-a)]/10'
+                                        ? 'border-amber-500 bg-amber-500/10'
                                         : 'border-[var(--border)] hover:border-[var(--border-strong)] hover:bg-[var(--panel-2)]'
                                     }`}
                                   >
                                     <span className={`w-5 h-5 rounded-full border flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5 ${
-                                      isSel ? 'border-[var(--accent-a)] bg-[var(--accent-a)] text-white' : 'border-[var(--border-strong)] text-[var(--text-faint)]'
+                                      isSel ? 'border-amber-500 bg-amber-500 text-white' : 'border-[var(--border-strong)] text-[var(--text-faint)]'
                                     }`}>
                                       {o.letter}
                                     </span>
@@ -435,7 +457,7 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
                         return (
                           <div key={q.id} className="p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] space-y-2">
                             <div className="text-sm text-[var(--text)]">
-                              <span className="font-mono font-bold text-[var(--accent-a)]">{q.qnumber}.</span> {q.prompt}
+                              <span className="font-mono font-bold text-amber-600">{q.qnumber}.</span> {q.prompt}
                             </div>
                             <div className="space-y-1.5">
                               {opts.map((o) => {
@@ -446,12 +468,12 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
                                     onClick={() => toggleMultiAnswer(q.qnumber, o.letter)}
                                     className={`w-full flex items-start gap-2.5 text-left p-2.5 rounded-lg border transition-colors cursor-pointer ${
                                       isSel
-                                        ? 'border-[var(--accent-a)] bg-[var(--accent-a)]/10'
+                                        ? 'border-amber-500 bg-amber-500/10'
                                         : 'border-[var(--border)] hover:border-[var(--border-strong)] hover:bg-[var(--panel-2)]'
                                     }`}
                                   >
                                     <span className={`w-5 h-5 rounded-md border flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5 ${
-                                      isSel ? 'border-[var(--accent-a)] bg-[var(--accent-a)] text-white' : 'border-[var(--border-strong)] text-[var(--text-faint)]'
+                                      isSel ? 'border-amber-500 bg-amber-500 text-white' : 'border-[var(--border-strong)] text-[var(--text-faint)]'
                                     }`}>
                                       {isSel ? <CheckCircle2 size={12} /> : o.letter}
                                     </span>
@@ -468,14 +490,14 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
                       const parts = (q.prompt || '').split('____');
                       return (
                         <div key={q.id} className="flex flex-wrap items-center gap-2 p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] text-sm text-[var(--text)]">
-                          <span className="font-mono font-bold text-[var(--accent-a)]">{q.qnumber}.</span>
+                          <span className="font-mono font-bold text-amber-600">{q.qnumber}.</span>
                           <span>{parts[0]}</span>
                           <input
                             type="text"
                             value={(answers[String(q.qnumber)] as string) || ''}
                             onChange={(e) => setAnswers((a) => ({ ...a, [String(q.qnumber)]: e.target.value }))}
                             placeholder="answer"
-                            className="inline-block w-32 bg-[var(--bg)] border border-[var(--border)] rounded-lg px-2 py-1 text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)]"
+                            className="inline-block w-32 bg-[var(--bg)] border border-[var(--border)] rounded-lg px-2 py-1 text-sm text-[var(--text)] focus:outline-none focus:border-amber-500"
                           />
                           {parts[1] && <span>{parts[1]}</span>}
                         </div>

@@ -63,9 +63,7 @@ export const ListeningTipsChapterList: React.FC<{
 
   if (error) {
     return (
-      <GlassPanel className="p-6 text-sm text-[var(--danger)]">
-        {error}
-      </GlassPanel>
+      <GlassPanel className="p-6 text-sm text-[var(--danger)]">{error}</GlassPanel>
     );
   }
 
@@ -109,26 +107,27 @@ export const ListeningTipsChapterList: React.FC<{
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {mod.chapters.map((ch) => (
+            {mod.chapters.map((ch, index) => (
               <button
                 key={ch.id}
                 onClick={() => onSelectChapter(ch.slug)}
-                className="text-left rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)]/50 p-4 hover:border-[var(--accent-a)]/40 hover:bg-[var(--panel-2)] transition-all group"
+                style={{ animationDelay: `${Math.min(index, 14) * 35}ms` }}
+                className="animate-tileDropIn text-left rounded-2xl border border-[var(--border)] bg-[var(--panel-2)] p-4 transition-colors hover:border-[var(--border-strong)] group"
               >
                 <div className="flex items-start justify-between gap-2">
-                  <span className="text-sm font-semibold text-[var(--text)] group-hover:text-[var(--accent-a)] transition-colors">
+                  <span className="text-sm font-semibold text-[var(--text)]">
                     {ch.title}
                   </span>
 
                   {ch.status === 'completed' ? (
                     <CheckCircle2
                       size={16}
-                      className="text-[var(--success,#22c55e)] shrink-0 mt-0.5"
+                      className="text-[var(--success)] shrink-0 mt-0.5"
                     />
                   ) : (
                     <ChevronRight
                       size={16}
-                      className="text-[var(--text-dim)] shrink-0 mt-0.5 group-hover:text-[var(--accent-a)] transition-colors"
+                      className="text-[var(--text-faint)] shrink-0 mt-0.5 group-hover:text-[var(--text-dim)] transition-colors"
                     />
                   )}
                 </div>
@@ -140,13 +139,13 @@ export const ListeningTipsChapterList: React.FC<{
                 )}
 
                 {ch.estimatedMin && (
-                  <div className="flex items-center gap-1 text-[11px] text-[var(--text-dim)] mt-2">
+                  <div className="flex items-center gap-1 text-[11px] text-[var(--text-faint)] mt-2">
                     <Clock size={11} />
 
                     <span>{ch.estimatedMin} min</span>
 
                     {ch.status === 'in_progress' && (
-                      <span className="ml-2 text-[var(--accent-a)]">
+                      <span className="ml-2 text-[var(--accent-a)] font-semibold">
                         In progress
                       </span>
                     )}

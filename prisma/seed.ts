@@ -186,6 +186,83 @@ async function upsertExercise(ex: SeedExercise) {
   });
 }
 
+type SeedGrammarLesson = {
+  id: string;
+  module_id: string;
+  chapter_id?: string | null;
+  exercise_id?: string | null;
+  slug: string;
+  position: number;
+  title: string;
+  source_label?: string | null;
+  collection?: { slug: string; label: string } | null;
+  bite: string;
+  detail_md: string;
+  read_more_anchor_block_id?: string | null;
+  estimated_min?: number | null;
+  is_published?: boolean;
+};
+
+type AllGrammarLessonsSeed = {
+  lessons: SeedGrammarLesson[];
+};
+
+// Bite-sized "quick tip" layer for Grammar -- mirrors upsertTipsLesson
+// below, plus an optional exercise_id since grammar bites (unlike tips)
+// can link straight to a practice exercise, not just back into the
+// chapter reader.
+async function upsertGrammarLesson(l: SeedGrammarLesson) {
+  const byId = await prisma.grammar_lessons.findUnique({ where: { id: l.id } });
+  const bySlug = await prisma.grammar_lessons.findUnique({
+    where: { module_id_slug: { module_id: l.module_id, slug: l.slug } },
+  });
+
+  const data = {
+    title: l.title,
+    source_label: l.source_label ?? null,
+    collection_slug: l.collection?.slug ?? null,
+    collection_label: l.collection?.label ?? null,
+    bite: l.bite,
+    detail_md: l.detail_md,
+    read_more_anchor_block_id: l.read_more_anchor_block_id ?? null,
+    position: l.position,
+    estimated_min: l.estimated_min ?? null,
+    is_published: l.is_published ?? true,
+    updated_at: new Date(),
+  };
+
+  if (byId) {
+    await prisma.grammar_lessons.update({
+      where: { id: l.id },
+      data: {
+        ...data,
+        module_id: l.module_id,
+        chapter_id: l.chapter_id ?? null,
+        exercise_id: l.exercise_id ?? null,
+        slug: l.slug,
+      },
+    });
+    return;
+  }
+  if (bySlug) {
+    await prisma.grammar_lessons.update({
+      where: { id: bySlug.id },
+      data: { ...data, chapter_id: l.chapter_id ?? null, exercise_id: l.exercise_id ?? null },
+    });
+    return;
+  }
+  await prisma.grammar_lessons.create({
+    data: {
+      id: l.id,
+      module_id: l.module_id,
+      chapter_id: l.chapter_id ?? null,
+      exercise_id: l.exercise_id ?? null,
+      slug: l.slug,
+      ...data,
+    },
+  });
+}
+
 type SeedTipsModule = {
   id: string;
   skill?: string;
@@ -415,6 +492,20 @@ async function main() {
   for (const ex of data.exercises) {
     await upsertExercise(ex);
     console.log('  exercise', ex.slug);
+  }
+
+  // Optional companion bite-sized lessons file for grammar, mirroring the
+  // tips pattern: all-chapters.json -> all-chapters-lessons.json.
+  const grammarLessonsFile = join(__dirname, 'seed-data', 'grammar', 'all-chapters-lessons.json');
+  if (existsSync(grammarLessonsFile)) {
+    const lessonsData = JSON.parse(readFileSync(grammarLessonsFile, 'utf8')) as AllGrammarLessonsSeed;
+    console.log(`  Seeding ${lessonsData.lessons.length} grammar bite-sized lessons from all-chapters-lessons.json`);
+    for (const l of lessonsData.lessons) {
+      await upsertGrammarLesson(l);
+      console.log('    grammar lesson', l.slug);
+    }
+  } else {
+    console.log('No grammar bite-lessons file at', grammarLessonsFile, '- skipping.');
   }
 
   await seedTips();

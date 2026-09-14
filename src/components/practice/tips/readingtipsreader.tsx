@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { GlassPanel } from '../../ui/GlassPanel';
 import { Button } from '../../ui/Button';
 import { ChevronLeft, ChevronRight, Clock } from '../../ui/icons';
 import { TipsBlockRenderer, TipsBlock } from './tipsblockrenderer';
@@ -66,17 +65,17 @@ export const ReadingTipsReader: React.FC<{
 
   if (error) {
     return (
-      <GlassPanel className="p-6 text-sm text-[var(--danger)]">
-        {error}
-      </GlassPanel>
+      <div className="rounded-2xl border border-[var(--border)] bg-[var(--panel-2)] p-6 text-sm text-[var(--danger)]">
+        <span>{error}</span>
+      </div>
     );
   }
 
   if (!chapter) {
     return (
-      <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)]">
-        Loading…
-      </GlassPanel>
+      <div className="rounded-2xl border border-[var(--border)] bg-[var(--panel-2)] p-8 text-center text-sm text-[var(--text-dim)]">
+        <span>Loading…</span>
+      </div>
     );
   }
 
@@ -110,7 +109,8 @@ export const ReadingTipsReader: React.FC<{
         )}
       </div>
 
-      <GlassPanel className="p-6">
+      {/* Header chrome -- chapter title/summary */}
+      <div className="rounded-2xl border border-[var(--border)] bg-[var(--panel-2)] p-6">
         <h2 className="font-display text-xl font-bold text-[var(--text)]">
           {chapter.title}
         </h2>
@@ -120,13 +120,15 @@ export const ReadingTipsReader: React.FC<{
             {chapter.summary}
           </p>
         )}
-      </GlassPanel>
+      </div>
 
-      <GlassPanel className="p-6">
+      {/* Lesson body -- kept on a plain, neutral, readable surface since
+          this is where the actual paragraph content renders. */}
+      <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] p-6">
         {chapter.content.blocks.map((block) => (
           <TipsBlockRenderer key={block.id} block={block} />
         ))}
-      </GlassPanel>
+      </div>
 
       <div className="flex items-center justify-between gap-3">
         <Button

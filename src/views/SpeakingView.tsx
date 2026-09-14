@@ -15,6 +15,12 @@ import {
 interface SpeakingViewProps {
   id?: string;
   initialBrowseTab?: 'tests' | 'tips';
+  // "Forced" mode: a parent (the full-mock-test runner) hands us a specific
+  // testId to load directly, skipping the browse/select-a-test screen, and
+  // gets notified with the resulting band once this skill is scored so it
+  // can move on to the next one.
+  forcedTestId?: string;
+  onExamComplete?: (band: number) => void;
 }
 
 interface SpeakingTopic {
@@ -319,12 +325,12 @@ const RecorderCard: React.FC<RecorderCardProps> = ({ segment, onRecorded, onAdva
   };
 
   return (
-    <div className="p-4 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] space-y-3">
+    <div className="p-4 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] space-y-3">
       <div className="flex items-center justify-between">
         <span className="text-xs font-mono font-semibold uppercase text-[var(--text-faint)]">Your response</span>
         {status === 'recording' && (
-          <span className="text-sm font-mono font-bold text-[var(--danger)] flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[var(--danger)] animate-pulse" /> {fmtClock(remaining)}
+          <span className="text-sm font-mono font-bold text-[var(--text)] flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[var(--text)] animate-pulse" /> {fmtClock(remaining)}
           </span>
         )}
       </div>
@@ -394,7 +400,7 @@ const Part2Card: React.FC<{
   if (phase === 'prep') {
     const isFinalStretch = prepLeft <= 5;
     return (
-      <div className="p-8 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] flex flex-col items-center justify-center gap-3 text-center">
+      <div className="p-8 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] flex flex-col items-center justify-center gap-3 text-center">
         <span className="text-xs font-mono font-semibold uppercase text-[var(--text-faint)]">Preparation time</span>
         <span
           className={
@@ -418,8 +424,8 @@ const Part2Card: React.FC<{
 // ---------- Instruction interstitial ----------
 
 const InstructionCard: React.FC<{ segment: InstructionSegment; onContinue: () => void }> = ({ segment, onContinue }) => (
-  <GlassPanel className="p-6 space-y-5">
-    <div className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">
+  <GlassPanel className="shadow-xl space-y-5 border border-[var(--border)]">
+    <div className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase text-[var(--text-dim)]">
       <Sparkles size={14} /> {segment.partLabel}
     </div>
     <p className="text-base text-[var(--text)] leading-relaxed bg-[var(--bg-elevated)] border border-[var(--border)] rounded-xl p-5">
@@ -433,7 +439,7 @@ const InstructionCard: React.FC<{ segment: InstructionSegment; onContinue: () =>
   </GlassPanel>
 );
 
-export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab }) => {
+export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab, forcedTestId, onExamComplete }) => {
   const [browseTab, setBrowseTab] = useState<'tests' | 'tips'>(initialBrowseTab ?? 'tests');
   const [selectedTipsSlug, setSelectedTipsSlug] = useState<string | null>(null);
   const [selectedTipsAnchor, setSelectedTipsAnchor] = useState<string | null>(null);
@@ -449,9 +455,14 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab
     }
   }, [initialBrowseTab]);
 
-  const [selectedTestId, setSelectedTestId] = useState<string | null>(null);
+  const [selectedTestId, setSelectedTestId] = useState<string | null>(forcedTestId ?? null);
   const [test, setTest] = useState<SpeakingTest | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
+
+  // Forced mode: the runner may hand us forcedTestId slightly after mount.
+  useEffect(() => {
+    if (forcedTestId) setSelectedTestId(forcedTestId);
+  }, [forcedTestId]);
 
   const [segments, setSegments] = useState<Segment[]>([]);
   const [stepIndex, setStepIndex] = useState(0);
@@ -531,6 +542,7 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab
       if (!res.ok) throw new Error(data.error || 'Server evaluation error');
 
       setResult(data);
+      onExamComplete?.(data.overallBand);
       if (data.saved === false) {
         setNoticeMessage('Your test was evaluated but could NOT be saved to your history. Make sure you are logged in.');
       }
@@ -553,8 +565,8 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab
   if (selectedTestId) {
     return (
       <div id={id} className="space-y-6">
-        <BackLink onClick={backToTests}>Back to tests</BackLink>
-        <GlassPanel className="p-6">
+        {!forcedTestId && <BackLink onClick={backToTests}>Back to tests</BackLink>}
+        <GlassPanel className="shadow-xl border border-[var(--border)]">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <h2 className="font-display text-2xl font-bold text-[var(--text)]">
@@ -566,15 +578,23 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab
               </p>
             </div>
             {currentSegment && !onLastStep && (
-              <span className="text-xs font-mono font-semibold uppercase text-[var(--accent-a)] bg-[var(--accent-a)]/10 border border-[var(--accent-a)]/20 px-3 py-1.5 rounded-lg">
+              <span className="text-xs font-mono font-semibold uppercase text-[var(--text)] bg-[var(--panel-2)] border border-[var(--border)] px-3 py-1.5 rounded-lg">
                 {currentSegment.partLabel}
               </span>
             )}
           </div>
         </GlassPanel>
 
-        {loadError && <GlassPanel className="p-6 text-sm text-[var(--danger)]">{loadError}</GlassPanel>}
-        {!test && !loadError && <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)]">Loading test…</GlassPanel>}
+        {loadError && (
+          <div className="p-6 text-sm text-rose-700 bg-white rounded-3xl shadow-lg border border-rose-200">
+            {loadError}
+          </div>
+        )}
+        {!test && !loadError && (
+          <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)] shadow-lg border border-[var(--border)]">
+            Loading test…
+          </GlassPanel>
+        )}
 
         {test && segments.length > 0 && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -584,8 +604,8 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab
               )}
 
               {!onLastStep && currentSegment.kind !== 'instruction' && (
-                <GlassPanel className="p-5 space-y-4">
-                  <div className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">
+                <GlassPanel className="shadow-xl space-y-4 border border-[var(--border)]">
+                  <div className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase text-[var(--text-dim)]">
                     {currentSegment.partNumber === 1 ? <Users size={14} /> : currentSegment.partNumber === 2 ? <Mic size={14} /> : <MessageCircle size={14} />}
                     {currentSegment.partLabel} — {currentSegment.heading}
                   </div>
@@ -628,8 +648,8 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab
               )}
 
               {onLastStep && (
-                <GlassPanel className="p-5 space-y-4">
-                  <div className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase text-[var(--accent-a)]">
+                <GlassPanel className="shadow-xl space-y-4 border border-[var(--border)]">
+                  <div className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase text-[var(--text-dim)]">
                     <Trophy size={14} /> Ready to submit
                   </div>
                   <p className="text-sm text-[var(--text-dim)]">
@@ -637,10 +657,10 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab
                   </p>
 
                   {errorMessage && (
-                    <div className="text-xs text-[var(--danger)] bg-[var(--danger)]/10 border border-[var(--danger)]/20 p-2.5 rounded-xl">{errorMessage}</div>
+                    <div className="text-xs text-[var(--danger)] bg-[var(--danger)]/15 border border-[var(--danger)]/30 p-2.5 rounded-xl">{errorMessage}</div>
                   )}
                   {noticeMessage && (
-                    <div className="text-xs text-[var(--warning)] bg-[var(--warning)]/10 border border-[var(--warning)]/20 p-2.5 rounded-xl">{noticeMessage}</div>
+                    <div className="text-xs text-[var(--warning)] bg-[var(--warning)]/15 border border-[var(--warning)]/30 p-2.5 rounded-xl">{noticeMessage}</div>
                   )}
 
                   <div className="flex justify-end pt-1">
@@ -667,8 +687,8 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab
 
             <div className="lg:col-span-5 space-y-4">
               {result ? (
-                <GlassPanel className="p-6 space-y-5 animate-fade-in">
-                  <div className="p-4 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border)] flex items-center justify-between">
+                <GlassPanel className="shadow-xl space-y-5 animate-fade-in border border-[var(--border)]">
+                  <div className="p-4 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)] flex items-center justify-between">
                     <div>
                       <div className="text-xs font-mono uppercase text-[var(--text-faint)]">Overall Speaking Band</div>
                       <div className="font-display font-extrabold text-4xl text-[var(--text)] mt-1">Band {result.overallBand.toFixed(1)}</div>
@@ -701,11 +721,11 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab
                   )}
                 </GlassPanel>
               ) : (
-                <GlassPanel className="p-6 space-y-4">
+                <GlassPanel className="shadow-xl space-y-4 border border-[var(--border)]">
                   <h3 className="font-display text-lg font-bold text-[var(--text)]">Your recordings</h3>
                   <div className="space-y-2">
                     {recordableSegments.map((s) => (
-                      <div key={s.id} className="flex items-center justify-between p-2.5 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)]">
+                      <div key={s.id} className="flex items-center justify-between p-2.5 rounded-xl bg-[var(--panel-2)] border border-[var(--border)]">
                         <span className="text-xs font-mono text-[var(--text)]">{s.partLabel} — {s.heading}</span>
                         {recordings[s.id] ? (
                           <span className="text-[11px] font-mono text-[var(--success)] flex items-center gap-1">
@@ -718,8 +738,8 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab
                     ))}
                   </div>
                   {isEvaluating && (
-                    <div className="p-4 rounded-xl bg-[var(--accent-a)]/10 border border-[var(--accent-a)]/20 text-center">
-                      <RefreshCw size={20} className="animate-spin mx-auto mb-2 text-[var(--accent-a)]" />
+                    <div className="p-4 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-center">
+                      <RefreshCw size={20} className="animate-spin mx-auto mb-2 text-[var(--text)]" />
                       <p className="text-xs text-[var(--text-dim)] leading-relaxed">
                         Scoring your test — checking pronunciation, fluency and grammar. This can take a few minutes, please don't close this page.
                       </p>
@@ -727,7 +747,7 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab
                   )}
                   {!isEvaluating && (
                     <div className="p-8 text-center flex flex-col items-center justify-center">
-                      <div className="w-14 h-14 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)] flex items-center justify-center text-[var(--accent-a)] mb-4">
+                      <div className="w-14 h-14 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)] flex items-center justify-center text-[var(--text)] mb-4">
                         <BookOpen size={28} />
                       </div>
                       <p className="text-xs text-[var(--text-dim)] max-w-xs leading-relaxed">
@@ -747,8 +767,8 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab
   // ---------- BROWSE MODE ----------
   return (
     <div id={id} className="space-y-6">
-      <GlassPanel className="p-6">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--accent-a)]/10 text-[var(--accent-a)] border border-[var(--accent-a)]/20 text-xs font-mono mb-2">
+      <GlassPanel className="border border-[var(--border)] shadow-lg">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text)] text-xs font-mono mb-2">
           <Sparkles size={14} />
           <span>Speaking Practice</span>
         </div>

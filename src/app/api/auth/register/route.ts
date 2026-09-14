@@ -3,16 +3,25 @@ import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 import { prisma } from '../../../../lib/prisma';
 import { createSession } from '../../../../lib/session';
+import { verifyProof } from '../../../../lib/otp';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(req: NextRequest) {
   try {
-    const { phone, password, name, email, targetBand, examDate } = await req.json();
+    const { phone, password, name, email, targetBand, examDate, otpProof } = await req.json();
 
     if (!phone || !password || !name) {
       return NextResponse.json(
         { error: 'phone, password, and name are required.' },
+        { status: 400 },
+      );
+    }
+
+    const cleanPhoneForProof = String(phone).replace(/\s+/g, '');
+    if (!otpProof || !verifyProof(otpProof, cleanPhoneForProof, 'signup')) {
+      return NextResponse.json(
+        { error: 'Please verify your phone number with the OTP code before creating an account.' },
         { status: 400 },
       );
     }
@@ -75,6 +84,7 @@ export async function POST(req: NextRequest) {
         password_hash: passwordHash,
         display_name: trimmedName,
         avatar,
+        is_phone_verified: true,
         target_band: targetBand ?? 8.0,
         exam_date: examDate ? new Date(examDate) : null,
         onboarding_complete: false,

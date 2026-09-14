@@ -241,6 +241,9 @@ export const db = {
     email?: string;
     targetBand?: number;
     examDate?: string;
+    // Proof string returned by db.verifyOtp() — /api/auth/register rejects
+    // the request without a valid one, matching this exact phone.
+    otpProof: string;
   }): Promise<DbUser> {
     const { user } = await api<{ user: RawUserRow }>('/api/auth/register', {
       method: 'POST',
@@ -249,6 +252,26 @@ export const db = {
     // Brand-new user: no submissions yet, so stats are all zero — skip the
     // extra round trip to /api/dashboard/stats.
     return mapUser(user, { testsCompleted: 0, streakDays: 0, practiceHours: 0 });
+  },
+
+  // Sends a 6-digit OTP by SMS to `phone` for the given purpose. Only
+  // 'signup' exists today (phone-ownership verification before account
+  // creation is allowed).
+  async sendOtp(phone: string, purpose: 'signup' = 'signup'): Promise<void> {
+    await api<{ ok: boolean }>('/api/auth/otp/send', {
+      method: 'POST',
+      body: JSON.stringify({ phone, purpose }),
+    });
+  },
+
+  // Verifies a candidate-entered OTP. Returns a signed proof string on
+  // success that must be passed to registerUser()'s otpProof field.
+  async verifyOtp(phone: string, code: string, purpose: 'signup' = 'signup'): Promise<string> {
+    const { proof } = await api<{ ok: boolean; proof: string }>('/api/auth/otp/verify', {
+      method: 'POST',
+      body: JSON.stringify({ phone, code, purpose }),
+    });
+    return proof;
   },
 
   async loginUserByPhone(phone: string, password: string): Promise<DbUser | null> {

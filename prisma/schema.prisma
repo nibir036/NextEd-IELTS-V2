@@ -129,7 +129,11 @@ model submissions {
   tests        tests?            @relation(fields: [test_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
   users        users             @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
-  @@unique([user_id, test_id], map: "uniq_submission_user_test", where: raw("(test_id IS NOT NULL)"))
+  // Practice tests are meant to be retaken -- test_attempts (the
+  // Listening/Reading equivalent of this table) has never had a unique
+  // constraint here either. Real dev data already has a user with 6
+  // separate scored speaking submissions against the same test_id, all
+  // legitimate retries, which is why this was dropped rather than enforced.
   @@index([mock_test_id], map: "idx_submissions_mock")
   @@index([test_id], map: "idx_submissions_test")
   @@index([user_id], map: "idx_submissions_user")
@@ -544,6 +548,24 @@ enum grammar_exercise_kind {
   mcq
   production
   gap_fill
+}
+
+// One-time codes texted to a phone number via Alpha SMS (api.sms.net.bd),
+// used to prove phone ownership before a signup is allowed to complete.
+// A row is created per send, hashed (never stored in plaintext), and
+// consumed on a successful verify -- src/lib/otp.ts owns all reads/writes
+// here, nothing else should touch this table directly.
+model phone_otps {
+  id          String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  phone       String
+  purpose     String
+  otp_hash    String
+  expires_at  DateTime  @db.Timestamptz(6)
+  attempts    Int       @default(0)
+  consumed_at DateTime? @db.Timestamptz(6)
+  created_at  DateTime  @default(now()) @db.Timestamptz(6)
+
+  @@index([phone, purpose])
 }
 
 model vocabulary {

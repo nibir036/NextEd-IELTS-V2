@@ -1,6 +1,6 @@
 import React from 'react';
 import { LandingNav } from '../components/landing/LandingNav';
-import { HeroScoreCard } from '../components/landing/HeroScoreCard';
+import { HeroFlightBackground } from '../components/landing/HeroFlightBackground';
 import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
 import { Reveal } from '../components/ui/Reveal';
@@ -45,10 +45,20 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
 
       <LandingNav onNavigate={(route) => onLaunchApp(route)} isLoggedIn={isLoggedIn} />
 
-      {/* 1. HOME SECTION */}
-      <section id="home" className="relative z-10 max-w-7xl mx-auto px-4 md:px-10 pt-10 pb-16 md:pt-16 md:pb-24 page-fade-in">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-6 space-y-6 text-left">
+      {/* 1. HOME SECTION -- the looping flight-route Lottie animation
+          (public/lottie/hero-flight.json, recolored to the app's own
+          --accent-a/--accent-b/--accent-d/--text tokens) fills the
+          section as a full-bleed background. A gradient fades it into
+          the page background at the edges so it doesn't read as a
+          hard-edged video box, and the headline sits centered on top
+          inside a frosted (backdrop-blur) glass panel so it stays
+          legible over the moving illustration. */}
+      <section id="home" className="relative z-10 overflow-hidden page-fade-in">
+        <HeroFlightBackground className="absolute inset-0 w-full h-full opacity-70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg)] via-[var(--bg)]/35 to-[var(--bg)]" />
+
+        <div className="relative max-w-4xl mx-auto px-4 md:px-10 pt-16 pb-16 md:pt-24 md:pb-24 text-center">
+          <div className="backdrop-blur-md bg-[var(--bg)]/15 border border-[var(--border)] rounded-3xl px-6 py-10 md:px-14 md:py-14 space-y-6 shadow-2xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#6366f1]/15 border border-[#6366f1]/30 text-xs font-mono text-[#6366f1]">
               <Sparkles size={14} />
               <span>Official IELTS Descriptor Aligned Evaluator</span>
@@ -59,11 +69,11 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
               <span className="text-gradient">Real-Time AI Precision</span>
             </h1>
 
-            <p className="text-base sm:text-lg text-[var(--text-dim)] max-w-2xl leading-relaxed">
+            <p className="text-base sm:text-lg text-[var(--text-dim)] max-w-2xl mx-auto leading-relaxed">
               Diagnostic scoring across Reading, Listening, Writing, and Speaking. Receive instant band criterion breakdowns, sentence-level rewrites, and official IELTS rounded score calculations.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
               <Button
                 variant="primary"
                 size="lg"
@@ -82,7 +92,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
               </Button>
             </div>
 
-            <div className="pt-6 border-t border-[var(--border)] flex flex-wrap items-center gap-6 text-xs text-[var(--text-faint)] font-mono">
+            <div className="pt-6 border-t border-[var(--border)] flex flex-wrap items-center justify-center gap-6 text-xs text-[var(--text-faint)] font-mono">
               <div className="flex items-center gap-2">
                 <CheckCircle2 size={15} className="text-[var(--success)]" />
                 <span>Instant Diagnostic Analysis</span>
@@ -96,11 +106,6 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
                 <span>Phone SMS Login Support</span>
               </div>
             </div>
-          </div>
-
-          {/* Hero Right Animated Score Card */}
-          <div className="lg:col-span-6 flex justify-center relative">
-            <HeroScoreCard />
           </div>
         </div>
       </section>

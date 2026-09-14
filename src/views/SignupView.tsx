@@ -46,19 +46,88 @@ export const SignupView: React.FC<SignupViewProps> = ({
   const [targetBand, setTargetBand] = useState<number>(8.0);
   const [examDate, setExamDate] = useState<string>('2026-11-14');
 
-  // Phone OTP verification — UI only for now. Not wired to an SMS
-  // provider yet; the Verify button is a no-op until that service is in
-  // place, and it deliberately doesn't gate account creation below.
+  // Phone OTP verification — wired to /api/auth/otp/{send,verify} (Alpha
+  // SMS behind the scenes). Verifying returns a signed proof string that
+  // must be passed to registerUser(); Create Account stays disabled until
+  // that proof exists. Changing the phone after verifying invalidates the
+  // proof (it's bound to the exact phone string), so it's reset below
+  // whenever the number or country code changes.
   const [otp, setOtp] = useState<string>('');
+  const [otpProof, setOtpProof] = useState<string | null>(null);
+  const [otpSent, setOtpSent] = useState<boolean>(false);
+  const [isSendingOtp, setIsSendingOtp] = useState<boolean>(false);
+  const [isVerifyingOtp, setIsVerifyingOtp] = useState<boolean>(false);
+  const [otpStatusMessage, setOtpStatusMessage] = useState<string | null>(null);
+  const [otpErrorMessage, setOtpErrorMessage] = useState<string | null>(null);
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const fullPhone = `${countryCode} ${phoneNumber.trim()}`;
+  const cleanPhone = fullPhone.replace(/\s+/g, '');
+  const isOtpVerified = Boolean(otpProof);
 
-  const handleVerifyOtp = (e: React.MouseEvent) => {
+  const resetOtpState = () => {
+    setOtp('');
+    setOtpProof(null);
+    setOtpSent(false);
+    setOtpStatusMessage(null);
+    setOtpErrorMessage(null);
+  };
+
+  const handleCountryCodeChange = (value: string) => {
+    setCountryCode(value);
+    resetOtpState();
+  };
+
+  const handlePhoneNumberChange = (value: string) => {
+    setPhoneNumber(value);
+    resetOtpState();
+  };
+
+  const handleSendOtp = async (e: React.MouseEvent) => {
     e.preventDefault();
-    // TODO: wire up to the SMS/OTP provider once that service is selected.
+    setOtpErrorMessage(null);
+    setOtpStatusMessage(null);
+
+    if (!phoneNumber.trim() || phoneNumber.trim().length < 6) {
+      setOtpErrorMessage('Enter your mobile phone number first.');
+      return;
+    }
+
+    setIsSendingOtp(true);
+    try {
+      await db.sendOtp(cleanPhone, 'signup');
+      setOtpSent(true);
+      setOtpProof(null);
+      setOtp('');
+      setOtpStatusMessage('Code sent — check your SMS inbox.');
+    } catch (err: any) {
+      setOtpErrorMessage(err?.message || 'Failed to send verification code.');
+    } finally {
+      setIsSendingOtp(false);
+    }
+  };
+
+  const handleVerifyOtp = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    setOtpErrorMessage(null);
+
+    if (!otp.trim()) {
+      setOtpErrorMessage('Enter the 6-digit code first.');
+      return;
+    }
+
+    setIsVerifyingOtp(true);
+    try {
+      const proof = await db.verifyOtp(cleanPhone, otp.trim(), 'signup');
+      setOtpProof(proof);
+      setOtpStatusMessage('Phone number verified.');
+    } catch (err: any) {
+      setOtpErrorMessage(err?.message || 'Incorrect or expired code.');
+    } finally {
+      setIsVerifyingOtp(false);
+    }
   };
 
   // Email is collected later from the candidate's profile after they log
@@ -74,6 +143,10 @@ export const SignupView: React.FC<SignupViewProps> = ({
     }
     if (!phoneNumber.trim() || phoneNumber.trim().length < 6) {
       setErrorMessage('Please enter a valid mobile phone number.');
+      return;
+    }
+    if (!otpProof) {
+      setErrorMessage('Please verify your phone number with the OTP code first.');
       return;
     }
     if (password.length < 6) {
@@ -93,6 +166,7 @@ export const SignupView: React.FC<SignupViewProps> = ({
         name: fullName.trim(),
         targetBand,
         examDate,
+        otpProof,
       });
       if (newUser) {
         onSignupSuccess();
@@ -179,7 +253,7 @@ export const SignupView: React.FC<SignupViewProps> = ({
                   </label>
                   <select
                     value={countryCode}
-                    onChange={(e) => setCountryCode(e.target.value)}
+                    onChange={(e) => handleCountryCodeChange(e.target.value)}
                     className="w-full px-2.5 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-xs text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] font-mono"
                   >
                     {COUNTRY_CODES.map((c) => (
@@ -203,45 +277,84 @@ export const SignupView: React.FC<SignupViewProps> = ({
                       required
                       placeholder="e.g. 555-019-9988"
                       value={phoneNumber}
-                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      onChange={(e) => handlePhoneNumberChange(e.target.value)}
                       className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors font-mono"
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Phone OTP verification — UI placeholder, not wired up yet */}
+              {/* Phone OTP verification — sends via /api/auth/otp/send (Alpha
+                  SMS) and checks via /api/auth/otp/verify. A successful
+                  verify is required before Create Account is enabled. */}
               <div>
                 <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
                   Verification Code (OTP)
                 </label>
-                <div className="flex gap-2">
-                  <div className="relative flex-1">
-                    <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[var(--text-faint)]">
-                      <KeyRound size={16} />
-                    </div>
-                    <input
-                      type="text"
-                      inputMode="numeric"
-                      placeholder="Enter the 6-digit code"
-                      value={otp}
-                      onChange={(e) => setOtp(e.target.value)}
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors font-mono tracking-widest"
-                    />
-                  </div>
+
+                {!otpSent ? (
                   <Button
                     type="button"
                     variant="secondary"
-                    onClick={handleVerifyOtp}
-                    className="px-4 flex items-center gap-1.5 shrink-0"
+                    onClick={handleSendOtp}
+                    disabled={isSendingOtp}
+                    className="w-full py-2.5 flex items-center justify-center gap-1.5"
                   >
                     <ShieldCheck size={16} />
-                    <span>Verify</span>
+                    <span>{isSendingOtp ? 'Sending Code...' : 'Send Verification Code'}</span>
                   </Button>
-                </div>
-                <p className="text-[11px] text-[var(--text-faint)] mt-1.5">
-                  SMS verification is coming soon — this doesn&apos;t block account creation yet.
-                </p>
+                ) : (
+                  <>
+                    <div className="flex gap-2">
+                      <div className="relative flex-1">
+                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[var(--text-faint)]">
+                          <KeyRound size={16} />
+                        </div>
+                        <input
+                          type="text"
+                          inputMode="numeric"
+                          placeholder="Enter the 6-digit code"
+                          value={otp}
+                          onChange={(e) => setOtp(e.target.value)}
+                          disabled={isOtpVerified}
+                          className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors font-mono tracking-widest disabled:opacity-60"
+                        />
+                      </div>
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        onClick={handleVerifyOtp}
+                        disabled={isVerifyingOtp || isOtpVerified}
+                        className="px-4 flex items-center gap-1.5 shrink-0"
+                      >
+                        <ShieldCheck size={16} />
+                        <span>{isOtpVerified ? 'Verified' : isVerifyingOtp ? 'Verifying...' : 'Verify'}</span>
+                      </Button>
+                    </div>
+                    {!isOtpVerified && (
+                      <button
+                        type="button"
+                        onClick={handleSendOtp}
+                        disabled={isSendingOtp}
+                        className="text-[11px] text-[var(--accent-a)] hover:underline mt-1.5 cursor-pointer"
+                      >
+                        {isSendingOtp ? 'Resending...' : 'Resend code'}
+                      </button>
+                    )}
+                  </>
+                )}
+
+                {otpStatusMessage && (
+                  <p className="text-[11px] text-emerald-400 mt-1.5">{otpStatusMessage}</p>
+                )}
+                {otpErrorMessage && (
+                  <p className="text-[11px] text-rose-400 mt-1.5">{otpErrorMessage}</p>
+                )}
+                {!otpSent && !otpErrorMessage && (
+                  <p className="text-[11px] text-[var(--text-faint)] mt-1.5">
+                    We&apos;ll text a 6-digit code to confirm this number before your account is created.
+                  </p>
+                )}
               </div>
 
               {/* Password + Confirm Password */}
@@ -309,11 +422,17 @@ export const SignupView: React.FC<SignupViewProps> = ({
 
               <Button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !isOtpVerified}
                 className="w-full py-3 flex items-center justify-center gap-2 mt-2"
               >
                 <Award size={16} />
-                <span>{isSubmitting ? 'Creating Account...' : 'Create Account'}</span>
+                <span>
+                  {isSubmitting
+                    ? 'Creating Account...'
+                    : !isOtpVerified
+                      ? 'Verify Phone to Continue'
+                      : 'Create Account'}
+                </span>
               </Button>
             </form>
 

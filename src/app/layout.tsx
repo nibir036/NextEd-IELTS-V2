@@ -34,8 +34,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'AI IELTS Pro',
-  description: 'AI IELTS Pro',
+  title: 'IELTS AI',
+  description: 'IELTS AI by nextED.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

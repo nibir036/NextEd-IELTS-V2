@@ -1,4 +1,4 @@
-# AI IELTS Pro (Next.js)
+# IELTS AI (Next.js)
 
 Converted 1:1 from the original Vite + Express app. Same UI, same
 localStorage-backed auth/db, same client-side state router (no react-router,

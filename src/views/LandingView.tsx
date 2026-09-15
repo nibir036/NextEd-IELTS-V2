@@ -72,11 +72,6 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
           <div className="backdrop-blur-md bg-[var(--bg)]/15 border border-[var(--border)] rounded-3xl px-6 py-10 md:px-14 md:py-14 shadow-2xl grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             {/* Left: headline, copy & CTAs */}
             <div className="space-y-6 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#6366f1]/15 border border-[#6366f1]/30 text-xs font-mono text-[#6366f1]">
-                <Sparkles size={14} />
-                <span>Official IELTS Descriptor Aligned Evaluator</span>
-              </div>
-
               <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-[var(--text)] tracking-tight leading-[1.1]">
                 Master IELTS with <br />
                 <span className="text-gradient">Real-Time AI Precision</span>
@@ -134,7 +129,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
                   muted
                   playsInline
                   preload="auto"
-                  aria-label="AI IELTS Pro product walkthrough"
+                  aria-label="IELTS AI product walkthrough"
                 />
               </div>
             </div>
@@ -170,10 +165,10 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
             <span>Methodology & Standards</span>
           </div>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-[var(--text)]">
-            About AI IELTS Pro
+            About IELTS AI
           </h2>
           <p className="text-sm md:text-base text-[var(--text-dim)] mt-3 leading-relaxed">
-            AI IELTS Pro is an intelligent exam preparation framework engineered to align strictly with official Cambridge 9-Band descriptors. We provide objective, verifiable feedback without exaggerated guarantees.
+            IELTS AI is an intelligent exam preparation framework engineered to align strictly with official Cambridge 9-Band descriptors. We provide objective, verifiable feedback without exaggerated guarantees.
           </p>
         </div>
         </Reveal>
@@ -278,7 +273,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
               <span>Step-By-Step Workflow</span>
             </div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-[var(--text)]">
-              How AI IELTS Pro Works
+              How IELTS AI Works
             </h2>
             <p className="text-sm md:text-base text-[var(--text-dim)] mt-3">
               A structured, transparent diagnostic workflow designed for daily practice.
@@ -501,11 +496,11 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
 
       {/* Footer */}
       <footer className="font-michroma relative z-10 border-t border-[var(--border)] py-10 px-4 md:px-10 text-center text-xs tracking-wide text-[var(--text-faint)]">
-        <div className="flex items-center justify-center gap-2 mb-3">
-          <Sparkles size={16} className="text-[var(--accent-a)]" />
-          <span className="text-sm text-[var(--text)] tracking-wider">AI IELTS Pro</span>
+        <div className="flex items-center justify-center mb-3">
+          <img src="/branding/ielts-ai-wordmark-dark.png" alt="IELTS AI by nextED." className="brand-wordmark-dark h-10 w-auto object-contain" />
+          <img src="/branding/ielts-ai-wordmark-light.png" alt="IELTS AI by nextED." className="brand-wordmark-light h-10 w-auto object-contain" />
         </div>
-        <p className="leading-relaxed">© 2026 AI IELTS Pro · Official Descriptor Aligned Evaluator · IELTS is a registered trademark of University of Cambridge, British Council and IDP Education.</p>
+        <p className="leading-relaxed">© 2026 IELTS AI · IELTS is a registered trademark of University of Cambridge, British Council and IDP Education.</p>
       </footer>
     </div>
   );

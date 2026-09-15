@@ -84,7 +84,7 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, id }) 
 
   const routeInfo = titleMap[currentRoute] || {
     title: currentRoute.charAt(0).toUpperCase() + currentRoute.slice(1),
-    subtitle: 'AI IELTS Pro Platform',
+    subtitle: 'IELTS AI Platform',
     icon: Sparkles,
   };
 

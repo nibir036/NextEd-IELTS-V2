@@ -98,6 +98,41 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Brand wordmark -- two pre-rendered exports (white text for the dark
+   theme, purple text for daylight) swapped by [data-theme] so the raster
+   logo image always has proper contrast without any client-side
+   recoloring. See public/branding/ielts-ai-wordmark-{dark,light}.png. */
+.brand-wordmark-dark {
+  display: inline-block;
+}
+.brand-wordmark-light {
+  display: none;
+}
+[data-theme='daylight'] .brand-wordmark-dark {
+  display: none;
+}
+[data-theme='daylight'] .brand-wordmark-light {
+  display: inline-block;
+}
+
+/* Brand mascot -- same swap pattern as the wordmark above, for the
+   full-body mascot image used above the Login/Signup cards: the
+   dark-theme export keeps its blue hoodie, the daylight export has the
+   hoodie recolored to the theme's purple accent. See
+   public/branding/ielts-ai-mascot-full-{dark,light}.png. */
+.brand-mascot-dark {
+  display: inline-block;
+}
+.brand-mascot-light {
+  display: none;
+}
+[data-theme='daylight'] .brand-mascot-dark {
+  display: none;
+}
+[data-theme='daylight'] .brand-mascot-light {
+  display: inline-block;
+}
+
 body {
   background-color: var(--bg);
   color: var(--text);

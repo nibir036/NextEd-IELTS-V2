@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, ArrowUpRight, LogIn, UserPlus, LayoutDashboard } from '../ui/icons';
+import { ArrowUpRight, LogIn, UserPlus, LayoutDashboard } from '../ui/icons';
 import { Button } from '../ui/Button';
 
 interface LandingNavProps {
@@ -25,15 +25,12 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onNavigate, isLoggedIn =
     >
       <a
         href="#home"
-        className="flex items-center gap-3 cursor-pointer"
+        className="flex items-center gap-2 cursor-pointer"
         onClick={(e) => handleScrollToSection(e, 'home')}
       >
-        <div className="w-9 h-9 rounded-xl bg-[image:var(--accent-gradient)] flex items-center justify-center text-white font-bold shadow-md shadow-[var(--glow-a)]">
-          <Sparkles size={18} />
-        </div>
-        <span className="font-display font-bold text-xl tracking-tight text-[var(--text)]">
-          AI IELTS Pro
-        </span>
+        <img src="/branding/ielts-ai-mascot-full.png" alt="IELTS AI" className="h-10 w-auto object-contain" />
+        <img src="/branding/ielts-ai-wordmark-dark.png" alt="IELTS AI by nextED." className="brand-wordmark-dark h-9 w-auto object-contain" />
+        <img src="/branding/ielts-ai-wordmark-light.png" alt="IELTS AI by nextED." className="brand-wordmark-light h-9 w-auto object-contain" />
       </a>
 
       <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[var(--text-dim)]">

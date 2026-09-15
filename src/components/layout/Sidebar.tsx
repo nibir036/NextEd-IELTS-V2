@@ -15,7 +15,6 @@ import {
   PinOff,
   GraduationCap,
   Bot,
-  Sparkles,
 } from '../ui/icons';
 import { currentUser as fallbackUser } from '../../lib/data';
 import { db, DbUser } from '../../lib/db';
@@ -232,19 +231,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLo
         <div className="flex items-center justify-between px-1 py-2">
           <div
             onClick={() => onNavigate('landing')}
-            className="flex items-center gap-3 cursor-pointer overflow-hidden min-w-0"
+            className="flex items-center gap-2 cursor-pointer overflow-hidden min-w-0"
           >
-            <div className="w-10 h-10 rounded-xl bg-[image:var(--accent-gradient)] flex items-center justify-center text-white font-bold shadow-md shadow-[var(--glow-a)] shrink-0 transition-transform duration-300 [transform-style:preserve-3d] hover:[transform:perspective(400px)_rotateY(-12deg)_rotateX(6deg)_scale(1.08)]">
-              <Sparkles size={20} />
-            </div>
+            <img src="/branding/ielts-ai-mascot-full.png" alt="IELTS AI" className="h-10 w-auto object-contain shrink-0" />
             {isExpanded && (
               <div className="animate-fadeIn min-w-0 whitespace-nowrap">
-                <div className="font-display font-bold text-base tracking-tight text-[var(--text)] truncate">
-                  AI IELTS Pro
-                </div>
-                <div className="text-[11px] font-mono text-[var(--text-faint)] uppercase tracking-wider">
-                  Band 8.0 Masterclass
-                </div>
+                <img src="/branding/ielts-ai-wordmark-dark.png" alt="IELTS AI by nextED." className="brand-wordmark-dark h-9 w-auto object-contain" />
+                <img src="/branding/ielts-ai-wordmark-light.png" alt="IELTS AI by nextED." className="brand-wordmark-light h-9 w-auto object-contain" />
               </div>
             )}
           </div>

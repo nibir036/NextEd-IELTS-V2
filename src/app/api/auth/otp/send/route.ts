@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
 
     const code = await createOtp(cleanPhone, purpose);
 
-    await sendSms(cleanPhone, `Your AI IELTS Pro OTP Code is ${code}. It expires in 5 minutes.`);
+    await sendSms(cleanPhone, `Your IELTS AI OTP Code is ${code}. It expires in 5 minutes.`);
 
     return NextResponse.json({ ok: true });
   } catch (err: any) {

@@ -105,7 +105,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
               </div>
 
               <h1 className="font-display text-2xl md:text-3xl xl:text-4xl font-extrabold text-[var(--text)] tracking-tight leading-snug">
-                {isReturning ? 'Welcome back,' : 'Welcome to AI IELTS Pro,'} <br />
+                {isReturning ? 'Welcome back,' : 'Welcome to IELTS AI,'} <br />
                 <span className="text-[var(--accent-a)]">{user.name}</span>
               </h1>
 

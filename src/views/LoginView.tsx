@@ -3,7 +3,6 @@ import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
 import { BackLink } from '../components/ui/BackLink';
 import {
-  Sparkles,
   PhoneCall,
   KeyRound,
   LogIn,
@@ -84,12 +83,11 @@ export const LoginView: React.FC<LoginViewProps> = ({
       <header className="relative z-10 border-b border-[var(--border)] px-6 py-4 flex items-center justify-between">
         <div
           onClick={onNavigateToLanding}
-          className="flex items-center gap-2.5 cursor-pointer hover:opacity-80 transition-opacity"
+          className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity overflow-hidden min-w-0"
         >
-          <div className="w-8 h-8 rounded-xl bg-[image:var(--accent-gradient)] flex items-center justify-center text-white font-bold shadow-md">
-            <Sparkles size={18} />
-          </div>
-          <span className="font-display font-bold text-lg tracking-tight">AI IELTS Pro</span>
+          <img src="/branding/ielts-ai-mascot-full.png" alt="IELTS AI" className="h-10 w-auto object-contain shrink-0" />
+          <img src="/branding/ielts-ai-wordmark-dark.png" alt="IELTS AI by nextED." className="brand-wordmark-dark h-9 w-auto object-contain" />
+          <img src="/branding/ielts-ai-wordmark-light.png" alt="IELTS AI by nextED." className="brand-wordmark-light h-9 w-auto object-contain" />
         </div>
 
         <BackLink onClick={onNavigateToLanding}>Back to Home</BackLink>
@@ -98,6 +96,10 @@ export const LoginView: React.FC<LoginViewProps> = ({
       {/* Main Login Panel */}
       <main className="relative z-10 flex-1 flex items-center justify-center p-4 md:p-8">
         <div className="w-full max-w-md space-y-6">
+          <div className="flex justify-center">
+            <img src="/branding/ielts-ai-mascot-full-dark.png" alt="IELTS AI by nextED." className="brand-mascot-dark h-40 w-auto object-contain" />
+            <img src="/branding/ielts-ai-mascot-full-light.png" alt="IELTS AI by nextED." className="brand-mascot-light h-40 w-auto object-contain" />
+          </div>
           <GlassPanel className="p-6 md:p-8 border border-[var(--border)] shadow-2xl space-y-6 relative">
             <div className="text-center space-y-2">
               <div className="w-12 h-12 rounded-2xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center mx-auto shadow-lg">
@@ -200,7 +202,7 @@ export const LoginView: React.FC<LoginViewProps> = ({
       </main>
 
       <footer className="font-michroma relative z-10 py-4 text-center text-xs tracking-wide text-[var(--text-faint)] border-t border-[var(--border)]">
-        AI IELTS Pro • Phone Authentication • Powered by PostgreSQL
+        IELTS AI • Phone Authentication • Powered by PostgreSQL
       </footer>
     </div>
   );

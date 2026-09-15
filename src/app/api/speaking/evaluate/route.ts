@@ -28,6 +28,20 @@ interface SpeakingEval {
   pronunciationFeedback: string;
   generalSummary: string;
   keyImprovements: string[];
+  // Full analyst findings behind the scores above -- previously fetched
+  // from the scoring service and discarded here. Surfaced now so the
+  // results screen can show the complete breakdown instead of just the
+  // one-line-per-criterion summary.
+  perPartFeedback: string[];
+  grammarErrors: { quote: string; issue: string; correction: string }[];
+  grammarStrengths: { quote: string; note: string }[];
+  vocabularyStrengths: { quote: string; note: string }[];
+  vocabularyIssues: { quote: string; issue: string }[];
+  fluencyObservations: { label: string; quote: string; pattern: string }[];
+  quantitativeNote: string;
+  pronunciationGenuineIssues: { phoneme: string; totalOccurrencesFlagged: number; note: string }[];
+  pronunciationExcludedArtifacts: string[];
+  pronunciationOverallNote: string;
   [key: string]: unknown; // satisfies Prisma's InputJsonValue for the `feedback` Json column
 }
 
@@ -54,6 +68,9 @@ function mapReportToSpeakingEval(report: SpeakingReport): SpeakingEval {
     || perPart.join(' ')
     || 'Evaluation completed.';
 
+  const textAnalysis = report.evidence.detailedAnalysis?.textAnalysis;
+  const pronunciationAnalysis = report.evidence.detailedAnalysis?.pronunciation;
+
   return {
     overallBand,
     fluencyScore,
@@ -66,6 +83,20 @@ function mapReportToSpeakingEval(report: SpeakingReport): SpeakingEval {
     pronunciationFeedback: report.evidence.pronunciation || '',
     generalSummary,
     keyImprovements: report.evidence.keyImprovements || [],
+    perPartFeedback: perPart,
+    grammarErrors: textAnalysis?.grammar_errors || [],
+    grammarStrengths: textAnalysis?.grammar_strengths || [],
+    vocabularyStrengths: textAnalysis?.vocabulary_strengths || [],
+    vocabularyIssues: textAnalysis?.vocabulary_issues || [],
+    fluencyObservations: textAnalysis?.fluency_observations || [],
+    quantitativeNote: textAnalysis?.quantitative_note || '',
+    pronunciationGenuineIssues: (pronunciationAnalysis?.genuine_issues || []).map((i) => ({
+      phoneme: i.phoneme,
+      totalOccurrencesFlagged: i.total_occurrences_flagged,
+      note: i.note,
+    })),
+    pronunciationExcludedArtifacts: pronunciationAnalysis?.excluded_as_likely_artifacts || [],
+    pronunciationOverallNote: pronunciationAnalysis?.overall_note || '',
   };
 }
 

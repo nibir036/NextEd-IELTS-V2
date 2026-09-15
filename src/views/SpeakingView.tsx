@@ -10,6 +10,7 @@ import { TipsLessonList } from '../components/practice/tips/TipsLessonList';
 import {
   Sparkles, Mic, Square, ArrowRight, Clock, MessageCircle, Users,
   Send, RefreshCw, Trophy, CheckCircle2, BookOpen, ChevronRight,
+  PenTool, Volume2, TrendingUp, X, Award,
 } from '../components/ui/icons';
 
 interface SpeakingViewProps {
@@ -51,6 +52,19 @@ interface SpeakingResult {
   generalSummary: string;
   keyImprovements: string[];
   saved?: boolean;
+  // Full analyst breakdown behind the scores above -- optional so older
+  // cached results / the scoring-failure fallback (which omits them)
+  // still render fine.
+  perPartFeedback?: string[];
+  grammarErrors?: { quote: string; issue: string; correction: string }[];
+  grammarStrengths?: { quote: string; note: string }[];
+  vocabularyStrengths?: { quote: string; note: string }[];
+  vocabularyIssues?: { quote: string; issue: string }[];
+  fluencyObservations?: { label: string; quote: string; pattern: string }[];
+  quantitativeNote?: string;
+  pronunciationGenuineIssues?: { phoneme: string; totalOccurrencesFlagged: number; note: string }[];
+  pronunciationExcludedArtifacts?: string[];
+  pronunciationOverallNote?: string;
 }
 
 // ---------- Segment model ----------
@@ -203,12 +217,76 @@ function fmtClock(totalSec: number): string {
 }
 
 const CriterionCard: React.FC<{ label: string; score: number; feedback: string }> = ({ label, score, feedback }) => (
-  <div className="p-2.5 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)]">
+  <div className="p-3 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)]">
     <div className="flex justify-between items-center mb-1">
       <span className="text-[11px] font-mono text-[var(--text-faint)]">{label}</span>
-      <span className="font-display font-bold text-xs text-[var(--text)]">{score.toFixed(1)}</span>
+      <span className="font-display font-bold text-sm text-[var(--text)]">{score.toFixed(1)}</span>
     </div>
-    <p className="text-[11px] text-[var(--text-dim)] leading-tight">{feedback}</p>
+    <p className="text-xs text-[var(--text-dim)] leading-relaxed">{feedback}</p>
+  </div>
+);
+
+// ---------- Full results breakdown ----------
+// The scoring service's session-level LLM pass produces far more evidence
+// than the 4 one-line criterion notes above: quoted grammar/vocabulary
+// findings, fluency observations, and phoneme-level pronunciation issues
+// (see llm_scorer.py's _analyze_text / _analyze_pronunciation passes in the
+// NextED_IELTS_Speaking service). Showing all of it -- not just the
+// summarized version -- gives the user something to actually dig into.
+
+const ReportSection: React.FC<{ icon: React.ReactNode; title: string; children: React.ReactNode }> = ({ icon, title, children }) => (
+  <div className="p-4 rounded-2xl bg-[var(--panel-2)]/60 border border-[var(--border)] space-y-3">
+    <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[var(--text-dim)]">
+      {icon} {title}
+    </div>
+    {children}
+  </div>
+);
+
+const QuoteFinding: React.FC<{ quote: string; note: string; tone: 'good' | 'bad'; correction?: string }> = ({ quote, note, tone, correction }) => (
+  <div
+    className={
+      tone === 'good'
+        ? 'p-2.5 rounded-lg bg-[var(--success)]/10 border border-[var(--success)]/25'
+        : 'p-2.5 rounded-lg bg-[var(--danger)]/10 border border-[var(--danger)]/25'
+    }
+  >
+    <div className="flex items-start gap-2">
+      {tone === 'good'
+        ? <CheckCircle2 size={13} className="text-[var(--success)] shrink-0 mt-0.5" />
+        : <X size={13} className="text-[var(--danger)] shrink-0 mt-0.5" />}
+      <p className="text-xs text-[var(--text)] italic leading-relaxed">&ldquo;{quote}&rdquo;</p>
+    </div>
+    <p className="text-[11px] text-[var(--text-dim)] leading-relaxed mt-1 pl-5">{note}</p>
+    {correction && (
+      <p className="text-[11px] text-[var(--success)] leading-relaxed mt-1 pl-5">
+        <span className="font-semibold">Better:</span> {correction}
+      </p>
+    )}
+  </div>
+);
+
+const FluencyObservationRow: React.FC<{ label: string; quote: string; pattern: string }> = ({ label, quote, pattern }) => (
+  <div className="p-2.5 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border)]">
+    <div className="flex items-center justify-between gap-2 mb-1">
+      <span className="text-[10px] font-mono uppercase text-[var(--text-faint)]">{label}</span>
+      <span className="text-[10px] font-mono font-semibold uppercase text-[var(--accent-a)] bg-[var(--accent-a)]/10 px-1.5 py-0.5 rounded">
+        {pattern.replace(/-/g, ' ')}
+      </span>
+    </div>
+    <p className="text-xs text-[var(--text)] italic leading-relaxed">&ldquo;{quote}&rdquo;</p>
+  </div>
+);
+
+const PronunciationIssueRow: React.FC<{ phoneme: string; count: number; note: string }> = ({ phoneme, count, note }) => (
+  <div className="p-2.5 rounded-lg bg-[var(--danger)]/10 border border-[var(--danger)]/25">
+    <div className="flex items-center gap-2 mb-1">
+      <span className="font-display font-bold text-xs text-[var(--text)] bg-[var(--panel-2)] border border-[var(--border)] px-1.5 py-0.5 rounded">
+        /{phoneme}/
+      </span>
+      <span className="text-[10px] font-mono text-[var(--text-faint)]">flagged {count}x</span>
+    </div>
+    <p className="text-[11px] text-[var(--text-dim)] leading-relaxed">{note}</p>
   </div>
 );
 
@@ -561,6 +639,159 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab
 
   const currentSegment = segments[stepIndex];
 
+  // ---------- RESULTS MODE ----------
+  // A full, dedicated screen for the scored report rather than a cramped
+  // sidebar summary -- shows every finding the scoring service produced,
+  // not just the condensed one-liner per criterion.
+  if (selectedTestId && result) {
+    const hasGrammar = (result.grammarStrengths?.length || 0) > 0 || (result.grammarErrors?.length || 0) > 0;
+    const hasVocab = (result.vocabularyStrengths?.length || 0) > 0 || (result.vocabularyIssues?.length || 0) > 0;
+    const hasFluency = (result.fluencyObservations?.length || 0) > 0 || !!result.quantitativeNote;
+    const hasPronunciation = (result.pronunciationGenuineIssues?.length || 0) > 0
+      || (result.pronunciationExcludedArtifacts?.length || 0) > 0
+      || !!result.pronunciationOverallNote;
+
+    return (
+      <div id={id} className="space-y-6">
+        {!forcedTestId && <BackLink onClick={backToTests}>Back to tests</BackLink>}
+
+        <GlassPanel className="shadow-xl border border-[var(--border)] overflow-hidden">
+          {/* Icon + band score get their own row -- kept to just these two
+              items (instead of sharing a row with the 4 criterion cards)
+              so this never gets squeezed into a broken layout at in-between
+              viewport widths. Criterion cards get their own full-width row
+              below, which always has room to lay out 2 or 4 columns. */}
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center shadow-lg shadow-[var(--glow-a)] shrink-0">
+              <Trophy size={32} className="sm:hidden" />
+              <Trophy size={36} className="hidden sm:block" />
+            </div>
+            <div className="min-w-0">
+              <div className="text-xs font-mono uppercase text-[var(--text-faint)] truncate">
+                {test?.title || 'IELTS Speaking Test'} — Overall Speaking Band
+              </div>
+              <div className="font-display font-extrabold text-4xl md:text-5xl text-[var(--text)] mt-1">
+                Band {result.overallBand.toFixed(1)}
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
+            <CriterionCard label="Fluency & Coherence" score={result.fluencyScore} feedback={result.fluencyFeedback} />
+            <CriterionCard label="Lexical Resource" score={result.lexicalScore} feedback={result.lexicalFeedback} />
+            <CriterionCard label="Grammar" score={result.grammarScore} feedback={result.grammarFeedback} />
+            <CriterionCard label="Pronunciation" score={result.pronunciationScore} feedback={result.pronunciationFeedback} />
+          </div>
+
+          {noticeMessage && (
+            <div className="mt-4 text-xs text-[var(--warning)] bg-[var(--warning)]/15 border border-[var(--warning)]/30 p-2.5 rounded-xl">{noticeMessage}</div>
+          )}
+
+          <div className="mt-4 p-4 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)]">
+            <p className="text-sm text-[var(--text-dim)] leading-relaxed">{result.generalSummary}</p>
+          </div>
+
+          {result.keyImprovements && result.keyImprovements.length > 0 && (
+            <div className="mt-4 space-y-2">
+              <div className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase text-[var(--text-dim)]">
+                <Award size={14} /> Key improvements
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {result.keyImprovements.map((tip, i) => (
+                  <div key={i} className="flex items-start gap-2 text-xs text-[var(--text-dim)] p-2.5 rounded-lg bg-[var(--panel-2)]/60 border border-[var(--border)]">
+                    <CheckCircle2 size={13} className="text-[var(--success)] shrink-0 mt-0.5" />
+                    <span>{tip}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </GlassPanel>
+
+        {result.perPartFeedback && result.perPartFeedback.length > 0 && (
+          <GlassPanel className="shadow-xl border border-[var(--border)] space-y-3">
+            <div className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase text-[var(--text-dim)]">
+              <MessageCircle size={14} /> Part-by-part feedback
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {result.perPartFeedback.map((fb, i) => (
+                <div key={i} className="p-3 rounded-xl bg-[var(--panel-2)]/60 border border-[var(--border)]">
+                  <div className="text-[10px] font-mono uppercase text-[var(--text-faint)] mb-1">Part {i + 1}</div>
+                  <p className="text-xs text-[var(--text-dim)] leading-relaxed">{fb}</p>
+                </div>
+              ))}
+            </div>
+          </GlassPanel>
+        )}
+
+        {(hasGrammar || hasVocab || hasFluency || hasPronunciation) && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {hasGrammar && (
+              <ReportSection icon={<PenTool size={14} />} title="Grammar — quoted from your answers">
+                {result.grammarStrengths?.map((f, i) => (
+                  <QuoteFinding key={`gs-${i}`} tone="good" quote={f.quote} note={f.note} />
+                ))}
+                {result.grammarErrors?.map((f, i) => (
+                  <QuoteFinding key={`ge-${i}`} tone="bad" quote={f.quote} note={f.issue} correction={f.correction} />
+                ))}
+              </ReportSection>
+            )}
+
+            {hasVocab && (
+              <ReportSection icon={<BookOpen size={14} />} title="Vocabulary — quoted from your answers">
+                {result.vocabularyStrengths?.map((f, i) => (
+                  <QuoteFinding key={`vs-${i}`} tone="good" quote={f.quote} note={f.note} />
+                ))}
+                {result.vocabularyIssues?.map((f, i) => (
+                  <QuoteFinding key={`vi-${i}`} tone="bad" quote={f.quote} note={f.issue} />
+                ))}
+              </ReportSection>
+            )}
+
+            {hasFluency && (
+              <ReportSection icon={<TrendingUp size={14} />} title="Fluency & coherence observations">
+                {result.quantitativeNote && (
+                  <p className="text-xs text-[var(--text-dim)] leading-relaxed pb-1 border-b border-[var(--border)]">
+                    {result.quantitativeNote}
+                  </p>
+                )}
+                {result.fluencyObservations?.map((f, i) => (
+                  <FluencyObservationRow key={i} label={f.label} quote={f.quote} pattern={f.pattern} />
+                ))}
+              </ReportSection>
+            )}
+
+            {hasPronunciation && (
+              <ReportSection icon={<Volume2 size={14} />} title="Pronunciation — phoneme-level detail">
+                {result.pronunciationOverallNote && (
+                  <p className="text-xs text-[var(--text-dim)] leading-relaxed pb-1 border-b border-[var(--border)]">
+                    {result.pronunciationOverallNote}
+                  </p>
+                )}
+                {result.pronunciationGenuineIssues?.map((f, i) => (
+                  <PronunciationIssueRow key={i} phoneme={f.phoneme} count={f.totalOccurrencesFlagged} note={f.note} />
+                ))}
+                {result.pronunciationExcludedArtifacts && result.pronunciationExcludedArtifacts.length > 0 && (
+                  <p className="text-[11px] text-[var(--text-faint)] leading-relaxed">
+                    Also detected but treated as likely recognizer artifacts, not genuine errors: {result.pronunciationExcludedArtifacts.join(', ')}.
+                  </p>
+                )}
+              </ReportSection>
+            )}
+          </div>
+        )}
+
+        {!forcedTestId && (
+          <div className="flex justify-end gap-3">
+            <Button variant="secondary" size="md" icon={<RefreshCw size={16} />} onClick={backToTests}>
+              Take another test
+            </Button>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   // ---------- TAKE MODE ----------
   if (selectedTestId) {
     return (
@@ -686,77 +917,41 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab
             </div>
 
             <div className="lg:col-span-5 space-y-4">
-              {result ? (
-                <GlassPanel className="shadow-xl space-y-5 animate-fade-in border border-[var(--border)]">
-                  <div className="p-4 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)] flex items-center justify-between">
-                    <div>
-                      <div className="text-xs font-mono uppercase text-[var(--text-faint)]">Overall Speaking Band</div>
-                      <div className="font-display font-extrabold text-4xl text-[var(--text)] mt-1">Band {result.overallBand.toFixed(1)}</div>
+              <GlassPanel className="shadow-xl space-y-4 border border-[var(--border)]">
+                <h3 className="font-display text-lg font-bold text-[var(--text)]">Your recordings</h3>
+                <div className="space-y-2">
+                  {recordableSegments.map((s) => (
+                    <div key={s.id} className="flex items-center justify-between p-2.5 rounded-xl bg-[var(--panel-2)] border border-[var(--border)]">
+                      <span className="text-xs font-mono text-[var(--text)]">{s.partLabel} — {s.heading}</span>
+                      {recordings[s.id] ? (
+                        <span className="text-[11px] font-mono text-[var(--success)] flex items-center gap-1">
+                          <CheckCircle2 size={13} /> Recorded
+                        </span>
+                      ) : (
+                        <span className="text-[11px] font-mono text-[var(--text-faint)]">Not yet</span>
+                      )}
                     </div>
-                    <div className="w-16 h-16 rounded-2xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center shadow-lg shadow-[var(--glow-a)]">
-                      <Trophy size={28} />
-                    </div>
+                  ))}
+                </div>
+                {isEvaluating && (
+                  <div className="p-4 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-center">
+                    <RefreshCw size={20} className="animate-spin mx-auto mb-2 text-[var(--text)]" />
+                    <p className="text-xs text-[var(--text-dim)] leading-relaxed">
+                      Scoring your test — checking pronunciation, fluency and grammar. This can take a few minutes, please don't close this page.
+                    </p>
                   </div>
-
-                  <div className="grid grid-cols-2 gap-2">
-                    <CriterionCard label="Fluency & Coherence" score={result.fluencyScore} feedback={result.fluencyFeedback} />
-                    <CriterionCard label="Lexical Resource" score={result.lexicalScore} feedback={result.lexicalFeedback} />
-                    <CriterionCard label="Grammar" score={result.grammarScore} feedback={result.grammarFeedback} />
-                    <CriterionCard label="Pronunciation" score={result.pronunciationScore} feedback={result.pronunciationFeedback} />
-                  </div>
-
-                  <div className="p-2.5 rounded-xl bg-[var(--panel-2)] border border-[var(--border)]">
-                    <p className="text-[11px] text-[var(--text-dim)] leading-relaxed">{result.generalSummary}</p>
-                  </div>
-
-                  {result.keyImprovements?.length > 0 && (
-                    <div className="space-y-1.5">
-                      {result.keyImprovements.map((tip, i) => (
-                        <div key={i} className="flex items-start gap-2 text-[11px] text-[var(--text-dim)]">
-                          <CheckCircle2 size={13} className="text-[var(--success)] shrink-0 mt-0.5" />
-                          <span>{tip}</span>
-                        </div>
-                      ))}
+                )}
+                {!isEvaluating && (
+                  <div className="p-8 text-center flex flex-col items-center justify-center">
+                    <div className="w-14 h-14 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)] flex items-center justify-center text-[var(--text)] mb-4">
+                      <BookOpen size={28} />
                     </div>
-                  )}
-                </GlassPanel>
-              ) : (
-                <GlassPanel className="shadow-xl space-y-4 border border-[var(--border)]">
-                  <h3 className="font-display text-lg font-bold text-[var(--text)]">Your recordings</h3>
-                  <div className="space-y-2">
-                    {recordableSegments.map((s) => (
-                      <div key={s.id} className="flex items-center justify-between p-2.5 rounded-xl bg-[var(--panel-2)] border border-[var(--border)]">
-                        <span className="text-xs font-mono text-[var(--text)]">{s.partLabel} — {s.heading}</span>
-                        {recordings[s.id] ? (
-                          <span className="text-[11px] font-mono text-[var(--success)] flex items-center gap-1">
-                            <CheckCircle2 size={13} /> Recorded
-                          </span>
-                        ) : (
-                          <span className="text-[11px] font-mono text-[var(--text-faint)]">Not yet</span>
-                        )}
-                      </div>
-                    ))}
+                    <p className="text-xs text-[var(--text-dim)] max-w-xs leading-relaxed">
+                      Work through each card — timers and recording run automatically for most questions. Submit at the end for an AI band score across Fluency, Lexical Resource, Grammar and Pronunciation.
+                    </p>
                   </div>
-                  {isEvaluating && (
-                    <div className="p-4 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-center">
-                      <RefreshCw size={20} className="animate-spin mx-auto mb-2 text-[var(--text)]" />
-                      <p className="text-xs text-[var(--text-dim)] leading-relaxed">
-                        Scoring your test — checking pronunciation, fluency and grammar. This can take a few minutes, please don't close this page.
-                      </p>
-                    </div>
-                  )}
-                  {!isEvaluating && (
-                    <div className="p-8 text-center flex flex-col items-center justify-center">
-                      <div className="w-14 h-14 rounded-2xl bg-[var(--panel-2)] border border-[var(--border)] flex items-center justify-center text-[var(--text)] mb-4">
-                        <BookOpen size={28} />
-                      </div>
-                      <p className="text-xs text-[var(--text-dim)] max-w-xs leading-relaxed">
-                        Work through each card — timers and recording run automatically for most questions. Submit at the end for an AI band score across Fluency, Lexical Resource, Grammar and Pronunciation.
-                      </p>
-                    </div>
-                  )}
-                </GlassPanel>
-              )}
+                )}
+              </GlassPanel>
             </div>
           </div>
         )}
@@ -767,32 +962,41 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab
   // ---------- BROWSE MODE ----------
   return (
     <div id={id} className="space-y-6">
-      <GlassPanel className="border border-[var(--border)] shadow-lg relative overflow-hidden">
-        <div className="relative z-10 max-w-xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text)] text-xs font-mono mb-2">
-            <Sparkles size={14} />
-            <span>Speaking Practice</span>
+      <GlassPanel className="border border-[var(--border)] shadow-lg overflow-hidden">
+        <div className="flex flex-col-reverse md:flex-row items-center gap-6">
+          <div className="flex-1 min-w-0">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text)] text-xs font-mono mb-2">
+              <Sparkles size={14} />
+              <span>Speaking Practice</span>
+            </div>
+
+            <h2 className="font-display text-2xl font-bold text-[var(--text)]">
+              Speaking Practice
+            </h2>
+
+            <p className="text-xs text-[var(--text-dim)] mt-1">
+              {browseTab === 'tests'
+                ? 'AI-examined speaking parts with band feedback across all four criteria.'
+                : 'Learn the Speaking mindset, Part 1 extension, Part 2 cue cards, Part 3 reasoning, recovery, and pronunciation strategy needed to reach Band 9.'}
+            </p>
           </div>
-
-          <h2 className="font-display text-2xl font-bold text-[var(--text)]">
-            Speaking Practice
-          </h2>
-
-          <p className="text-xs text-[var(--text-dim)] mt-1">
-            {browseTab === 'tests'
-              ? 'AI-examined speaking parts with band feedback across all four criteria.'
-              : 'Learn the Speaking mindset, Part 1 extension, Part 2 cue cards, Part 3 reasoning, recovery, and pronunciation strategy needed to reach Band 9.'}
-          </p>
+          {/* Muted, looping preview clip -- the same module video used on
+              the Dashboard/Landing practice cards, framed to match. */}
+          <div className="w-full md:w-64 lg:w-72 flex-shrink-0">
+            <div className="relative aspect-video rounded-2xl overflow-hidden border border-[var(--border)] shadow-xl bg-[image:var(--accent-gradient)]">
+              <video
+                className="w-full h-full object-cover"
+                src="/videos/modules/speaking.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                aria-hidden="true"
+              />
+            </div>
+          </div>
         </div>
-        {/* Large, faint skill icon filling the empty right side of the
-            title bar -- purely decorative, so it's hidden from screen
-            readers and clipped by the panel's own rounded corners. */}
-        <Mic
-          size={140}
-          strokeWidth={1.75}
-          aria-hidden="true"
-          className="hidden sm:block absolute right-4 top-1/2 text-[var(--accent-a)] pointer-events-none animate-titleIconFloat"
-        />
       </GlassPanel>
 
       {browseTab === 'tests' ? (

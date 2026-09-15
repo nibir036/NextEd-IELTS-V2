@@ -166,38 +166,6 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
         </div>
       </div>
 
-      {/* Analytics row: skill progress graph + animated goal-completion pie chart */}
-      <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <SkillProgressGraph data={dashboard} />
-        <GoalPieChart currentBand={user.currentBand} targetBand={user.targetBand} />
-      </Reveal>
-
-      {/* Study Calendar -- commented out for now, not removed. Reminder
-          notifications (Email/Phone) aren't actually wired to anything
-          real yet (localStorage only, no backend, no real email/SMS
-          send). Revisit once that's either built for real or the UI
-          copy is made honest about what it does. */}
-      {/*
-      <div className="space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3 pb-2 border-b border-[var(--border)]">
-          <div>
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-a)]">
-              <Bell size={16} />
-              <span>Study Planner & Notifications</span>
-            </div>
-            <h2 className="font-display text-2xl font-bold text-[var(--text)] mt-1">
-              Study Calendar & Exam Reminders
-            </h2>
-          </div>
-          <span className="text-xs font-mono text-[var(--text-faint)] bg-[var(--panel-2)] px-3 py-1.5 rounded-xl border border-[var(--border)]">
-            ✉️ Email & 📱 Phone Push Sync Active
-          </span>
-        </div>
-
-        <StudyCalendar userEmail={user.email} />
-      </div>
-      */}
-
       <div data-tour="dashboard-modules" className="space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="font-display text-xl font-bold text-[var(--text)]">
@@ -331,6 +299,38 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
           })}
         </div>
       </div>
+
+      {/* Analytics row: skill progress graph + animated goal-completion pie chart */}
+      <Reveal className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <SkillProgressGraph data={dashboard} />
+        <GoalPieChart currentBand={user.currentBand} targetBand={user.targetBand} />
+      </Reveal>
+
+      {/* Study Calendar -- commented out for now, not removed. Reminder
+          notifications (Email/Phone) aren't actually wired to anything
+          real yet (localStorage only, no backend, no real email/SMS
+          send). Revisit once that's either built for real or the UI
+          copy is made honest about what it does. */}
+      {/*
+      <div className="space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-2 border-b border-[var(--border)]">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-a)]">
+              <Bell size={16} />
+              <span>Study Planner & Notifications</span>
+            </div>
+            <h2 className="font-display text-2xl font-bold text-[var(--text)] mt-1">
+              Study Calendar & Exam Reminders
+            </h2>
+          </div>
+          <span className="text-xs font-mono text-[var(--text-faint)] bg-[var(--panel-2)] px-3 py-1.5 rounded-xl border border-[var(--border)]">
+            ✉️ Email & 📱 Phone Push Sync Active
+          </span>
+        </div>
+
+        <StudyCalendar userEmail={user.email} />
+      </div>
+      */}
 
       <DailyTipBanner />
     </div>

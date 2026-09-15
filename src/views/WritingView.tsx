@@ -249,28 +249,37 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab, 
   if (!selectedTestId) {
     return (
       <div id={id} className="space-y-6">
-        <GlassPanel className="border border-[var(--border)] shadow-lg relative overflow-hidden">
-          <div className="relative z-10 max-w-xl">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text)] text-xs font-mono mb-2">
-              <Sparkles size={14} />
-              <span>AI-Graded Writing Practice</span>
+        <GlassPanel className="border border-[var(--border)] shadow-lg overflow-hidden">
+          <div className="flex flex-col-reverse md:flex-row items-center gap-6">
+            <div className="flex-1 min-w-0">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text)] text-xs font-mono mb-2">
+                <Sparkles size={14} />
+                <span>AI-Graded Writing Practice</span>
+              </div>
+              <h2 className="font-display text-2xl font-bold text-[var(--text)]">Writing Practice</h2>
+              <p className="text-xs text-[var(--text-dim)] mt-1">
+                {browseTab === 'tests'
+                  ? 'Choose a test below. Each includes Task 1 and Task 2, graded against the official band descriptors.'
+                  : 'The Writing module from Zero to Band 9: how the test really works, chart reading, idea development, and the 60-minute plan.'}
+              </p>
             </div>
-            <h2 className="font-display text-2xl font-bold text-[var(--text)]">Writing Practice</h2>
-            <p className="text-xs text-[var(--text-dim)] mt-1">
-              {browseTab === 'tests'
-                ? 'Choose a test below. Each includes Task 1 and Task 2, graded against the official band descriptors.'
-                : 'The Writing module from Zero to Band 9: how the test really works, chart reading, idea development, and the 60-minute plan.'}
-            </p>
+            {/* Muted, looping preview clip -- the same module video used on
+                the Dashboard/Landing practice cards, framed to match. */}
+            <div className="w-full md:w-64 lg:w-72 flex-shrink-0">
+              <div className="relative aspect-video rounded-2xl overflow-hidden border border-[var(--border)] shadow-xl bg-[image:var(--accent-gradient)]">
+                <video
+                  className="w-full h-full object-cover"
+                  src="/videos/modules/writing.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  aria-hidden="true"
+                />
+              </div>
+            </div>
           </div>
-          {/* Large, faint skill icon filling the empty right side of the
-              title bar -- purely decorative, so it's hidden from screen
-              readers and clipped by the panel's own rounded corners. */}
-          <PenTool
-            size={140}
-            strokeWidth={1.75}
-            aria-hidden="true"
-            className="hidden sm:block absolute right-4 top-1/2 text-[var(--accent-a)] pointer-events-none animate-titleIconFloat"
-          />
         </GlassPanel>
 
         {browseTab === 'tests' ? (

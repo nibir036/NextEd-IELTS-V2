@@ -96,6 +96,28 @@ export interface SpeakingReport {
     keyImprovements?: string[];
     partsRecorded?: number[];
     segmentsRecorded?: string[];
+    // Full per-pass analyst findings behind the final scores -- kept by the
+    // FastAPI service for debugging/training but not surfaced to the user
+    // until now. See NextED_IELTS_Speaking/app/services/llm_scorer.py
+    // (_analyze_text / _analyze_pronunciation) for exactly what each pass
+    // produces.
+    detailedAnalysis?: {
+      textAnalysis?: {
+        grammar_errors?: { quote: string; issue: string; correction: string }[];
+        grammar_strengths?: { quote: string; note: string }[];
+        vocabulary_strengths?: { quote: string; note: string }[];
+        vocabulary_issues?: { quote: string; issue: string }[];
+        fluency_observations?: { label: string; quote: string; pattern: string }[];
+        quantitative_note?: string;
+        note?: string; // present instead of the above if this pass failed
+      };
+      pronunciation?: {
+        genuine_issues?: { phoneme: string; total_occurrences_flagged: number; note: string }[];
+        excluded_as_likely_artifacts?: string[];
+        overall_note?: string;
+        note?: string; // present instead of the above if this pass failed
+      };
+    };
   };
   created_at: string;
 }

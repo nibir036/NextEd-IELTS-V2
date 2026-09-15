@@ -184,13 +184,33 @@ export default function App() {
       case 'diagnostic':
         return <DiagnosticView onNavigateAction={handleNavigate} />;
       case 'writing':
-        return <WritingView initialBrowseTab={subPath === 'tips' ? 'tips' : 'tests'} />;
+        return (
+          <WritingView
+            initialBrowseTab={subPath === 'tips' ? 'tips' : 'tests'}
+            onNavigateAction={handleNavigate}
+          />
+        );
       case 'reading':
-        return <ReadingExamView initialBrowseTab={subPath === 'tips' ? 'tips' : 'tests'} />;
+        return (
+          <ReadingExamView
+            initialBrowseTab={subPath === 'tips' ? 'tips' : 'tests'}
+            onNavigateAction={handleNavigate}
+          />
+        );
       case 'speaking':
-        return <SpeakingView initialBrowseTab={subPath === 'tips' ? 'tips' : 'tests'} />;
+        return (
+          <SpeakingView
+            initialBrowseTab={subPath === 'tips' ? 'tips' : 'tests'}
+            onNavigateAction={handleNavigate}
+          />
+        );
       case 'listening':
-        return <ListeningExamView initialBrowseTab={subPath === 'tips' ? 'tips' : 'tests'} />;
+        return (
+          <ListeningExamView
+            initialBrowseTab={subPath === 'tips' ? 'tips' : 'tests'}
+            onNavigateAction={handleNavigate}
+          />
+        );
       case 'mock-tests':
         return <MockTestsView onNavigateAction={handleNavigate} />;
       case 'mock-runner':

@@ -3,6 +3,7 @@ import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
 import { BackLink } from '../components/ui/BackLink';
 import { TestSelector } from '../components/practice/TestSelector';
+import { BrowseTabSwitcher } from '../components/practice/BrowseTabSwitcher';
 // import { SkillTips } from '../components/practice/SkillTips';
 import { ListeningTipsChapterList } from '../components/practice/tips/listeningtipschapterlist';
 import { TipsReaderOverlay } from '../components/practice/tips/TipsReaderOverlay';
@@ -14,6 +15,12 @@ import { Sparkles, Send, RefreshCw, Trophy, CheckCircle2, X, Clock } from '../co
 interface ListeningExamViewProps {
   id?: string;
   initialBrowseTab?: 'tests' | 'tips';
+  // Drives the in-page Tests/Tips switcher (and the sidebar dropdown click
+  // handler stays consistent with it) -- both go through the same route.
+  // Optional because the full-mock-test runner renders this view in
+  // "forced" mode (see forcedTestId below), where the browse screen (and
+  // therefore this switcher) never renders at all.
+  onNavigateAction?: (route: string) => void;
   // "Forced" mode: a parent (the full-mock-test runner) hands us a specific
   // testId to load directly, skipping the browse/select-a-test screen, and
   // gets notified with the resulting band once this skill is scored so it
@@ -34,7 +41,7 @@ function formatAnswerForReview(v: unknown): string {
   return v ? String(v) : '—';
 }
 
-export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initialBrowseTab, forcedTestId, onExamComplete }) => {
+export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initialBrowseTab, onNavigateAction, forcedTestId, onExamComplete }) => {
   const [selectedId, setSelectedId] = useState<string | null>(forcedTestId ?? null);
 
   // Forced mode: the runner may hand us forcedTestId slightly after mount.
@@ -48,9 +55,10 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
   const [selectedTipsAnchor, setSelectedTipsAnchor] = useState<string | null>(null);
   const [noBiteLessons, setNoBiteLessons] = useState(false);
 
-  // See ReadingExamView for why this effect is needed -- the sidebar
-  // dropdown changes the prop without remounting this view. This is now
-  // the only way to switch tabs -- the in-page switcher was removed.
+  // See ReadingExamView for why this effect is needed -- both the sidebar
+  // dropdown and the in-page BrowseTabSwitcher below change routes (via
+  // onNavigateAction) rather than local state directly, so this effect is
+  // what actually applies the new tab once the route/prop changes.
   useEffect(() => {
     if (initialBrowseTab) {
       setBrowseTab(initialBrowseTab);
@@ -189,6 +197,11 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
             </div>
           </div>
         </GlassPanel>
+
+        <BrowseTabSwitcher
+          active={browseTab}
+          onSelect={(tab) => onNavigateAction?.(`listening/${tab}`)}
+        />
 
         {browseTab === 'tests' ? (
           <>

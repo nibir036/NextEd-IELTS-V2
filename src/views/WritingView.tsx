@@ -4,6 +4,7 @@ import { Button } from '../components/ui/Button';
 import { BackLink } from '../components/ui/BackLink';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import { TestSelector } from '../components/practice/TestSelector';
+import { BrowseTabSwitcher } from '../components/practice/BrowseTabSwitcher';
 import { WritingTipsChapterList } from '../components/practice/tips/writingtipschapterlist';
 import { TipsReaderOverlay } from '../components/practice/tips/TipsReaderOverlay';
 import { TipsLessonList } from '../components/practice/tips/TipsLessonList';
@@ -15,6 +16,12 @@ import {
 interface WritingViewProps {
   id?: string;
   initialBrowseTab?: 'tests' | 'tips';
+  // Drives the in-page Tests/Tips switcher (and the sidebar dropdown click
+  // handler stays consistent with it) -- both go through the same route.
+  // Optional because the full-mock-test runner renders this view in
+  // "forced" mode (see forcedTestId below), where the browse screen (and
+  // therefore this switcher) never renders at all.
+  onNavigateAction?: (route: string) => void;
   // "Forced" mode: a parent (the full-mock-test runner) hands us a specific
   // testId to load directly, skipping the browse/select-a-test screen, and
   // gets notified with the resulting band once this skill is scored so it
@@ -94,7 +101,7 @@ const TaskReport: React.FC<{ label: string; evalData: TaskEval }> = ({ label, ev
   </div>
 );
 
-export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab, forcedTestId, onExamComplete }) => {
+export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab, onNavigateAction, forcedTestId, onExamComplete }) => {
   const [selectedTestId, setSelectedTestId] = useState<string | null>(forcedTestId ?? null);
 
   // Forced mode: the runner may hand us forcedTestId slightly after mount.
@@ -107,10 +114,10 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab, 
   const [selectedTipsAnchor, setSelectedTipsAnchor] = useState<string | null>(null);
   const [noBiteLessons, setNoBiteLessons] = useState(false);
 
-  // See ReadingExamView for why this effect is needed -- the sidebar
-  // dropdown changes the prop without remounting this view. The in-page
-  // Tests/Tips switcher was removed (sidebar dropdown is now the only
-  // way to switch), so this is also the only thing driving browseTab.
+  // See ReadingExamView for why this effect is needed -- both the sidebar
+  // dropdown and the in-page BrowseTabSwitcher below change routes (via
+  // onNavigateAction) rather than local state directly, so this effect is
+  // what actually applies the new tab once the route/prop changes.
   useEffect(() => {
     if (initialBrowseTab) {
       setBrowseTab(initialBrowseTab);
@@ -281,6 +288,11 @@ export const WritingView: React.FC<WritingViewProps> = ({ id, initialBrowseTab, 
             </div>
           </div>
         </GlassPanel>
+
+        <BrowseTabSwitcher
+          active={browseTab}
+          onSelect={(tab) => onNavigateAction?.(`writing/${tab}`)}
+        />
 
         {browseTab === 'tests' ? (
           <>

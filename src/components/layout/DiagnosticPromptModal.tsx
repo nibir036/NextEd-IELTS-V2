@@ -14,11 +14,16 @@ function storageKey(userId: string) {
 interface DiagnosticPromptModalProps {
   currentRoute: string;
   onNavigateAction: (route: string) => void;
+  // While the onboarding tour is running, hold this popup back entirely
+  // -- two overlays fighting for attention on someone's very first
+  // session is worse than the diagnostic nudge arriving a beat later.
+  suppressed?: boolean;
 }
 
 export const DiagnosticPromptModal: React.FC<DiagnosticPromptModalProps> = ({
   currentRoute,
   onNavigateAction,
+  suppressed = false,
 }) => {
   const [user, setUser] = useState<DbUser | null>(null);
   const [diagnosticDone, setDiagnosticDone] = useState<boolean | null>(null);
@@ -80,7 +85,7 @@ export const DiagnosticPromptModal: React.FC<DiagnosticPromptModalProps> = ({
 
   // Never show while already on the diagnostic screen itself, or before
   // we actually know the completion status yet.
-  if (diagnosticDone !== false || currentRoute === 'diagnostic' || !visible) {
+  if (diagnosticDone !== false || currentRoute === 'diagnostic' || !visible || suppressed) {
     return null;
   }
 

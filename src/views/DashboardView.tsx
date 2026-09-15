@@ -27,6 +27,18 @@ interface DashboardViewProps {
   id?: string;
 }
 
+// Muted, looping preview clips for the modules that have one (Full Mock has
+// no dedicated clip, so it keeps its plain icon tile). Kept as a top video
+// zone with the name/subtitle on a solid gradient footer below it, rather
+// than as a full-card background -- the source clips carry their own
+// baked-in text/captions that would clash with a label placed on top.
+const moduleVideos: Record<string, string> = {
+  writing: '/videos/modules/writing.mp4',
+  reading: '/videos/modules/reading.mp4',
+  listening: '/videos/modules/listening.mp4',
+  speaking: '/videos/modules/speaking.mp4',
+};
+
 export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, id }) => {
   const [user, setUser] = useState<DbUser | null>(null);
   const [dashboard, setDashboard] = useState<DashboardData | null>(null);
@@ -186,7 +198,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
       </div>
       */}
 
-      <div className="space-y-4">
+      <div data-tour="dashboard-modules" className="space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="font-display text-xl font-bold text-[var(--text)]">
             Explore IELTS Practice Modules
@@ -240,6 +252,49 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
             },
           ].map((item, idx) => {
             const Icon = item.icon;
+            const videoSrc = moduleVideos[item.id];
+
+            if (videoSrc) {
+              return (
+                <Reveal key={item.id} delayMs={idx * 120}>
+                  <div
+                    onClick={() => onNavigateAction(item.id)}
+                    className="relative overflow-hidden rounded-3xl cursor-pointer group aspect-[4/5] shadow-lg border border-[var(--border)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  >
+                    {/* Full-bleed looping video */}
+                    <video
+                      className="absolute inset-0 w-full h-full object-cover"
+                      src={videoSrc}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      preload="metadata"
+                      aria-hidden="true"
+                    />
+
+                    {/* Bottom scrim so the glass title bar keeps contrast
+                        over bright/busy frames */}
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+
+                    <span className="absolute top-3 left-3 text-[11px] font-bold px-2.5 py-1 rounded-full bg-white/20 text-white backdrop-blur-sm">
+                      Ai
+                    </span>
+
+                    {/* Glass title bar, pinned to the very bottom */}
+                    <div className="absolute inset-x-3 bottom-3 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 px-3 py-2.5">
+                      <div className="font-display font-extrabold text-white text-base leading-tight">
+                        {item.name}
+                      </div>
+                      <div className="text-[11px] text-white/80 mt-0.5 flex items-center gap-1">
+                        <span>{item.subtitle}</span>
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+              );
+            }
+
             return (
               <Reveal key={item.id} delayMs={idx * 120}>
                 <div

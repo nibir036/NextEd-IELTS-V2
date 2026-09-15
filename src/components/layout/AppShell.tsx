@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
 import { DiagnosticPromptModal } from './DiagnosticPromptModal';
+import { OnboardingTour } from './OnboardingTour';
 
 interface AppShellProps {
   currentRoute: string;
@@ -18,6 +19,11 @@ export const AppShell: React.FC<AppShellProps> = ({
   children,
   id,
 }) => {
+  // First-time product tour takes priority over the diagnostic nudge --
+  // no point stacking two attention-grabbing overlays on someone's very
+  // first session. The diagnostic prompt simply holds off while it runs.
+  const [tourActive, setTourActive] = useState(false);
+
   return (
     <div id={id} className="min-h-screen flex bg-[var(--bg)] text-[var(--text)] relative">
       {/* Ambient background wash layer fixed across viewport */}
@@ -25,9 +31,18 @@ export const AppShell: React.FC<AppShellProps> = ({
         <div className="bg-pattern" />
       </div>
 
+      {/* New-user product tour -- mascot-guided walkthrough of the
+          sidebar, dashboard modules, search and profile. Shows once per
+          account, above everything else on the page. */}
+      <OnboardingTour currentRoute={currentRoute} onActiveChange={setTourActive} />
+
       {/* Global diagnostic nudge -- shows on top of whichever screen the
           user is on, not just the dashboard. */}
-      <DiagnosticPromptModal currentRoute={currentRoute} onNavigateAction={onNavigate} />
+      <DiagnosticPromptModal
+        currentRoute={currentRoute}
+        onNavigateAction={onNavigate}
+        suppressed={tourActive}
+      />
 
       {/* Persistent Left Sidebar */}
       <Sidebar currentRoute={currentRoute} onNavigate={onNavigate} onLogout={onLogout} />

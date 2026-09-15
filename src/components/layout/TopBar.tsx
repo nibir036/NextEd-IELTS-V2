@@ -140,7 +140,7 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, id }) 
       </div>
 
       {/* Quick Search Input -- centered */}
-      <div className="hidden lg:block relative w-64 justify-self-center">
+      <div data-tour="topbar-search" className="hidden lg:block relative w-64 justify-self-center">
         <form
           onSubmit={handleSearchSubmit}
           className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-xs text-[var(--text-faint)] focus-within:border-[var(--border-strong)] transition-colors"
@@ -192,7 +192,7 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, id }) 
         )}
       </div>
 
-      <div className="flex items-center gap-3 justify-self-end">
+      <div data-tour="topbar-profile" className="flex items-center gap-3 justify-self-end">
         {/* Notifications */}
         <button
           onClick={() => onNavigate('submissions')}

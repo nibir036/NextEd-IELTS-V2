@@ -27,6 +27,17 @@ interface LandingViewProps {
   id?: string;
 }
 
+// Short, muted, looping preview clips for each practice module -- shown as
+// a framed thumbnail above the card's name/description rather than as a
+// full-card background, since the source clips already carry their own
+// baked-in text (posters, captions) that would clash with an overlaid label.
+const moduleVideos: Record<string, string> = {
+  reading: '/videos/modules/reading.mp4',
+  listening: '/videos/modules/listening.mp4',
+  writing: '/videos/modules/writing.mp4',
+  speaking: '/videos/modules/speaking.mp4',
+};
+
 export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedIn = false, id }) => {
   const handleCta = (defaultTarget: string = 'signup') => {
     if (isLoggedIn) {
@@ -57,53 +68,74 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
         <HeroFlightBackground className="absolute inset-0 w-full h-full opacity-70" />
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg)] via-[var(--bg)]/35 to-[var(--bg)]" />
 
-        <div className="relative max-w-4xl mx-auto px-4 md:px-10 pt-16 pb-16 md:pt-24 md:pb-24 text-center">
-          <div className="backdrop-blur-md bg-[var(--bg)]/15 border border-[var(--border)] rounded-3xl px-6 py-10 md:px-14 md:py-14 space-y-6 shadow-2xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#6366f1]/15 border border-[#6366f1]/30 text-xs font-mono text-[#6366f1]">
-              <Sparkles size={14} />
-              <span>Official IELTS Descriptor Aligned Evaluator</span>
+        <div className="relative max-w-6xl mx-auto px-4 md:px-10 pt-16 pb-16 md:pt-24 md:pb-24">
+          <div className="backdrop-blur-md bg-[var(--bg)]/15 border border-[var(--border)] rounded-3xl px-6 py-10 md:px-14 md:py-14 shadow-2xl grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+            {/* Left: headline, copy & CTAs */}
+            <div className="space-y-6 text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#6366f1]/15 border border-[#6366f1]/30 text-xs font-mono text-[#6366f1]">
+                <Sparkles size={14} />
+                <span>Official IELTS Descriptor Aligned Evaluator</span>
+              </div>
+
+              <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-[var(--text)] tracking-tight leading-[1.1]">
+                Master IELTS with <br />
+                <span className="text-gradient">Real-Time AI Precision</span>
+              </h1>
+
+              <p className="text-base sm:text-lg text-[var(--text-dim)] max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                Diagnostic scoring across Reading, Listening, Writing, and Speaking. Receive instant band criterion breakdowns, sentence-level rewrites, and official IELTS rounded score calculations.
+              </p>
+
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  icon={<UserPlus size={18} />}
+                  onClick={() => handleCta('signup')}
+                >
+                  {isLoggedIn ? 'Go to Exam Dashboard' : 'Get Started with Phone'}
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  icon={<LogIn size={18} />}
+                  onClick={() => handleCta('login')}
+                >
+                  {isLoggedIn ? 'Practice Writing Module' : 'Log In to Candidate Account'}
+                </Button>
+              </div>
+
+              <div className="pt-6 border-t border-[var(--border)] flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-[var(--text-faint)] font-mono">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 size={15} className="text-[var(--success)]" />
+                  <span>Instant Diagnostic Analysis</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 size={15} className="text-[var(--success)]" />
+                  <span>0.5 Band Precision Engine</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 size={15} className="text-[var(--success)]" />
+                  <span>Phone SMS Login Support</span>
+                </div>
+              </div>
             </div>
 
-            <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-[var(--text)] tracking-tight leading-[1.1]">
-              Master IELTS with <br />
-              <span className="text-gradient">Real-Time AI Precision</span>
-            </h1>
-
-            <p className="text-base sm:text-lg text-[var(--text-dim)] max-w-2xl mx-auto leading-relaxed">
-              Diagnostic scoring across Reading, Listening, Writing, and Speaking. Receive instant band criterion breakdowns, sentence-level rewrites, and official IELTS rounded score calculations.
-            </p>
-
-            <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-              <Button
-                variant="primary"
-                size="lg"
-                icon={<UserPlus size={18} />}
-                onClick={() => handleCta('signup')}
-              >
-                {isLoggedIn ? 'Go to Exam Dashboard' : 'Get Started with Phone'}
-              </Button>
-              <Button
-                variant="secondary"
-                size="lg"
-                icon={<LogIn size={18} />}
-                onClick={() => handleCta('login')}
-              >
-                {isLoggedIn ? 'Practice Writing Module' : 'Log In to Candidate Account'}
-              </Button>
-            </div>
-
-            <div className="pt-6 border-t border-[var(--border)] flex flex-wrap items-center justify-center gap-6 text-xs text-[var(--text-faint)] font-mono">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 size={15} className="text-[var(--success)]" />
-                <span>Instant Diagnostic Analysis</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 size={15} className="text-[var(--success)]" />
-                <span>0.5 Band Precision Engine</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 size={15} className="text-[var(--success)]" />
-                <span>Phone SMS Login Support</span>
+            {/* Right: continuously looping product demo video, framed in
+                the app's own purple accent gradient rather than a plain
+                white/black panel. */}
+            <div className="flex justify-center lg:justify-end">
+              <div className="relative w-full max-w-[320px] aspect-[3/4] rounded-3xl overflow-hidden border border-[var(--border)] shadow-xl bg-[image:var(--accent-gradient)]">
+                <video
+                  className="w-full h-full object-cover"
+                  src="/videos/hero-demo.webm"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  aria-label="AI IELTS Pro product walkthrough"
+                />
               </div>
             </div>
           </div>
@@ -194,26 +226,43 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {skillModules.map((module, idx) => (
               <Reveal key={module.id} delayMs={idx * 140}>
-                <GlassPanel
-                  interactive
+                <div
                   onClick={() => onLaunchApp(module.id)}
-                  className="relative overflow-hidden group shadow-lg transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="glass glass-interactive cursor-pointer relative overflow-hidden group shadow-lg transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col"
                 >
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-[var(--bg-elevated)] border border-[var(--border)] text-[var(--text)]">
-                      {module.name.replace('IELTS ', '')}
-                    </span>
-                    <span className="text-[11px] font-mono text-[var(--text-faint)] bg-[var(--panel-2)] border border-[var(--border)] px-2 py-0.5 rounded-full">
-                      {module.activeModulesCount} Sets
-                    </span>
+                  {/* Framed video thumbnail -- muted, looping, cropped to a
+                      consistent ratio so the four differently-shot source
+                      clips sit evenly in the grid. */}
+                  <div className="relative w-full aspect-[4/3] overflow-hidden border-b border-[var(--border)] bg-[var(--bg-elevated)]">
+                    <video
+                      className="w-full h-full object-cover"
+                      src={moduleVideos[module.id]}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      preload="metadata"
+                      aria-hidden="true"
+                    />
                   </div>
-                  <h4 className="font-display font-bold text-sm text-[var(--text)] transition-colors mb-1">
-                    {module.name}
-                  </h4>
-                  <p className="text-xs text-[var(--text-dim)] line-clamp-3 leading-relaxed">
-                    {module.description}
-                  </p>
-                </GlassPanel>
+
+                  <div className="p-5 flex-1 flex flex-col">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-[var(--bg-elevated)] border border-[var(--border)] text-[var(--text)]">
+                        {module.name.replace('IELTS ', '')}
+                      </span>
+                      <span className="text-[11px] font-mono text-[var(--text-faint)] bg-[var(--panel-2)] border border-[var(--border)] px-2 py-0.5 rounded-full">
+                        {module.activeModulesCount} Sets
+                      </span>
+                    </div>
+                    <h4 className="font-display font-bold text-sm text-[var(--text)] transition-colors mb-1">
+                      {module.name}
+                    </h4>
+                    <p className="text-xs text-[var(--text-dim)] line-clamp-3 leading-relaxed">
+                      {module.description}
+                    </p>
+                  </div>
+                </div>
               </Reveal>
             ))}
           </div>

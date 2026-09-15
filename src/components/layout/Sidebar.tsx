@@ -217,6 +217,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLo
   return (
     <aside
       id={id}
+      data-tour="sidebar-nav"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{ perspective: '900px' }}

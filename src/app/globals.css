@@ -312,6 +312,33 @@ h1, h2, h3, .font-display {
   }
 }
 
+/* Onboarding tour (OnboardingTour.tsx): the mascot peeking beside each
+   step card gets a slow idle bob so it reads as "alive" rather than a
+   static sticker, and the spotlight ring drawn around the highlighted
+   section gets a gentle breathing glow so it reads as "look here"
+   without being distracting during the ~1 minute the tour is open. */
+@keyframes mascotFloat {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-7px) rotate(1deg); }
+}
+.animate-mascotFloat {
+  animation: mascotFloat 3.2s ease-in-out infinite;
+}
+
+@keyframes tourRingPulse {
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 1; }
+}
+.animate-tourRingPulse {
+  animation: tourRingPulse 2.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-mascotFloat, .animate-tourRingPulse {
+    animation: none;
+  }
+}
+
 /* App-wide scroll-reveal, used by src/components/ui/Reveal.tsx */
 .reveal-hidden {
   opacity: 0;

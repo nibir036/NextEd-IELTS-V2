@@ -197,16 +197,27 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
   if (!selectedId) {
     return (
       <div id={id} className="space-y-6">
-        <GlassPanel className="p-6 border border-[var(--border)] shadow-lg">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text)] text-xs font-mono mb-2">
-            <Sparkles size={14} /> <span>Reading Practice</span>
+        <GlassPanel className="p-6 border border-[var(--border)] shadow-lg relative overflow-hidden">
+          <div className="relative z-10 max-w-xl">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text)] text-xs font-mono mb-2">
+              <Sparkles size={14} /> <span>Reading Practice</span>
+            </div>
+            <h2 className="font-display text-2xl font-bold text-[var(--text)]">Reading Practice</h2>
+            <p className="text-xs text-[var(--text-dim)] mt-1">
+              {browseTab === 'tests'
+                ? 'Timed passages with comprehension questions, auto-scored the moment you finish or the clock runs out.'
+                : 'Learn the Reading strategies, question types, traps, and time-management techniques needed to reach Band 9.'}
+            </p>
           </div>
-          <h2 className="font-display text-2xl font-bold text-[var(--text)]">Reading Practice</h2>
-          <p className="text-xs text-[var(--text-dim)] mt-1">
-            {browseTab === 'tests'
-              ? 'Timed passages with comprehension questions, auto-scored the moment you finish or the clock runs out.'
-              : 'Learn the Reading strategies, question types, traps, and time-management techniques needed to reach Band 9.'}
-          </p>
+          {/* Large, faint skill icon filling the empty right side of the
+              title bar -- purely decorative, so it's hidden from screen
+              readers and clipped by the panel's own rounded corners. */}
+          <BookOpen
+            size={140}
+            strokeWidth={1.75}
+            aria-hidden="true"
+            className="hidden sm:block absolute right-4 top-1/2 text-[var(--accent-a)] pointer-events-none animate-titleIconFloat"
+          />
         </GlassPanel>
 
         {browseTab === 'tests' ? (

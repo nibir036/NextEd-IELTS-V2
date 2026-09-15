@@ -27,16 +27,16 @@ interface DashboardViewProps {
   id?: string;
 }
 
-// Muted, looping preview clips for the modules that have one (Full Mock has
-// no dedicated clip, so it keeps its plain icon tile). Kept as a top video
-// zone with the name/subtitle on a solid gradient footer below it, rather
-// than as a full-card background -- the source clips carry their own
-// baked-in text/captions that would clash with a label placed on top.
+// Muted, looping preview clips for the modules that have one -- rendered
+// full-bleed behind a glass title bar pinned to the bottom of the card
+// (see the video branch below). A module without an entry here falls
+// back to the plain icon/gradient tile.
 const moduleVideos: Record<string, string> = {
   writing: '/videos/modules/writing.mp4',
   reading: '/videos/modules/reading.mp4',
   listening: '/videos/modules/listening.mp4',
   speaking: '/videos/modules/speaking.mp4',
+  'mock-tests': '/videos/modules/mock-tests.mp4',
 };
 
 export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, id }) => {

@@ -71,9 +71,9 @@ export const MockTestsView: React.FC<MockTestsViewProps> = ({ onNavigateAction, 
   return (
     <div id={id} className="space-y-6">
       {/* Header Banner */}
-      <GlassPanel className="p-6 border border-[var(--border)] shadow-lg">
+      <GlassPanel className="p-6 border border-[var(--border)] shadow-lg relative overflow-hidden">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
+          <div className="relative z-10 max-w-xl">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text)] text-xs font-mono mb-2">
               <FileCheck size={14} />
               <span>Timed Cambridge Exam Simulation</span>
@@ -87,6 +87,15 @@ export const MockTestsView: React.FC<MockTestsViewProps> = ({ onNavigateAction, 
             </p>
           </div>
         </div>
+        {/* Large, faint skill icon filling the empty right side of the
+            title bar -- purely decorative, so it's hidden from screen
+            readers and clipped by the panel's own rounded corners. */}
+        <FileCheck
+          size={140}
+          strokeWidth={1.75}
+          aria-hidden="true"
+          className="hidden sm:block absolute right-4 top-1/2 text-[var(--accent-a)] pointer-events-none animate-titleIconFloat"
+        />
       </GlassPanel>
 
       {loading && (

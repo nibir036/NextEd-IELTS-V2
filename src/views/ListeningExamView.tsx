@@ -9,7 +9,7 @@ import { TipsReaderOverlay } from '../components/practice/tips/TipsReaderOverlay
 import { TipsLessonList } from '../components/practice/tips/TipsLessonList';
 import { PlayOnceAudio } from '../components/practice/PlayOnceAudio';
 import { db, type ListeningTest, type ListeningResult } from '../lib/db';
-import { Sparkles, Send, RefreshCw, Trophy, CheckCircle2, X, Clock } from '../components/ui/icons';
+import { Sparkles, Send, RefreshCw, Trophy, CheckCircle2, X, Clock, Headphones } from '../components/ui/icons';
 
 interface ListeningExamViewProps {
   id?: string;
@@ -158,16 +158,27 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
   if (!selectedId) {
     return (
       <div id={id} className="space-y-6">
-        <GlassPanel className="p-6">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--panel-2)] text-[var(--text)] border border-[var(--border)] text-xs font-mono mb-2">
-            <Sparkles size={14} /> <span>Listening Practice</span>
+        <GlassPanel className="p-6 relative overflow-hidden">
+          <div className="relative z-10 max-w-xl">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--panel-2)] text-[var(--text)] border border-[var(--border)] text-xs font-mono mb-2">
+              <Sparkles size={14} /> <span>Listening Practice</span>
+            </div>
+            <h2 className="font-display text-2xl font-bold text-[var(--text)]">Listening Practice</h2>
+            <p className="text-xs text-[var(--text-dim)] mt-1">
+              {browseTab === 'tests'
+                ? 'Timed audio tests, auto-scored the moment you finish or the clock runs out.'
+                : 'Learn the Listening strategies, question types, traps, and recovery techniques needed to reach Band 9.'}
+            </p>
           </div>
-          <h2 className="font-display text-2xl font-bold text-[var(--text)]">Listening Practice</h2>
-          <p className="text-xs text-[var(--text-dim)] mt-1">
-            {browseTab === 'tests'
-              ? 'Timed audio tests, auto-scored the moment you finish or the clock runs out.'
-              : 'Learn the Listening strategies, question types, traps, and recovery techniques needed to reach Band 9.'}
-          </p>
+          {/* Large, faint skill icon filling the empty right side of the
+              title bar -- purely decorative, so it's hidden from screen
+              readers and clipped by the panel's own rounded corners. */}
+          <Headphones
+            size={140}
+            strokeWidth={1.75}
+            aria-hidden="true"
+            className="hidden sm:block absolute right-4 top-1/2 text-[var(--accent-a)] pointer-events-none animate-titleIconFloat"
+          />
         </GlassPanel>
 
         {browseTab === 'tests' ? (

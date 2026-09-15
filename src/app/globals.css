@@ -339,6 +339,33 @@ h1, h2, h3, .font-display {
   }
 }
 
+/* Practice-page header icons (ListeningExamView, ReadingExamView,
+   WritingView, SpeakingView, MockTestsView): a large skill icon fills the
+   empty right side of each hero title bar with a slow float + breathe.
+   Opacity is kept fairly high (0.42-0.58, not a faint watermark) because
+   --accent-a is a mid-tone purple in both themes -- at low opacity it
+   nearly disappears against both the near-black dusk panel and the
+   near-white/lavender daylight panel, so it needs real presence to read
+   as an icon rather than a smudge in either theme. The centering
+   translateY(-50%) lives inside the keyframes themselves rather than a
+   separate Tailwind transform utility -- a CSS animation targeting
+   `transform` silently overrides any competing static `transform` on the
+   same element for its whole duration (see OnboardingTour's mascot
+   positioning above for the same fix). */
+@keyframes titleIconFloat {
+  0%, 100% { transform: translateY(-50%) scale(1); opacity: 0.42; }
+  50% { transform: translateY(calc(-50% - 6px)) scale(1.05); opacity: 0.58; }
+}
+.animate-titleIconFloat {
+  animation: titleIconFloat 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-titleIconFloat {
+    animation: none;
+  }
+}
+
 /* App-wide scroll-reveal, used by src/components/ui/Reveal.tsx */
 .reveal-hidden {
   opacity: 0;

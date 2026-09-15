@@ -767,21 +767,32 @@ export const SpeakingView: React.FC<SpeakingViewProps> = ({ id, initialBrowseTab
   // ---------- BROWSE MODE ----------
   return (
     <div id={id} className="space-y-6">
-      <GlassPanel className="border border-[var(--border)] shadow-lg">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text)] text-xs font-mono mb-2">
-          <Sparkles size={14} />
-          <span>Speaking Practice</span>
+      <GlassPanel className="border border-[var(--border)] shadow-lg relative overflow-hidden">
+        <div className="relative z-10 max-w-xl">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text)] text-xs font-mono mb-2">
+            <Sparkles size={14} />
+            <span>Speaking Practice</span>
+          </div>
+
+          <h2 className="font-display text-2xl font-bold text-[var(--text)]">
+            Speaking Practice
+          </h2>
+
+          <p className="text-xs text-[var(--text-dim)] mt-1">
+            {browseTab === 'tests'
+              ? 'AI-examined speaking parts with band feedback across all four criteria.'
+              : 'Learn the Speaking mindset, Part 1 extension, Part 2 cue cards, Part 3 reasoning, recovery, and pronunciation strategy needed to reach Band 9.'}
+          </p>
         </div>
-
-        <h2 className="font-display text-2xl font-bold text-[var(--text)]">
-          Speaking Practice
-        </h2>
-
-        <p className="text-xs text-[var(--text-dim)] mt-1">
-          {browseTab === 'tests'
-            ? 'AI-examined speaking parts with band feedback across all four criteria.'
-            : 'Learn the Speaking mindset, Part 1 extension, Part 2 cue cards, Part 3 reasoning, recovery, and pronunciation strategy needed to reach Band 9.'}
-        </p>
+        {/* Large, faint skill icon filling the empty right side of the
+            title bar -- purely decorative, so it's hidden from screen
+            readers and clipped by the panel's own rounded corners. */}
+        <Mic
+          size={140}
+          strokeWidth={1.75}
+          aria-hidden="true"
+          className="hidden sm:block absolute right-4 top-1/2 text-[var(--accent-a)] pointer-events-none animate-titleIconFloat"
+        />
       </GlassPanel>
 
       {browseTab === 'tests' ? (

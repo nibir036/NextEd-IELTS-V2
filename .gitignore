@@ -8,3 +8,4 @@ node_modules
 *.patch
 
 /src/generated/prisma
+/Claude outputs

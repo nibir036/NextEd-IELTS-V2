@@ -2520,20 +2520,52 @@ export const LmsView: React.FC<LmsViewProps> = ({
         </BackLink>
       )}
 
-      {/* Header */}
-      <GlassPanel className="p-6 md:p-8 border border-[var(--border)] shadow-lg">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text)] font-mono text-xs font-semibold mb-3">
-          <GraduationCap size={14} />
-          <span>LMS · Learning Management System</span>
+      {/* Header -- text on the left, a short looping clip of Nexi teaching
+          the tab's own subject framed on the right (same purple-gradient
+          "framed video" treatment as the landing page hero / module
+          cards), so the title bar shows rather than just tells what this
+          section is about. Stacks to text-above-video on narrow screens. */}
+      <GlassPanel className="p-6 md:p-8 border border-[var(--border)] shadow-lg overflow-hidden">
+        <div className="flex flex-col-reverse md:flex-row items-center gap-6">
+          <div className="flex-1 min-w-0">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text)] font-mono text-xs font-semibold mb-3">
+              <GraduationCap size={14} />
+              <span>LMS · Learning Management System</span>
+            </div>
+            <h1 className="font-display text-2xl md:text-3xl font-extrabold text-[var(--text)] tracking-tight">
+              {activeTab === 'grammar' ? 'Grammar Masterclass' : 'Zero to Band 9'}
+            </h1>
+            <p className="text-sm text-[var(--text-dim)] mt-1 max-w-2xl leading-relaxed">
+              {activeTab === 'grammar'
+                ? 'Curated grammar rules designed specifically to elevate your Grammatical Range & Accuracy score.'
+                : 'Complete chapters + searchable Word Bank.'}
+            </p>
+          </div>
+
+          <div className="w-full md:w-64 lg:w-72 flex-shrink-0">
+            <div className="relative aspect-video rounded-2xl overflow-hidden border border-[var(--border)] shadow-xl bg-[image:var(--accent-gradient)]">
+              <video
+                key={activeTab}
+                className="w-full h-full object-cover"
+                src={activeTab === 'grammar' ? '/videos/lms/grammar.mp4' : '/videos/lms/vocab.mp4'}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                aria-label={
+                  activeTab === 'grammar'
+                    ? 'Nexi walking through a grammar lesson'
+                    : 'Nexi walking through today’s vocabulary'
+                }
+              />
+              <div className="absolute top-2 left-2 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-black/40 backdrop-blur-sm text-white text-[10px] font-mono font-semibold uppercase tracking-wider">
+                <GraduationCap size={11} />
+                <span>With Nexi</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <h1 className="font-display text-2xl md:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          {activeTab === 'grammar' ? 'Grammar Masterclass' : 'Zero to Band 9'}
-        </h1>
-        <p className="text-sm text-[var(--text-dim)] mt-1 max-w-2xl leading-relaxed">
-          {activeTab === 'grammar'
-            ? 'Curated grammar rules designed specifically to elevate your Grammatical Range & Accuracy score.'
-            : 'Complete chapters + searchable Word Bank.'}
-        </p>
       </GlassPanel>
 
       {/* ===================== GRAMMAR TAB ===================== */}

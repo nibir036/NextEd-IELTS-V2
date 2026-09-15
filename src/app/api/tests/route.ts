@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '../../../lib/prisma';
+import { getSessionUserId } from '../../../lib/session';
+import { FREE_TEST_QUOTA, annotateTestLocks, isGatedSkill } from '../../../lib/paywall';
 
 const VALID_SKILLS = ['writing', 'reading', 'listening', 'speaking'] as const;
 type Skill = (typeof VALID_SKILLS)[number];
@@ -35,5 +37,17 @@ export async function GET(req: NextRequest) {
     durationSeconds: t.duration_seconds,
   }));
 
-  return NextResponse.json({ tests });
+  // Writing/Speaking are the only paywalled skills (see src/lib/paywall.ts)
+  // -- Reading/Listening go out exactly as before, untouched.
+  if (!isGatedSkill(skill)) {
+    return NextResponse.json({ tests });
+  }
+
+  const userId = await getSessionUserId();
+  if (!userId) {
+    return NextResponse.json({ error: 'Please log in to view tests.' }, { status: 401 });
+  }
+
+  const annotated = await annotateTestLocks(userId, skill, tests);
+  return NextResponse.json({ tests: annotated, freeQuota: FREE_TEST_QUOTA[skill] });
 }

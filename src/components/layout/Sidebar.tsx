@@ -15,6 +15,7 @@ import {
   PinOff,
   GraduationCap,
   Bot,
+  Shield,
 } from '../ui/icons';
 import { currentUser as fallbackUser } from '../../lib/data';
 import { db, DbUser } from '../../lib/db';
@@ -151,6 +152,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLo
     }
   };
 
+  // Only DbUser (a real logged-in session) carries a role -- the static
+  // fallbackUser (used before the first getCurrentUser() resolves) has no
+  // such field, so this must be a type guard rather than a direct read.
+  const isAdmin = 'role' in activeUser && activeUser.role === 'admin';
+
   // Nav configuration with requested dropdown categories
   const sections: NavSection[] = [
     {
@@ -183,6 +189,16 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLo
         { id: 'lms-vocab', label: 'IELTS Vocabulary', icon: BookOpen, dropdownKind: 'vocab-chapters' },
       ],
     },
+    ...(isAdmin
+      ? [
+          {
+            key: 'admin',
+            title: 'Admin',
+            icon: Shield,
+            items: [{ id: 'admin', label: 'Admin Panel', icon: Shield }],
+          } as NavSection,
+        ]
+      : []),
   ];
 
   // Sub-items for a given nav item, computed from whichever data source

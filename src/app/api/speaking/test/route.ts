@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '../../../../lib/prisma';
+import { getSessionUserId } from '../../../../lib/session';
+import { checkTestAccess } from '../../../../lib/paywall';
 
 interface SpeakingTopic {
   topic: string;
@@ -16,6 +18,14 @@ interface SpeakingScript {
 // If ?id= is given, fetches that specific test; otherwise the first published one.
 export async function GET(req: NextRequest) {
   const id = req.nextUrl.searchParams.get('id');
+
+  // Speaking is a paywalled, AI-graded module (see src/lib/paywall.ts) --
+  // require a session and refuse to hand back the actual script for a test
+  // this user has already used or has no free slot left for.
+  const userId = await getSessionUserId();
+  if (!userId) {
+    return NextResponse.json({ error: 'Please log in to take this test.' }, { status: 401 });
+  }
 
   const where = id
     ? { id, skill: 'speaking' as const, is_published: true }
@@ -39,6 +49,11 @@ export async function GET(req: NextRequest) {
 
   if (!test) {
     return NextResponse.json({ error: 'No speaking test is available yet.' }, { status: 404 });
+  }
+
+  const access = await checkTestAccess(userId, 'speaking', test.id);
+  if (!access.ok) {
+    return NextResponse.json({ error: access.message, reason: access.reason }, { status: 403 });
   }
 
   const raw = test.test_resources[0]?.content;

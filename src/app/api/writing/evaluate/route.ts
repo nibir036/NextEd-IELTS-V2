@@ -3,6 +3,7 @@ import { GoogleGenAI, Type } from '@google/genai';
 import { prisma } from '../../../../lib/prisma';
 import { getSessionUserId } from '../../../../lib/session';
 import { ieltsOverall } from '../../../../lib/scoring';
+import { checkTestAccess } from '../../../../lib/paywall';
 
 function getGenAIClient() {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -200,8 +201,18 @@ export async function POST(req: NextRequest) {
       taskType,
     } = body ?? {};
 
-    const ai = getGenAIClient();
+    // Require a session BEFORE calling the (paid) AI grader at all --
+    // previously userId was only checked afterward, to decide whether to
+    // save a submissions row, which meant an unauthenticated request could
+    // still trigger a full Gemini grading call for free, unlimited, with
+    // nothing recorded anywhere. That's the actual cost hole the free-quota
+    // feature depends on being closed, not just a nicety.
     const userId = await getSessionUserId();
+    if (!userId) {
+      return NextResponse.json({ error: 'Please log in to submit for evaluation.' }, { status: 401 });
+    }
+
+    const ai = getGenAIClient();
 
     // ---- Legacy single-task request (kept so nothing else breaks) ----
     if (!task1 && !task2 && essayText) {
@@ -235,6 +246,17 @@ export async function POST(req: NextRequest) {
     }
     if (!task2?.essayText || task2.essayText.trim().length < 20) {
       return NextResponse.json({ error: 'Your Task 2 response is too short to evaluate.' }, { status: 400 });
+    }
+
+    // Re-check the free-quota/no-retake gate here too, not just in
+    // writing/test -- this is the call that actually spends money, so this
+    // is the check that actually matters. Blocks it before either Gemini
+    // call fires, not after.
+    if (testId) {
+      const access = await checkTestAccess(userId, 'writing', testId);
+      if (!access.ok) {
+        return NextResponse.json({ error: access.message, reason: access.reason }, { status: 403 });
+      }
     }
 
     // Evaluate both tasks. Task 1 carries the image.

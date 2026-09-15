@@ -1,10 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '../../../../lib/prisma';
+import { getSessionUserId } from '../../../../lib/session';
+import { checkTestAccess } from '../../../../lib/paywall';
 
 // Returns a writing test set (Task 1 + Task 2) with Task 1's image URL.
 // If ?id= is given, fetches that specific test; otherwise the first published one.
 export async function GET(req: NextRequest) {
   const id = req.nextUrl.searchParams.get('id');
+
+  // Writing is a paywalled, AI-graded module (see src/lib/paywall.ts) --
+  // require a session and refuse to hand back the actual task content for
+  // a test this user has already used or has no free slot left for. Without
+  // this, the lock is purely cosmetic: anyone could still GET the prompt
+  // directly even if TestSelector's UI blurs the card.
+  const userId = await getSessionUserId();
+  if (!userId) {
+    return NextResponse.json({ error: 'Please log in to take this test.' }, { status: 401 });
+  }
 
   const test = id
     ? await prisma.tests.findFirst({
@@ -31,6 +43,11 @@ export async function GET(req: NextRequest) {
 
   if (!test) {
     return NextResponse.json({ error: 'No writing test is available yet.' }, { status: 404 });
+  }
+
+  const access = await checkTestAccess(userId, 'writing', test.id);
+  if (!access.ok) {
+    return NextResponse.json({ error: access.message, reason: access.reason }, { status: 403 });
   }
 
   const promptFor = (pos: number) =>

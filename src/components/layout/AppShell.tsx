@@ -3,6 +3,7 @@ import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
 import { DiagnosticPromptModal } from './DiagnosticPromptModal';
 import { OnboardingTour } from './OnboardingTour';
+import { DevToolsGuard } from './DevToolsGuard';
 
 interface AppShellProps {
   currentRoute: string;
@@ -35,6 +36,11 @@ export const AppShell: React.FC<AppShellProps> = ({
           sidebar, dashboard modules, search and profile. Shows once per
           account, above everything else on the page. */}
       <OnboardingTour currentRoute={currentRoute} onActiveChange={setTourActive} />
+
+      {/* Casual right-click/DevTools-shortcut deterrent for students only
+          -- see DevToolsGuard.tsx for why this is a deterrent, not real
+          protection. Renders nothing. */}
+      <DevToolsGuard />
 
       {/* Global diagnostic nudge -- shows on top of whichever screen the
           user is on, not just the dashboard. */}

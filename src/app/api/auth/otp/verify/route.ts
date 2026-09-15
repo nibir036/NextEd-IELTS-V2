@@ -4,9 +4,10 @@ import { verifyOtp, OtpError } from '../../../../../lib/otp';
 // POST /api/auth/otp/verify { phone, code, purpose }
 // Checks the code against the most recent unconsumed OTP for that
 // phone+purpose. On success returns a short-lived signed "proof" string
-// that /api/auth/register checks before creating the account -- the
+// that /api/auth/register (purpose "signup") or /api/auth/reset-password
+// (purpose "password_reset") checks before making any change -- the
 // client never gets to just assert "verified: true" on its own.
-const ALLOWED_PURPOSES = new Set(['signup']);
+const ALLOWED_PURPOSES = new Set(['signup', 'password_reset']);
 
 export async function POST(req: NextRequest) {
   try {

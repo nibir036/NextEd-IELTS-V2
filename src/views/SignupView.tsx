@@ -22,7 +22,7 @@ interface SignupViewProps {
 const COUNTRY_CODES = [
   { code: '+1', name: 'USA / Canada' },
   { code: '+44', name: 'United Kingdom' },
-  { code: '+880', name: 'Bangladesh' },
+  { code: '+88', name: 'Bangladesh' },
   { code: '+91', name: 'India' },
   { code: '+61', name: 'Australia' },
   { code: '+971', name: 'UAE' },

@@ -14,12 +14,13 @@ interface LoginViewProps {
   onLoginSuccess: () => void;
   onNavigateToSignup: () => void;
   onNavigateToLanding: () => void;
+  onNavigateToForgotPassword: () => void;
 }
 
 const COUNTRY_CODES = [
   { code: '+1', name: 'USA / Canada' },
   { code: '+44', name: 'United Kingdom' },
-  { code: '+880', name: 'Bangladesh' },
+  { code: '+88', name: 'Bangladesh' },
   { code: '+91', name: 'India' },
   { code: '+61', name: 'Australia' },
   { code: '+971', name: 'UAE' },
@@ -33,6 +34,7 @@ export const LoginView: React.FC<LoginViewProps> = ({
   onLoginSuccess,
   onNavigateToSignup,
   onNavigateToLanding,
+  onNavigateToForgotPassword,
 }) => {
   const [countryCode, setCountryCode] = useState<string>('+1');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
@@ -157,9 +159,18 @@ export const LoginView: React.FC<LoginViewProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
-                  Password
-                </label>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="block text-xs font-mono uppercase text-[var(--text-dim)] font-semibold">
+                    Password
+                  </label>
+                  <button
+                    type="button"
+                    onClick={onNavigateToForgotPassword}
+                    className="text-[11px] font-semibold text-[var(--accent-a)] hover:underline cursor-pointer"
+                  >
+                    Forgot password?
+                  </button>
+                </div>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[var(--text-faint)]">
                     <KeyRound size={16} />

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '../../../../lib/prisma';
 import { getSessionUserId } from '../../../../lib/session';
 import { ieltsOverall } from '../../../../lib/scoring';
+import { checkTestAccess } from '../../../../lib/paywall';
 import {
   submitAndAwaitReport,
   SpeakingApiError,
@@ -128,7 +129,25 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Require a session BEFORE calling the (paid) speaking-scoring service
+    // at all -- previously userId was only checked afterward, to decide
+    // whether to save a submissions row, meaning an unauthenticated
+    // request could still trigger transcription + scoring for free,
+    // unlimited, with nothing recorded anywhere.
     const userId = await getSessionUserId();
+    if (!userId) {
+      return NextResponse.json({ error: 'Please log in to submit for evaluation.' }, { status: 401 });
+    }
+
+    // Re-check the free-quota/no-retake gate here too -- this is the call
+    // that actually spends money on transcription + scoring, so this is
+    // the check that matters; blocks it before submitAndAwaitReport fires.
+    if (testId) {
+      const access = await checkTestAccess(userId, 'speaking', testId);
+      if (!access.ok) {
+        return NextResponse.json({ error: access.message, reason: access.reason }, { status: 403 });
+      }
+    }
 
     const submitSegments: SubmitSegmentInput[] = recorded.map((s) => ({
       id: s.id,

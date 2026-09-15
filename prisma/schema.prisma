@@ -8,6 +8,25 @@ datasource db {
   provider = "postgresql"
 }
 
+// Append-only login log, one row per successful login -- backs the admin
+// analytics page's day-by-day "logged in" trend. users.last_active_at only
+// ever holds the single most recent login timestamp (overwritten every
+// login), so it can't answer "how many users logged in on day X" for any
+// day but the latest -- this table is the only accurate source, and only
+// from the day it was created onward. Table itself is created by hand via
+// scripts/add-login-events-table.sql (see that file for why), not by
+// `prisma migrate` / `prisma db push` -- this model just mirrors it so the
+// generated client exposes prisma.login_events.
+model login_events {
+  id         String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user_id    String
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  users      users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([user_id], map: "idx_login_events_user")
+  @@index([created_at], map: "idx_login_events_created_at")
+}
+
 model knowledge {
   id         String                 @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   content    String
@@ -486,6 +505,7 @@ model users {
   user_grammar_progress user_grammar_progress[]
   user_grammar_attempts user_grammar_attempts[]
   user_tips_progress    user_tips_progress[]
+  login_events          login_events[]
 }
 
 enum lesson_section {

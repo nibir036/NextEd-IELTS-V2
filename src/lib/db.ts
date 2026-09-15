@@ -11,10 +11,16 @@ export type AcademicBackground =
   | 'phd'
   | 'other';
 
+export type UserRole = 'student' | 'admin';
+
 export interface DbUser extends UserProfile {
   id: string;
   phone: string;
   createdAt: string;
+  // Drives the DevTools-block (src/components/layout/DevToolsGuard.tsx) --
+  // students get it, admin accounts are exempt so the team can debug the
+  // live site.
+  role: UserRole;
   // Extended profile (migration 0004). All optional — older rows may be null.
   email: string;
   legalFullName: string;
@@ -61,6 +67,7 @@ interface RawUserRow {
   id: string;
   phone: string | null;
   display_name: string | null;
+  role?: UserRole;
   avatar: string | null;
   target_band: string | number | null;
   overall_band: string | number | null;
@@ -154,6 +161,25 @@ export type ReadingSection = ListeningSection;
 export type ReadingTest = ListeningTest;
 export type ReadingResult = ListeningResult;
 
+export interface AdminAnalyticsDay {
+  date: string;
+  registered: number;
+  loggedIn: number;
+  writingSubmissions: number;
+  speakingSubmissions: number;
+}
+
+export interface AdminAnalytics {
+  today: {
+    registered: number;
+    loggedIn: number;
+    writingSubmissions: number;
+    speakingSubmissions: number;
+  };
+  totalUsers: number;
+  daily: AdminAnalyticsDay[];
+}
+
 export interface SubmissionSummary {
   id: string;
   origin: 'submission' | 'attempt';
@@ -197,6 +223,7 @@ function mapUser(row: RawUserRow, stats: DashboardStats): DbUser {
   return {
     id: row.id,
     phone: row.phone ?? '',
+    role: row.role ?? 'student',
     name: row.display_name ?? 'Candidate',
     avatar: row.avatar ?? '??',
     targetBand: row.target_band !== null ? Number(row.target_band) : 0,
@@ -254,10 +281,12 @@ export const db = {
     return mapUser(user, { testsCompleted: 0, streakDays: 0, practiceHours: 0 });
   },
 
-  // Sends a 6-digit OTP by SMS to `phone` for the given purpose. Only
-  // 'signup' exists today (phone-ownership verification before account
-  // creation is allowed).
-  async sendOtp(phone: string, purpose: 'signup' = 'signup'): Promise<void> {
+  // Sends a 6-digit OTP by SMS to `phone` for the given purpose. 'signup'
+  // verifies phone ownership before account creation; 'password_reset'
+  // verifies phone ownership before a forgotten password can be changed —
+  // the server only texts a code for that purpose if the phone is already
+  // on an account (see otp/send/route.ts).
+  async sendOtp(phone: string, purpose: 'signup' | 'password_reset' = 'signup'): Promise<void> {
     await api<{ ok: boolean }>('/api/auth/otp/send', {
       method: 'POST',
       body: JSON.stringify({ phone, purpose }),
@@ -265,13 +294,28 @@ export const db = {
   },
 
   // Verifies a candidate-entered OTP. Returns a signed proof string on
-  // success that must be passed to registerUser()'s otpProof field.
-  async verifyOtp(phone: string, code: string, purpose: 'signup' = 'signup'): Promise<string> {
+  // success that must be passed to registerUser()'s otpProof field (for
+  // 'signup') or resetPassword()'s otpProof field (for 'password_reset').
+  async verifyOtp(
+    phone: string,
+    code: string,
+    purpose: 'signup' | 'password_reset' = 'signup',
+  ): Promise<string> {
     const { proof } = await api<{ ok: boolean; proof: string }>('/api/auth/otp/verify', {
       method: 'POST',
       body: JSON.stringify({ phone, code, purpose }),
     });
     return proof;
+  },
+
+  // Sets a new password for the account matching `phone`. Requires an
+  // otpProof minted by verifyOtp(phone, code, 'password_reset') for this
+  // exact phone — the server re-validates it before touching anything.
+  async resetPassword(phone: string, newPassword: string, otpProof: string): Promise<void> {
+    await api<{ ok: boolean }>('/api/auth/reset-password', {
+      method: 'POST',
+      body: JSON.stringify({ phone, newPassword, otpProof }),
+    });
   },
 
   async loginUserByPhone(phone: string, password: string): Promise<DbUser | null> {
@@ -407,6 +451,27 @@ export const db = {
     return api<ReadingResult>('/api/reading/submit', {
       method: 'POST',
       body: JSON.stringify({ testId, answers }),
+    });
+  },
+
+  // Admin-only: today's headline numbers + a 30-day daily trend. Server
+  // re-checks role === 'admin' on every call (src/lib/admin.ts) -- this is
+  // just the client wrapper.
+  async getAdminAnalytics(): Promise<AdminAnalytics> {
+    return api<AdminAnalytics>('/api/admin/analytics');
+  },
+
+  // Admin-only: create an account directly (no OTP -- the admin creating it
+  // is the verification). Does NOT log the admin in as the new user.
+  async adminCreateUser(details: {
+    phone: string;
+    password: string;
+    name: string;
+    role: UserRole;
+  }): Promise<void> {
+    await api<{ user: RawUserRow }>('/api/admin/users', {
+      method: 'POST',
+      body: JSON.stringify(details),
     });
   },
 };

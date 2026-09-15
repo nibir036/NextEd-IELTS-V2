@@ -6,6 +6,7 @@ import { AppShell } from './components/layout/AppShell';
 import { LandingView } from './views/LandingView';
 import { LoginView } from './views/LoginView';
 import { SignupView } from './views/SignupView';
+import { ForgotPasswordView } from './views/ForgotPasswordView';
 import { DashboardView } from './views/DashboardView';
 import { WritingView } from './views/WritingView';
 import { ReadingExamView } from './views/ReadingExamView';
@@ -20,6 +21,8 @@ import { SettingsView } from './views/SettingsView';
 import { LmsView } from './views/LmsView';
 import { AiTutorView } from './views/AiTutorView';
 import { DiagnosticView } from './views/DiagnosticView';
+import { AdminView } from './views/AdminView';
+import { AdminLoginView } from './views/AdminLoginView';
 import { db } from './lib/db';
 
 const PROTECTED_ROUTES = [
@@ -38,9 +41,13 @@ const PROTECTED_ROUTES = [
   'lms-vocab',
   'tutor-ai',
   'tutor-examiner',
+  'admin',
 ];
 
-const PUBLIC_ROUTES = ['landing', 'login', 'signup'];
+// 'admin-login' is intentionally public (it's a login page, same as
+// 'login') and intentionally not linked from anywhere in the UI -- admins
+// just navigate to it directly. See views/AdminLoginView.tsx.
+const PUBLIC_ROUTES = ['landing', 'login', 'signup', 'forgot-password', 'admin-login'];
 const ALL_ROUTES = new Set([...PUBLIC_ROUTES, ...PROTECTED_ROUTES]);
 
 // Routes can now carry an optional sub-path after the base id, e.g.
@@ -144,6 +151,11 @@ export default function App() {
     handleNavigate('dashboard');
   };
 
+  const handleAdminLoginSuccess = () => {
+    setIsAuthenticated(true);
+    handleNavigate('admin');
+  };
+
   const handleSignupSuccess = () => {
     setIsAuthenticated(true);
     // Previously sent brand-new users straight to the placement
@@ -197,6 +209,8 @@ export default function App() {
         return <AiTutorView initialTab="tutor" />;
       case 'tutor-examiner':
         return <AiTutorView initialTab="examiner" />;
+      case 'admin':
+        return <AdminView onNavigateAction={handleNavigate} />;
       default:
         return <DashboardView onNavigateAction={handleNavigate} />;
     }
@@ -226,11 +240,22 @@ export default function App() {
           onLoginSuccess={handleLoginSuccess}
           onNavigateToSignup={() => handleNavigate('signup')}
           onNavigateToLanding={() => handleNavigate('landing')}
+          onNavigateToForgotPassword={() => handleNavigate('forgot-password')}
         />
       ) : baseRoute === 'signup' ? (
         <SignupView
           onSignupSuccess={handleSignupSuccess}
           onNavigateToLogin={() => handleNavigate('login')}
+          onNavigateToLanding={() => handleNavigate('landing')}
+        />
+      ) : baseRoute === 'forgot-password' ? (
+        <ForgotPasswordView
+          onNavigateToLogin={() => handleNavigate('login')}
+          onNavigateToLanding={() => handleNavigate('landing')}
+        />
+      ) : baseRoute === 'admin-login' ? (
+        <AdminLoginView
+          onLoginSuccess={handleAdminLoginSuccess}
           onNavigateToLanding={() => handleNavigate('landing')}
         />
       ) : (

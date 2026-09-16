@@ -182,24 +182,24 @@ export const skillModules: SkillModule[] = [
 
 export const siteStats: SiteStat[] = [
   {
-    label: 'Core Exam Modules',
+    label: '4 Skills',
     value: '4 Skills',
-    description: 'Reading, Listening, Writing, and Speaking practice',
+    description: 'One journey. Every IELTS skill.',
   },
   {
-    label: 'Official Descriptors',
+    label: 'Band Precision',
     value: 'Band 0–9',
-    description: 'Evaluated against official IELTS band criteria',
+    description: 'Know exactly where you stand.',
   },
   {
-    label: 'IELTS Standard',
+    label: 'Official Rounding',
     value: '0.5 Rounding',
-    description: 'Calculates exact official rounded band score',
+    description: 'Understand the score you need.',
   },
   {
-    label: 'Diagnostic Engine',
+    label: 'Instant AI',
     value: 'Instant AI',
-    description: 'Sentence-level rewrites & pronunciation guidance',
+    description: 'Improve every time you practice.',
   },
 ];
 

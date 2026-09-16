@@ -46,7 +46,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onNavigate, isLoggedIn =
           onClick={(e) => handleScrollToSection(e, 'about')}
           className="hover:text-[var(--text)] transition-colors"
         >
-          About
+          Your Journey
         </a>
         <a
           href="#how-it-works"
@@ -77,7 +77,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onNavigate, isLoggedIn =
             icon={<LayoutDashboard size={16} />}
             onClick={() => onNavigate('dashboard')}
           >
-            Go to Dashboard
+            Start My Journey
           </Button>
         ) : (
           <>

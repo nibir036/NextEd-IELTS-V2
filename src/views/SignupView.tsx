@@ -300,7 +300,7 @@ export const SignupView: React.FC<SignupViewProps> = ({
                 {!otpSent ? (
                   <Button
                     type="button"
-                    variant="secondary"
+                    variant="primary"
                     onClick={handleSendOtp}
                     disabled={isSendingOtp}
                     className="w-full py-2.5 flex items-center justify-center gap-1.5"

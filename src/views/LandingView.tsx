@@ -38,6 +38,29 @@ const moduleVideos: Record<string, string> = {
   speaking: '/videos/modules/speaking.mp4',
 };
 
+// Journey-framed marketing copy for the landing page's 4-skill cards --
+// kept separate from `skillModules` in lib/data.ts so the official skill
+// names/descriptions used elsewhere in the app (dashboard, badges) stay
+// untouched; this only overrides what the landing page displays.
+const moduleMarketingCopy: Record<string, { title: string; description: string }> = {
+  reading: {
+    title: 'Read Beyond the Test',
+    description: 'Train with realistic passages, discover new vocabulary, and learn to find answers with confidence.',
+  },
+  listening: {
+    title: 'Learn to Listen Anywhere',
+    description: 'Practice with realistic audio and train yourself to catch the details that matter.',
+  },
+  writing: {
+    title: 'Turn Your Ideas Into Band Scores',
+    description: 'Write. Get instant feedback. Understand your mistakes. Write better next time.',
+  },
+  speaking: {
+    title: 'Find Your Voice',
+    description: 'Practice speaking naturally, improve fluency and pronunciation, and become comfortable answering under pressure.',
+  },
+};
+
 export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedIn = false, id }) => {
   const handleCta = (defaultTarget: string = 'signup') => {
     if (isLoggedIn) {
@@ -77,13 +100,19 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
                 arrangement via the lg: overrides. */}
             <div className="order-2 lg:order-1 space-y-6 text-center lg:text-left">
               <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-[var(--text)] tracking-tight leading-[1.1]">
-                Master IELTS with <br />
-                <span className="text-gradient">Real-Time AI Precision</span>
+                Your Future Abroad <br />
+                <span className="text-gradient">Starts With IELTS.</span><br />
+                <span className="text-gradient">Get Ready for What's Next.</span>
               </h1>
 
-              <p className="text-base sm:text-lg text-[var(--text-dim)] max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                Diagnostic scoring across Reading, Listening, Writing, and Speaking. Receive instant band criterion breakdowns, sentence-level rewrites, and official IELTS rounded score calculations.
-              </p>
+              <div className="space-y-4 max-w-2xl mx-auto lg:mx-0">
+                <p className="text-base sm:text-lg text-[var(--text-dim)] leading-relaxed">
+                  Imagine studying somewhere new. Exploring a new city. Meeting people from around the world. Building the future you've been working toward.
+                </p>
+                <p className="text-base sm:text-lg text-[var(--text-dim)] leading-relaxed">
+                  IELTS AI helps you turn that goal into a plan—with realistic practice, instant AI feedback, and the confidence to take the next step.
+                </p>
+              </div>
 
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
                 <Button
@@ -92,7 +121,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
                   icon={<UserPlus size={18} />}
                   onClick={() => handleCta('signup')}
                 >
-                  {isLoggedIn ? 'Go to Exam Dashboard' : 'Get Started with Phone'}
+                  {isLoggedIn ? 'Start My Journey →' : 'Register now to start free'}
                 </Button>
                 <Button
                   variant="secondary"
@@ -100,22 +129,22 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
                   icon={<LogIn size={18} />}
                   onClick={() => handleCta('login')}
                 >
-                  {isLoggedIn ? 'Practice Writing Module' : 'Log In to Candidate Account'}
+                  {isLoggedIn ? 'Explore IELTS Practice' : 'Log In to Explore'}
                 </Button>
               </div>
 
               <div className="pt-6 border-t border-[var(--border)] flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-[var(--text-faint)] font-mono">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 size={15} className="text-[var(--success)]" />
-                  <span>Instant Diagnostic Analysis</span>
+                  <span>Know Where You Stand</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 size={15} className="text-[var(--success)]" />
-                  <span>0.5 Band Precision Engine</span>
+                  <span>Know What You're Working Toward</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 size={15} className="text-[var(--success)]" />
-                  <span>Phone SMS Login Support</span>
+                  <span>Practice with AI from Wherever You Are</span>
                 </div>
               </div>
             </div>
@@ -168,14 +197,19 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-1.5 text-xs font-mono text-[var(--accent-a)] mb-2 uppercase tracking-widest font-semibold">
             <BrainCircuit size={15} />
-            <span>Methodology & Standards</span>
+            <span>Your Journey Starts Here</span>
           </div>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-[var(--text)]">
-            About IELTS AI
+            Your Destination Is Bigger Than a Test
           </h2>
-          <p className="text-sm md:text-base text-[var(--text-dim)] mt-3 leading-relaxed">
-            IELTS AI is an intelligent exam preparation framework engineered to align strictly with official Cambridge 9-Band descriptors. We provide objective, verifiable feedback without exaggerated guarantees.
-          </p>
+          <div className="mt-3 space-y-3">
+            <p className="text-sm md:text-base text-[var(--text-dim)] leading-relaxed">
+              IELTS isn't the destination. It's one of the steps that can take you closer to the university, country, career, and life you've been imagining.
+            </p>
+            <p className="text-sm md:text-base text-[var(--text-dim)] leading-relaxed">
+              IELTS AI is an intelligent exam preparation framework engineered to align strictly with official Cambridge 9-Band descriptors. We provide objective, verifiable feedback without exaggerated guarantees.
+            </p>
+          </div>
         </div>
         </Reveal>
 
@@ -185,10 +219,10 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
               <Shield size={20} />
             </div>
             <h3 className="font-display text-lg font-bold text-[var(--text)]">
-              4-Criteria Assessment
+              Know Where You Stand
             </h3>
             <p className="text-xs text-[var(--text-dim)] leading-relaxed">
-              Every essay and speaking attempt is evaluated across Task Achievement, Coherence & Cohesion, Lexical Resource, and Grammatical Accuracy.
+              Take realistic IELTS practice and discover your strengths and weaknesses across all four skills.
             </p>
           </GlassPanel>
 
@@ -197,10 +231,10 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
               <Trophy size={20} />
             </div>
             <h3 className="font-display text-lg font-bold text-[var(--text)]">
-              Official Band Rounding
+              Know What To Improve
             </h3>
             <p className="text-xs text-[var(--text-dim)] leading-relaxed">
-              Overall scores adhere to standard IELTS rules: component averages ending in .25 or .75 automatically round up to the nearest 0.5 or integer band.
+              Get clear feedback on your performance so you know what needs more work before exam day.
             </p>
           </GlassPanel>
 
@@ -209,10 +243,10 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
               <Sparkles size={20} />
             </div>
             <h3 className="font-display text-lg font-bold text-[var(--text)]">
-              Sentence Rewrites
+              Turn Mistakes Into Progress
             </h3>
             <p className="text-xs text-[var(--text-dim)] leading-relaxed">
-              Instead of generic scores, get line-by-line collocations, discourse marker suggestions, and grammar rewrites targeting Band 7.5+.
+              See how your sentences can improve and use the feedback to write with greater clarity and confidence.
             </p>
           </GlassPanel>
         </Reveal>
@@ -221,7 +255,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
         <div className="pt-8 border-t border-[var(--border)]">
           <Reveal className="text-center mb-8">
             <h3 className="font-display text-xl font-bold text-[var(--text)]">
-              Comprehensive 4-Skill Practice Coverage
+              Build the Skills That Take You There
             </h3>
           </Reveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -257,10 +291,10 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
                       </span>
                     </div>
                     <h4 className="font-display font-bold text-sm text-[var(--text)] transition-colors mb-1">
-                      {module.name}
+                      {moduleMarketingCopy[module.id]?.title ?? module.name}
                     </h4>
                     <p className="text-xs text-[var(--text-dim)] line-clamp-3 leading-relaxed">
-                      {module.description}
+                      {moduleMarketingCopy[module.id]?.description ?? module.description}
                     </p>
                   </div>
                 </div>
@@ -276,13 +310,13 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
           <Reveal className="text-center max-w-3xl mx-auto mb-14">
             <div className="inline-flex items-center gap-1.5 text-xs font-mono text-[var(--accent-a)] mb-2 uppercase tracking-widest font-semibold">
               <CheckCircle2 size={15} />
-              <span>Step-By-Step Workflow</span>
+              <span>One Step Closer, Every Day</span>
             </div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-[var(--text)]">
-              How IELTS AI Works
+              One Step Closer, Every Day
             </h2>
             <p className="text-sm md:text-base text-[var(--text-dim)] mt-3">
-              A structured, transparent diagnostic workflow designed for daily practice.
+              Big dreams can feel far away. Break them down into small steps—and keep moving.
             </p>
           </Reveal>
 
@@ -292,10 +326,10 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
                 01
               </div>
               <h3 className="font-display font-bold text-lg text-[var(--text)] mb-2">
-                Select Skill Module
+                Choose Your Goal
               </h3>
               <p className="text-xs text-[var(--text-dim)] leading-relaxed">
-                Choose Writing Task 1 or 2, Speaking cue cards, Reading passages, or Listening section sprints.
+                Pick a skill, practice type, or target score and decide what you want to improve today.
               </p>
             </GlassPanel>
 
@@ -304,10 +338,10 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
                 02
               </div>
               <h3 className="font-display font-bold text-lg text-[var(--text)] mb-2">
-                Timed Practice
+                Practice Like It's Real
               </h3>
               <p className="text-xs text-[var(--text-dim)] leading-relaxed">
-                Type your essay, record speaking audio, or complete passage questions under realistic exam time constraints.
+                Take timed exercises designed to feel closer to the real IELTS experience.
               </p>
             </GlassPanel>
 
@@ -316,10 +350,10 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
                 03
               </div>
               <h3 className="font-display font-bold text-lg text-[var(--text)] mb-2">
-                Instant Diagnostic
+                See Where You Stand
               </h3>
               <p className="text-xs text-[var(--text-dim)] leading-relaxed">
-                Receive instant band scores across all 4 criteria along with sentence-level grammatical corrections.
+                Get instant feedback that shows what's working—and what needs more work.
               </p>
             </GlassPanel>
 
@@ -328,10 +362,10 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
                 04
               </div>
               <h3 className="font-display font-bold text-lg text-[var(--text)] mb-2">
-                Track & Refine
+                Come Back Stronger
               </h3>
               <p className="text-xs text-[var(--text-dim)] leading-relaxed">
-                Monitor overall rounded band trends and complete targeted remedial exercises on weak sub-skills.
+                Track your progress, strengthen your weak areas, and keep moving toward your target.
               </p>
             </GlassPanel>
           </Reveal>
@@ -502,6 +536,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
 
       {/* Footer */}
       <footer className="font-michroma relative z-10 border-t border-[var(--border)] py-10 px-4 md:px-10 text-center text-xs tracking-wide text-[var(--text-faint)]">
+        <p className="mb-4 text-[var(--text-dim)]">Prepare for what's next.</p>
         <div className="flex items-center justify-center mb-3">
           <img src="/branding/ielts-ai-wordmark-dark.png" alt="IELTS AI by nextED." className="brand-wordmark-dark h-10 w-auto object-contain" />
           <img src="/branding/ielts-ai-wordmark-light.png" alt="IELTS AI by nextED." className="brand-wordmark-light h-10 w-auto object-contain" />

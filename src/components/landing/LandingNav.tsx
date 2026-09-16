@@ -95,7 +95,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onNavigate, isLoggedIn =
               icon={<UserPlus size={15} />}
               onClick={() => onNavigate('signup')}
             >
-              Sign Up Free
+              Sign Up
             </Button>
           </>
         )}

@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Search, Sparkles, Settings, BookOpen, PenTool, Mic, Headphones, FileCheck, History, LayoutDashboard, Bell, Menu } from '../ui/icons';
+import { Search, Sparkles, Settings, BookOpen, PenTool, Mic, Headphones, FileCheck, History, LayoutDashboard, Bell, Menu, Sun, Moon } from '../ui/icons';
 import { currentUser as fallbackUser } from '../../lib/data';
 import { db, type DbUser } from '../../lib/db';
+import { useTheme } from '../theme/ThemeProvider';
 
 interface TopBarProps {
   currentRoute: string;
@@ -50,6 +51,7 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, onOpen
   const [searchQuery, setSearchQuery] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const blurTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     let cancelled = false;
@@ -124,6 +126,23 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, onOpen
     blurTimeoutRef.current = setTimeout(() => setShowDropdown(false), 150);
   };
 
+  // Day/night theme toggle -- flips between the two THEMES entries
+  // ('daylight' / 'metallic-dusk') via ThemeProvider, which persists the
+  // choice to localStorage and recalculates every CSS custom property
+  // instantly. Identical markup shared by both the mobile and desktop
+  // layouts below, same as bellButton/avatarButton.
+  const isDarkMode = theme === 'metallic-dusk';
+  const toggleTheme = () => setTheme(isDarkMode ? 'daylight' : 'metallic-dusk');
+  const themeToggleButton = (
+    <button
+      onClick={toggleTheme}
+      title={isDarkMode ? 'Switch to day mode' : 'Switch to night mode'}
+      className="w-9 h-9 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] hover:border-[var(--border-strong)] text-[var(--text-dim)] hover:text-[var(--text)] flex items-center justify-center cursor-pointer transition-colors shrink-0"
+    >
+      {isDarkMode ? <Sun size={16} /> : <Moon size={16} />}
+    </button>
+  );
+
   // Notification bell -- identical markup shared by both the mobile and
   // desktop layouts below.
   const bellButton = (
@@ -190,6 +209,7 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, onOpen
             grab this (invisible) copy instead when the query matches DOM
             order. */}
         <div className="flex items-center gap-2 shrink-0 ml-auto">
+          {themeToggleButton}
           {bellButton}
           {avatarButton}
         </div>
@@ -268,6 +288,7 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, onOpen
       </div>
 
       <div data-tour="topbar-profile" className="flex items-center gap-3 justify-self-end">
+        {themeToggleButton}
         {bellButton}
         {avatarButton}
       </div>

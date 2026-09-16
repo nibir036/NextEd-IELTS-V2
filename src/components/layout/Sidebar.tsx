@@ -169,6 +169,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLo
       ],
     },
     {
+      key: 'lms',
+      title: 'LMS Modules',
+      icon: GraduationCap,
+      items: [
+        { id: 'lms-grammar', label: 'Grammar Masterclass', icon: GraduationCap, dropdownKind: 'grammar-modules' },
+        { id: 'lms-vocab', label: 'IELTS Vocabulary', icon: BookOpen, dropdownKind: 'vocab-chapters' },
+      ],
+    },
+    {
       key: 'practice',
       title: 'Practice Tests',
       icon: PenTool,
@@ -178,15 +187,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, onNavigate, onLo
         { id: 'writing', label: 'Writing Practice', icon: PenTool, dropdownKind: 'tests-tips' },
         { id: 'speaking', label: 'Speaking Practice', icon: Mic, dropdownKind: 'tests-tips' },
         { id: 'mock-tests', label: 'Full Mock Tests', icon: FileCheck },
-      ],
-    },
-    {
-      key: 'lms',
-      title: 'LMS Modules',
-      icon: GraduationCap,
-      items: [
-        { id: 'lms-grammar', label: 'Grammar Masterclass', icon: GraduationCap, dropdownKind: 'grammar-modules' },
-        { id: 'lms-vocab', label: 'IELTS Vocabulary', icon: BookOpen, dropdownKind: 'vocab-chapters' },
       ],
     },
     ...(isAdmin

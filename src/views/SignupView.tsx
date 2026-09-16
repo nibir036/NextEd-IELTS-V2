@@ -10,6 +10,7 @@ import {
   User,
   ArrowRight,
   Award,
+  Sparkles,
 } from '../components/ui/icons';
 import { db } from '../lib/db';
 
@@ -208,6 +209,17 @@ export const SignupView: React.FC<SignupViewProps> = ({
             <img src="/branding/ielts-ai-mascot-full-dark.png" alt="IELTS AI by nextED." className="brand-mascot-dark h-40 w-auto object-contain" />
             <img src="/branding/ielts-ai-mascot-full-light.png" alt="IELTS AI by nextED." className="brand-mascot-light h-40 w-auto object-contain" />
           </div>
+
+          {/* How-to-register highlight -- explains the phone-first flow
+              before the candidate hits the disabled password fields below,
+              so the OTP-gating doesn't read as a bug. */}
+          <div className="flex items-start gap-2.5 p-3.5 rounded-xl bg-[var(--accent-a)]/10 border border-[var(--accent-a)]/30 text-xs text-[var(--text-dim)] leading-relaxed">
+            <Sparkles size={16} className="text-[var(--accent-a)] shrink-0 mt-0.5" />
+            <span>
+              <span className="font-semibold text-[var(--text)]">How to register:</span> enter your name and phone number, verify your phone with the OTP code we text you, then set your password. You can't create a password until your phone number is verified.
+            </span>
+          </div>
+
           <GlassPanel className="p-6 md:p-8 border border-[var(--border)] shadow-2xl space-y-6 relative">
             <div className="text-center space-y-2">
               <div className="w-12 h-12 rounded-2xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center mx-auto shadow-lg">

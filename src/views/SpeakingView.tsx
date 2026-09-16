@@ -8,6 +8,7 @@ import { BrowseTabSwitcher } from '../components/practice/BrowseTabSwitcher';
 import { SpeakingTipsChapterList } from '../components/practice/tips/speakingtipschapterlist';
 import { TipsReaderOverlay } from '../components/practice/tips/TipsReaderOverlay';
 import { TipsLessonList } from '../components/practice/tips/TipsLessonList';
+import { RecordingVisualizer } from '../components/practice/RecordingVisualizer';
 import {
   Sparkles, Mic, Square, ArrowRight, Clock, MessageCircle, Users,
   Send, RefreshCw, Trophy, CheckCircle2, BookOpen, ChevronRight,
@@ -314,6 +315,10 @@ const RecorderCard: React.FC<RecorderCardProps> = ({ segment, onRecorded, onAdva
   const [remaining, setRemaining] = useState(segment.durationSec);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // Mirrors streamRef in state -- the ref alone won't trigger a
+  // re-render, so the visualizer wouldn't ever receive the live stream
+  // once startRecording sets it.
+  const [liveStream, setLiveStream] = useState<MediaStream | null>(null);
 
   const recorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -324,6 +329,7 @@ const RecorderCard: React.FC<RecorderCardProps> = ({ segment, onRecorded, onAdva
   const cleanupStream = () => {
     streamRef.current?.getTracks().forEach((t) => t.stop());
     streamRef.current = null;
+    setLiveStream(null);
   };
 
   useEffect(
@@ -351,6 +357,7 @@ const RecorderCard: React.FC<RecorderCardProps> = ({ segment, onRecorded, onAdva
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       streamRef.current = stream;
+      setLiveStream(stream);
       const mimeType = pickMimeType();
       const recorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
       chunksRef.current = [];
@@ -427,9 +434,28 @@ const RecorderCard: React.FC<RecorderCardProps> = ({ segment, onRecorded, onAdva
       )}
 
       {status === 'recording' && (
-        <Button variant="secondary" size="sm" icon={<Square size={13} />} onClick={manualFinish}>
-          {segment.advanceMode === 'auto' ? "I'm finished — Next" : 'Stop'}
-        </Button>
+        <div className="space-y-3">
+          {/* Live mic-level bars -- purely reassurance that the app is
+              actually hearing the user, so silence doesn't read as a
+              stuck/broken recorder. */}
+          <RecordingVisualizer stream={liveStream} />
+
+          {segment.advanceMode === 'auto' ? (
+            <Button
+              variant="primary"
+              size="sm"
+              icon={<Square size={13} />}
+              onClick={manualFinish}
+              className="w-full animate-finishPulse"
+            >
+              I&apos;m finished — Next
+            </Button>
+          ) : (
+            <Button variant="secondary" size="sm" icon={<Square size={13} />} onClick={manualFinish}>
+              Stop
+            </Button>
+          )}
+        </div>
       )}
 
       {status === 'recorded' && audioUrl && (

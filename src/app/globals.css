@@ -300,6 +300,19 @@ h1, h2, h3, .font-display {
   animation: dailyTipPulse 2.6s ease-in-out infinite;
 }
 
+/* Speaking practice: the "I'm finished — Next" button while recording.
+   Sits alongside the live RecordingVisualizer as the other half of
+   "you're clearly being recorded" -- a faster, tighter ring pulse than
+   dailyTipPulse above, since this one needs to read as an active call
+   to action mid-recording rather than a passive dashboard nudge. */
+@keyframes finishPulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--glow-a); }
+  50% { box-shadow: 0 0 0 8px transparent; }
+}
+.animate-finishPulse {
+  animation: finishPulse 1.6s ease-in-out infinite;
+}
+
 @keyframes dailyTipShimmer {
   0% { transform: translateX(-120%); }
   100% { transform: translateX(220%); }
@@ -310,7 +323,7 @@ h1, h2, h3, .font-display {
 
 @media (prefers-reduced-motion: reduce) {
   .animate-fadeIn, .animate-carouselShiftIn, .animate-carouselSlideIn,
-  .animate-dailyTipPulse, .animate-dailyTipShimmer {
+  .animate-dailyTipPulse, .animate-dailyTipShimmer, .animate-finishPulse {
     animation: none;
   }
 }

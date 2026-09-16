@@ -304,6 +304,7 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
       {!test && !loadError && <GlassPanel className="p-8 text-center text-sm text-[var(--text-dim)]">Loading test…</GlassPanel>}
 
       {test && (
+        <>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* LEFT: sticky audio + timer + instructions */}
           <div className="lg:col-span-4 lg:sticky lg:top-6 space-y-4">
@@ -353,14 +354,21 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
                 <span className="text-xs text-[var(--text-dim)]">
                   {answeredCount} / {allQuestions.length} answered
                 </span>
-                <Button
-                  variant="primary" size="md"
-                  icon={submitting ? <RefreshCw size={16} className="animate-spin" /> : <Send size={16} />}
-                  disabled={submitting}
-                  onClick={doSubmit}
-                >
-                  {submitting ? 'Scoring...' : 'Submit & Score'}
-                </Button>
+                {/* Wrapped rather than passed via Button's own className --
+                    Button's base styles already set `inline-flex`
+                    unconditionally, which was fighting `hidden` at equal
+                    specificity and not reliably hiding on mobile. A
+                    wrapper element sidesteps that entirely. */}
+                <span className="hidden lg:inline-flex">
+                  <Button
+                    variant="primary" size="md"
+                    icon={submitting ? <RefreshCw size={16} className="animate-spin" /> : <Send size={16} />}
+                    disabled={submitting}
+                    onClick={doSubmit}
+                  >
+                    {submitting ? 'Scoring...' : 'Submit & Score'}
+                  </Button>
+                </span>
               </div>
             </GlassPanel>
           </div>
@@ -530,7 +538,7 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
                             value={(answers[String(q.qnumber)] as string) || ''}
                             onChange={(e) => setAnswers((a) => ({ ...a, [String(q.qnumber)]: e.target.value }))}
                             placeholder="answer"
-                            className="inline-block w-32 bg-[var(--bg)] border border-[var(--border)] rounded-lg px-2 py-1 text-sm text-[var(--text)] focus:outline-none focus:border-amber-500"
+                            className="inline-block w-32 bg-[var(--bg)] border-2 border-[var(--border-strong)] rounded-lg px-2.5 py-1.5 text-sm font-medium text-[var(--text)] shadow-sm focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/30"
                           />
                           {parts[1] && <span>{parts[1]}</span>}
                         </div>
@@ -542,6 +550,26 @@ export const ListeningExamView: React.FC<ListeningExamViewProps> = ({ id, initia
             })}
           </div>
         </div>
+
+        {/* Mobile-phone submit — the panel's Submit above is lg-only,
+            since on mobile the audio/timer panel and the questions list
+            stack in one long column instead of a sticky sidebar; this
+            sits below the questions so it's reachable without
+            scrolling back to the top. */}
+        <div className="lg:hidden flex items-center justify-between gap-3 px-1 mt-4">
+          <span className="text-xs font-mono text-[var(--text-faint)]">
+            {answeredCount} / {allQuestions.length} answered
+          </span>
+          <Button
+            variant="primary" size="md"
+            icon={submitting ? <RefreshCw size={16} className="animate-spin" /> : <Send size={16} />}
+            disabled={submitting}
+            onClick={doSubmit}
+          >
+            {submitting ? 'Scoring...' : 'Submit & Score'}
+          </Button>
+        </div>
+        </>
       )}
     </div>
   );

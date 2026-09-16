@@ -364,17 +364,24 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
                     {timeLeft !== null ? fmtTime(timeLeft) : '--:--'}
                   </span>
                 </div>
-                <span className="text-xs font-mono text-[var(--text-faint)] hidden sm:inline">
+                <span className="text-xs font-mono text-[var(--text-faint)] hidden lg:inline">
                   {answeredCount} / {allQuestions.length} answered
                 </span>
-                <Button
-                  variant="primary" size="sm"
-                  icon={submitting ? <RefreshCw size={15} className="animate-spin" /> : <Send size={15} />}
-                  disabled={submitting}
-                  onClick={doSubmit}
-                >
-                  {submitting ? 'Scoring...' : 'Submit'}
-                </Button>
+                {/* Wrapped rather than passed via Button's own className --
+                    Button's base styles already set `inline-flex`
+                    unconditionally, which was fighting `hidden` at equal
+                    specificity and not reliably hiding on mobile. A
+                    wrapper element sidesteps that entirely. */}
+                <span className="hidden lg:inline-flex">
+                  <Button
+                    variant="primary" size="sm"
+                    icon={submitting ? <RefreshCw size={15} className="animate-spin" /> : <Send size={15} />}
+                    disabled={submitting}
+                    onClick={doSubmit}
+                  >
+                    {submitting ? 'Scoring...' : 'Submit'}
+                  </Button>
+                </span>
               </div>
             </div>
 
@@ -400,7 +407,11 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
               dragging isn't practical. */}
           <div ref={splitContainerRef} className="flex flex-col lg:flex-row gap-4 lg:gap-0">
             <div className="min-w-0" style={isDesktop ? { width: `${leftPct}%` } : undefined}>
-              <GlassPanel className="lg:max-h-[calc(100vh-15rem)] lg:min-h-[24rem] lg:overflow-y-auto no-scrollbar space-y-5">
+              {/* Independently scrollable, same as the desktop split --
+                  just bounded to a fraction of the viewport instead of a
+                  side-by-side column, so it stacks above the questions
+                  pane below rather than requiring horizontal space. */}
+              <GlassPanel className="max-h-[34vh] min-h-[9rem] overflow-y-auto lg:max-h-[calc(100vh-15rem)] lg:min-h-[24rem] lg:overflow-y-auto no-scrollbar space-y-5">
                 {test.sections.filter((s) => s.passageText).map((section) => (
                   <div key={section.id} className="space-y-2">
                     <div className="flex items-center gap-2 text-xs font-mono uppercase text-[var(--text-faint)]">
@@ -427,7 +438,7 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
             </div>
 
             <div className="min-w-0" style={isDesktop ? { width: `${100 - leftPct}%` } : undefined}>
-              <div className="lg:max-h-[calc(100vh-15rem)] lg:min-h-[24rem] lg:overflow-y-auto no-scrollbar space-y-6 pr-1">
+              <div className="max-h-[34vh] min-h-[9rem] overflow-y-auto lg:max-h-[calc(100vh-15rem)] lg:min-h-[24rem] lg:overflow-y-auto no-scrollbar space-y-6 pr-1">
                 {test.sections.map((section) => {
                   // If this section has `matching` questions, they all share the
                   // same option list. Find which question is the FIRST one of
@@ -554,7 +565,7 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
                                 value={(answers[String(q.qnumber)] as string) || ''}
                                 onChange={(e) => setAnswers((a) => ({ ...a, [String(q.qnumber)]: e.target.value }))}
                                 placeholder="answer"
-                                className="inline-block w-40 bg-[var(--bg)] border border-[var(--border)] rounded-lg px-2 py-1 text-sm text-[var(--text)] focus:outline-none focus:border-[#a855f7] focus:ring-2 focus:ring-[#a855f7]/30"
+                                className="inline-block w-40 bg-[var(--bg)] border-2 border-[var(--border-strong)] rounded-lg px-2.5 py-1.5 text-sm font-medium text-[var(--text)] shadow-sm focus:outline-none focus:border-[#a855f7] focus:ring-2 focus:ring-[#a855f7]/30"
                               />
                               {parts[1] && <span>{parts[1]}</span>}
                             </div>
@@ -566,6 +577,24 @@ export const ReadingExamView: React.FC<ReadingExamViewProps> = ({ id, initialBro
                 })}
               </div>
             </div>
+          </div>
+
+          {/* Mobile-phone submit — the header's Submit (above) is
+              lg-only now that the passage/questions panes stack instead
+              of sitting side by side; this sits below both scrollable
+              panes so it's always reachable without scrolling back up. */}
+          <div className="lg:hidden flex items-center justify-between gap-3 px-1">
+            <span className="text-xs font-mono text-[var(--text-faint)]">
+              {answeredCount} / {allQuestions.length} answered
+            </span>
+            <Button
+              variant="primary" size="md"
+              icon={submitting ? <RefreshCw size={16} className="animate-spin" /> : <Send size={16} />}
+              disabled={submitting}
+              onClick={doSubmit}
+            >
+              {submitting ? 'Scoring...' : 'Submit'}
+            </Button>
           </div>
         </>
       )}

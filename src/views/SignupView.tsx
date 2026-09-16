@@ -42,8 +42,6 @@ export const SignupView: React.FC<SignupViewProps> = ({
   const [fullName, setFullName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const [targetBand, setTargetBand] = useState<number>(8.0);
-  const [examDate, setExamDate] = useState<string>('2026-11-14');
 
   // Phone OTP verification — wired to /api/auth/otp/{send,verify} (Alpha
   // SMS behind the scenes). Verifying returns a signed proof string that
@@ -159,12 +157,15 @@ export const SignupView: React.FC<SignupViewProps> = ({
 
     setIsSubmitting(true);
     try {
+      // Signup only ever collects the minimum required to create an
+      // account -- target band and exam date used to be asked here too,
+      // but candidates set those from their profile after logging in
+      // instead. The register API already defaults target_band to 8.0
+      // and leaves exam_date null when neither is sent.
       const newUser = await db.registerUser({
         phone: fullPhone,
         password,
         name: fullName.trim(),
-        targetBand,
-        examDate,
         otpProof,
       });
       if (newUser) {
@@ -256,7 +257,8 @@ export const SignupView: React.FC<SignupViewProps> = ({
                   <select
                     value={countryCode}
                     onChange={(e) => handleCountryCodeChange(e.target.value)}
-                    className="w-full px-2.5 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-xs text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] font-mono"
+                    disabled={isOtpVerified}
+                    className="w-full px-2.5 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-xs text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] font-mono disabled:opacity-60"
                   >
                     {COUNTRY_CODES.map((c) => (
                       <option key={c.code} value={c.code}>
@@ -280,7 +282,8 @@ export const SignupView: React.FC<SignupViewProps> = ({
                       placeholder="e.g. 555-019-9988"
                       value={phoneNumber}
                       onChange={(e) => handlePhoneNumberChange(e.target.value)}
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors font-mono"
+                      disabled={isOtpVerified}
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors font-mono disabled:opacity-60"
                     />
                   </div>
                 </div>
@@ -354,12 +357,16 @@ export const SignupView: React.FC<SignupViewProps> = ({
                 )}
                 {!otpSent && !otpErrorMessage && (
                   <p className="text-[11px] text-[var(--text-faint)] mt-1.5">
-                    We&apos;ll text a 6-digit code to confirm this number before your account is created.
+                    We&apos;ll text a 6-digit code to confirm this number. You can&apos;t set a
+                    password until it&apos;s verified.
                   </p>
                 )}
               </div>
 
-              {/* Password + Confirm Password */}
+              {/* Password + Confirm Password -- disabled until the OTP is
+                  verified, mirroring ForgotPasswordView.tsx: a candidate
+                  can't type a password for an unverified phone number,
+                  not just be blocked from submitting one. */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
@@ -368,10 +375,11 @@ export const SignupView: React.FC<SignupViewProps> = ({
                   <input
                     type="password"
                     required
-                    placeholder="At least 6 characters"
+                    placeholder={isOtpVerified ? 'At least 6 characters' : 'Verify your phone first'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors"
+                    disabled={!isOtpVerified}
+                    className="w-full px-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors disabled:opacity-60"
                   />
                 </div>
                 <div>
@@ -381,45 +389,13 @@ export const SignupView: React.FC<SignupViewProps> = ({
                   <input
                     type="password"
                     required
-                    placeholder="Re-enter password"
+                    placeholder={isOtpVerified ? 'Re-enter password' : 'Verify your phone first'}
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors"
+                    disabled={!isOtpVerified}
+                    className="w-full px-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors disabled:opacity-60"
                   />
                 </div>
-              </div>
-
-              {/* Target Band */}
-              <div>
-                <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
-                  Target Band Score
-                </label>
-                <select
-                  value={targetBand}
-                  onChange={(e) => setTargetBand(parseFloat(e.target.value))}
-                  className="w-full px-3 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-xs font-bold text-[var(--accent-a)] focus:outline-none focus:border-[var(--accent-a)]"
-                >
-                  <option value={6.5}>Band 6.5 (Competent)</option>
-                  <option value={7.0}>Band 7.0 (Good User)</option>
-                  <option value={7.5}>Band 7.5 (Proficient)</option>
-                  <option value={8.0}>Band 8.0 (Very Good)</option>
-                  <option value={8.5}>Band 8.5 (Expert Goal)</option>
-                  <option value={9.0}>Band 9.0 (Perfect Score)</option>
-                </select>
-              </div>
-
-              {/* Target Exam Date */}
-              <div>
-                <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
-                  Target Official Exam Date
-                </label>
-                <input
-                  type="date"
-                  required
-                  value={examDate}
-                  onChange={(e) => setExamDate(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-xs text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] font-mono"
-                />
               </div>
 
               <Button

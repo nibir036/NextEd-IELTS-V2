@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
+import { MobileNavDrawer } from './MobileNavDrawer';
 import { DiagnosticPromptModal } from './DiagnosticPromptModal';
 import { OnboardingTour } from './OnboardingTour';
 import { DevToolsGuard } from './DevToolsGuard';
@@ -24,6 +25,11 @@ export const AppShell: React.FC<AppShellProps> = ({
   // no point stacking two attention-grabbing overlays on someone's very
   // first session. The diagnostic prompt simply holds off while it runs.
   const [tourActive, setTourActive] = useState(false);
+
+  // Mobile nav drawer -- replaces the old bottom nav bar. Opened via the
+  // hamburger button TopBar renders on phone-width viewports; mirrors the
+  // desktop Sidebar's full navigation rather than a handful of shortcuts.
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   return (
     <div id={id} className="min-h-screen flex bg-[var(--bg)] text-[var(--text)] relative">
@@ -50,8 +56,20 @@ export const AppShell: React.FC<AppShellProps> = ({
         suppressed={tourActive}
       />
 
-      {/* Persistent Left Sidebar */}
+      {/* Persistent Left Sidebar (desktop only, md and up) */}
       <Sidebar currentRoute={currentRoute} onNavigate={onNavigate} onLogout={onLogout} />
+
+      {/* Mobile nav drawer (below md) -- hamburger-triggered overlay that
+          mirrors the desktop Sidebar's full navigation. Rendered at the
+          AppShell root (z-[60]) so it sits above the z-40 main content
+          stacking context described below. */}
+      <MobileNavDrawer
+        currentRoute={currentRoute}
+        onNavigate={onNavigate}
+        onLogout={onLogout}
+        isOpen={mobileNavOpen}
+        onClose={() => setMobileNavOpen(false)}
+      />
 
       {/* Main Content Area
           z-40 (not z-10): this div is a flex item with an explicit
@@ -66,32 +84,9 @@ export const AppShell: React.FC<AppShellProps> = ({
           sidebar's z-30 so this whole subtree -- and everything fixed
           inside it -- renders above the sidebar again. */}
       <div className="flex-1 flex flex-col min-w-0 z-40">
-        <TopBar currentRoute={currentRoute} onNavigate={onNavigate} />
-        
-        {/* Mobile Bottom Navigation Bar */}
-        <div className="md:hidden fixed bottom-0 inset-x-0 z-30 bg-[var(--bg-elevated)]/90 backdrop-blur-xl border-t border-[var(--border)] px-2 py-2 flex justify-around">
-          {[
-            { id: 'dashboard', label: 'Dashboard' },
-            { id: 'reading', label: 'Reading' },
-            { id: 'writing', label: 'Writing' },
-            { id: 'speaking', label: 'Speaking' },
-            { id: 'settings', label: 'Settings' },
-          ].map((item) => (
-            <button
-              key={item.id}
-              onClick={() => onNavigate(item.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer ${
-                currentRoute === item.id
-                  ? 'bg-[image:var(--accent-gradient)] text-white font-semibold'
-                  : 'text-[var(--text-dim)]'
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
+        <TopBar currentRoute={currentRoute} onNavigate={onNavigate} onOpenMobileNav={() => setMobileNavOpen(true)} />
 
-        <main className="flex-1 p-4 md:p-8 max-w-[1650px] w-full mx-auto pb-20 md:pb-8">
+        <main className="flex-1 p-4 md:p-8 max-w-[1650px] w-full mx-auto pb-6 md:pb-8">
           {children}
         </main>
       </div>

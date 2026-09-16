@@ -444,3 +444,12 @@ export const Grid3x3: React.FC<IconProps> = ({ size = 20, className = '', ...pro
     <path d="M15 3v18" />
   </svg>
 );
+
+// Hamburger menu icon -- opens the mobile nav drawer (TopBar, mobile only).
+export const Menu: React.FC<IconProps> = ({ size = 20, className = '', ...props }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
+    <line x1="4" x2="20" y1="6" y2="6" />
+    <line x1="4" x2="20" y1="12" y2="12" />
+    <line x1="4" x2="20" y1="18" y2="18" />
+  </svg>
+);

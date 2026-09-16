@@ -1,11 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Search, Sparkles, Settings, BookOpen, PenTool, Mic, Headphones, FileCheck, History, LayoutDashboard, Bell } from '../ui/icons';
+import { Search, Sparkles, Settings, BookOpen, PenTool, Mic, Headphones, FileCheck, History, LayoutDashboard, Bell, Menu } from '../ui/icons';
 import { currentUser as fallbackUser } from '../../lib/data';
 import { db, type DbUser } from '../../lib/db';
 
 interface TopBarProps {
   currentRoute: string;
   onNavigate: (route: string) => void;
+  // Opens the hamburger-triggered mobile nav drawer (see MobileNavDrawer).
+  // Only relevant below `md`, where the desktop Sidebar is hidden and the
+  // bottom nav bar this replaced no longer exists.
+  onOpenMobileNav: () => void;
   id?: string;
 }
 
@@ -41,7 +45,7 @@ function findMatches(query: string): SearchableItem[] {
   );
 }
 
-export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, id }) => {
+export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, onOpenMobileNav, id }) => {
   const [user, setUser] = useState<DbUser | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
@@ -120,20 +124,91 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, id }) 
     blurTimeoutRef.current = setTimeout(() => setShowDropdown(false), 150);
   };
 
+  // Notification bell -- identical markup shared by both the mobile and
+  // desktop layouts below.
+  const bellButton = (
+    <button
+      onClick={() => onNavigate('submissions')}
+      title="Notifications"
+      className="relative w-9 h-9 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] hover:border-[var(--border-strong)] text-[var(--text-dim)] hover:text-[var(--text)] flex items-center justify-center cursor-pointer transition-colors shrink-0"
+    >
+      <Bell size={16} />
+      <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[var(--accent-a)]" />
+    </button>
+  );
+
+  // User avatar -- identical markup shared by both layouts below.
+  const avatarButton = (
+    <div
+      onClick={() => onNavigate('settings')}
+      title={`${activeUser.name} (${activeUser.phone})`}
+      className="w-9 h-9 rounded-xl bg-[image:var(--accent-gradient)] text-white font-bold text-xs flex items-center justify-center cursor-pointer shadow-sm hover:scale-105 transition-transform shrink-0"
+    >
+      {activeUser.avatar}
+    </div>
+  );
+
   return (
     <header
       id={id}
-      className="sticky top-0 z-10 bg-[var(--bg)]/80 backdrop-blur-xl border-b border-[var(--border)] px-4 md:px-8 py-3.5 grid grid-cols-[1fr_auto_1fr] items-center gap-4"
+      className="sticky top-0 z-10 bg-[var(--bg)]/80 backdrop-blur-xl border-b border-[var(--border)] px-4 md:px-8 py-3"
     >
+      {/* Mobile layout (below md -- the same breakpoint the desktop
+          Sidebar appears at) -- there's no bottom nav bar anymore, so the
+          hamburger here is the only way to reach the rest of the app. The
+          title is never truncated: it gets a smaller font than the
+          desktop heading and is free to wrap onto a second line instead
+          of being cut off. The bell/avatar group carries ml-auto so it's
+          always pinned to the rightmost edge, with the title taking
+          whatever space is left between the hamburger and it. */}
+      <div className="flex md:hidden items-center gap-2.5">
+        <button
+          onClick={onOpenMobileNav}
+          title="Open navigation menu"
+          className="shrink-0 w-9 h-9 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text-dim)] hover:text-[var(--text)] flex items-center justify-center cursor-pointer transition-colors"
+        >
+          <Menu size={18} />
+        </button>
+
+        <div className="p-2 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-[var(--accent-a)] hidden sm:block shrink-0">
+          <IconComponent size={18} />
+        </div>
+
+        <div className="min-w-0">
+          <h1 className="font-display font-bold text-base leading-tight text-[var(--text)] tracking-tight">
+            {routeInfo.title}
+          </h1>
+          <p className="text-[11px] text-[var(--text-dim)] hidden sm:block truncate">
+            {routeInfo.subtitle}
+          </p>
+        </div>
+
+        {/* Intentionally no data-tour marker here: the desktop instance
+            below (data-tour="topbar-profile") is the one OnboardingTour
+            targets via a single document.querySelector, and a duplicate
+            attribute on this hidden-below-md element would make the tour
+            grab this (invisible) copy instead when the query matches DOM
+            order. */}
+        <div className="flex items-center gap-2 shrink-0 ml-auto">
+          {bellButton}
+          {avatarButton}
+        </div>
+      </div>
+
+      {/* Desktop/tablet layout (md and up, matching the Sidebar's own
+          breakpoint) -- unchanged from before: title left, search
+          centered (still only from lg up -- there just isn't room for it
+          between md and lg), bell/avatar pinned to the far right. */}
+      <div className="hidden md:grid grid-cols-[1fr_auto_1fr] items-center gap-4">
       <div className="flex items-center gap-3 min-w-0">
-        <div className="p-2 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-[var(--accent-a)] hidden sm:block">
+        <div className="p-2 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-[var(--accent-a)]">
           <IconComponent size={20} />
         </div>
         <div className="min-w-0">
-          <h1 className="font-display font-bold text-lg md:text-xl text-[var(--text)] tracking-tight truncate">
+          <h1 className="font-display font-bold text-xl text-[var(--text)] tracking-tight truncate">
             {routeInfo.title}
           </h1>
-          <p className="text-xs text-[var(--text-dim)] hidden sm:block truncate">
+          <p className="text-xs text-[var(--text-dim)] truncate">
             {routeInfo.subtitle}
           </p>
         </div>
@@ -193,24 +268,9 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, id }) 
       </div>
 
       <div data-tour="topbar-profile" className="flex items-center gap-3 justify-self-end">
-        {/* Notifications */}
-        <button
-          onClick={() => onNavigate('submissions')}
-          title="Notifications"
-          className="relative w-9 h-9 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] hover:border-[var(--border-strong)] text-[var(--text-dim)] hover:text-[var(--text)] flex items-center justify-center cursor-pointer transition-colors"
-        >
-          <Bell size={16} />
-          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[var(--accent-a)]" />
-        </button>
-
-        {/* User Avatar */}
-        <div
-          onClick={() => onNavigate('settings')}
-          title={`${activeUser.name} (${activeUser.phone})`}
-          className="w-9 h-9 rounded-xl bg-[image:var(--accent-gradient)] text-white font-bold text-xs flex items-center justify-center cursor-pointer shadow-sm hover:scale-105 transition-transform shrink-0"
-        >
-          {activeUser.avatar}
-        </div>
+        {bellButton}
+        {avatarButton}
+      </div>
       </div>
     </header>
   );

@@ -70,8 +70,12 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
 
         <div className="relative max-w-6xl mx-auto px-4 md:px-10 pt-16 pb-16 md:pt-24 md:pb-24">
           <div className="backdrop-blur-md bg-[var(--bg)]/15 border border-[var(--border)] rounded-3xl px-6 py-10 md:px-14 md:py-14 shadow-2xl grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-            {/* Left: headline, copy & CTAs */}
-            <div className="space-y-6 text-center lg:text-left">
+            {/* Left: headline, copy & CTAs. Ordered *after* the mascot
+                video on mobile (order-2, below lg:order-1 on desktop) so
+                phone-width visitors see the waving mascot first, then the
+                headline -- desktop keeps the original text-left/video-right
+                arrangement via the lg: overrides. */}
+            <div className="order-2 lg:order-1 space-y-6 text-center lg:text-left">
               <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-[var(--text)] tracking-tight leading-[1.1]">
                 Master IELTS with <br />
                 <span className="text-gradient">Real-Time AI Precision</span>
@@ -116,10 +120,12 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
               </div>
             </div>
 
-            {/* Right: continuously looping product demo video, framed in
-                the app's own purple accent gradient rather than a plain
-                white/black panel. */}
-            <div className="flex justify-center lg:justify-end">
+            {/* Right: continuously looping mascot-waving product demo
+                video, framed in the app's own purple accent gradient
+                rather than a plain white/black panel. order-1 puts it
+                first on mobile (above the headline); lg:order-2 restores
+                it to the right column on desktop. */}
+            <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
               <div className="relative w-full max-w-[320px] aspect-[3/4] rounded-3xl overflow-hidden border border-[var(--border)] shadow-xl bg-[image:var(--accent-gradient)]">
                 <video
                   className="w-full h-full object-cover"

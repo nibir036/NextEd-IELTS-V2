@@ -55,18 +55,6 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onNavigate, isLoggedIn =
         >
           How It Works
         </a>
-        {/* Pricing nav link -- commented out for now, matching the
-            already-commented-out Pricing section on the landing page.
-            Re-enable both together once pricing is ready to show. */}
-        {/*
-        <a
-          href="#pricing"
-          onClick={(e) => handleScrollToSection(e, 'pricing')}
-          className="hover:text-[var(--text)] transition-colors"
-        >
-          Pricing
-        </a>
-        */}
       </div>
 
       <div className="flex items-center gap-3">
@@ -77,7 +65,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onNavigate, isLoggedIn =
             icon={<LayoutDashboard size={16} />}
             onClick={() => onNavigate('dashboard')}
           >
-            Start My Journey
+            Continue My Journey
           </Button>
         ) : (
           <>

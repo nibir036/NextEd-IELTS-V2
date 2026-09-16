@@ -192,14 +192,14 @@ export const siteStats: SiteStat[] = [
     description: 'Know exactly where you stand.',
   },
   {
-    label: 'Official Rounding',
-    value: '0.5 Rounding',
-    description: 'Understand the score you need.',
-  },
-  {
-    label: 'Instant AI',
+    label: 'Get Instant Feedback',
     value: 'Instant AI',
     description: 'Improve every time you practice.',
+  },
+  {
+    label: 'Learn It All',
+    value: 'One Place',
+    description: 'Everything you need, together.',
   },
 ];
 

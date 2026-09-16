@@ -378,14 +378,30 @@ export const OnboardingTour: React.FC<OnboardingTourProps> = ({ onActiveChange }
 
           {/* Nexi, peeking up from the card's corner and pointing into
               it -- which side depends on where the card landed on
-              screen, see mascotFor(). */}
+              screen, see mascotFor(). Only shown from `sm` up: on
+              narrow phone widths the card itself takes nearly the full
+              viewport (CARD_W = min(360, vw-32)), leaving no side
+              margin for this cutout to sit in -- it just gets pushed
+              off-screen. */}
           {/* eslint-disable-next-line @next/next/no-img-element -- decorative, pre-sized transparent PNG served from /public, no next/image gain here */}
           <img
             src={mascot.src}
             alt=""
             aria-hidden="true"
             draggable={false}
-            className={`absolute pointer-events-none select-none drop-shadow-2xl animate-mascotFloat ${mascot.className}`}
+            className={`hidden sm:block absolute pointer-events-none select-none drop-shadow-2xl animate-mascotFloat ${mascot.className}`}
+          />
+
+          {/* Phone-width stand-in: same idea, but since there's no
+              spare width beside the card, Nexi sits centered above it
+              instead. */}
+          {/* eslint-disable-next-line @next/next/no-img-element -- decorative, pre-sized transparent PNG served from /public, no next/image gain here */}
+          <img
+            src="/mascot/mascot-mobile.png"
+            alt=""
+            aria-hidden="true"
+            draggable={false}
+            className="sm:hidden absolute pointer-events-none select-none drop-shadow-2xl animate-mascotFloat w-20 left-1/2 -translate-x-1/2 bottom-full mb-3"
           />
         </div>
       </div>

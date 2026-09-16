@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { LandingNav } from '../components/landing/LandingNav';
 import { HeroFlightBackground } from '../components/landing/HeroFlightBackground';
 import { GlassPanel } from '../components/ui/GlassPanel';
@@ -7,18 +7,16 @@ import { Reveal } from '../components/ui/Reveal';
 import { skillModules, siteStats } from '../lib/data';
 import {
   Sparkles,
-  ArrowUpRight,
   CheckCircle2,
   BrainCircuit,
-  Shield,
-  Check,
+  GraduationCap,
   BookOpen,
   PenTool,
   Mic,
-  Headphones,
-  Trophy,
+  FileCheck,
   UserPlus,
   LogIn,
+  ChevronDown,
 } from '../components/ui/icons';
 
 interface LandingViewProps {
@@ -38,30 +36,96 @@ const moduleVideos: Record<string, string> = {
   speaking: '/videos/modules/speaking.mp4',
 };
 
-// Journey-framed marketing copy for the landing page's 4-skill cards --
+// "Four Skills" marketing copy for the landing page's 4-skill cards --
 // kept separate from `skillModules` in lib/data.ts so the official skill
 // names/descriptions used elsewhere in the app (dashboard, badges) stay
 // untouched; this only overrides what the landing page displays.
 const moduleMarketingCopy: Record<string, { title: string; description: string }> = {
   reading: {
-    title: 'Read Beyond the Test',
-    description: 'Train with realistic passages, discover new vocabulary, and learn to find answers with confidence.',
+    title: 'Reading',
+    description: 'Read faster. Find answers with confidence.',
   },
   listening: {
-    title: 'Learn to Listen Anywhere',
-    description: 'Practice with realistic audio and train yourself to catch the details that matter.',
+    title: 'Listening',
+    description: 'Every accent. Every speed. A trained ear.',
   },
   writing: {
-    title: 'Turn Your Ideas Into Band Scores',
-    description: 'Write. Get instant feedback. Understand your mistakes. Write better next time.',
+    title: 'Writing',
+    description: 'Turn your ideas into band scores.',
   },
   speaking: {
-    title: 'Find Your Voice',
-    description: 'Practice speaking naturally, improve fluency and pronunciation, and become comfortable answering under pressure.',
+    title: 'Speaking',
+    description: 'Find your voice. Speak like it is natural.',
   },
 };
 
+// "The Toolkit" -- six things the platform covers, each with its own
+// short line rather than a paragraph. Icon-badge-card pattern reused
+// from the app's existing feature-card convention (see the old 3-card
+// row this replaces).
+const toolkitItems = [
+  {
+    icon: GraduationCap,
+    title: 'Grammar, from zero',
+    description: 'The foundation the test is built on. We start at the beginning.',
+  },
+  {
+    icon: BookOpen,
+    title: 'A vocabulary that scores',
+    description: 'Thousands of IELTS words, phrases, and idioms that lift your band.',
+  },
+  {
+    icon: PenTool,
+    title: 'Writing feedback, line by line',
+    description: 'Every sentence checked. Every fix shown. In seconds.',
+  },
+  {
+    icon: Mic,
+    title: 'Speaking, without the pressure',
+    description: 'Practice out loud. Get real feedback on fluency and pronunciation.',
+  },
+  {
+    icon: FileCheck,
+    title: 'Mock tests that feel real',
+    description: 'Timed. Complete. Exactly like the day that counts.',
+  },
+  {
+    icon: Sparkles,
+    title: 'The techniques tutors teach',
+    description: 'The strategies and shortcuts for every question type.',
+  },
+];
+
+const faqItems = [
+  {
+    q: 'Can a complete beginner start here?',
+    a: 'Yes. That is exactly who we built this for.',
+  },
+  {
+    q: 'How does the AI feedback work?',
+    a: 'It checks your writing and speaking against IELTS criteria and shows you what to fix.',
+  },
+  {
+    q: 'Is there a free plan?',
+    a: 'Yes. Start with no card and no commitment.',
+  },
+  {
+    q: 'Does it cover all four skills?',
+    a: 'Reading, Listening, Writing, and Speaking. All of it.',
+  },
+  {
+    q: 'Can I practice on my phone?',
+    a: 'Anywhere, anytime, at your pace.',
+  },
+  {
+    q: 'How is this different?',
+    a: 'Most tools assume you are already good. We start before that.',
+  },
+];
+
 export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedIn = false, id }) => {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
   const handleCta = (defaultTarget: string = 'signup') => {
     if (isLoggedIn) {
       onLaunchApp('dashboard');
@@ -99,20 +163,17 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
                 headline -- desktop keeps the original text-left/video-right
                 arrangement via the lg: overrides. */}
             <div className="order-2 lg:order-1 space-y-6 text-center lg:text-left">
+              <div className="inline-flex items-center gap-1.5 text-xs font-mono text-[var(--accent-a)] uppercase tracking-widest font-semibold">
+                <span>IELTS AI by NextED</span>
+              </div>
               <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-[var(--text)] tracking-tight leading-[1.1]">
-                Your Future Abroad <br />
-                <span className="text-gradient">Starts With IELTS.</span><br />
-                <span className="text-gradient">Get Ready for What's Next.</span>
+                Your target band. <br />
+                <span className="text-gradient">From day one.</span>
               </h1>
 
-              <div className="space-y-4 max-w-2xl mx-auto lg:mx-0">
-                <p className="text-base sm:text-lg text-[var(--text-dim)] leading-relaxed">
-                  Imagine studying somewhere new. Exploring a new city. Meeting people from around the world. Building the future you've been working toward.
-                </p>
-                <p className="text-base sm:text-lg text-[var(--text-dim)] leading-relaxed">
-                  IELTS AI helps you turn that goal into a plan—with realistic practice, instant AI feedback, and the confidence to take the next step.
-                </p>
-              </div>
+              <p className="text-base sm:text-lg text-[var(--text-dim)] leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                The most complete way to prepare for IELTS. Built for beginners. Guided by AI.
+              </p>
 
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
                 <Button
@@ -121,32 +182,23 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
                   icon={<UserPlus size={18} />}
                   onClick={() => handleCta('signup')}
                 >
-                  {isLoggedIn ? 'Start My Journey →' : 'Register now to start free'}
+                  {isLoggedIn ? 'Continue My Journey →' : 'Start free →'}
                 </Button>
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  icon={<LogIn size={18} />}
-                  onClick={() => handleCta('login')}
-                >
-                  {isLoggedIn ? 'Explore IELTS Practice' : 'Log In to Explore'}
-                </Button>
+                {!isLoggedIn && (
+                  <Button
+                    variant="secondary"
+                    size="lg"
+                    icon={<LogIn size={18} />}
+                    onClick={() => handleCta('login')}
+                  >
+                    Log in
+                  </Button>
+                )}
               </div>
 
-              <div className="pt-6 border-t border-[var(--border)] flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-[var(--text-faint)] font-mono">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={15} className="text-[var(--success)]" />
-                  <span>Know Where You Stand</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={15} className="text-[var(--success)]" />
-                  <span>Know What You're Working Toward</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={15} className="text-[var(--success)]" />
-                  <span>Practice with AI from Wherever You Are</span>
-                </div>
-              </div>
+              <p className="text-xs text-[var(--text-faint)] font-mono pt-1">
+                No credit card. No level too low.
+              </p>
             </div>
 
             {/* Right: continuously looping mascot-waving product demo
@@ -176,7 +228,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
       <section className="relative z-10 border-y border-[var(--border)] bg-[var(--bg-elevated)]/50 backdrop-blur-lg py-8">
         <div className="max-w-7xl mx-auto px-4 md:px-10 grid grid-cols-2 md:grid-cols-4 gap-6">
           {siteStats.map((stat, idx) => (
-            <Reveal key={idx} delayMs={idx * 160} className="text-center md:text-left">
+            <Reveal key={idx} delayMs={idx * 160} className="text-center">
               <div className="font-display font-bold text-2xl sm:text-3xl text-gradient">
                 {stat.value}
               </div>
@@ -191,145 +243,202 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
         </div>
       </section>
 
-      {/* 2. ABOUT SECTION */}
-      <section id="about" className="relative z-10 max-w-7xl mx-auto px-4 md:px-10 py-20">
+      {/* 2. THE PROMISE -- a plain, confident text block. No card grid
+          here on purpose: the promise is the opening statement, the
+          toolkit/skills sections right after carry the visual weight. */}
+      <section className="relative z-10 max-w-3xl mx-auto px-4 md:px-10 py-20 text-center">
         <Reveal>
-        <div className="text-center max-w-3xl mx-auto mb-14">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-[var(--text)]">
+            You don&rsquo;t have to be ready. You just have to begin.
+          </h2>
+          <div className="mt-5 space-y-3">
+            <p className="text-sm md:text-base text-[var(--text-dim)] leading-relaxed">
+              Maybe your grammar is weak. Maybe you have never seen an IELTS question. Maybe you tried before and the score was not enough.
+            </p>
+            <p className="text-sm md:text-base text-[var(--text-dim)] leading-relaxed">
+              None of that stops you here.
+            </p>
+            <p className="text-sm md:text-base text-[var(--text-dim)] leading-relaxed">
+              We start from wherever you are. And take you to where you need to be.
+            </p>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* 3. THE TOOLKIT */}
+      <section id="about" className="relative z-10 max-w-7xl mx-auto px-4 md:px-10 py-20">
+        <Reveal className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-1.5 text-xs font-mono text-[var(--accent-a)] mb-2 uppercase tracking-widest font-semibold">
             <BrainCircuit size={15} />
-            <span>Your Journey Starts Here</span>
+            <span>Everything You Need</span>
           </div>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-[var(--text)]">
-            Your Destination Is Bigger Than a Test
+            Everything you need. Nothing left out.
           </h2>
-          <div className="mt-3 space-y-3">
-            <p className="text-sm md:text-base text-[var(--text-dim)] leading-relaxed">
-              IELTS isn't the destination. It's one of the steps that can take you closer to the university, country, career, and life you've been imagining.
-            </p>
-            <p className="text-sm md:text-base text-[var(--text-dim)] leading-relaxed">
-              IELTS AI is an intelligent exam preparation framework engineered to align strictly with official Cambridge 9-Band descriptors. We provide objective, verifiable feedback without exaggerated guarantees.
-            </p>
-          </div>
-        </div>
+          <p className="text-sm md:text-base text-[var(--text-dim)] mt-3">
+            A complete path, built around how IELTS is scored.
+          </p>
         </Reveal>
 
-        <Reveal delayMs={200} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <GlassPanel className="space-y-3 border border-[var(--border)] shadow-lg">
-            <div className="w-10 h-10 rounded-xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center font-bold shadow-md">
-              <Shield size={20} />
-            </div>
-            <h3 className="font-display text-lg font-bold text-[var(--text)]">
-              Know Where You Stand
-            </h3>
-            <p className="text-xs text-[var(--text-dim)] leading-relaxed">
-              Take realistic IELTS practice and discover your strengths and weaknesses across all four skills.
-            </p>
-          </GlassPanel>
-
-          <GlassPanel className="space-y-3 border border-[var(--border)] shadow-lg">
-            <div className="w-10 h-10 rounded-xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center font-bold shadow-md">
-              <Trophy size={20} />
-            </div>
-            <h3 className="font-display text-lg font-bold text-[var(--text)]">
-              Know What To Improve
-            </h3>
-            <p className="text-xs text-[var(--text-dim)] leading-relaxed">
-              Get clear feedback on your performance so you know what needs more work before exam day.
-            </p>
-          </GlassPanel>
-
-          <GlassPanel className="space-y-3 border border-[var(--border)] shadow-lg">
-            <div className="w-10 h-10 rounded-xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center font-bold shadow-md">
-              <Sparkles size={20} />
-            </div>
-            <h3 className="font-display text-lg font-bold text-[var(--text)]">
-              Turn Mistakes Into Progress
-            </h3>
-            <p className="text-xs text-[var(--text-dim)] leading-relaxed">
-              See how your sentences can improve and use the feedback to write with greater clarity and confidence.
-            </p>
-          </GlassPanel>
+        <Reveal delayMs={200} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {toolkitItems.map((item, idx) => (
+            <GlassPanel key={idx} className="space-y-3 border border-[var(--border)] shadow-lg">
+              <div className="w-10 h-10 rounded-xl bg-[image:var(--accent-gradient)] text-white flex items-center justify-center font-bold shadow-md">
+                <item.icon size={20} />
+              </div>
+              <h3 className="font-display text-lg font-bold text-[var(--text)]">
+                {item.title}
+              </h3>
+              <p className="text-xs text-[var(--text-dim)] leading-relaxed">
+                {item.description}
+              </p>
+            </GlassPanel>
+          ))}
         </Reveal>
+      </section>
 
-        {/* 4 Core Practice Modules Overview */}
-        <div className="pt-8 border-t border-[var(--border)]">
-          <Reveal className="text-center mb-8">
-            <h3 className="font-display text-xl font-bold text-[var(--text)]">
-              Build the Skills That Take You There
-            </h3>
-          </Reveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {skillModules.map((module, idx) => (
-              <Reveal key={module.id} delayMs={idx * 140}>
-                <div
-                  onClick={() => onLaunchApp(module.id)}
-                  className="glass glass-interactive cursor-pointer relative overflow-hidden group shadow-lg transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col"
-                >
-                  {/* Framed video thumbnail -- muted, looping, cropped to a
-                      consistent ratio so the four differently-shot source
-                      clips sit evenly in the grid. */}
-                  <div className="relative w-full aspect-[4/3] overflow-hidden border-b border-[var(--border)] bg-[var(--bg-elevated)]">
-                    <video
-                      className="w-full h-full object-cover"
-                      src={moduleVideos[module.id]}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      preload="metadata"
-                      aria-hidden="true"
-                    />
-                  </div>
-
-                  <div className="p-5 flex-1 flex flex-col">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-[var(--bg-elevated)] border border-[var(--border)] text-[var(--text)]">
-                        {module.name.replace('IELTS ', '')}
-                      </span>
-                      <span className="text-[11px] font-mono text-[var(--text-faint)] bg-[var(--panel-2)] border border-[var(--border)] px-2 py-0.5 rounded-full">
-                        {module.activeModulesCount} Sets
-                      </span>
-                    </div>
-                    <h4 className="font-display font-bold text-sm text-[var(--text)] transition-colors mb-1">
-                      {moduleMarketingCopy[module.id]?.title ?? module.name}
-                    </h4>
-                    <p className="text-xs text-[var(--text-dim)] line-clamp-3 leading-relaxed">
-                      {moduleMarketingCopy[module.id]?.description ?? module.description}
-                    </p>
-                  </div>
+      {/* 4. FOUR SKILLS */}
+      <section className="relative z-10 max-w-7xl mx-auto px-4 md:px-10 pb-20">
+        <Reveal className="text-center mb-8">
+          <h3 className="font-display text-xl font-bold text-[var(--text)]">
+            Four skills. One journey.
+          </h3>
+        </Reveal>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {skillModules.map((module, idx) => (
+            <Reveal key={module.id} delayMs={idx * 140}>
+              <div
+                onClick={() => onLaunchApp(module.id)}
+                className="glass glass-interactive cursor-pointer relative overflow-hidden group shadow-lg transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col"
+              >
+                {/* Framed video thumbnail -- muted, looping, cropped to a
+                    consistent ratio so the four differently-shot source
+                    clips sit evenly in the grid. */}
+                <div className="relative w-full aspect-[4/3] overflow-hidden border-b border-[var(--border)] bg-[var(--bg-elevated)]">
+                  <video
+                    className="w-full h-full object-cover"
+                    src={moduleVideos[module.id]}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                    aria-hidden="true"
+                  />
                 </div>
-              </Reveal>
-            ))}
-          </div>
+
+                <div className="p-5 flex-1 flex flex-col">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-[var(--bg-elevated)] border border-[var(--border)] text-[var(--text)]">
+                      {module.name.replace('IELTS ', '')}
+                    </span>
+                    <span className="text-[11px] font-mono text-[var(--text-faint)] bg-[var(--panel-2)] border border-[var(--border)] px-2 py-0.5 rounded-full">
+                      {module.activeModulesCount} Sets
+                    </span>
+                  </div>
+                  <h4 className="font-display font-bold text-sm text-[var(--text)] transition-colors mb-1">
+                    {moduleMarketingCopy[module.id]?.title ?? module.name}
+                  </h4>
+                  <p className="text-xs text-[var(--text-dim)] line-clamp-3 leading-relaxed">
+                    {moduleMarketingCopy[module.id]?.description ?? module.description}
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </section>
 
-      {/* 3. HOW IT WORKS SECTION */}
+      {/* 5. THE FEEDBACK */}
+      <section className="relative z-10 bg-[var(--bg-elevated)]/40 border-y border-[var(--border)] py-20">
+        <div className="max-w-4xl mx-auto px-4 md:px-10 text-center">
+          <Reveal>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-[var(--text)]">
+              Feedback no classroom can give.
+            </h2>
+            <div className="mt-5 space-y-3 max-w-2xl mx-auto">
+              <p className="text-sm md:text-base text-[var(--text-dim)] leading-relaxed">
+                One teacher. Forty students. Your essay waits days.
+              </p>
+              <p className="text-sm md:text-base text-[var(--text-dim)] leading-relaxed">
+                Here, it is only you.
+              </p>
+              <p className="text-sm md:text-base text-[var(--text-dim)] leading-relaxed">
+                Ask again tomorrow. The AI never runs out of patience.
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal delayMs={200} className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10 max-w-2xl mx-auto">
+            <GlassPanel className="border border-[var(--border)] shadow-lg text-left">
+              <div className="w-9 h-9 rounded-xl bg-[image:var(--accent-gradient)] text-white font-bold font-mono text-sm flex items-center justify-center mb-4 shadow-md">
+                01
+              </div>
+              <h3 className="font-display font-bold text-lg text-[var(--text)] mb-2">
+                Writing, with instant feedback
+              </h3>
+              <p className="text-sm text-[var(--text)] leading-relaxed">
+                Write, and see what to fix the moment you finish.
+              </p>
+            </GlassPanel>
+            <GlassPanel className="border border-[var(--border)] shadow-lg text-left">
+              <div className="w-9 h-9 rounded-xl bg-[image:var(--accent-gradient)] text-white font-bold font-mono text-sm flex items-center justify-center mb-4 shadow-md">
+                02
+              </div>
+              <h3 className="font-display font-bold text-lg text-[var(--text)] mb-2">
+                Speaking, with real-time correction
+              </h3>
+              <p className="text-sm text-[var(--text)] leading-relaxed">
+                Speak, and hear exactly how to improve.
+              </p>
+            </GlassPanel>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 6. ANYWHERE */}
+      <section className="relative z-10 max-w-3xl mx-auto px-4 md:px-10 py-20 text-center">
+        <Reveal>
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-[var(--text)]">
+            No classroom. No commute. No schedule.
+          </h2>
+          <div className="mt-5 space-y-3">
+            <p className="text-sm md:text-base text-[var(--text-dim)] leading-relaxed">
+              Prepare from your room. On the bus. Between classes. At midnight.
+            </p>
+            <p className="text-sm md:text-base text-[var(--text-dim)] leading-relaxed">
+              Ten minutes is enough to begin. No coaching center. No fixed batch. No one waiting on you.
+            </p>
+            <p className="text-sm md:text-base text-[var(--text-dim)] leading-relaxed">
+              Your preparation is always with you. It waits until you are ready.
+            </p>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* 7. HOW IT WORKS */}
       <section id="how-it-works" className="relative z-10 bg-[var(--bg-elevated)]/40 border-y border-[var(--border)] py-20">
         <div className="max-w-7xl mx-auto px-4 md:px-10">
           <Reveal className="text-center max-w-3xl mx-auto mb-14">
             <div className="inline-flex items-center gap-1.5 text-xs font-mono text-[var(--accent-a)] mb-2 uppercase tracking-widest font-semibold">
               <CheckCircle2 size={15} />
-              <span>One Step Closer, Every Day</span>
+              <span>Three Steps</span>
             </div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-[var(--text)]">
-              One Step Closer, Every Day
+              Three steps. You always know the next one.
             </h2>
-            <p className="text-sm md:text-base text-[var(--text-dim)] mt-3">
-              Big dreams can feel far away. Break them down into small steps—and keep moving.
-            </p>
           </Reveal>
 
-          <Reveal delayMs={200} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Reveal delayMs={200} className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <GlassPanel className="border border-[var(--border)] shadow-lg">
               <div className="w-9 h-9 rounded-xl bg-[image:var(--accent-gradient)] text-white font-bold font-mono text-sm flex items-center justify-center mb-4 shadow-md">
                 01
               </div>
               <h3 className="font-display font-bold text-lg text-[var(--text)] mb-2">
-                Choose Your Goal
+                See where you stand
               </h3>
               <p className="text-xs text-[var(--text-dim)] leading-relaxed">
-                Pick a skill, practice type, or target score and decide what you want to improve today.
+                A short diagnostic across all four skills.
               </p>
             </GlassPanel>
 
@@ -338,10 +447,10 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
                 02
               </div>
               <h3 className="font-display font-bold text-lg text-[var(--text)] mb-2">
-                Practice Like It's Real
+                Follow your plan
               </h3>
               <p className="text-xs text-[var(--text-dim)] leading-relaxed">
-                Take timed exercises designed to feel closer to the real IELTS experience.
+                A daily plan built around your target band.
               </p>
             </GlassPanel>
 
@@ -350,193 +459,99 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
                 03
               </div>
               <h3 className="font-display font-bold text-lg text-[var(--text)] mb-2">
-                See Where You Stand
+                Practice and rise
               </h3>
               <p className="text-xs text-[var(--text-dim)] leading-relaxed">
-                Get instant feedback that shows what's working—and what needs more work.
-              </p>
-            </GlassPanel>
-
-            <GlassPanel className="border border-[var(--border)] shadow-lg">
-              <div className="w-9 h-9 rounded-xl bg-[image:var(--accent-gradient)] text-white font-bold font-mono text-sm flex items-center justify-center mb-4 shadow-md">
-                04
-              </div>
-              <h3 className="font-display font-bold text-lg text-[var(--text)] mb-2">
-                Come Back Stronger
-              </h3>
-              <p className="text-xs text-[var(--text-dim)] leading-relaxed">
-                Track your progress, strengthen your weak areas, and keep moving toward your target.
+                Practice with feedback. Then mock. Then watch your score move.
               </p>
             </GlassPanel>
           </Reveal>
         </div>
       </section>
 
-      {/* 4. PRICING SECTION -- commented out for now (see {false && (...)}
-          wrapper below). Not deleted; flip back on by removing that
-          wrapper once pricing is ready to show. */}
-      {false && (
-      <section id="pricing" className="relative z-10 max-w-7xl mx-auto px-4 md:px-10 py-20">
-        <Reveal className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-1.5 text-xs font-mono text-[var(--accent-a)] mb-2 uppercase tracking-widest font-semibold">
-            <Sparkles size={15} />
-            <span>Transparent Plans</span>
-          </div>
+      {/* 8. THE DESTINATION */}
+      <section className="relative z-10 max-w-3xl mx-auto px-4 md:px-10 py-20 text-center">
+        <Reveal>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-[var(--text)]">
-            Simple, Honest Pricing
+            This was never about a test.
           </h2>
-          <p className="text-sm text-[var(--text-dim)] mt-3">
-            Choose the plan that matches your exam date and study schedule. No hidden recurring traps.
-          </p>
-        </Reveal>
-
-        <Reveal delayMs={200} className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {/* Plan 1: Candidate Pro */}
-          <GlassPanel className="p-7 flex flex-col justify-between relative border border-[var(--border)]">
-            <div>
-              <div className="text-xs font-mono font-semibold uppercase text-[var(--text-faint)] tracking-wider mb-2">
-                Monthly Pro
-              </div>
-              <div className="font-display text-3xl font-extrabold text-[var(--text)] mb-1">
-                $19 <span className="text-sm font-normal text-[var(--text-dim)]">/ month</span>
-              </div>
-              <p className="text-xs text-[var(--text-dim)] mb-6">
-                Flexible month-to-month access for steady IELTS preparation.
-              </p>
-
-              <div className="space-y-3 pt-4 border-t border-[var(--border)] text-xs text-[var(--text-dim)]">
-                <div className="flex items-center gap-2.5">
-                  <Check size={16} className="text-[var(--success)] shrink-0" />
-                  <span>Unlimited AI Writing & Speaking evaluations</span>
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <Check size={16} className="text-[var(--success)] shrink-0" />
-                  <span>Sentence-level rewrites & collocations</span>
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <Check size={16} className="text-[var(--success)] shrink-0" />
-                  <span>Full reading & listening passage practice</span>
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <Check size={16} className="text-[var(--success)] shrink-0" />
-                  <span>Official 0.5 IELTS band rounding</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-8">
-              <Button
-                variant="secondary"
-                size="md"
-                className="w-full"
-                onClick={() => handleCta('signup')}
-              >
-                Enroll Monthly Pro
-              </Button>
-            </div>
-          </GlassPanel>
-
-          {/* Plan 2: 30-Day Sprint Pass (Most Popular) */}
-          <GlassPanel className="p-7 flex flex-col justify-between relative border-2 border-[var(--accent-a)] shadow-xl bg-[var(--bg-elevated)]">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-[var(--accent-a)] text-[var(--bg)] font-mono font-bold text-[11px] uppercase tracking-wider">
-              Most Popular
-            </div>
-
-            <div>
-              <div className="text-xs font-mono font-semibold uppercase text-[var(--accent-a)] tracking-wider mb-2">
-                30-Day Sprint Pass
-              </div>
-              <div className="font-display text-4xl font-extrabold text-[var(--text)] mb-1">
-                $39 <span className="text-sm font-normal text-[var(--text-dim)]">/ one-time</span>
-              </div>
-              <p className="text-xs text-[var(--text-dim)] mb-6">
-                One-time payment. Full high-intensity access for candidates testing this month.
-              </p>
-
-              <div className="space-y-3 pt-4 border-t border-[var(--border)] text-xs text-[var(--text)]">
-                <div className="flex items-center gap-2.5 font-medium">
-                  <Check size={16} className="text-[var(--accent-a)] shrink-0" />
-                  <span>30 Days of unlimited AI evaluations</span>
-                </div>
-                <div className="flex items-center gap-2.5 font-medium">
-                  <Check size={16} className="text-[var(--accent-a)] shrink-0" />
-                  <span>Priority AI evaluation processing queue</span>
-                </div>
-                <div className="flex items-center gap-2.5 font-medium">
-                  <Check size={16} className="text-[var(--accent-a)] shrink-0" />
-                  <span>Audio pronunciation & fluency analysis</span>
-                </div>
-                <div className="flex items-center gap-2.5 font-medium">
-                  <Check size={16} className="text-[var(--accent-a)] shrink-0" />
-                  <span>Full 2hr 45min exam simulations</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-8">
-              <Button
-                variant="primary"
-                size="md"
-                className="w-full"
-                icon={<ArrowUpRight size={16} />}
-                onClick={() => handleCta('signup')}
-              >
-                Get 30-Day Sprint Pass
-              </Button>
-            </div>
-          </GlassPanel>
-
-          {/* Plan 3: 90-Day Intensive Pass */}
-          <GlassPanel className="p-7 flex flex-col justify-between relative border border-[var(--border)]">
-            <div>
-              <div className="text-xs font-mono font-semibold uppercase text-[var(--text-faint)] tracking-wider mb-2">
-                90-Day Academic Pass
-              </div>
-              <div className="font-display text-3xl font-extrabold text-[var(--text)] mb-1">
-                $69 <span className="text-sm font-normal text-[var(--text-dim)]">/ one-time</span>
-              </div>
-              <p className="text-xs text-[var(--text-dim)] mb-6">
-                Single payment for a complete 3-month band score transformation.
-              </p>
-
-              <div className="space-y-3 pt-4 border-t border-[var(--border)] text-xs text-[var(--text-dim)]">
-                <div className="flex items-center gap-2.5">
-                  <Check size={16} className="text-[var(--success)] shrink-0" />
-                  <span>90 Days of full Candidate Pro access</span>
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <Check size={16} className="text-[var(--success)] shrink-0" />
-                  <span>Downloadable PDF diagnostic summary reports</span>
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <Check size={16} className="text-[var(--success)] shrink-0" />
-                  <span>1-on-1 AI strategy recommendations</span>
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <Check size={16} className="text-[var(--success)] shrink-0" />
-                  <span>No auto-recurring subscription</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-8">
-              <Button
-                variant="secondary"
-                size="md"
-                className="w-full"
-                onClick={() => handleCta('signup')}
-              >
-                Get 90-Day Pass
-              </Button>
-            </div>
-          </GlassPanel>
+          <div className="mt-5 space-y-3">
+            <p className="text-sm md:text-base text-[var(--text-dim)] leading-relaxed">
+              A university offer. A scholarship. A new country. A life you have been working toward.
+            </p>
+            <p className="text-sm md:text-base text-[var(--text-dim)] leading-relaxed">
+              IELTS is one step. We help you take it.
+            </p>
+          </div>
         </Reveal>
       </section>
-      )}
+
+      {/* 9. FAQ */}
+      <section className="relative z-10 max-w-3xl mx-auto px-4 md:px-10 py-20">
+        <Reveal className="text-center mb-10">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-[var(--text)]">
+            Good to know.
+          </h2>
+        </Reveal>
+
+        <Reveal delayMs={200} className="space-y-3">
+          {faqItems.map((item, idx) => {
+            const isOpen = openFaq === idx;
+            return (
+              <GlassPanel key={idx} className="border border-[var(--border)] shadow-lg !p-0 overflow-hidden">
+                <button
+                  type="button"
+                  onClick={() => setOpenFaq(isOpen ? null : idx)}
+                  aria-expanded={isOpen}
+                  className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left cursor-pointer"
+                >
+                  <span className="font-display font-semibold text-sm text-[var(--text)]">
+                    {item.q}
+                  </span>
+                  <ChevronDown
+                    size={16}
+                    className={`shrink-0 text-[var(--text-faint)] transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                  />
+                </button>
+                {isOpen && (
+                  <div className="px-5 pb-4">
+                    <p className="text-sm text-[var(--text-dim)] leading-relaxed">{item.a}</p>
+                  </div>
+                )}
+              </GlassPanel>
+            );
+          })}
+        </Reveal>
+      </section>
+
+      {/* 10. FINAL CTA */}
+      <section className="relative z-10 max-w-5xl mx-auto px-4 md:px-10 pb-20">
+        <Reveal>
+          <div className="text-center rounded-3xl border border-[var(--border)] bg-[image:var(--accent-gradient)] px-6 py-14 md:px-14 md:py-16 shadow-2xl">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white">
+              Begin today. Your band is closer than it looks.
+            </h2>
+            <div className="flex items-center justify-center pt-8">
+              <Button
+                variant="secondary"
+                size="lg"
+                icon={<UserPlus size={18} />}
+                onClick={() => handleCta('signup')}
+                className="!bg-white !text-[var(--accent-a)] hover:!bg-white/90 !border-transparent hover:!border-transparent"
+              >
+                {isLoggedIn ? 'Continue My Journey →' : 'Start free →'}
+              </Button>
+            </div>
+            <p className="text-xs text-white/80 font-mono pt-4">
+              No credit card. No level too low. Just your first step.
+            </p>
+          </div>
+        </Reveal>
+      </section>
 
       {/* Footer */}
       <footer className="font-michroma relative z-10 border-t border-[var(--border)] py-10 px-4 md:px-10 text-center text-xs tracking-wide text-[var(--text-faint)]">
-        <p className="mb-4 text-[var(--text-dim)]">Prepare for what's next.</p>
+        <p className="mb-4 text-[var(--text-dim)]">Prepare for what&rsquo;s next.</p>
         <div className="flex items-center justify-center mb-3">
           <img src="/branding/ielts-ai-wordmark-dark.png" alt="IELTS AI by nextED." className="brand-wordmark-dark h-10 w-auto object-contain" />
           <img src="/branding/ielts-ai-wordmark-light.png" alt="IELTS AI by nextED." className="brand-wordmark-light h-10 w-auto object-contain" />

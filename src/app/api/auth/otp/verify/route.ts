@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyOtp, OtpError } from '../../../../../lib/otp';
+import { sendMetaCapiEvent } from '../../../../../lib/metaCapiServer';
 
 // POST /api/auth/otp/verify { phone, code, purpose }
 // Checks the code against the most recent unconsumed OTP for that
@@ -21,6 +22,21 @@ export async function POST(req: NextRequest) {
     const cleanCode = String(code).trim();
 
     const proof = await verifyOtp(cleanPhone, cleanCode, purpose);
+
+    // Only "signup" OTP verification should count as CompleteRegistration
+    // -- this same route is also used for "password_reset", which is a
+    // different event entirely (and definitely not a new registration).
+    // Fired without awaiting: this is a fire-and-forget analytics side
+    // effect, not something that should slow down or ever fail the actual
+    // OTP verification response. sendMetaCapiEvent never throws.
+    if (purpose === 'signup') {
+      void sendMetaCapiEvent('CompleteRegistration', {
+        user: {
+          phone: cleanPhone,
+          externalId: cleanPhone,
+        },
+      });
+    }
 
     return NextResponse.json({ ok: true, proof });
   } catch (err: any) {

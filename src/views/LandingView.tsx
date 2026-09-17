@@ -134,8 +134,33 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
     }
   };
 
+  // FAQPage structured data -- built straight from faqItems above (single
+  // source of truth with the rendered accordion, so it can't drift out of
+  // sync) and rendered as SSR'd JSON-LD, same pattern as the Organization/
+  // WebSite schema in layout.tsx. This is what lets Google show these
+  // Q&As as an expandable rich result in search instead of just a plain
+  // blue link.
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.a,
+      },
+    })),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+
       {/* Beta announcement strip -- a sibling BEFORE LandingNav (not sticky
           itself), so it scrolls away with the page while the nav below it
           keeps sticking once it reaches the top. Persistent for every

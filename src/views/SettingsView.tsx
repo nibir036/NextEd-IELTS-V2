@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ThemeSwitcher } from '../components/settings/ThemeSwitcher';
 import { Button } from '../components/ui/Button';
 import { GlassPanel } from '../components/ui/GlassPanel';
+import { BackLink } from '../components/ui/BackLink';
 import { db, type DbUser, type ExamType, type AcademicBackground } from '../lib/db';
 import {
   Settings,
   Sparkles,
   Check,
-  Shield,
   LogOut,
   User,
-  GraduationCap,
   Award,
   Mail,
   PhoneCall,
@@ -19,6 +18,7 @@ import {
 interface SettingsViewProps {
   id?: string;
   onLogout?: () => void | Promise<void>;
+  onNavigateAction?: (route: string) => void;
 }
 
 const ACADEMIC_OPTIONS: { value: AcademicBackground; label: string }[] = [
@@ -31,19 +31,22 @@ const ACADEMIC_OPTIONS: { value: AcademicBackground; label: string }[] = [
   { value: 'other', label: 'Other' },
 ];
 
-const EXAM_TYPE_OPTIONS: { value: ExamType; label: string }[] = [
-  { value: 'academic', label: 'Academic' },
-  { value: 'general_training', label: 'General Training' },
-];
-
 const inputClass =
   'w-full bg-[var(--bg)] border border-[var(--border)] rounded-xl p-3 text-xs text-[var(--text)] placeholder:text-[var(--text-faint)] focus:outline-none focus:border-[var(--accent-a)] disabled:opacity-60 disabled:cursor-not-allowed transition-colors';
+const inputBaseClass =
+  'w-full bg-[var(--bg)] rounded-xl p-3 text-xs text-[var(--text)] placeholder:text-[var(--text-faint)] focus:outline-none focus:border-[var(--accent-a)] disabled:opacity-60 disabled:cursor-not-allowed transition-colors';
+// For a field that can show a validation error: swaps the border color
+// instead of layering a second border-color utility on top of inputClass's
+// own (which risks either one winning depending on Tailwind's generated
+// CSS order).
+const inputClassWithError = (hasError: boolean) =>
+  `${inputBaseClass} border ${hasError ? 'border-rose-500/60' : 'border-[var(--border)]'}`;
 const labelClass =
   'block text-xs font-mono text-[var(--text-dim)] uppercase mb-1 tracking-wide';
 const errorClass =
   'text-xs font-semibold text-rose-300 bg-rose-500/15 border border-rose-500/30 rounded-lg px-3 py-2';
 
-export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
+export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout, onNavigateAction }) => {
   const [user, setUser] = useState<DbUser | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -64,12 +67,34 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
   const [profileSaved, setProfileSaved] = useState(false);
   const [profileError, setProfileError] = useState('');
 
+  // Per-field errors shown directly under the offending input, with the
+  // matching ref scrolled into view on a failed save -- same pattern as
+  // SignupView.tsx / LoginView.tsx.
+  const [profileFieldErrors, setProfileFieldErrors] = useState<{
+    legalFullName?: string;
+    email?: string;
+    dateOfBirth?: string;
+    previousIeltsYear?: string;
+    previousIeltsBand?: string;
+  }>({});
+  const legalFullNameFieldRef = useRef<HTMLDivElement>(null);
+  const emailFieldRef = useRef<HTMLDivElement>(null);
+  const dateOfBirthFieldRef = useRef<HTMLDivElement>(null);
+  const previousIeltsYearFieldRef = useRef<HTMLDivElement>(null);
+  const previousIeltsBandFieldRef = useRef<HTMLDivElement>(null);
+
   // --- Goals form state ---
   const [targetBand, setTargetBand] = useState(8.0);
   const [examDate, setExamDate] = useState('');
   const [goalsSaving, setGoalsSaving] = useState(false);
   const [goalsSaved, setGoalsSaved] = useState(false);
   const [goalsError, setGoalsError] = useState('');
+  const [goalsFieldErrors, setGoalsFieldErrors] = useState<{ examDate?: string }>({});
+  const examDateFieldRef = useRef<HTMLDivElement>(null);
+
+  const scrollToField = (ref: React.RefObject<HTMLDivElement | null>) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
 
   // Hydrate every field from the real logged-in user.
   useEffect(() => {
@@ -102,6 +127,40 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
 
   const handleSaveProfile = async () => {
     setProfileError('');
+    setProfileFieldErrors({});
+
+    if (legalFullName.trim() && legalFullName.trim().length < 2) {
+      setProfileFieldErrors({ legalFullName: 'Enter your full legal name.' });
+      scrollToField(legalFullNameFieldRef);
+      return;
+    }
+    if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      setProfileFieldErrors({ email: 'Enter a valid email address.' });
+      scrollToField(emailFieldRef);
+      return;
+    }
+    if (dateOfBirth && new Date(dateOfBirth) > new Date()) {
+      setProfileFieldErrors({ dateOfBirth: 'Date of birth can\'t be in the future.' });
+      scrollToField(dateOfBirthFieldRef);
+      return;
+    }
+    if (hasTakenIelts) {
+      const year = Number(previousIeltsYear);
+      if (
+        previousIeltsYear &&
+        (!Number.isInteger(year) || year < 1990 || year > new Date().getFullYear())
+      ) {
+        setProfileFieldErrors({ previousIeltsYear: `Enter a year between 1990 and ${new Date().getFullYear()}.` });
+        scrollToField(previousIeltsYearFieldRef);
+        return;
+      }
+      if (!previousIeltsBand) {
+        setProfileFieldErrors({ previousIeltsBand: 'Select your previous overall band.' });
+        scrollToField(previousIeltsBandFieldRef);
+        return;
+      }
+    }
+
     setProfileSaving(true);
     try {
       const updated = await db.updateProfile({
@@ -129,6 +188,18 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
 
   const handleSaveGoals = async () => {
     setGoalsError('');
+    setGoalsFieldErrors({});
+
+    if (examDate) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      if (new Date(examDate) < today) {
+        setGoalsFieldErrors({ examDate: "Exam date can't be in the past." });
+        scrollToField(examDateFieldRef);
+        return;
+      }
+    }
+
     setGoalsSaving(true);
     try {
       const updated = await db.updateGoals({ targetBand, examDate });
@@ -147,6 +218,10 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
 
   return (
     <div id={id} className="space-y-6">
+      {onNavigateAction && (
+        <BackLink onClick={() => onNavigateAction('dashboard')}>Back to Dashboard</BackLink>
+      )}
+
       {/* Identity header */}
       <GlassPanel className="p-6 border border-[var(--border)] shadow-lg">
         <div className="flex items-center gap-4">
@@ -192,26 +267,44 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
                 />
               </div>
 
-              <div>
+              <div ref={legalFullNameFieldRef}>
                 <label className={labelClass}>Legal Full Name</label>
                 <input
                   type="text"
                   value={legalFullName}
-                  onChange={(e) => setLegalFullName(e.target.value)}
+                  onChange={(e) => {
+                    setLegalFullName(e.target.value.replace(/[^A-Za-z\s.'-]/g, ''));
+                    if (profileFieldErrors.legalFullName) {
+                      setProfileFieldErrors((prev) => ({ ...prev, legalFullName: undefined }));
+                    }
+                  }}
+                  pattern="[A-Za-z\s.'-]+"
+                  title="Name can only contain letters"
                   placeholder="As on your passport / ID"
-                  className={inputClass}
+                  className={inputClassWithError(Boolean(profileFieldErrors.legalFullName))}
                 />
+                {profileFieldErrors.legalFullName && (
+                  <p className="text-[11px] text-rose-400 mt-1">{profileFieldErrors.legalFullName}</p>
+                )}
               </div>
 
-              <div>
+              <div ref={emailFieldRef}>
                 <label className={labelClass}>Email</label>
                 <input
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (profileFieldErrors.email) {
+                      setProfileFieldErrors((prev) => ({ ...prev, email: undefined }));
+                    }
+                  }}
                   placeholder="you@example.com"
-                  className={inputClass}
+                  className={inputClassWithError(Boolean(profileFieldErrors.email))}
                 />
+                {profileFieldErrors.email && (
+                  <p className="text-[11px] text-rose-400 mt-1">{profileFieldErrors.email}</p>
+                )}
               </div>
 
               <div>
@@ -236,30 +329,22 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
                 />
               </div>
 
-              <div>
+              <div ref={dateOfBirthFieldRef}>
                 <label className={labelClass}>Date of Birth</label>
                 <input
                   type="date"
                   value={dateOfBirth}
-                  onChange={(e) => setDateOfBirth(e.target.value)}
-                  className={inputClass}
+                  onChange={(e) => {
+                    setDateOfBirth(e.target.value);
+                    if (profileFieldErrors.dateOfBirth) {
+                      setProfileFieldErrors((prev) => ({ ...prev, dateOfBirth: undefined }));
+                    }
+                  }}
+                  className={inputClassWithError(Boolean(profileFieldErrors.dateOfBirth))}
                 />
-              </div>
-
-              <div>
-                <label className={labelClass}>Exam Type</label>
-                <select
-                  value={examType}
-                  onChange={(e) => setExamType(e.target.value as ExamType | '')}
-                  className={inputClass}
-                >
-                  <option value="">Select…</option>
-                  {EXAM_TYPE_OPTIONS.map((o) => (
-                    <option key={o.value} value={o.value}>
-                      {o.label}
-                    </option>
-                  ))}
-                </select>
+                {profileFieldErrors.dateOfBirth && (
+                  <p className="text-[11px] text-rose-400 mt-1">{profileFieldErrors.dateOfBirth}</p>
+                )}
               </div>
 
               <div>
@@ -313,24 +398,37 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
 
               {hasTakenIelts && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
-                  <div>
+                  <div ref={previousIeltsYearFieldRef}>
                     <label className={labelClass}>Year Taken</label>
                     <input
                       type="number"
                       min={1990}
                       max={new Date().getFullYear()}
                       value={previousIeltsYear}
-                      onChange={(e) => setPreviousIeltsYear(e.target.value)}
+                      onChange={(e) => {
+                        setPreviousIeltsYear(e.target.value);
+                        if (profileFieldErrors.previousIeltsYear) {
+                          setProfileFieldErrors((prev) => ({ ...prev, previousIeltsYear: undefined }));
+                        }
+                      }}
                       placeholder="e.g. 2023"
-                      className={inputClass}
+                      className={inputClassWithError(Boolean(profileFieldErrors.previousIeltsYear))}
                     />
+                    {profileFieldErrors.previousIeltsYear && (
+                      <p className="text-[11px] text-rose-400 mt-1">{profileFieldErrors.previousIeltsYear}</p>
+                    )}
                   </div>
-                  <div>
+                  <div ref={previousIeltsBandFieldRef}>
                     <label className={labelClass}>Previous Overall Band</label>
                     <select
                       value={previousIeltsBand}
-                      onChange={(e) => setPreviousIeltsBand(e.target.value)}
-                      className={inputClass}
+                      onChange={(e) => {
+                        setPreviousIeltsBand(e.target.value);
+                        if (profileFieldErrors.previousIeltsBand) {
+                          setProfileFieldErrors((prev) => ({ ...prev, previousIeltsBand: undefined }));
+                        }
+                      }}
+                      className={inputClassWithError(Boolean(profileFieldErrors.previousIeltsBand))}
                     >
                       <option value="">Select…</option>
                       {[4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0].map((b) => (
@@ -339,6 +437,9 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
                         </option>
                       ))}
                     </select>
+                    {profileFieldErrors.previousIeltsBand && (
+                      <p className="text-[11px] text-rose-400 mt-1">{profileFieldErrors.previousIeltsBand}</p>
+                    )}
                   </div>
                 </div>
               )}
@@ -348,11 +449,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
               <p className={errorClass}>{profileError}</p>
             )}
 
-            <div className="pt-2 flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs text-[var(--text-dim)]">
-                <GraduationCap size={14} className="text-[var(--text-faint)]" />
-                <span>Used to personalize your study plan</span>
-              </div>
+            <div className="pt-2 flex items-center justify-end">
               <Button
                 variant="primary"
                 size="md"
@@ -392,25 +489,28 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ id, onLogout }) => {
             </select>
           </div>
 
-          <div>
+          <div ref={examDateFieldRef}>
             <label className={labelClass}>Scheduled Official Exam Date</label>
             <input
               type="date"
               value={examDate}
-              onChange={(e) => setExamDate(e.target.value)}
-              className={inputClass}
+              onChange={(e) => {
+                setExamDate(e.target.value);
+                if (goalsFieldErrors.examDate) {
+                  setGoalsFieldErrors((prev) => ({ ...prev, examDate: undefined }));
+                }
+              }}
+              className={inputClassWithError(Boolean(goalsFieldErrors.examDate))}
             />
+            {goalsFieldErrors.examDate && (
+              <p className="text-[11px] text-rose-400 mt-1">{goalsFieldErrors.examDate}</p>
+            )}
           </div>
         </div>
 
         {goalsError && <p className={errorClass}>{goalsError}</p>}
 
-        <div className="pt-3 flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xs text-[var(--text-dim)]">
-            <Shield size={14} className="text-[var(--success)]" />
-            <span>Saved to your account</span>
-          </div>
-
+        <div className="pt-3 flex items-center justify-end">
           <Button
             variant="primary"
             size="md"

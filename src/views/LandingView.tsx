@@ -135,13 +135,33 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
   };
 
   return (
-    <div id={id} className="min-h-screen bg-[var(--bg)] text-[var(--text)] relative overflow-hidden">
-      {/* Background ambient glow layer */}
-      <div className="bg-layer">
-        <div className="bg-pattern" />
+    <>
+      {/* Beta announcement strip -- a sibling BEFORE LandingNav (not sticky
+          itself), so it scrolls away with the page while the nav below it
+          keeps sticking once it reaches the top. Persistent for every
+          visitor; there's no dismiss/localStorage flag because this is
+          meant to stay visible for the whole beta period, not just once. */}
+      <div className="relative z-20 bg-[image:var(--accent-gradient)] text-white text-center px-4 py-2">
+        <p className="text-xs md:text-sm font-mono font-semibold flex items-center justify-center gap-2 flex-wrap">
+          <Sparkles size={14} className="shrink-0" />
+          <span>You&apos;re using the Beta release of IELTS AI — features are still being polished, and things may change.</span>
+        </p>
       </div>
 
+      {/* LandingNav renders here, as a sibling BEFORE the overflow-hidden
+          content wrapper below, not inside it. Per the CSS spec, any
+          ancestor with a non-visible `overflow` breaks `position: sticky`
+          for its descendants -- even one that never actually clips
+          anything, like this wrapper (it only exists to contain the
+          decorative background layers). That's why the nav wasn't
+          actually sticking on scroll despite having `sticky` set. */}
       <LandingNav onNavigate={(route) => onLaunchApp(route)} isLoggedIn={isLoggedIn} />
+
+      <div id={id} className="min-h-screen bg-[var(--bg)] text-[var(--text)] relative overflow-hidden">
+        {/* Background ambient glow layer */}
+        <div className="bg-layer">
+          <div className="bg-pattern" />
+        </div>
 
       {/* 1. HOME SECTION -- the looping flight-route Lottie animation
           (public/lottie/hero-flight.json, recolored to the app's own
@@ -557,7 +577,25 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
           <img src="/branding/ielts-ai-wordmark-light.png" alt="IELTS AI by nextED." className="brand-wordmark-light h-10 w-auto object-contain" />
         </div>
         <p className="leading-relaxed">© 2026 IELTS AI · IELTS is a registered trademark of University of Cambridge, British Council and IDP Education.</p>
+        <div className="flex items-center justify-center gap-4 mt-3 font-sans normal-case tracking-normal">
+          <button
+            type="button"
+            onClick={() => onLaunchApp('terms')}
+            className="text-[var(--text-faint)] hover:text-[var(--accent-a)] hover:underline cursor-pointer transition-colors"
+          >
+            Terms &amp; Conditions
+          </button>
+          <span className="text-[var(--border)]">·</span>
+          <button
+            type="button"
+            onClick={() => onLaunchApp('privacy')}
+            className="text-[var(--text-faint)] hover:text-[var(--accent-a)] hover:underline cursor-pointer transition-colors"
+          >
+            Privacy Policy
+          </button>
+        </div>
       </footer>
-    </div>
+      </div>
+    </>
   );
 };

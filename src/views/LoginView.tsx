@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
 import { BackLink } from '../components/ui/BackLink';
@@ -36,11 +36,22 @@ export const LoginView: React.FC<LoginViewProps> = ({
   onNavigateToLanding,
   onNavigateToForgotPassword,
 }) => {
-  const [countryCode, setCountryCode] = useState<string>('+1');
+  const [countryCode, setCountryCode] = useState<string>('+88');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  // Per-field errors shown directly under the offending input, with the
+  // matching ref scrolled into view on a failed submit -- see the same
+  // pattern in SignupView.tsx.
+  const [fieldErrors, setFieldErrors] = useState<{ phone?: string; password?: string }>({});
+  const phoneFieldRef = useRef<HTMLDivElement>(null);
+  const passwordFieldRef = useRef<HTMLDivElement>(null);
+
+  const scrollToField = (ref: React.RefObject<HTMLDivElement | null>) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
 
   const fullPhone = `${countryCode} ${phoneNumber.trim()}`;
 
@@ -49,13 +60,16 @@ export const LoginView: React.FC<LoginViewProps> = ({
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
+    setFieldErrors({});
 
     if (!phoneNumber.trim() || phoneNumber.trim().length < 6) {
-      setErrorMessage('Please enter a valid mobile phone number.');
+      setFieldErrors({ phone: 'Please enter a valid mobile phone number.' });
+      scrollToField(phoneFieldRef);
       return;
     }
     if (!password) {
-      setErrorMessage('Please enter your password.');
+      setFieldErrors({ password: 'Please enter your password.' });
+      scrollToField(passwordFieldRef);
       return;
     }
 
@@ -65,7 +79,8 @@ export const LoginView: React.FC<LoginViewProps> = ({
       if (user) {
         onLoginSuccess();
       } else {
-        setErrorMessage('Invalid phone number or password.');
+        setFieldErrors({ password: 'Invalid phone number or password.' });
+        scrollToField(passwordFieldRef);
       }
     } catch {
       setErrorMessage('Something went wrong. Please try again.');
@@ -139,7 +154,7 @@ export const LoginView: React.FC<LoginViewProps> = ({
                 </select>
               </div>
 
-              <div>
+              <div ref={phoneFieldRef}>
                 <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
                   Mobile Phone Number
                 </label>
@@ -150,15 +165,23 @@ export const LoginView: React.FC<LoginViewProps> = ({
                   <input
                     type="tel"
                     required
-                    placeholder="e.g. 555-019-2834"
+                    inputMode="numeric"
+                    maxLength={11}
+                    placeholder="e.g. 01712345678"
                     value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors font-mono"
+                    onChange={(e) => {
+                      setPhoneNumber(e.target.value.replace(/\D/g, '').slice(0, 11));
+                      if (fieldErrors.phone) setFieldErrors((prev) => ({ ...prev, phone: undefined }));
+                    }}
+                    className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--bg)] border text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors font-mono ${fieldErrors.phone ? 'border-rose-500/60' : 'border-[var(--border)]'}`}
                   />
                 </div>
+                {fieldErrors.phone && (
+                  <p className="text-[11px] text-rose-400 mt-1.5">{fieldErrors.phone}</p>
+                )}
               </div>
 
-              <div>
+              <div ref={passwordFieldRef}>
                 <div className="flex items-center justify-between mb-1.5">
                   <label className="block text-xs font-mono uppercase text-[var(--text-dim)] font-semibold">
                     Password
@@ -180,10 +203,16 @@ export const LoginView: React.FC<LoginViewProps> = ({
                     required
                     placeholder="Your password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors"
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      if (fieldErrors.password) setFieldErrors((prev) => ({ ...prev, password: undefined }));
+                    }}
+                    className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--bg)] border text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors ${fieldErrors.password ? 'border-rose-500/60' : 'border-[var(--border)]'}`}
                   />
                 </div>
+                {fieldErrors.password && (
+                  <p className="text-[11px] text-rose-400 mt-1.5">{fieldErrors.password}</p>
+                )}
               </div>
 
               <Button

@@ -23,6 +23,8 @@ import { AiTutorView } from './views/AiTutorView';
 import { DiagnosticView } from './views/DiagnosticView';
 import { AdminView } from './views/AdminView';
 import { AdminLoginView } from './views/AdminLoginView';
+import { TermsView } from './views/TermsView';
+import { PrivacyPolicyView } from './views/PrivacyPolicyView';
 import { db } from './lib/db';
 
 const PROTECTED_ROUTES = [
@@ -47,7 +49,7 @@ const PROTECTED_ROUTES = [
 // 'admin-login' is intentionally public (it's a login page, same as
 // 'login') and intentionally not linked from anywhere in the UI -- admins
 // just navigate to it directly. See views/AdminLoginView.tsx.
-const PUBLIC_ROUTES = ['landing', 'login', 'signup', 'forgot-password', 'admin-login'];
+const PUBLIC_ROUTES = ['landing', 'login', 'signup', 'forgot-password', 'admin-login', 'terms', 'privacy'];
 const ALL_ROUTES = new Set([...PUBLIC_ROUTES, ...PROTECTED_ROUTES]);
 
 // Routes can now carry an optional sub-path after the base id, e.g.
@@ -220,7 +222,7 @@ export default function App() {
       case 'search':
         return <SearchView onNavigateAction={handleNavigate} />;
       case 'settings':
-        return <SettingsView onLogout={handleLogout} />;
+        return <SettingsView onLogout={handleLogout} onNavigateAction={handleNavigate} />;
       case 'lms-grammar':
         return <LmsView initialTab="grammar" initialModuleSlug={subPath} />;
       case 'lms-vocab':
@@ -278,6 +280,10 @@ export default function App() {
           onLoginSuccess={handleAdminLoginSuccess}
           onNavigateToLanding={() => handleNavigate('landing')}
         />
+      ) : baseRoute === 'terms' ? (
+        <TermsView onNavigateToLanding={() => handleNavigate('landing')} />
+      ) : baseRoute === 'privacy' ? (
+        <PrivacyPolicyView onNavigateToLanding={() => handleNavigate('landing')} />
       ) : (
         <AppShell currentRoute={currentRoute} onNavigate={handleNavigate} onLogout={handleLogout}>
           {renderMainContent()}

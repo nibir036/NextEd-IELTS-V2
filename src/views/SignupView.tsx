@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
 import { BackLink } from '../components/ui/BackLink';
@@ -38,7 +38,7 @@ export const SignupView: React.FC<SignupViewProps> = ({
   onNavigateToLogin,
   onNavigateToLanding,
 }) => {
-  const [countryCode, setCountryCode] = useState<string>('+1');
+  const [countryCode, setCountryCode] = useState<string>('+88');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [fullName, setFullName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -60,6 +60,27 @@ export const SignupView: React.FC<SignupViewProps> = ({
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  // Per-field errors shown directly under the offending input, instead of
+  // (or alongside) the generic banner above the form -- and the matching
+  // ref each is scrolled into view with on a failed submit, so the
+  // candidate lands right on the field that needs fixing rather than
+  // having to hunt for it.
+  const [fieldErrors, setFieldErrors] = useState<{
+    fullName?: string;
+    phone?: string;
+    password?: string;
+    confirmPassword?: string;
+  }>({});
+  const fullNameFieldRef = useRef<HTMLDivElement>(null);
+  const phoneFieldRef = useRef<HTMLDivElement>(null);
+  const otpFieldRef = useRef<HTMLDivElement>(null);
+  const passwordFieldRef = useRef<HTMLDivElement>(null);
+  const confirmPasswordFieldRef = useRef<HTMLDivElement>(null);
+
+  const scrollToField = (ref: React.RefObject<HTMLDivElement | null>) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
 
   const fullPhone = `${countryCode} ${phoneNumber.trim()}`;
   const cleanPhone = fullPhone.replace(/\s+/g, '');
@@ -88,8 +109,8 @@ export const SignupView: React.FC<SignupViewProps> = ({
     setOtpErrorMessage(null);
     setOtpStatusMessage(null);
 
-    if (!phoneNumber.trim() || phoneNumber.trim().length < 6) {
-      setOtpErrorMessage('Enter your mobile phone number first.');
+    if (!phoneNumber.trim() || phoneNumber.trim().length !== 11) {
+      setOtpErrorMessage('Enter a valid 11-digit BD mobile number first.');
       return;
     }
 
@@ -134,25 +155,31 @@ export const SignupView: React.FC<SignupViewProps> = ({
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
+    setFieldErrors({});
 
     if (!fullName.trim() || fullName.trim().length < 2) {
-      setErrorMessage('Please enter your full candidate name.');
+      setFieldErrors({ fullName: 'Please enter your full candidate name.' });
+      scrollToField(fullNameFieldRef);
       return;
     }
-    if (!phoneNumber.trim() || phoneNumber.trim().length < 6) {
-      setErrorMessage('Please enter a valid mobile phone number.');
+    if (!phoneNumber.trim() || phoneNumber.trim().length !== 11) {
+      setFieldErrors({ phone: 'Please enter a valid 11-digit BD mobile number.' });
+      scrollToField(phoneFieldRef);
       return;
     }
     if (!otpProof) {
-      setErrorMessage('Please verify your phone number with the OTP code first.');
+      setOtpErrorMessage('Please verify your phone number with the OTP code first.');
+      scrollToField(otpFieldRef);
       return;
     }
     if (password.length < 6) {
-      setErrorMessage('Password must be at least 6 characters.');
+      setFieldErrors({ password: 'Password must be at least 6 characters.' });
+      scrollToField(passwordFieldRef);
       return;
     }
     if (password !== confirmPassword) {
-      setErrorMessage('Passwords do not match.');
+      setFieldErrors({ confirmPassword: 'Passwords do not match.' });
+      scrollToField(confirmPasswordFieldRef);
       return;
     }
 
@@ -241,7 +268,7 @@ export const SignupView: React.FC<SignupViewProps> = ({
 
             <form onSubmit={handleRegister} className="space-y-4">
               {/* Full Candidate Name */}
-              <div>
+              <div ref={fullNameFieldRef}>
                 <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
                   Full Candidate Name
                 </label>
@@ -254,14 +281,22 @@ export const SignupView: React.FC<SignupViewProps> = ({
                     required
                     placeholder="e.g. David Sterling"
                     value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors"
+                    onChange={(e) => {
+                      setFullName(e.target.value.replace(/[^A-Za-z\s.'-]/g, ''));
+                      if (fieldErrors.fullName) setFieldErrors((prev) => ({ ...prev, fullName: undefined }));
+                    }}
+                    pattern="[A-Za-z\s.'-]+"
+                    title="Name can only contain letters"
+                    className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--bg)] border text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors ${fieldErrors.fullName ? 'border-rose-500/60' : 'border-[var(--border)]'}`}
                   />
                 </div>
+                {fieldErrors.fullName && (
+                  <p className="text-[11px] text-rose-400 mt-1.5">{fieldErrors.fullName}</p>
+                )}
               </div>
 
               {/* Phone number and country code */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div ref={phoneFieldRef} className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div>
                   <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
                     Country Code
@@ -291,20 +326,28 @@ export const SignupView: React.FC<SignupViewProps> = ({
                     <input
                       type="tel"
                       required
-                      placeholder="e.g. 555-019-9988"
+                      inputMode="numeric"
+                      maxLength={11}
+                      placeholder="e.g. 01712345678"
                       value={phoneNumber}
-                      onChange={(e) => handlePhoneNumberChange(e.target.value)}
+                      onChange={(e) => {
+                        handlePhoneNumberChange(e.target.value.replace(/\D/g, '').slice(0, 11));
+                        if (fieldErrors.phone) setFieldErrors((prev) => ({ ...prev, phone: undefined }));
+                      }}
                       disabled={isOtpVerified}
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors font-mono disabled:opacity-60"
+                      className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--bg)] border text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors font-mono disabled:opacity-60 ${fieldErrors.phone ? 'border-rose-500/60' : 'border-[var(--border)]'}`}
                     />
                   </div>
+                  {fieldErrors.phone && (
+                    <p className="text-[11px] text-rose-400 mt-1.5">{fieldErrors.phone}</p>
+                  )}
                 </div>
               </div>
 
               {/* Phone OTP verification — sends via /api/auth/otp/send (Alpha
                   SMS) and checks via /api/auth/otp/verify. A successful
                   verify is required before Create Account is enabled. */}
-              <div>
+              <div ref={otpFieldRef}>
                 <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
                   Verification Code (OTP)
                 </label>
@@ -380,7 +423,7 @@ export const SignupView: React.FC<SignupViewProps> = ({
                   can't type a password for an unverified phone number,
                   not just be blocked from submitting one. */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div>
+                <div ref={passwordFieldRef}>
                   <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
                     Password
                   </label>
@@ -389,12 +432,18 @@ export const SignupView: React.FC<SignupViewProps> = ({
                     required
                     placeholder={isOtpVerified ? 'At least 6 characters' : 'Verify your phone first'}
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      if (fieldErrors.password) setFieldErrors((prev) => ({ ...prev, password: undefined }));
+                    }}
                     disabled={!isOtpVerified}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors disabled:opacity-60"
+                    className={`w-full px-4 py-2.5 rounded-xl bg-[var(--bg)] border text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors disabled:opacity-60 ${fieldErrors.password ? 'border-rose-500/60' : 'border-[var(--border)]'}`}
                   />
+                  {fieldErrors.password && (
+                    <p className="text-[11px] text-rose-400 mt-1.5">{fieldErrors.password}</p>
+                  )}
                 </div>
-                <div>
+                <div ref={confirmPasswordFieldRef}>
                   <label className="block text-xs font-mono uppercase text-[var(--text-dim)] mb-1.5 font-semibold">
                     Confirm Password
                   </label>
@@ -403,10 +452,16 @@ export const SignupView: React.FC<SignupViewProps> = ({
                     required
                     placeholder={isOtpVerified ? 'Re-enter password' : 'Verify your phone first'}
                     value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    onChange={(e) => {
+                      setConfirmPassword(e.target.value);
+                      if (fieldErrors.confirmPassword) setFieldErrors((prev) => ({ ...prev, confirmPassword: undefined }));
+                    }}
                     disabled={!isOtpVerified}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[var(--bg)] border border-[var(--border)] text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors disabled:opacity-60"
+                    className={`w-full px-4 py-2.5 rounded-xl bg-[var(--bg)] border text-sm text-[var(--text)] focus:outline-none focus:border-[var(--accent-a)] transition-colors disabled:opacity-60 ${fieldErrors.confirmPassword ? 'border-rose-500/60' : 'border-[var(--border)]'}`}
                   />
+                  {fieldErrors.confirmPassword && (
+                    <p className="text-[11px] text-rose-400 mt-1.5">{fieldErrors.confirmPassword}</p>
+                  )}
                 </div>
               </div>
 

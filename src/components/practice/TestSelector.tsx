@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { GlassPanel } from '../ui/GlassPanel';
-import { Clock, Trophy, ArrowRight, BookOpen, Lock, CheckCircle2 } from '../ui/icons';
+import { Clock, Trophy, ArrowRight, BookOpen, Lock, CheckCircle2, History } from '../ui/icons';
+import { db, type SubmissionDetail } from '../../lib/db';
+import { SubmissionDetailModal } from './SubmissionDetailModal';
 
 export interface TestCard {
   id: string;
@@ -8,11 +10,24 @@ export interface TestCard {
   description: string;
   bandTarget: number | null;
   durationSeconds: number | null;
-  // Present only for paywalled skills (writing/speaking) -- see
-  // src/lib/paywall.ts. Absent (undefined) for reading/listening, which
-  // this component leaves completely untouched.
+  // Present for every skill when the viewer is logged in (see
+  // src/lib/paywall.ts: annotateTestLocks for writing/speaking,
+  // annotateUngatedAttempted for reading/listening). Absent (undefined)
+  // for a logged-out visitor, or if the request otherwise skipped
+  // annotation.
   attempted?: boolean;
+  // Only ever set for writing/speaking -- each of those tests is one-shot
+  // (see src/lib/paywall.ts), so `attempted` there also disables the card.
+  // Reading/listening are unlimited retakes, so `attempted` there is
+  // purely informational -- see isDisabled below.
   locked?: boolean;
+  // Id of the most recent submission (writing/speaking) or test_attempts
+  // (reading/listening) row for this test, whichever this skill uses --
+  // set alongside `attempted` by the same paywall.ts annotators. Feeds the
+  // history-clock button: writing/speaking only ever have one attempt per
+  // test (so "last" and "only" are the same thing), while reading/listening
+  // can be retaken, so this always points at the newest one.
+  lastAttemptId?: string | null;
 }
 
 interface TestSelectorProps {
@@ -33,6 +48,13 @@ export const TestSelector: React.FC<TestSelectorProps> = ({
   const [freeQuota, setFreeQuota] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // History popup -- shows the last (writing/speaking: only) attempt's full
+  // result for one card, via the same modal the Submissions history page
+  // uses. Keyed by which card's button is currently loading, so a click on
+  // one card can't be mistaken for a different card's in-flight request.
+  const [historyDetail, setHistoryDetail] = useState<SubmissionDetail | null>(null);
+  const [historyLoadingId, setHistoryLoadingId] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -56,6 +78,29 @@ export const TestSelector: React.FC<TestSelectorProps> = ({
       cancelled = true;
     };
   }, [skill]);
+
+  // Writing/speaking submissions are graded and stored via `submissions`;
+  // reading/listening are auto-scored via `test_attempts` -- see
+  // src/lib/paywall.ts. GET /api/submissions/[id]?origin=... needs to know
+  // which table to look in.
+  const origin: 'submission' | 'attempt' = skill === 'writing' || skill === 'speaking'
+    ? 'submission'
+    : 'attempt';
+
+  const openHistory = async (e: React.MouseEvent, testId: string, lastAttemptId: string) => {
+    e.stopPropagation(); // don't also trigger the card's onSelect/retake click
+    setHistoryLoadingId(testId);
+    try {
+      const detail = await db.getSubmission(lastAttemptId, origin);
+      setHistoryDetail(detail);
+    } catch {
+      // The card's own error state is for the test list; a failed history
+      // fetch just quietly doesn't open anything rather than derailing the
+      // whole browse page.
+    } finally {
+      setHistoryLoadingId(null);
+    }
+  };
 
   if (loading) {
     return (
@@ -101,7 +146,13 @@ export const TestSelector: React.FC<TestSelectorProps> = ({
         {tests.map((t, index) => {
           const isLocked = Boolean(t.locked);
           const isAttempted = Boolean(t.attempted);
-          const isDisabled = isLocked || isAttempted;
+          // Writing/speaking tests are one-shot, so having attempted one
+          // disables it exactly like being locked. Reading/listening are
+          // unlimited retakes (see paywall.ts), so `attempted` there is
+          // just the "Completed" badge -- the card stays clickable.
+          const isRetakeable = skill === 'reading' || skill === 'listening';
+          const isDisabled = isLocked || (isAttempted && !isRetakeable);
+          const canShowHistory = isAttempted && !isLocked && Boolean(t.lastAttemptId);
 
           return (
             <GlassPanel
@@ -111,7 +162,7 @@ export const TestSelector: React.FC<TestSelectorProps> = ({
               className={`animate-tileDropIn shadow-lg p-5 flex flex-col justify-between border relative overflow-hidden transition-transform duration-300 ${
                 isLocked
                   ? 'border-[var(--border)] pointer-events-none select-none'
-                  : isAttempted
+                  : isDisabled
                     ? 'border-[var(--border)] opacity-70'
                     : 'border-[var(--border)] group cursor-pointer hover:-translate-y-1 hover:shadow-xl'
               }`}
@@ -152,9 +203,22 @@ export const TestSelector: React.FC<TestSelectorProps> = ({
               </div>
 
               {isAttempted && !isLocked && (
-                <span className="absolute top-3 right-3 flex items-center gap-1 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-lg">
-                  <CheckCircle2 size={12} /> Completed
-                </span>
+                <div className="absolute top-3 right-3 flex items-center gap-1.5">
+                  <span className="flex items-center gap-1 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-lg">
+                    <CheckCircle2 size={12} /> Completed
+                  </span>
+                  {canShowHistory && (
+                    <button
+                      type="button"
+                      onClick={(e) => openHistory(e, t.id, t.lastAttemptId as string)}
+                      disabled={historyLoadingId === t.id}
+                      title={isRetakeable ? "View last attempt's result" : 'View your result'}
+                      className="w-6 h-6 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border)] text-[var(--text-dim)] hover:text-[var(--accent-a)] hover:border-[var(--accent-a)]/40 flex items-center justify-center transition-colors cursor-pointer disabled:opacity-50"
+                    >
+                      <History size={12} />
+                    </button>
+                  )}
+                </div>
               )}
 
               {isLocked && (
@@ -163,7 +227,7 @@ export const TestSelector: React.FC<TestSelectorProps> = ({
                     <Lock size={18} />
                   </div>
                   <span className="text-[11px] font-mono font-semibold text-[var(--text)] bg-[var(--bg-elevated)] border border-[var(--border)] px-2.5 py-1 rounded-lg">
-                    Upgrade to unlock
+                    You Quota is Finished
                   </span>
                 </div>
               )}
@@ -171,6 +235,12 @@ export const TestSelector: React.FC<TestSelectorProps> = ({
           );
         })}
       </div>
+
+      <SubmissionDetailModal
+        selected={historyDetail}
+        loading={historyLoadingId !== null}
+        onClose={() => setHistoryDetail(null)}
+      />
     </div>
   );
 };

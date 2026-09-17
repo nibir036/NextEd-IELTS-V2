@@ -21,7 +21,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onNavigate, isLoggedIn =
   return (
     <header
       id={id}
-      className="sticky top-0 z-30 bg-[var(--bg)]/80 backdrop-blur-xl border-b border-[var(--border)] px-4 md:px-10 py-4 flex items-center justify-between"
+      className="glass-nav sticky top-0 z-30 px-4 md:px-10 py-4 flex items-center justify-between"
     >
       <a
         href="#home"
@@ -83,7 +83,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onNavigate, isLoggedIn =
               icon={<UserPlus size={15} />}
               onClick={() => onNavigate('signup')}
             >
-              Sign Up
+              start free
             </Button>
           </>
         )}

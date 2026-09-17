@@ -9,6 +9,7 @@ import { DashboardCarousel } from '../components/dashboard/DashboardCarousel';
 import { SkillProgressGraph } from '../components/dashboard/SkillProgressGraph';
 import { GoalPieChart } from '../components/dashboard/GoalPieChart';
 import { DailyTipBanner } from '../components/dashboard/DailyTipBanner';
+import { PromoBanners } from '../components/dashboard/PromoBanners';
 import { Reveal } from '../components/ui/Reveal';
 import {
   Sparkles,
@@ -165,6 +166,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
           <DashboardCarousel onNavigateAction={onNavigateAction} user={user} data={dashboard} loading={loading} />
         </div>
       </div>
+
+      {/* Persistent promos: refer-a-friend (copies the site link) and the
+          free-counselling "gift" reveal. Always shown -- not tied to the
+          isReturning/first-visit flag above, unlike the welcome copy. */}
+      <PromoBanners />
 
       <div data-tour="dashboard-modules" className="space-y-4">
         <div className="flex items-center justify-between">

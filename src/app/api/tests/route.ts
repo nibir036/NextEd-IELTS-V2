@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '../../../lib/prisma';
 import { getSessionUserId } from '../../../lib/session';
-import { FREE_TEST_QUOTA, annotateTestLocks, isGatedSkill } from '../../../lib/paywall';
+import {
+  FREE_TEST_QUOTA,
+  annotateTestLocks,
+  annotateUngatedAttempted,
+  isGatedSkill,
+} from '../../../lib/paywall';
 
 const VALID_SKILLS = ['writing', 'reading', 'listening', 'speaking'] as const;
 type Skill = (typeof VALID_SKILLS)[number];
@@ -38,9 +43,18 @@ export async function GET(req: NextRequest) {
   }));
 
   // Writing/Speaking are the only paywalled skills (see src/lib/paywall.ts)
-  // -- Reading/Listening go out exactly as before, untouched.
+  // -- Reading/Listening are ungated and retakeable, so they don't get the
+  // lock/quota logic, but they still get an `attempted` flag for the
+  // browse-list "Completed" badge (sourced from test_attempts, not
+  // submissions). Browsing while logged out just skips the annotation,
+  // same as before -- reading/listening never required a session.
   if (!isGatedSkill(skill)) {
-    return NextResponse.json({ tests });
+    const userId = await getSessionUserId();
+    if (!userId) {
+      return NextResponse.json({ tests });
+    }
+    const annotated = await annotateUngatedAttempted(userId, tests);
+    return NextResponse.json({ tests: annotated });
   }
 
   const userId = await getSessionUserId();

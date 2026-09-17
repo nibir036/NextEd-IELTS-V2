@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Search, Sparkles, Settings, BookOpen, PenTool, Mic, Headphones, FileCheck, History, LayoutDashboard, Bell, Menu, Sun, Moon } from '../ui/icons';
+import { Search, Sparkles, Settings, BookOpen, PenTool, Mic, Headphones, FileCheck, History, LayoutDashboard, Menu, Sun, Moon, X } from '../ui/icons';
 import { currentUser as fallbackUser } from '../../lib/data';
 import { db, type DbUser } from '../../lib/db';
 import { useTheme } from '../theme/ThemeProvider';
@@ -50,6 +50,8 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, onOpen
   const [user, setUser] = useState<DbUser | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const mobileSearchInputRef = useRef<HTMLInputElement | null>(null);
   const blurTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { theme, setTheme } = useTheme();
 
@@ -100,6 +102,7 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, onOpen
   const goToItem = (item: SearchableItem) => {
     setSearchQuery('');
     setShowDropdown(false);
+    setMobileSearchOpen(false);
     onNavigate(item.route);
   };
 
@@ -118,6 +121,7 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, onOpen
     sessionStorage.setItem('pendingSearchQuery', q);
     setSearchQuery('');
     setShowDropdown(false);
+    setMobileSearchOpen(false);
     onNavigate('search');
   };
 
@@ -130,7 +134,7 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, onOpen
   // ('daylight' / 'metallic-dusk') via ThemeProvider, which persists the
   // choice to localStorage and recalculates every CSS custom property
   // instantly. Identical markup shared by both the mobile and desktop
-  // layouts below, same as bellButton/avatarButton.
+  // layouts below, same as historyButton/avatarButton.
   const isDarkMode = theme === 'metallic-dusk';
   const toggleTheme = () => setTheme(isDarkMode ? 'daylight' : 'metallic-dusk');
   const themeToggleButton = (
@@ -143,16 +147,20 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, onOpen
     </button>
   );
 
-  // Notification bell -- identical markup shared by both the mobile and
-  // desktop layouts below.
-  const bellButton = (
+  // Submission-history shortcut -- was a notification bell (with a
+  // permanently-on, not-backed-by-real-data "unread" dot); it always just
+  // navigated to 'submissions' regardless, so a history/clock icon is both
+  // a more honest affordance and consistent with the same icon used for
+  // "view result" elsewhere (TestSelector's per-card history button,
+  // SubmissionsView's own header). Identical markup shared by both the
+  // mobile and desktop layouts below.
+  const historyButton = (
     <button
       onClick={() => onNavigate('submissions')}
-      title="Notifications"
-      className="relative w-9 h-9 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] hover:border-[var(--border-strong)] text-[var(--text-dim)] hover:text-[var(--text)] flex items-center justify-center cursor-pointer transition-colors shrink-0"
+      title="Submission History"
+      className="w-9 h-9 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] hover:border-[var(--border-strong)] text-[var(--text-dim)] hover:text-[var(--text)] flex items-center justify-center cursor-pointer transition-colors shrink-0"
     >
-      <Bell size={16} />
-      <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[var(--accent-a)]" />
+      <History size={16} />
     </button>
   );
 
@@ -170,50 +178,128 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, onOpen
   return (
     <header
       id={id}
-      className="sticky top-0 z-10 bg-[var(--bg)]/80 backdrop-blur-xl border-b border-[var(--border)] px-4 md:px-8 py-3"
+      className="sticky top-0 z-10 bg-[var(--bg)]/80 backdrop-blur-xl border-b border-[var(--border)] px-4 md:px-8 py-3 relative"
     >
       {/* Mobile layout (below md -- the same breakpoint the desktop
           Sidebar appears at) -- there's no bottom nav bar anymore, so the
           hamburger here is the only way to reach the rest of the app. The
           title is never truncated: it gets a smaller font than the
           desktop heading and is free to wrap onto a second line instead
-          of being cut off. The bell/avatar group carries ml-auto so it's
+          of being cut off. The history/avatar group carries ml-auto so it's
           always pinned to the rightmost edge, with the title taking
           whatever space is left between the hamburger and it. */}
       <div className="flex md:hidden items-center gap-2.5">
-        <button
-          onClick={onOpenMobileNav}
-          title="Open navigation menu"
-          className="shrink-0 w-9 h-9 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text-dim)] hover:text-[var(--text)] flex items-center justify-center cursor-pointer transition-colors"
-        >
-          <Menu size={18} />
-        </button>
+        {mobileSearchOpen ? (
+          <>
+            <form
+              onSubmit={handleSearchSubmit}
+              className="flex-1 flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-xs text-[var(--text-faint)] focus-within:border-[var(--border-strong)] transition-colors"
+            >
+              <Search size={14} className="shrink-0" />
+              <input
+                ref={mobileSearchInputRef}
+                type="text"
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setShowDropdown(true);
+                }}
+                onFocus={() => {
+                  if (blurTimeoutRef.current) clearTimeout(blurTimeoutRef.current);
+                  if (searchQuery.trim()) setShowDropdown(true);
+                }}
+                onBlur={handleBlur}
+                placeholder="Search tips & vocabulary..."
+                className="bg-transparent outline-none border-none w-full text-xs text-[var(--text)] placeholder:text-[var(--text-faint)]"
+              />
+            </form>
+            <button
+              onClick={() => {
+                setMobileSearchOpen(false);
+                setSearchQuery('');
+                setShowDropdown(false);
+              }}
+              title="Close search"
+              className="shrink-0 w-9 h-9 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text-dim)] hover:text-[var(--text)] flex items-center justify-center cursor-pointer transition-colors"
+            >
+              <X size={16} />
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              onClick={onOpenMobileNav}
+              title="Open navigation menu"
+              className="shrink-0 w-9 h-9 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text-dim)] hover:text-[var(--text)] flex items-center justify-center cursor-pointer transition-colors"
+            >
+              <Menu size={18} />
+            </button>
 
-        <div className="p-2 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-[var(--accent-a)] hidden sm:block shrink-0">
-          <IconComponent size={18} />
-        </div>
+            <div className="p-2 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-[var(--accent-a)] hidden sm:block shrink-0">
+              <IconComponent size={18} />
+            </div>
 
-        <div className="min-w-0">
-          <h1 className="font-display font-bold text-base leading-tight text-[var(--text)] tracking-tight">
-            {routeInfo.title}
-          </h1>
-          <p className="text-[11px] text-[var(--text-dim)] hidden sm:block truncate">
-            {routeInfo.subtitle}
-          </p>
-        </div>
+            <div className="min-w-0">
+              <h1 className="font-display font-bold text-base leading-tight text-[var(--text)] tracking-tight">
+                {routeInfo.title}
+              </h1>
+              <p className="text-[11px] text-[var(--text-dim)] hidden sm:block truncate">
+                {routeInfo.subtitle}
+              </p>
+            </div>
 
-        {/* Intentionally no data-tour marker here: the desktop instance
-            below (data-tour="topbar-profile") is the one OnboardingTour
-            targets via a single document.querySelector, and a duplicate
-            attribute on this hidden-below-md element would make the tour
-            grab this (invisible) copy instead when the query matches DOM
-            order. */}
-        <div className="flex items-center gap-2 shrink-0 ml-auto">
-          {themeToggleButton}
-          {bellButton}
-          {avatarButton}
-        </div>
+            {/* Intentionally no data-tour marker here: the desktop instance
+                below (data-tour="topbar-profile") is the one OnboardingTour
+                targets via a single document.querySelector, and a duplicate
+                attribute on this hidden-below-md element would make the tour
+                grab this (invisible) copy instead when the query matches DOM
+                order. */}
+            <div className="flex items-center gap-2 shrink-0 ml-auto">
+              <button
+                onClick={() => {
+                  setMobileSearchOpen(true);
+                  requestAnimationFrame(() => mobileSearchInputRef.current?.focus());
+                }}
+                title="Search"
+                className="w-9 h-9 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text-dim)] hover:text-[var(--text)] flex items-center justify-center cursor-pointer transition-colors"
+              >
+                <Search size={16} />
+              </button>
+              {themeToggleButton}
+              {historyButton}
+              {avatarButton}
+            </div>
+          </>
+        )}
       </div>
+
+      {/* Mobile search suggestions dropdown -- separate from the row
+          above so it can span the header's full width regardless of
+          where the input itself sits within that row. */}
+      {mobileSearchOpen && showDropdown && searchQuery.trim() && (
+        <div className="md:hidden absolute top-full left-0 right-0 mx-4 mt-1.5 rounded-xl bg-[var(--panel-2)] border border-[var(--border)] shadow-lg overflow-hidden z-20">
+          {matches.length > 0 ? (
+            matches.map((item) => (
+              <button
+                key={item.route}
+                type="button"
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  goToItem(item);
+                }}
+                className="w-full text-left px-3.5 py-2 text-xs text-[var(--text)] hover:bg-[var(--panel-3,rgba(255,255,255,0.06))] cursor-pointer flex items-center gap-2"
+              >
+                <Search size={12} className="text-[var(--text-faint)] shrink-0" />
+                {item.label}
+              </button>
+            ))
+          ) : (
+            <div className="px-3.5 py-2 text-xs text-[var(--text-faint)]">
+              No matching pages -- press Enter to search tips & vocabulary
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Desktop/tablet layout (md and up, matching the Sidebar's own
           breakpoint) -- unchanged from before: title left, search
@@ -289,7 +375,7 @@ export const TopBar: React.FC<TopBarProps> = ({ currentRoute, onNavigate, onOpen
 
       <div data-tour="topbar-profile" className="flex items-center gap-3 justify-self-end">
         {themeToggleButton}
-        {bellButton}
+        {historyButton}
         {avatarButton}
       </div>
       </div>

@@ -188,6 +188,21 @@ h1, h2, h3, .font-display {
     0 0 70px -20px var(--glow-a);
 }
 
+/* Frosted-glass sticky nav bar: same glass language as .glass panels,
+   flattened into a bar (no radius, bottom edge only) so it reads as a
+   pane of glass the page scrolls behind rather than a tinted strip. */
+.glass-nav {
+  background: linear-gradient(160deg, var(--glass-tint-1), var(--glass-tint-2));
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border-bottom: 1px solid var(--border);
+  box-shadow:
+    0 1px 0 var(--glass-sheen) inset,
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 12px 32px -16px rgba(0, 0, 0, 0.3);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
 /* Ambient Background Layer */
 .bg-layer {
   position: fixed;

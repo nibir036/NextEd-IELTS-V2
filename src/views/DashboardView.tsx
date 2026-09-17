@@ -98,7 +98,12 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateAction, 
     <div id={id} className="space-y-10 w-full page-fade-in">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
         <div className="lg:col-span-5 xl:col-span-4 flex flex-col justify-between space-y-6">
-          <GlassPanel className="p-6 md:p-8 border border-[var(--border)] shadow-lg space-y-6 flex-1 flex flex-col justify-center">
+          <GlassPanel className="p-6 md:p-8 border border-[var(--border)] shadow-lg space-y-6 flex-1 flex flex-col justify-center relative overflow-hidden">
+            <img
+              src="/branding/thumbsup-cat.png"
+              alt=""
+              className="absolute top-3 right-3 w-16 h-16 md:w-20 md:h-20 object-contain pointer-events-none select-none"
+            />
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-a)]/15 border border-[var(--accent-a)]/30 text-[var(--accent-a)] font-mono text-xs font-semibold">
                 <Sparkles size={14} />

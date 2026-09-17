@@ -84,18 +84,21 @@ export async function PATCH(req: NextRequest) {
       data.date_of_birth = dateOfBirth ? new Date(dateOfBirth) : null;
     }
 
+    // examType/academicBackground come from the client as '' when unset
+    // (SettingsView's <select> and useState both default to the empty
+    // string, never null) -- treat any falsy value ('' or null) as "not
+    // set" here too, matching the `|| null` normalization two lines
+    // below. Checking `!== null` only let a real '' through and 400'd on
+    // every save that didn't explicitly pick one of these.
     if (examType !== undefined) {
-      if (examType !== null && !EXAM_TYPES.includes(examType as ExamType)) {
+      if (examType && !EXAM_TYPES.includes(examType as ExamType)) {
         return NextResponse.json({ error: 'Invalid exam type.' }, { status: 400 });
       }
       data.exam_type = examType || null;
     }
 
     if (academicBackground !== undefined) {
-      if (
-        academicBackground !== null &&
-        !ACADEMIC_BACKGROUNDS.includes(academicBackground as AcademicBackground)
-      ) {
+      if (academicBackground && !ACADEMIC_BACKGROUNDS.includes(academicBackground as AcademicBackground)) {
         return NextResponse.json({ error: 'Invalid academic background.' }, { status: 400 });
       }
       data.academic_background = academicBackground || null;

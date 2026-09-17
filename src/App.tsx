@@ -239,8 +239,16 @@ export default function App() {
   };
 
   // Avoid rendering protected content (or bouncing to login) before the
-  // first session check has resolved.
-  if (!authChecked) {
+  // first session check has resolved -- EXCEPT for the public landing
+  // route. 'landing' is the initial state of currentRoute, so this only
+  // ever applies during that very first render (server-render included);
+  // the effect above always sets currentRoute and authChecked together
+  // in the same tick, so currentRoute can never actually become
+  // something other than 'landing' while authChecked is still false.
+  // Skipping the wait here is what lets "/" be served with real,
+  // crawlable HTML instead of a blank "Loading..." shell -- nothing
+  // protected is ever exposed early by this.
+  if (!authChecked && baseRoute !== 'landing') {
     return (
       <ThemeProvider>
         <div className="min-h-screen flex items-center justify-center bg-[var(--bg)] text-[var(--text-dim)] text-sm font-mono">

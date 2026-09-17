@@ -1,0 +1,44 @@
+import type { MetadataRoute } from 'next';
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://ielts.nexted.app';
+
+// Only the routes that are actually public and worth indexing -- see
+// robots.ts for why everything behind the auth gate (dashboard, writing,
+// reading, mock-runner, etc.) is deliberately left out here too. Add a
+// new public marketing route (e.g. a pricing or blog page) to this list
+// as soon as one exists.
+export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
+  return [
+    {
+      url: `${SITE_URL}/`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 1,
+    },
+    {
+      url: `${SITE_URL}/signup`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/login`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.3,
+    },
+    {
+      url: `${SITE_URL}/terms`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.2,
+    },
+    {
+      url: `${SITE_URL}/privacy`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.2,
+    },
+  ];
+}

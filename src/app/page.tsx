@@ -1,12 +1,14 @@
-'use client';
+import App from '../App';
 
-import dynamic from 'next/dynamic';
-
-// The original app is a pure client-side SPA (localStorage-based auth/db,
-// state-based routing). Disabling SSR for it reproduces that behavior
-// exactly and avoids no-op server renders touching localStorage.
-const App = dynamic(() => import('../App'), { ssr: false });
-
+// This one route (the root "/") is now server-rendered -- App itself is
+// SSR-safe (see the loading-gate change in App.tsx: the 'landing' route no
+// longer waits on the async auth check before rendering), so Google's
+// first response for "/" now contains the real marketing HTML instead of
+// an empty client-only shell. Every other route still goes through
+// src/app/[...slug]/page.tsx, which keeps ssr:false exactly as before --
+// those are all behind the auth gate anyway and excluded from crawling by
+// robots.ts, so there's no SEO reason to touch them, and no reason to
+// take on any extra risk there.
 export default function Home() {
   return <App />;
 }

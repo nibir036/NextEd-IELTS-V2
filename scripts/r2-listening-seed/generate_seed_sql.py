@@ -104,6 +104,12 @@ def main():
     for test in manifest["tests"]:
         num = test["num"]
         tid = test_uuid(num)
+        # "position" (display ordering) can differ from "num" (used only to
+        # derive the stable id above, via test_uuid) -- e.g. tests 11-14 were
+        # renumbered to display as 3-6 (see migrations/0028_rename_listening_tests_11_14_to_3_6.sql)
+        # while keeping their original ids so mock_test_sections links stay intact.
+        # Falls back to num when no override is set.
+        position = test.get("position", num)
         title = test["title"]
         description = test["description"]
         instructions = (
@@ -127,7 +133,7 @@ def main():
         lines.append(f"        {sql_quote(description)},")
         lines.append(f"        {sql_quote(instructions)},")
         lines.append(f"        {test['duration_seconds']},")
-        lines.append(f"        {num},")
+        lines.append(f"        {position},")
         lines.append("        TRUE")
         lines.append("    )")
         lines.append("    ON CONFLICT (id) DO UPDATE")

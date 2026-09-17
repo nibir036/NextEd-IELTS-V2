@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Open_Sans, Michroma, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 
@@ -38,10 +39,49 @@ export const metadata: Metadata = {
   description: 'IELTS AI by nextED.',
 };
 
+// Meta (Facebook/Instagram) ad Pixel -- browser-side half of the Pixel +
+// Conversions API pair set up in Meta Events Manager. Reads the dataset's
+// Pixel ID from env rather than hardcoding it, since it's fine to expose to
+// the client (it's visible in any browser's network tab regardless) but
+// differs per environment/campaign if that ever changes.
+// Server-side CompleteRegistration events (Conversions API) are sent
+// separately from the signup API route using META_CAPI_ACCESS_TOKEN --
+// that token is server-only and never appears here.
+const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${openSans.variable} ${michroma.variable} ${jetbrainsMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        {META_PIXEL_ID && (
+          <>
+            <Script id="meta-pixel-base" strategy="afterInteractive">
+              {`
+                !function(f,b,e,v,n,t,s)
+                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t,s)}(window, document,'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+                fbq('init', '${META_PIXEL_ID}');
+                fbq('track', 'PageView');
+              `}
+            </Script>
+            <noscript>
+              <img
+                height="1"
+                width="1"
+                style={{ display: 'none' }}
+                src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
+                alt=""
+              />
+            </noscript>
+          </>
+        )}
+        {children}
+      </body>
     </html>
   );
 }

@@ -88,6 +88,22 @@ export default function App() {
   // first async auth check resolves.
   const [authChecked, setAuthChecked] = useState<boolean>(false);
 
+  // Whether this mount is genuinely the public root path -- computed once,
+  // from the real URL, not from `currentRoute`'s default value (that was
+  // the bug: `currentRoute` starts as 'landing' for EVERY route until the
+  // auth check resolves, so checking it against 'landing' skipped the
+  // loading gate on /login, /settings, /dashboard, etc. too, flashing the
+  // landing page before the real route swapped in). This component is
+  // only ever server-rendered when reached via src/app/page.tsx (which is
+  // exclusively the "/" route -- see that file), so `typeof window ===
+  // 'undefined'` on the server can safely assume root too; every other
+  // path only ever mounts this client-side via the ssr:false catch-all,
+  // where window.location.pathname already reflects the real URL on the
+  // very first render, with no server HTML to hydrate-mismatch against.
+  const [isRootPath] = useState<boolean>(
+    () => typeof window === 'undefined' || window.location.pathname === '/',
+  );
+
   // Restore whatever route the URL points at (this is what makes a
   // reload land back where the user was, instead of always resetting to
   // the landing page), then run it through the same auth gate real
@@ -239,16 +255,13 @@ export default function App() {
   };
 
   // Avoid rendering protected content (or bouncing to login) before the
-  // first session check has resolved -- EXCEPT for the public landing
-  // route. 'landing' is the initial state of currentRoute, so this only
-  // ever applies during that very first render (server-render included);
-  // the effect above always sets currentRoute and authChecked together
-  // in the same tick, so currentRoute can never actually become
-  // something other than 'landing' while authChecked is still false.
-  // Skipping the wait here is what lets "/" be served with real,
-  // crawlable HTML instead of a blank "Loading..." shell -- nothing
-  // protected is ever exposed early by this.
-  if (!authChecked && baseRoute !== 'landing') {
+  // first session check has resolved -- EXCEPT on the genuine root path
+  // ("/"), where we already know (see isRootPath above) that the only
+  // possible destination is the public landing page. Skipping the wait
+  // there is what lets "/" be served with real, crawlable HTML instead of
+  // a blank "Loading..." shell. Every other URL keeps the original
+  // spinner-while-checking behavior exactly as before.
+  if (!authChecked && !isRootPath) {
     return (
       <ThemeProvider>
         <div className="min-h-screen flex items-center justify-center bg-[var(--bg)] text-[var(--text-dim)] text-sm font-mono">

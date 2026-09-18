@@ -5,17 +5,27 @@ import { requireAdmin } from '../../../../lib/admin';
 const DAY_MS = 24 * 60 * 60 * 1000;
 const WINDOW_DAYS = 30;
 
-// UTC calendar-day key, matching the convention already used in
-// /api/dashboard/stats (dayKey()) -- the project has no timezone handling
-// anywhere, everything buckets by UTC day.
+// Bangladesh is UTC+6 year-round (no DST), so this offset is constant --
+// unlike most timezones, it's safe to hardcode rather than needing a
+// proper tz library. Admin-facing "today"/daily numbers should read like
+// a Bangladesh calendar day, not a UTC one (was UTC before -- that's why
+// midnight-6am BD time used to get counted as "yesterday").
+const BD_OFFSET_MS = 6 * 60 * 60 * 1000;
+
+// Calendar-day key in Bangladesh local time: shift the instant forward by
+// the BD offset, then read off the UTC date -- equivalent to formatting
+// in Asia/Dhaka without pulling in a timezone library for a single fixed
+// offset.
 function dayKey(d: Date): string {
-  return d.toISOString().slice(0, 10);
+  return new Date(d.getTime() + BD_OFFSET_MS).toISOString().slice(0, 10);
 }
 
-function utcDayStart(d: Date): Date {
-  const x = new Date(d);
-  x.setUTCHours(0, 0, 0, 0);
-  return x;
+// The UTC instant corresponding to midnight in Bangladesh, for whichever
+// BD calendar day `d` falls on.
+function bdDayStart(d: Date): Date {
+  const shifted = new Date(d.getTime() + BD_OFFSET_MS);
+  shifted.setUTCHours(0, 0, 0, 0);
+  return new Date(shifted.getTime() - BD_OFFSET_MS);
 }
 
 // GET /api/admin/analytics -- admin-only. Today's headline numbers plus a
@@ -30,7 +40,7 @@ export async function GET() {
     return NextResponse.json({ error: admin.error }, { status: admin.status });
   }
 
-  const todayStart = utcDayStart(new Date());
+  const todayStart = bdDayStart(new Date());
   const windowStart = new Date(todayStart.getTime() - (WINDOW_DAYS - 1) * DAY_MS);
 
   const [totalUsers, usersInWindow, loginsInWindow, writingInWindow, speakingInWindow] =

@@ -200,13 +200,13 @@ export const AdminView: React.FC<AdminViewProps> = ({ onNavigateAction }) => {
         {
           label: 'Registered Today',
           value: String(analytics.today.registered),
-          footnote: 'New signups today (UTC)',
+          footnote: 'New signups today (BD time)',
           icon: 'UserPlus',
         },
         {
           label: 'Logged In Today',
           value: String(analytics.today.loggedIn),
-          footnote: 'Distinct users today (UTC)',
+          footnote: 'Distinct users today (BD time)',
           icon: 'LogIn',
         },
         {

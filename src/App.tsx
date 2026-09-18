@@ -81,9 +81,25 @@ function pathToRoute(pathname: string): string {
   return ALL_ROUTES.has(baseRouteOf(slug)) ? slug : 'landing';
 }
 
-export default function App() {
+interface AppProps {
+  // Set by src/app/page.tsx from a server-side read of the session cookie,
+  // for the root path only -- see that file for why. Every other entry
+  // point (the ssr:false catch-all) doesn't pass this, so it defaults to
+  // false there; harmless, since isRootPath is also false on every route
+  // that mounts through the catch-all, so this prop is never consulted
+  // for those anyway.
+  serverAuthed?: boolean;
+}
+
+export default function App({ serverAuthed = false }: AppProps) {
   const [currentRoute, setCurrentRoute] = useState<string>('landing');
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  // Mirrors isAuthenticated for code that can't wait for a re-render to see
+  // the latest value -- namely the popstate handler below, which is
+  // registered once on mount and would otherwise always see isAuthenticated
+  // as it was at that first render (false), letting a logged-in user hit
+  // the browser Back button into the landing page.
+  const isAuthenticatedRef = React.useRef(false);
   // True once we've checked the session cookie at least once. Prevents a
   // flash of "logged out" content (or a wrong redirect) before the very
   // first async auth check resolves.
@@ -118,11 +134,19 @@ export default function App() {
     db.isAuthenticated().then((authed) => {
       if (cancelled) return;
       setIsAuthenticated(authed);
+      isAuthenticatedRef.current = authed;
       setAuthChecked(true);
 
       if (PROTECTED_ROUTES.includes(baseRouteOf(requestedRoute)) && !authed) {
         setCurrentRoute('login');
         window.history.replaceState({}, '', routeToPath('login'));
+      } else if (baseRouteOf(requestedRoute) === 'landing' && authed) {
+        // A logged-in user has no business seeing the marketing landing
+        // page -- send them straight to their dashboard instead. Covers
+        // hitting "/" directly (typed URL, bookmark, stale tab) while
+        // already logged in, not just clicking the logo (handled below).
+        setCurrentRoute('dashboard');
+        window.history.replaceState({}, '', routeToPath('dashboard'));
       } else {
         setCurrentRoute(requestedRoute);
         // Normalize the URL bar (e.g. a trailing slash or unknown path
@@ -136,10 +160,19 @@ export default function App() {
     };
   }, []);
 
-  // Keep state in sync with the browser's own back/forward buttons.
+  // Keep state in sync with the browser's own back/forward buttons. Also
+  // blocks a logged-in user from landing back on the marketing page this
+  // way -- e.g. login -> dashboard -> Back button would otherwise replay
+  // the pre-login history entry and show "/" again.
   useEffect(() => {
     const onPopState = () => {
-      setCurrentRoute(pathToRoute(window.location.pathname));
+      const requested = pathToRoute(window.location.pathname);
+      if (baseRouteOf(requested) === 'landing' && isAuthenticatedRef.current) {
+        setCurrentRoute('dashboard');
+        window.history.replaceState({}, '', routeToPath('dashboard'));
+        return;
+      }
+      setCurrentRoute(requested);
     };
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
@@ -150,12 +183,23 @@ export default function App() {
       if (PROTECTED_ROUTES.includes(baseRouteOf(route))) {
         const authed = await db.isAuthenticated();
         setIsAuthenticated(authed);
+        isAuthenticatedRef.current = authed;
         if (!authed) {
           setCurrentRoute('login');
           window.history.pushState({}, '', routeToPath('login'));
           window.scrollTo({ top: 0, behavior: 'smooth' });
           return;
         }
+      }
+
+      // Same rule as above, for the logo (or any other "go to landing")
+      // link: a logged-in user gets redirected to their dashboard instead
+      // of the marketing page.
+      if (baseRouteOf(route) === 'landing' && isAuthenticatedRef.current) {
+        setCurrentRoute('dashboard');
+        window.history.pushState({}, '', routeToPath('dashboard'));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
       }
 
       setCurrentRoute(route);
@@ -167,16 +211,19 @@ export default function App() {
 
   const handleLoginSuccess = () => {
     setIsAuthenticated(true);
+    isAuthenticatedRef.current = true;
     handleNavigate('dashboard');
   };
 
   const handleAdminLoginSuccess = () => {
     setIsAuthenticated(true);
+    isAuthenticatedRef.current = true;
     handleNavigate('admin');
   };
 
   const handleSignupSuccess = () => {
     setIsAuthenticated(true);
+    isAuthenticatedRef.current = true;
     // Previously sent brand-new users straight to the placement
     // diagnostic as their first screen -- felt like a mandatory gate
     // even though it was technically skippable. Now they land on the
@@ -188,6 +235,7 @@ export default function App() {
   const handleLogout = async () => {
     await db.logout();
     setIsAuthenticated(false);
+    isAuthenticatedRef.current = false;
     setCurrentRoute('landing');
     window.history.pushState({}, '', routeToPath('landing'));
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -258,11 +306,21 @@ export default function App() {
   // Avoid rendering protected content (or bouncing to login) before the
   // first session check has resolved -- EXCEPT on the genuine root path
   // ("/"), where we already know (see isRootPath above) that the only
-  // possible destination is the public landing page. Skipping the wait
-  // there is what lets "/" be served with real, crawlable HTML instead of
-  // a blank "Loading..." shell. Every other URL keeps the original
-  // spinner-while-checking behavior exactly as before.
-  if (!authChecked && !isRootPath) {
+  // possible destination for a LOGGED-OUT visitor is the public landing
+  // page. Skipping the wait there is what lets "/" be served with real,
+  // crawlable HTML instead of a blank "Loading..." shell.
+  //
+  // serverAuthed flips this back on for the one case that matters: a
+  // logged-in user hitting "/". Without it, the client render always
+  // started from the landing page (right, for an anonymous visitor) and
+  // only swapped to the dashboard once the async client-side auth check
+  // resolved a moment later -- visible as a flash of the logged-out
+  // landing page for anyone actually signed in. serverAuthed comes from a
+  // same-request read of the session cookie in src/app/page.tsx, so it's
+  // known before this ever renders, and is only ever true when a session
+  // cookie was actually present -- an anonymous visitor/crawler still
+  // gets the instant landing HTML exactly as before.
+  if (!authChecked && (!isRootPath || serverAuthed)) {
     return (
       <ThemeProvider>
         <div className="min-h-screen flex items-center justify-center bg-[var(--bg)] text-[var(--text-dim)] text-sm font-mono">

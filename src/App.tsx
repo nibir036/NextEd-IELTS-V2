@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ThemeProvider } from './components/theme/ThemeProvider';
 import { AppShell } from './components/layout/AppShell';
+import { SupportWidget } from './components/layout/SupportWidget';
 import { LandingView } from './views/LandingView';
 import { LoginView } from './views/LoginView';
 import { SignupView } from './views/SignupView';
@@ -309,6 +310,15 @@ export default function App() {
         <AppShell currentRoute={currentRoute} onNavigate={handleNavigate} onLogout={handleLogout}>
           {renderMainContent()}
         </AppShell>
+      )}
+
+      {/* Floating support widget -- only on the landing page and the
+          dashboard (per request), not on every protected view. baseRoute
+          here already reflects the real current route by this point in
+          render (unlike isRootPath above, which only matters for the very
+          first paint), so this can key off it directly. */}
+      {(baseRoute === 'landing' || baseRoute === 'dashboard') && (
+        <SupportWidget isLoggedIn={isAuthenticated} />
       )}
     </ThemeProvider>
   );

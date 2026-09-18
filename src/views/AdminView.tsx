@@ -3,13 +3,16 @@ import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
 import { StatCard } from '../components/ui/StatCard';
 import { StatSummary } from '../types';
-import { db, type AdminAnalytics, type DbUser, type UserRole } from '../lib/db';
+import { db, type AdminAnalytics, type AdminFeedbackItem, type DbUser, type UserRole } from '../lib/db';
 import {
   Shield,
   PhoneCall,
   KeyRound,
   User,
   UserPlus,
+  MessageCircle,
+  Check,
+  Clock,
 } from '../components/ui/icons';
 
 interface AdminViewProps {
@@ -39,6 +42,9 @@ export const AdminView: React.FC<AdminViewProps> = ({ onNavigateAction }) => {
 
   const [analytics, setAnalytics] = useState<AdminAnalytics | null>(null);
   const [analyticsError, setAnalyticsError] = useState<string | null>(null);
+
+  const [feedback, setFeedback] = useState<AdminFeedbackItem[]>([]);
+  const [feedbackError, setFeedbackError] = useState<string | null>(null);
 
   const [countryCode, setCountryCode] = useState('+1');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -77,9 +83,37 @@ export const AdminView: React.FC<AdminViewProps> = ({ onNavigateAction }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const loadFeedback = () => {
+    db.getAdminFeedback()
+      .then((data) => {
+        setFeedback(data);
+        setFeedbackError(null);
+      })
+      .catch((err) => {
+        setFeedbackError(err instanceof Error ? err.message : 'Could not load feedback.');
+      });
+  };
+
   useEffect(() => {
-    if (isAdmin) loadAnalytics();
+    if (isAdmin) {
+      loadAnalytics();
+      loadFeedback();
+    }
   }, [isAdmin]);
+
+  const handleToggleReviewed = async (item: AdminFeedbackItem) => {
+    const nextReviewed = !item.reviewed_at;
+    try {
+      await db.setFeedbackReviewed(item.id, nextReviewed);
+      setFeedback((prev) =>
+        prev.map((f) =>
+          f.id === item.id ? { ...f, reviewed_at: nextReviewed ? new Date().toISOString() : null } : f,
+        ),
+      );
+    } catch (err) {
+      setFeedbackError(err instanceof Error ? err.message : 'Could not update feedback.');
+    }
+  };
 
   const handleCreateUser = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -231,6 +265,74 @@ export const AdminView: React.FC<AdminViewProps> = ({ onNavigateAction }) => {
           </GlassPanel>
         </>
       )}
+
+      {feedbackError && (
+        <GlassPanel className="p-4 border border-rose-500/30 bg-rose-500/10">
+          <p className="text-sm text-rose-300">{feedbackError}</p>
+        </GlassPanel>
+      )}
+
+      <GlassPanel className="p-5 border border-[var(--border)]">
+        <div className="flex items-center justify-between mb-1">
+          <div className="flex items-center gap-2">
+            <MessageCircle size={18} className="text-[var(--accent-a)]" />
+            <h2 className="font-display text-lg font-bold text-[var(--text)]">Feedback Inbox</h2>
+          </div>
+          {feedback.length > 0 && (
+            <span className="text-xs font-mono text-[var(--text-dim)]">
+              {feedback.filter((f) => !f.reviewed_at).length} unread
+            </span>
+          )}
+        </div>
+        <p className="text-xs text-[var(--text-dim)] mb-4">
+          Submitted from the support widget on the landing page and dashboard.
+        </p>
+        {feedback.length === 0 ? (
+          <p className="text-sm text-[var(--text-dim)] py-6 text-center">No feedback yet.</p>
+        ) : (
+          <div className="space-y-2 max-h-[32rem] overflow-y-auto">
+            {feedback.map((item) => (
+              <div
+                key={item.id}
+                className={`p-4 rounded-xl border ${
+                  item.reviewed_at
+                    ? 'border-[var(--border)] bg-[var(--bg)]'
+                    : 'border-[var(--accent-a)]/40 bg-[var(--accent-a)]/5'
+                }`}
+              >
+                <div className="flex items-start justify-between gap-3 mb-2">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5 text-xs font-mono font-semibold text-[var(--text)]">
+                      <User size={12} />
+                      <span>{item.user_display_name || item.phone || 'Unknown'}</span>
+                    </div>
+                    <div className="text-[11px] text-[var(--text-faint)] mt-0.5">
+                      {(item.user_phone || item.phone) && <span>{item.user_phone || item.phone} · </span>}
+                      {new Date(item.created_at).toLocaleString()}
+                      {item.page_path && <span> · {item.page_path}</span>}
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleToggleReviewed(item)}
+                    className={`shrink-0 flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono font-semibold cursor-pointer transition-colors ${
+                      item.reviewed_at
+                        ? 'bg-[var(--panel-2)] border border-[var(--border)] text-[var(--text-dim)] hover:border-[var(--accent-a)]/40'
+                        : 'bg-[var(--accent-a)]/15 border border-[var(--accent-a)]/40 text-[var(--accent-a)] hover:bg-[var(--accent-a)]/25'
+                    }`}
+                  >
+                    {item.reviewed_at ? <Check size={12} /> : <Clock size={12} />}
+                    {item.reviewed_at ? 'Reviewed' : 'Mark reviewed'}
+                  </button>
+                </div>
+                <p className="text-sm text-[var(--text)] leading-relaxed whitespace-pre-wrap">
+                  {item.message}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+      </GlassPanel>
 
       <GlassPanel className="p-5 border border-[var(--border)] max-w-lg">
         <div className="flex items-center gap-2 mb-4">

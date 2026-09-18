@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { GlassPanel } from '../ui/GlassPanel';
 import { Users, Copy, Check, Gift, PhoneCall, MessageCircle, X } from '../ui/icons';
+import {
+  SUPPORT_PHONE_DISPLAY as COUNSELLING_PHONE_DISPLAY,
+  SUPPORT_PHONE_DIGITS as COUNSELLING_PHONE_DIGITS,
+} from '../../lib/contact';
 
-// The senior counselor's contact for the "free counselling" reward. Kept as
-// one constant so the phone number is only ever typed once -- the tel:/
-// wa.me: links below are derived from it, not retyped.
-const COUNSELLING_PHONE_DISPLAY = '+8801626794269';
-const COUNSELLING_PHONE_DIGITS = '8801626794269'; // same number, no "+" -- wa.me wants it bare
+// The senior counselor's contact for the "free counselling" reward now
+// lives in lib/contact.ts -- the site-wide SupportWidget's "free
+// consultation" button uses the same number, so it's defined once there
+// instead of being retyped in both places.
 
 // Persistently shown on the dashboard (not dismissible, not tied to any
 // "first visit" flag) -- see DashboardView.tsx. Two unrelated promos that

@@ -169,6 +169,17 @@ export interface AdminAnalyticsDay {
   speakingSubmissions: number;
 }
 
+export interface AdminFeedbackItem {
+  id: string;
+  message: string;
+  phone: string | null;
+  page_path: string | null;
+  created_at: string;
+  reviewed_at: string | null;
+  user_display_name: string | null;
+  user_phone: string | null;
+}
+
 export interface AdminAnalytics {
   today: {
     registered: number;
@@ -472,6 +483,21 @@ export const db = {
     await api<{ user: RawUserRow }>('/api/admin/users', {
       method: 'POST',
       body: JSON.stringify(details),
+    });
+  },
+
+  // Admin-only: every feedback_submissions row (see the support widget --
+  // src/components/layout/SupportWidget.tsx), newest first.
+  async getAdminFeedback(): Promise<AdminFeedbackItem[]> {
+    const res = await api<{ feedback: AdminFeedbackItem[] }>('/api/admin/feedback');
+    return res.feedback;
+  },
+
+  // Admin-only: toggle a submission's reviewed state.
+  async setFeedbackReviewed(id: string, reviewed: boolean): Promise<void> {
+    await api<{ ok: true }>(`/api/admin/feedback/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ reviewed }),
     });
   },
 };

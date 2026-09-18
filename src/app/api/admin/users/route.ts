@@ -4,6 +4,40 @@ import crypto from 'crypto';
 import { prisma } from '../../../../lib/prisma';
 import { requireAdmin } from '../../../../lib/admin';
 
+// GET /api/admin/users -- admin-only. Every account's signup data, newest
+// first, for the admin panel's account-creation list. Plain typed
+// findMany (the users Prisma model already exists -- no $queryRaw
+// needed here, unlike feedback_submissions which has no model), so this
+// is fully type-checked at build time.
+export async function GET(_req: NextRequest) {
+  const admin = await requireAdmin();
+  if (!admin.ok) {
+    return NextResponse.json({ error: admin.error }, { status: admin.status });
+  }
+
+  try {
+    const users = await prisma.users.findMany({
+      orderBy: { created_at: 'desc' },
+      take: 500,
+      select: {
+        id: true,
+        display_name: true,
+        phone: true,
+        email: true,
+        role: true,
+        created_at: true,
+        is_phone_verified: true,
+        onboarding_complete: true,
+        last_active_at: true,
+      },
+    });
+    return NextResponse.json({ users });
+  } catch (err) {
+    console.error('Admin users list error:', err);
+    return NextResponse.json({ error: 'Failed to load users.' }, { status: 500 });
+  }
+}
+
 // POST /api/admin/users { phone, password, name, role } -- admin-only.
 // Creates an account directly, no OTP (the admin creating it is the
 // verification) and does NOT log the admin in as the new user -- unlike

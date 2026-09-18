@@ -3,7 +3,14 @@ import { GlassPanel } from '../components/ui/GlassPanel';
 import { Button } from '../components/ui/Button';
 import { StatCard } from '../components/ui/StatCard';
 import { StatSummary } from '../types';
-import { db, type AdminAnalytics, type AdminFeedbackItem, type DbUser, type UserRole } from '../lib/db';
+import {
+  db,
+  type AdminAnalytics,
+  type AdminFeedbackItem,
+  type AdminUserListItem,
+  type DbUser,
+  type UserRole,
+} from '../lib/db';
 import {
   Shield,
   PhoneCall,
@@ -13,6 +20,7 @@ import {
   MessageCircle,
   Check,
   Clock,
+  Users,
 } from '../components/ui/icons';
 
 interface AdminViewProps {
@@ -45,6 +53,10 @@ export const AdminView: React.FC<AdminViewProps> = ({ onNavigateAction }) => {
 
   const [feedback, setFeedback] = useState<AdminFeedbackItem[]>([]);
   const [feedbackError, setFeedbackError] = useState<string | null>(null);
+
+  const [userList, setUserList] = useState<AdminUserListItem[]>([]);
+  const [userListError, setUserListError] = useState<string | null>(null);
+  const [userListLoading, setUserListLoading] = useState(true);
 
   const [countryCode, setCountryCode] = useState('+1');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -94,10 +106,24 @@ export const AdminView: React.FC<AdminViewProps> = ({ onNavigateAction }) => {
       });
   };
 
+  const loadUserList = () => {
+    setUserListLoading(true);
+    db.getAdminUsersList()
+      .then((data) => {
+        setUserList(data);
+        setUserListError(null);
+      })
+      .catch((err) => {
+        setUserListError(err instanceof Error ? err.message : 'Could not load account signups.');
+      })
+      .finally(() => setUserListLoading(false));
+  };
+
   useEffect(() => {
     if (isAdmin) {
       loadAnalytics();
       loadFeedback();
+      loadUserList();
     }
   }, [isAdmin]);
 
@@ -147,6 +173,7 @@ export const AdminView: React.FC<AdminViewProps> = ({ onNavigateAction }) => {
       setPassword('');
       setRole('student');
       loadAnalytics();
+      loadUserList();
     } catch (err) {
       setFormError(err instanceof Error ? err.message : 'Failed to create user.');
     } finally {
@@ -265,6 +292,83 @@ export const AdminView: React.FC<AdminViewProps> = ({ onNavigateAction }) => {
           </GlassPanel>
         </>
       )}
+
+      {userListError && (
+        <GlassPanel className="p-4 border border-rose-500/30 bg-rose-500/10">
+          <p className="text-sm text-rose-300">{userListError}</p>
+        </GlassPanel>
+      )}
+
+      <GlassPanel className="p-5 border border-[var(--border)]">
+        <div className="flex items-center justify-between mb-1">
+          <div className="flex items-center gap-2">
+            <Users size={18} className="text-[var(--accent-a)]" />
+            <h2 className="font-display text-lg font-bold text-[var(--text)]">Account Signups</h2>
+          </div>
+          {userList.length > 0 && (
+            <span className="text-xs font-mono text-[var(--text-dim)]">{userList.length} total</span>
+          )}
+        </div>
+        <p className="text-xs text-[var(--text-dim)] mb-4">
+          Every registered account, newest first. Most recent 500.
+        </p>
+        {userListLoading ? (
+          <p className="text-sm text-[var(--text-dim)] py-6 text-center font-mono">Loading...</p>
+        ) : userList.length === 0 ? (
+          <p className="text-sm text-[var(--text-dim)] py-6 text-center">No accounts yet.</p>
+        ) : (
+          <div className="overflow-x-auto max-h-96 overflow-y-auto rounded-xl border border-[var(--border)]">
+            <table className="w-full text-xs">
+              <thead className="sticky top-0 bg-[var(--bg-elevated)]">
+                <tr className="text-left text-[var(--text-faint)] font-mono uppercase tracking-wide">
+                  <th className="px-3 py-2">Name</th>
+                  <th className="px-3 py-2">Phone / Email</th>
+                  <th className="px-3 py-2">Role</th>
+                  <th className="px-3 py-2">Verified</th>
+                  <th className="px-3 py-2">Created</th>
+                  <th className="px-3 py-2">Last Active</th>
+                </tr>
+              </thead>
+              <tbody>
+                {userList.map((u) => (
+                  <tr key={u.id} className="border-t border-[var(--border)]">
+                    <td className="px-3 py-2 text-[var(--text)] font-medium">
+                      {u.display_name || '—'}
+                    </td>
+                    <td className="px-3 py-2 text-[var(--text-dim)] font-mono">
+                      {u.phone || u.email || '—'}
+                    </td>
+                    <td className="px-3 py-2">
+                      <span
+                        className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold ${
+                          u.role === 'admin'
+                            ? 'bg-[var(--accent-a)]/15 text-[var(--accent-a)] border border-[var(--accent-a)]/40'
+                            : 'bg-[var(--panel-2)] text-[var(--text-dim)] border border-[var(--border)]'
+                        }`}
+                      >
+                        {u.role}
+                      </span>
+                    </td>
+                    <td className="px-3 py-2 text-[var(--text-dim)]">
+                      {u.is_phone_verified ? (
+                        <Check size={14} className="text-emerald-400" />
+                      ) : (
+                        <span className="text-[var(--text-faint)]">—</span>
+                      )}
+                    </td>
+                    <td className="px-3 py-2 text-[var(--text-dim)] font-mono whitespace-nowrap">
+                      {new Date(u.created_at).toLocaleString()}
+                    </td>
+                    <td className="px-3 py-2 text-[var(--text-dim)] font-mono whitespace-nowrap">
+                      {u.last_active_at ? new Date(u.last_active_at).toLocaleString() : '—'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </GlassPanel>
 
       {feedbackError && (
         <GlassPanel className="p-4 border border-rose-500/30 bg-rose-500/10">

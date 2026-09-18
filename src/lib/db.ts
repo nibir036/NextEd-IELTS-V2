@@ -180,6 +180,18 @@ export interface AdminFeedbackItem {
   user_phone: string | null;
 }
 
+export interface AdminUserListItem {
+  id: string;
+  display_name: string | null;
+  phone: string | null;
+  email: string | null;
+  role: UserRole;
+  created_at: string;
+  is_phone_verified: boolean;
+  onboarding_complete: boolean;
+  last_active_at: string | null;
+}
+
 export interface AdminAnalytics {
   today: {
     registered: number;
@@ -484,6 +496,12 @@ export const db = {
       method: 'POST',
       body: JSON.stringify(details),
     });
+  },
+
+  // Admin-only: every account's signup data, newest first.
+  async getAdminUsersList(): Promise<AdminUserListItem[]> {
+    const res = await api<{ users: AdminUserListItem[] }>('/api/admin/users');
+    return res.users;
   },
 
   // Admin-only: every feedback_submissions row (see the support widget --

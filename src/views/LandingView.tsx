@@ -165,11 +165,14 @@ export const LandingView: React.FC<LandingViewProps> = ({ onLaunchApp, isLoggedI
           itself), so it scrolls away with the page while the nav below it
           keeps sticking once it reaches the top. Persistent for every
           visitor; there's no dismiss/localStorage flag because this is
-          meant to stay visible for the whole beta period, not just once. */}
+          meant to stay visible for the whole beta period, not just once.
+          Copy note (per Fahad Sir): keep it warm/hopeful, not a disclaimer
+          -- lead with thanks, invite honest feedback, frame it as building
+          together rather than "things may change." */}
       <div className="relative z-20 bg-[image:var(--accent-gradient)] text-white text-center px-4 py-2">
         <p className="text-xs md:text-sm font-mono font-semibold flex items-center justify-center gap-2 flex-wrap">
           <Sparkles size={14} className="shrink-0" />
-          <span>You&apos;re using the Beta release of IELTS AI — features are still being polished, and things may change.</span>
+          <span>This is our beta version - thank you for being here early! Share your honest feedback and let&apos;s make it the best it can be, together.</span>
         </p>
       </div>
 
